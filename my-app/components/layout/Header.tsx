@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
-import { MoonIcon, SearchIcon } from "@/components/layout/header-icons";
+import { MoonIcon, SearchIcon, LocalizeIcon } from "@/components/layout/header-icons";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { HEADER_SOLID_BG, useHeaderOverLight } from "@/components/layout/use-header-surface";
 import { mainNavigation, siteConfig } from "@/lib/site/config";
@@ -181,7 +181,13 @@ export function Header() {
             >
               <MoonIcon />
             </button>
-            <LanguageSwitcher />
+            <button
+              type="button"
+              aria-label="تبديل اللغة"
+              className="hidden h-9 w-9 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white lg:inline-flex"
+            >
+              <LocalizeIcon />
+            </button>
             <MobileNav />
           </div>
 

@@ -1,0 +1,129 @@
+{
+  "_meta": {
+    "project": "Almajdouei Charity Website",
+    "figmaFile": "Almajdouai-Final",
+    "figmaUrl": "https://www.figma.com/design/LJSXf532ylBYoVnY5nFJRS/Almajdouai-Final",
+    "lastUpdated": "2026-06-18",
+    "source": "Figma screenshots + manual exports",
+    "notes": "RTL Arabic. font=ITF Rayat. Do NOT touch Hero or AboutBlock."
+  },
+
+  "exportedAssets": {
+    "leadershipPortrait": "/images/figma/sections/leadership.jpg",
+    "decorativeTile": "/images/figma/sections/First.png",
+    "pendingExports": [
+      "focus area icons (3 SVGs)",
+      "program card images (6 PNGs)",
+      "news card images (3 PNGs)",
+      "SDG icons",
+      "Vision 2030 seals",
+      "KPI icons",
+      "social media icons"
+    ]
+  },
+
+  "homepageSections": [
+    { "id": "hero", "status": "DONE", "component": "HeroSlider.tsx", "navSurface": "dark" },
+    { "id": "about", "status": "DONE", "component": "AboutBlock.tsx", "navSurface": "light" },
+    {
+      "id": "leadership",
+      "status": "DONE",
+      "component": "LeadershipSpotlight.tsx",
+      "navSurface": "light",
+      "bg": "#FFFFFF",
+      "layout": "quote-right | portrait-left (RTL)",
+      "portrait": "rectangular, rounded-tl-[80px] rounded-br-[80px]",
+      "quote": "نؤمن بأن الإحسان الحقيقي هو ذلك الذي يُمكّن المحتاج من الاعتماد على نفسه، ويبني مستقبلاً مستداماً له ولأسرته، ويُعمّر بيوت الله لتكون منارات للعلم والإيمان.",
+      "name": "الشيخ علي بن إبراهيم المجدوعي",
+      "title": "رئيس مجلس الأمناء",
+      "decorativeTile": "/images/figma/sections/First.png"
+    },
+    {
+      "id": "focusAreas",
+      "status": "DONE",
+      "component": "FocusAreaTiles.tsx",
+      "navSurface": "light",
+      "bg": "#FFFFFF",
+      "title": "مجالات التركيز",
+      "layout": "3 full-height colored cards",
+      "cards": [
+        { "name": "المحتاج", "bg": "#80A5E0", "slug": "empowerment" },
+        { "name": "مساجد المجدوعي", "bg": "#00B5C2", "slug": "mosques" },
+        { "name": "شركاء التنفيذ", "bg": "#005761", "slug": "partners-development" }
+      ],
+      "cta": "استعرض المبادرات (white pill button)"
+    },
+    {
+      "id": "programsExplorer",
+      "status": "DONE",
+      "component": "ProgramsExplorer.tsx",
+      "navSurface": "light",
+      "title": "المجالات والمبادرات",
+      "layout": "horizontal accordion — 1 expanded + 2 collapsed vertical panels",
+      "interaction": "click panel to expand, click initiative to navigate",
+      "instruction": "اضغط على المجال لاستكشاف مبادراته، ثم اضغط على المبادرة لعرض المسارات"
+    },
+    {
+      "id": "strategicAlignment",
+      "status": "DONE",
+      "component": "StrategicAlignment.tsx",
+      "navSurface": "light",
+      "bg": "#F9FAFB",
+      "title": "المواءمة الاستراتيجية للأعمال",
+      "subtitle": "مواءمة مبادراتنا ومشاريعنا الداخلية ببرامج رؤية المملكة ٢٠٣٠ وأهداف التنمية المستدامة العالمية",
+      "tabs": ["تمكين المحتاج", "مساجد المجدوعي", "شركاء التنفيذ", "ممكنات داخلية"],
+      "cardLayout": "initiative icon | national alignment + seal | SDG icons"
+    },
+    {
+      "id": "kpis",
+      "status": "DONE",
+      "component": "ImpactKPIs.tsx",
+      "navSurface": "solid",
+      "bg": "#005761",
+      "title": "أرقام الأثر",
+      "subtitle": "إنجازاتنا في أرقام تعكس التزامنا بخدمة المجتمع",
+      "layout": "6 stats in a row with icons",
+      "stats": [
+        { "value": "85%", "label": "نسبة الاستدامة" },
+        { "value": "3200", "label": "فرصة عمل" },
+        { "value": "15", "label": "شريك استراتيجي" },
+        { "value": "120", "label": "قرية مستفيدة" },
+        { "value": "2500", "label": "أسرة متعففة" },
+        { "value": "45", "label": "مسجد نموذجي" }
+      ]
+    },
+    {
+      "id": "latestNews",
+      "status": "DONE",
+      "component": "LatestNews.tsx",
+      "navSurface": "light",
+      "bg": "#FFFFFF",
+      "title": "أحدث الأخبار",
+      "subtitle": "تابع آخر مستجداتنا وفعالياتنا",
+      "cta": "جميع الأخبار",
+      "layout": "horizontal scroll cards with images",
+      "divider": "decorative First.png pattern row above section"
+    },
+    {
+      "id": "contact",
+      "status": "DONE",
+      "component": "ContactSection.tsx",
+      "navSurface": "light",
+      "layout": "teal info card (rounded-tr-[64px]) | contact form",
+      "fields": ["الاسم الكامل", "البريد الإلكتروني", "رقم الجوال", "نص الرسالة"],
+      "submit": "إرسال الرسالة"
+    },
+    {
+      "id": "footer",
+      "status": "DONE",
+      "component": "Footer.tsx",
+      "bg": "#005761",
+      "columns": ["تواصل معنا", "مجالات العمل", "روابط سريعة", "logo+description"],
+      "social": ["LinkedIn", "Instagram", "Snapchat", "Facebook", "X"]
+    }
+  ],
+
+  "removedSections": [
+    "FeaturedInitiatives.tsx — replaced by ProgramsExplorer.tsx per Figma"
+  ]
+}

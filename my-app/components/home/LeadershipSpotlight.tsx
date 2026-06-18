@@ -1,40 +1,62 @@
 import Image from "next/image";
-import Link from "next/link";
 
 export function LeadershipSpotlight() {
   return (
-    <section className="bg-white py-16 md:py-20" data-nav-surface="light" aria-labelledby="leadership-heading">
+    <section
+      className="bg-white py-20 md:py-28"
+      data-nav-surface="light"
+      aria-labelledby="leadership-heading"
+    >
       <div className="mx-auto w-full max-w-[1280px] px-6">
-        <div className="flex flex-col items-center gap-8 md:flex-row md:items-center md:gap-12">
-          {/* Quote content */}
+        <div className="flex flex-col items-center gap-12 md:flex-row md:items-center md:gap-16 lg:gap-20">
+          {/* Quote — right in RTL */}
           <div className="flex-1 text-right">
-            <span className="mb-3 inline-block text-5xl leading-none text-accent/30 font-serif select-none">
+            <span
+              className="mb-6 block font-serif text-5xl leading-none text-accent select-none"
+              aria-hidden
+            >
               ❝
             </span>
-            <blockquote className="mt-2 text-xl font-medium leading-9 text-text-dark md:text-2xl">
-              نسعى في مؤسسة المجدوعي إلى أن يكون كل درهم وُجّه نحو المحتاج أثراً حقيقياً يُغير مسار حياته نحو التمكين والكرامة.
-            </blockquote>
-            <footer className="mt-6">
-              <p className="text-base font-bold text-text-dark">الشيخ علي بن إبراهيم المجدوعي</p>
-              <p className="mt-1 text-sm text-text-medium">رئيس مجلس الأمناء</p>
-            </footer>
-            <Link
-              href="/about/board"
-              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent"
+
+            <blockquote
+              id="leadership-heading"
+              className="text-xl font-medium leading-10 text-text-dark md:text-[22px]"
             >
-              اقرأ المزيد
-              <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 rtl:rotate-180">
-                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-              </svg>
-            </Link>
+              نؤمن بأن الإحسان الحقيقي هو ذلك الذي يُمكّن المحتاج من الاعتماد على نفسه، ويبني
+              مستقبلاً مستداماً له ولأسرته، ويُعمّر بيوت الله لتكون منارات للعلم والإيمان.
+            </blockquote>
+
+            <footer className="mt-8">
+              <p className="text-2xl font-bold text-primary md:text-[28px]">
+                الشيخ علي بن إبراهيم المجدوعي
+              </p>
+              <p className="mt-2 text-base text-text-muted">رئيس مجلس الأمناء</p>
+            </footer>
           </div>
 
-          {/* Photo placeholder */}
-          <div className="shrink-0">
-            <div className="h-40 w-40 rounded-full bg-bg-alt ring-4 ring-accent/20 md:h-48 md:w-48 overflow-hidden">
-              <div className="flex h-full w-full items-center justify-center text-text-muted text-sm">
-                صورة القيادي
-              </div>
+          {/* Portrait — left in RTL */}
+          <div className="relative shrink-0">
+            <div className="relative h-[340px] w-[280px] overflow-hidden rounded-tl-[80px] rounded-br-[80px] md:h-[400px] md:w-[320px]">
+              <Image
+                src="/images/figma/sections/leadership.jpg"
+                alt="الشيخ علي بن إبراهيم المجدوعي"
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 768px) 280px, 320px"
+                priority
+              />
+            </div>
+
+            {/* Decorative tile */}
+            <div className="absolute -bottom-5 -start-5 flex h-[72px] w-[72px] items-center justify-center rounded-2xl bg-primary p-3 shadow-lg">
+              <Image
+                src="/images/figma/sections/First.png"
+                alt=""
+                width={48}
+                height={48}
+                className="h-12 w-12 invert"
+                aria-hidden
+              />
             </div>
           </div>
         </div>

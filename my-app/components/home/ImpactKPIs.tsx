@@ -1,24 +1,82 @@
 "use client";
 
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 type KPI = {
   value: number;
-  unit: string;
+  suffix: string;
   label: string;
-  prefix?: string;
+  icon: ReactNode;
 };
 
 const KPIS: KPI[] = [
-  { value: 5000, unit: "+", label: "مستفيد", prefix: "" },
-  { value: 15, unit: "", label: "مبادرة نشطة" },
-  { value: 12, unit: "", label: "مسجد تحت الرعاية" },
-  { value: 15, unit: "+", label: "شريك تنفيذي" },
-  { value: 3, unit: "", label: "مجالات تركيز" },
-  { value: 2, unit: "", label: "منطقة جغرافية" },
-  { value: 143, unit: "", label: "رقم الترخيص" },
-  { value: 100, unit: "%", label: "شفافية وحوكمة" },
+  {
+    value: 85,
+    suffix: "%",
+    label: "نسبة الاستدامة",
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
+        <circle cx="20" cy="20" r="16" stroke="currentColor" strokeWidth="2" />
+        <path d="M20 8v12l8 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    value: 3200,
+    suffix: "",
+    label: "فرصة عمل",
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
+        <rect x="6" y="14" width="28" height="18" rx="2" stroke="currentColor" strokeWidth="2" />
+        <path d="M14 14V11a6 6 0 0112 0v3" stroke="currentColor" strokeWidth="2" />
+      </svg>
+    ),
+  },
+  {
+    value: 15,
+    suffix: "",
+    label: "شريك استراتيجي",
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
+        <circle cx="14" cy="16" r="6" stroke="currentColor" strokeWidth="2" />
+        <circle cx="26" cy="16" r="6" stroke="currentColor" strokeWidth="2" />
+        <path d="M6 32c0-4.418 3.582-8 8-8s8 3.582 8 8M18 32c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    value: 120,
+    suffix: "",
+    label: "قرية مستفيدة",
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
+        <path d="M6 34V18l14-10 14 10v16" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+        <rect x="15" y="24" width="10" height="10" stroke="currentColor" strokeWidth="2" />
+      </svg>
+    ),
+  },
+  {
+    value: 2500,
+    suffix: "",
+    label: "أسرة متعففة",
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
+        <circle cx="20" cy="12" r="6" stroke="currentColor" strokeWidth="2" />
+        <path d="M8 34c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  {
+    value: 45,
+    suffix: "",
+    label: "مسجد نموذجي",
+    icon: (
+      <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
+        <path d="M20 6l12 10v18H8V16L20 6z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+        <path d="M16 34V24a4 4 0 018 0v10" stroke="currentColor" strokeWidth="2" />
+      </svg>
+    ),
+  },
 ];
 
 function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) {
@@ -60,42 +118,31 @@ function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) 
 
 export function ImpactKPIs() {
   return (
-    <section className="bg-primary py-16 md:py-24" data-nav-surface="solid" aria-labelledby="kpis-heading">
+    <section
+      className="bg-primary py-16 md:py-24"
+      data-nav-surface="solid"
+      aria-labelledby="kpis-heading"
+    >
       <div className="mx-auto w-full max-w-[1280px] px-6">
-        <div className="mb-12 text-center">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-widest text-accent">
-            أثرنا في أرقام
-          </p>
+        <div className="mb-14 text-center">
           <h2 id="kpis-heading" className="text-3xl font-bold text-white md:text-4xl">
             أرقام الأثر
           </h2>
-          <p className="mt-4 text-base text-white/75">
-            إنجازات المؤسسة منذ تأسيسها في خدمة المحتاج والمجتمع.
+          <p className="mx-auto mt-3 max-w-xl text-base text-white/70">
+            إنجازاتنا في أرقام تعكس التزامنا بخدمة المجتمع
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-px bg-white/10 rounded-2xl overflow-hidden md:grid-cols-4">
+        <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-6">
           {KPIS.map((kpi, i) => (
-            <div
-              key={i}
-              className="flex flex-col items-center justify-center bg-primary p-8 text-center"
-            >
-              <p className="text-4xl font-black text-white md:text-5xl">
-                {kpi.prefix}
-                <AnimatedNumber target={kpi.value} suffix={kpi.unit} />
+            <div key={i} className="flex flex-col items-center text-center text-white">
+              <div className="mb-4 text-white/80">{kpi.icon}</div>
+              <p className="text-3xl font-black md:text-4xl">
+                <AnimatedNumber target={kpi.value} suffix={kpi.suffix} />
               </p>
-              <p className="mt-3 text-sm font-medium text-white/75">{kpi.label}</p>
+              <p className="mt-2 text-sm text-white/70">{kpi.label}</p>
             </div>
           ))}
-        </div>
-
-        <div className="mt-10 text-center">
-          <Link
-            href="/reports"
-            className="inline-block rounded-full border-2 border-white/40 px-8 py-3 text-sm font-semibold text-white transition-all hover:border-accent hover:text-accent"
-          >
-            عرض التقرير السنوي
-          </Link>
         </div>
       </div>
     </section>

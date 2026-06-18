@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/site/config";
 import { HeroSlider } from "@/components/home/HeroSlider";
-import { LeadershipSpotlight } from "@/components/home/LeadershipSpotlight";
 import { AboutBlock } from "@/components/home/AboutBlock";
+import { LeadershipSpotlight } from "@/components/home/LeadershipSpotlight";
 import { FocusAreaTiles } from "@/components/home/FocusAreaTiles";
-import { FeaturedInitiatives } from "@/components/home/FeaturedInitiatives";
+import { ProgramsExplorer } from "@/components/home/ProgramsExplorer";
+import { StrategicAlignment } from "@/components/home/StrategicAlignment";
 import { ImpactKPIs } from "@/components/home/ImpactKPIs";
 import { LatestNews } from "@/components/home/LatestNews";
+import { ContactSection } from "@/components/home/ContactSection";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -16,26 +18,15 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <main>
-      {/* 1. Hero Slider */}
       <HeroSlider />
-
-      {/* 2. About Block */}
       <AboutBlock />
-
-      {/* 3. Leadership Spotlight */}
       <LeadershipSpotlight />
-
-      {/* 4. Focus Area Tiles */}
       <FocusAreaTiles />
-
-      {/* 5. Featured Initiatives */}
-      <FeaturedInitiatives />
-
-      {/* 6. Impact KPIs */}
+      <ProgramsExplorer />
+      <StrategicAlignment />
       <ImpactKPIs />
-
-      {/* 7. Latest News */}
       <LatestNews />
+      <ContactSection />
     </main>
   );
 }

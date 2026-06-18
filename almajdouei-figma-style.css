@@ -1,0 +1,677 @@
+/* =========================================================
+   الموقع: المجدوعي الخيرية
+   CSS مستخرج من تصميم Figma - Almajdouai Final
+   تاريخ الإنشاء: 2026-06-10
+   =========================================================
+
+   🎨 نظام الألوان من Figma:
+   --primary:       #005761  (التيل الداكن - الأساسي)
+   --accent:        #00B5C2  (السيان - مميز)
+   --light-blue:    #80A5E0  (الأزرق الفاتح)
+   --header-bg:     #0A1F2D  (الأزرق الداكن جداً - الهيدر)
+   --bg-light:      #F9FAFB  (خلفية الأقسام الفاتحة)
+   --bg-alt:        #F0F7F8  (خلفية بديلة)
+   --text-dark:     #101828
+   --text-medium:   #364153
+   --text-light:    #4A5565
+   --text-muted:    #6A7282
+   --footer-bg:     #005761
+
+   🔤 الخط: Tajawal (مكافئ لـ "itf rayat" من Figma)
+   ========================================================= */
+
+/* ── 0. استيراد الخط من Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap');
+
+/* ── 1. المتغيرات العامة ── */
+:root {
+  --figma-primary:     #005761;
+  --figma-accent:      #00B5C2;
+  --figma-light-blue:  #80A5E0;
+  --figma-header-bg:   #0A1F2D;
+  --figma-footer-bg:   #005761;
+  --figma-bg-light:    #F9FAFB;
+  --figma-bg-alt:      #F0F7F8;
+  --figma-text-dark:   #101828;
+  --figma-text-mid:    #364153;
+  --figma-text-light:  #4A5565;
+  --figma-text-muted:  #6A7282;
+  --e-global-color-primary:   #005761 !important;
+  --e-global-color-secondary: #00B5C2 !important;
+  --e-global-color-accent:    #00B5C2 !important;
+  --e-global-color-text:      #101828 !important;
+}
+
+/* ── 2. الخط العام للموقع ── */
+body,
+body *,
+.elementor *,
+h1, h2, h3, h4, h5, h6,
+p, a, li, span, div,
+.elementor-heading-title,
+.elementor-widget-text-editor,
+.elementor-nav-menu--main .elementor-item {
+  font-family: 'Tajawal', 'Cairo', 'Almarai', sans-serif !important;
+}
+
+/* ── 3. الهيدر (الشريط العلوي) ── */
+/* الخلفية الداكنة للهيدر */
+.elementor-location-header,
+.elementor-location-header .e-con,
+.elementor-location-header .e-con-inner,
+.elementor-1643 .e-con,
+.elementor-1643 .e-con-inner,
+header.elementor,
+.elementor-element-21f496d,
+.elementor-element-21f496d > .e-con-inner,
+[data-id="21f496d"],
+[data-id="640aa2f"],
+[data-id="e1e2c9d"] {
+  background-color: #0A1F2D !important;
+  background-image: none !important;
+}
+
+/* الهيدر الثابت عند التمرير */
+.elementor-sticky--active,
+.elementor-sticky--active .e-con,
+.elementor-sticky--active .e-con-inner {
+  background-color: #0A1F2D !important;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3) !important;
+}
+
+/* روابط القائمة في الهيدر */
+.elementor-location-header .elementor-nav-menu--main .elementor-item,
+.elementor-1643 .elementor-nav-menu--main .elementor-item,
+.elementor-1643 .elementor-item {
+  color: #FFFFFF !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  font-family: 'Tajawal', sans-serif !important;
+  letter-spacing: 0 !important;
+}
+
+/* تأثير hover على روابط القائمة */
+.elementor-location-header .elementor-nav-menu--main .elementor-item:hover,
+.elementor-location-header .elementor-nav-menu--main .elementor-item:focus,
+.elementor-location-header .elementor-nav-menu--main .elementor-item.elementor-item-active,
+.elementor-1643 .elementor-nav-menu--main .elementor-item:hover,
+.elementor-1643 .elementor-nav-menu--main .elementor-item:focus,
+.elementor-1643 .elementor-nav-menu--main .elementor-item.elementor-item-active {
+  color: #00B5C2 !important;
+  fill: #00B5C2 !important;
+}
+
+/* القائمة المنسدلة */
+.elementor-location-header .elementor-nav-menu--dropdown,
+.elementor-1643 .elementor-nav-menu--dropdown {
+  background-color: #0A1F2D !important;
+  border-top: 2px solid #00B5C2 !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3) !important;
+}
+
+.elementor-location-header .elementor-nav-menu--dropdown .elementor-sub-item,
+.elementor-1643 .elementor-nav-menu--dropdown a {
+  color: #FFFFFF !important;
+  font-family: 'Tajawal', sans-serif !important;
+}
+
+.elementor-location-header .elementor-nav-menu--dropdown a:hover,
+.elementor-1643 .elementor-nav-menu--dropdown a:hover {
+  color: #00B5C2 !important;
+  background-color: rgba(255,255,255,0.05) !important;
+}
+
+/* زر التسجيل / CTA في الهيدر */
+.elementor-1643 .jet-button__plane-normal,
+.elementor-1643 .elementor-button {
+  background-color: #00B5C2 !important;
+  color: #FFFFFF !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  font-family: 'Tajawal', sans-serif !important;
+}
+
+.elementor-1643 .jet-button__plane-hover {
+  background-color: #005761 !important;
+}
+
+/* هامبرغر موبايل */
+.elementor-menu-toggle {
+  color: #FFFFFF !important;
+}
+
+/* ── 4. الألوان الأساسية - استبدال القديم بالجديد ── */
+
+/* استبدال الذهبي القديم (#ca9c5e) بالسيان الجديد (#00B5C2) */
+[style*="#ca9c5e"],
+[class*="ca9c5e"] {
+  color: #00B5C2 !important;
+}
+
+/* عناوين الأقسام */
+.elementor-heading-title {
+  color: #101828 !important;
+  font-family: 'Tajawal', sans-serif !important;
+}
+
+/* العناوين الملونة بالأساسي */
+.elementor-widget-heading .elementor-heading-title[style*="color: #ca9c5e"],
+.elementor-widget-heading .elementor-heading-title[style*="color:#ca9c5e"] {
+  color: #00B5C2 !important;
+}
+
+/* ── 5. الأزرار ── */
+.elementor-button,
+.elementor-button-wrapper .elementor-button,
+.wp-element-button,
+button.elementor-button {
+  background-color: #005761 !important;
+  color: #FFFFFF !important;
+  font-family: 'Tajawal', sans-serif !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  padding: 12px 28px !important;
+  transition: all 0.3s ease !important;
+  border: none !important;
+}
+
+.elementor-button:hover,
+.elementor-button:focus,
+.elementor-button-wrapper .elementor-button:hover {
+  background-color: #00B5C2 !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(0, 181, 194, 0.4) !important;
+}
+
+/* أزرار الـ Prime Slider */
+.bdt-prime-slider .bdt-prime-slider-next,
+.bdt-prime-slider .bdt-prime-slider-previous {
+  background-color: #005761 !important;
+  border-color: #005761 !important;
+}
+
+.bdt-prime-slider .bdt-prime-slider-next:hover,
+.bdt-prime-slider .bdt-prime-slider-previous:hover {
+  background-color: #00B5C2 !important;
+  border-color: #00B5C2 !important;
+}
+
+/* نقاط السلايدر */
+.bdt-prime-slider .bdt-dotnav li.bdt-active a::before,
+.bdt-prime-slider .bdt-dotnav li.bdt-active a {
+  background-color: #00B5C2 !important;
+  border-color: #00B5C2 !important;
+}
+
+.bdt-prime-slider .bdt-prime-slider-desc .bdt-ps-sub-title {
+  color: #00B5C2 !important;
+}
+
+/* ── 6. البطاقات وصناديق الأيقونات ── */
+.elementor-image-box-title,
+.elementor-icon-box-title,
+.elementor-icon-box-title a {
+  color: #005761 !important;
+  font-family: 'Tajawal', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+.elementor-icon-box-description,
+.elementor-image-box-description {
+  color: #4A5565 !important;
+  font-family: 'Tajawal', sans-serif !important;
+}
+
+/* الأيقونات الملونة */
+.elementor-view-stacked .elementor-icon {
+  background-color: #005761 !important;
+}
+
+.elementor-view-framed .elementor-icon,
+.elementor-view-default .elementor-icon {
+  color: #005761 !important;
+  border-color: #005761 !important;
+}
+
+.elementor-view-stacked .elementor-icon:hover {
+  background-color: #00B5C2 !important;
+}
+
+.elementor-view-framed .elementor-icon:hover,
+.elementor-view-default .elementor-icon:hover {
+  color: #00B5C2 !important;
+  border-color: #00B5C2 !important;
+}
+
+/* SVG fill */
+.elementor-icon svg,
+.elementor-icon-box-icon svg {
+  fill: #005761 !important;
+}
+
+/* ── 7. خلفيات الأقسام ── */
+
+/* قسم الإحصائيات - خلفية تيل داكنة مثل Figma */
+.elementor-element-7454ac0,
+.elementor-element-7454ac0:not(.elementor-motion-effects-element-type-background),
+[data-id="7454ac0"] {
+  background-color: #005761 !important;
+}
+
+/* أقسام ذات خلفية فاتحة */
+.e-con[style*="background-color: rgb(249"],
+.e-con[style*="background-color:#f9fafb"] {
+  background-color: #F9FAFB !important;
+}
+
+/* ── 8. الفاصلون والخطوط الزخرفية ── */
+.elementor-divider-separator {
+  border-top-color: #00B5C2 !important;
+}
+
+[class*="divider-color"],
+.e-divider {
+  --divider-color: #00B5C2 !important;
+}
+
+/* ── 9. التبويبات (Tabs - Jet Tabs) ── */
+.jet-tabs__control:hover .jet-tabs__label-text,
+.jet-tabs__control.active-tab .jet-tabs__label-text {
+  color: #00B5C2 !important;
+}
+
+.jet-tabs__control:hover .jet-tabs__label-icon,
+.jet-tabs__control.active-tab .jet-tabs__label-icon {
+  color: #00B5C2 !important;
+}
+
+.jet-tabs__control.active-tab {
+  border-bottom: 2px solid #00B5C2 !important;
+}
+
+/* ── 10. قسم الأخبار والمقالات ── */
+.jet-listing-grid__item .elementor-heading-title,
+.jet-listing-grid__item h3,
+.jet-listing-grid__item h4 {
+  color: #101828 !important;
+  font-family: 'Tajawal', sans-serif !important;
+}
+
+.jet-listing-grid__slider-icon:hover {
+  background-color: #005761 !important;
+}
+
+.jet-listing-grid__slider .jet-slick-dots li.slick-active,
+.jet-listing-grid__slider .jet-slick-dots li:hover {
+  background-color: #00B5C2 !important;
+}
+
+.jet-engine-swiper-pagination-wrapper {
+  --swiper-pagination-color: #00B5C2 !important;
+  --swiper-pagination-color-hover: #005761 !important;
+}
+
+/* ── 11. قوائم الأيقونات (Icon Lists) ── */
+.elementor-icon-list-icon i,
+.elementor-icon-list-icon svg {
+  color: #005761 !important;
+  fill: #005761 !important;
+}
+
+.elementor-icon-list-item:hover .elementor-icon-list-text {
+  color: #00B5C2 !important;
+}
+
+/* ── 12. أيقونات التواصل الاجتماعي ── */
+.elementor-social-icon:hover i,
+.elementor-social-icon:hover svg {
+  color: #00B5C2 !important;
+  fill: #00B5C2 !important;
+}
+
+.elementor-social-icon {
+  background-color: rgba(255,255,255,0.1) !important;
+  transition: all 0.3s !important;
+}
+
+.elementor-social-icon:hover {
+  background-color: #00B5C2 !important;
+  transform: translateY(-3px) !important;
+}
+
+/* ── 13. الفوتر ── */
+.elementor-location-footer,
+.elementor-2127,
+.elementor-2127 .e-con,
+.elementor-2127 .e-con-inner,
+footer.elementor {
+  background-color: #005761 !important;
+  color: #FFFFFF !important;
+}
+
+.elementor-2127 .elementor-heading-title,
+.elementor-2127 h2,
+.elementor-2127 h3,
+.elementor-2127 h4 {
+  color: #FFFFFF !important;
+  font-family: 'Tajawal', sans-serif !important;
+}
+
+.elementor-2127 p,
+.elementor-2127 .elementor-text-editor,
+.elementor-2127 li,
+.elementor-2127 a:not(.elementor-button):not(.elementor-social-icon) {
+  color: rgba(255,255,255,0.85) !important;
+  font-family: 'Tajawal', sans-serif !important;
+}
+
+.elementor-2127 a:hover {
+  color: #00B5C2 !important;
+}
+
+.elementor-2127 .elementor-icon-list-icon i,
+.elementor-2127 .elementor-icon-list-icon svg {
+  color: #00B5C2 !important;
+  fill: #00B5C2 !important;
+}
+
+/* خط فاصل في الفوتر */
+.elementor-2127 .elementor-divider-separator {
+  border-top-color: rgba(255,255,255,0.2) !important;
+}
+
+/* أزرار النشرة البريدية في الفوتر */
+.elementor-2127 .elementor-button[type="submit"],
+.elementor-2127 .e-form__buttons__wrapper__button-next {
+  background-color: #00B5C2 !important;
+  color: #FFFFFF !important;
+}
+
+.elementor-2127 .elementor-button[type="submit"]:hover,
+.elementor-2127 .e-form__buttons__wrapper__button-next:hover {
+  background-color: #FFFFFF !important;
+  color: #005761 !important;
+}
+
+/* ── 14. السلايدر الرئيسي (Hero Slider) ── */
+.bdt-prime-slider-skin-slide,
+.bdt-prime-slider,
+.bdt-prime-slider-skin-meteor {
+  min-height: 600px !important;
+}
+
+/* طبقة تدرج فوق صور الهيرو */
+.bdt-prime-slider .bdt-slideshow-item::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(135deg, rgba(10,31,45,0.85) 0%, rgba(0,87,97,0.6) 100%) !important;
+  z-index: 1 !important;
+}
+
+.bdt-prime-slider .bdt-prime-slider-desc {
+  position: relative !important;
+  z-index: 2 !important;
+}
+
+/* نصوص السلايدر */
+.bdt-prime-slider .bdt-prime-slider-desc .bdt-ps-title,
+.bdt-prime-slider .bdt-prime-slider-title {
+  color: #FFFFFF !important;
+  font-family: 'Tajawal', sans-serif !important;
+  font-size: 52px !important;
+  font-weight: 700 !important;
+  line-height: 1.3 !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+}
+
+.bdt-prime-slider .bdt-prime-slider-desc .bdt-ps-sub-title {
+  color: rgba(255,255,255,0.85) !important;
+  font-family: 'Tajawal', sans-serif !important;
+  font-size: 20px !important;
+  font-weight: 400 !important;
+}
+
+/* زر "اقرأ المزيد" في السلايدر */
+.bdt-prime-slider .elementor-button,
+.bdt-prime-slider a.elementor-button {
+  background-color: transparent !important;
+  color: #FFFFFF !important;
+  border: 2px solid #FFFFFF !important;
+  border-radius: 40px !important;
+  padding: 12px 32px !important;
+  font-weight: 600 !important;
+}
+
+.bdt-prime-slider .elementor-button:hover {
+  background-color: #FFFFFF !important;
+  color: #005761 !important;
+  border-color: #FFFFFF !important;
+}
+
+/* ── 15. عناوين الأقسام الكبيرة ── */
+.elementor-6107 .elementor-heading-title {
+  font-family: 'Tajawal', sans-serif !important;
+}
+
+/* عناوين h2 رئيسية */
+h2.elementor-heading-title {
+  font-size: 36px !important;
+  font-weight: 500 !important;
+  color: #101828 !important;
+}
+
+/* عناوين h3 بطاقات */
+h3.elementor-heading-title {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+}
+
+/* ── 16. النصوص الوصفية ── */
+.elementor-text-editor,
+.elementor-widget-text-editor p {
+  color: #4A5565 !important;
+  font-family: 'Tajawal', sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.8 !important;
+}
+
+/* ── 17. قسم الإحصائيات والأرقام ── */
+/* قسم KPI بخلفية تيل داكنة */
+.elementor-counter-number-wrapper,
+.elementor-counter-number,
+.elementor-counter-number-suffix,
+.elementor-counter-number-prefix {
+  font-family: 'Tajawal', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 48px !important;
+}
+
+/* ── 18. الـ Rating Stars ── */
+.elementor-star-rating .elementor-star-full::before {
+  color: #00B5C2 !important;
+}
+
+/* ── 19. التدرجات العامة ── */
+.elementor-gradient-color-stop-0 {
+  color: #005761 !important;
+}
+
+/* ── 20. بطاقات التقييم / Testimonials ── */
+.elementor-testimonial-name,
+.elementor-testimonial__name {
+  color: #101828 !important;
+  font-family: 'Tajawal', sans-serif !important;
+  font-weight: 700 !important;
+}
+
+.elementor-testimonial-job,
+.elementor-testimonial__title {
+  color: #4A5565 !important;
+  font-family: 'Tajawal', sans-serif !important;
+}
+
+.elementor-testimonial-content,
+.elementor-testimonial__text {
+  color: #364153 !important;
+  font-family: 'Tajawal', sans-serif !important;
+  font-size: 15px !important;
+  line-height: 1.8 !important;
+}
+
+/* ── 21. أقسام ذات خلفية بيضاء بحدود ── */
+.elementor-image-box-wrapper {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+}
+
+.elementor-image-box-wrapper:hover {
+  box-shadow: 0 8px 30px rgba(0,87,97,0.15) !important;
+  transform: translateY(-4px) !important;
+}
+
+/* ── 22. حقول النماذج ── */
+.elementor-field-group input[type="text"],
+.elementor-field-group input[type="email"],
+.elementor-field-group input[type="tel"],
+.elementor-field-group textarea,
+.elementor-field-group select {
+  border-color: #E5E7EB !important;
+  border-radius: 8px !important;
+  font-family: 'Tajawal', sans-serif !important;
+  color: #101828 !important;
+}
+
+.elementor-field-group input:focus,
+.elementor-field-group textarea:focus {
+  border-color: #00B5C2 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(0,181,194,0.15) !important;
+}
+
+/* ── 23. صور ميدالية/دائرية ── */
+.elementor-image img {
+  border-radius: inherit !important;
+}
+
+/* ── 24. الخريطة والمعلومات في نهاية الصفحة ── */
+.bdt-prime-slider-skin-slide .bdt-prime-slider-desc .bdt-ps-title {
+  font-size: 60px !important;
+  font-weight: 700 !important;
+}
+
+/* ── 25. تمييز الروابط العامة ── */
+a {
+  color: #005761 !important;
+  transition: color 0.2s !important;
+}
+
+a:hover {
+  color: #00B5C2 !important;
+}
+
+/* لكن الهيدر أبيض */
+.elementor-location-header a,
+.elementor-1643 a {
+  color: #FFFFFF !important;
+}
+
+.elementor-location-header a:hover,
+.elementor-1643 a:hover {
+  color: #00B5C2 !important;
+}
+
+/* ── 26. تصميم متجاوب للموبايل ── */
+@media (max-width: 767px) {
+  .elementor-location-header {
+    background-color: #0A1F2D !important;
+  }
+  
+  h2.elementor-heading-title {
+    font-size: 28px !important;
+  }
+  
+  .bdt-prime-slider .bdt-prime-slider-desc .bdt-ps-title,
+  .bdt-prime-slider-skin-slide .bdt-prime-slider-desc .bdt-ps-title {
+    font-size: 32px !important;
+  }
+  
+  .elementor-counter-number {
+    font-size: 36px !important;
+  }
+}
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  h2.elementor-heading-title {
+    font-size: 30px !important;
+  }
+}
+
+/* ── 27. عناصر إضافية متنوعة من الـ Figma ── */
+
+/* بطاقات مجالات التركيز - 3 ألوان من Figma */
+.elementor-image-box-wrapper:nth-child(1) .elementor-icon {
+  background-color: #005761 !important;
+}
+
+.elementor-image-box-wrapper:nth-child(2) .elementor-icon {
+  background-color: #00B5C2 !important;
+}
+
+.elementor-image-box-wrapper:nth-child(3) .elementor-icon {
+  background-color: #80A5E0 !important;
+}
+
+/* شريط الـ divider المزخرف */
+.elementor-divider {
+  --divider-color: #00B5C2 !important;
+}
+
+/* خلفية القسم عن الجمعية بالفاتح الرمادي */
+.elementor-element-3b595ae:not(.elementor-motion-effects-element-type-background),
+.elementor-element-3b595ae > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-color: rgba(0,181,194,0.06) !important;
+}
+
+.elementor-element-122deb4:not(.elementor-motion-effects-element-type-background),
+.elementor-element-122deb4 > .elementor-motion-effects-container > .elementor-motion-effects-layer {
+  background-color: rgba(0,181,194,0.06) !important;
+}
+
+/* ── 28. Jet Elements ── */
+.jet-button__plane-normal {
+  background-color: #00B5C2 !important;
+}
+
+.jet-button__plane-hover {
+  background-color: #005761 !important;
+}
+
+/* Jet Inline SVG تزخيم */
+.jet-inline-svg {
+  color: rgba(0,181,194,0.25) !important;
+}
+
+/* ── 29. نقاط التنقل (Breadcrumbs & Pagination) ── */
+.e-breadcrumbs a,
+.elementor-pagination a {
+  color: #005761 !important;
+}
+
+.elementor-pagination .page-numbers.current,
+.elementor-pagination .page-numbers:hover {
+  background-color: #005761 !important;
+  color: #FFFFFF !important;
+}
+
+/* ── 30. عنصر الإشعار / Badge ── */
+.elementor-badge,
+.bdt-badge {
+  background-color: #00B5C2 !important;
+  color: #FFFFFF !important;
+}
+
+/* ── نهاية الـ CSS ── */

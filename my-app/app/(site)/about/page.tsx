@@ -1,0 +1,40 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { PageHeader } from "@/components/ui/PageHeader";
+import { Container } from "@/components/ui/Container";
+
+export const metadata: Metadata = {
+  title: "عن المؤسسة",
+  description: "تعرف على مؤسسة المجدوعي الخيرية ورؤيتها ورسالتها وقياداتها",
+};
+
+const ABOUT_LINKS = [
+  { label: "من نحن", href: "/about/who-we-are" },
+  { label: "الرؤية والرسالة والقيم", href: "/about/vision-mission" },
+  { label: "الاستراتيجية", href: "/about/strategy" },
+  { label: "مجلس الأمناء", href: "/about/board" },
+  { label: "القيادات التنفيذية", href: "/about/leadership" },
+  { label: "السياسات واللوائح", href: "/about/policies" },
+];
+
+export default function AboutHubPage() {
+  return (
+    <>
+      <PageHeader title="عن المؤسسة" />
+      <Container as="main" className="py-12">
+        <ul className="grid gap-4 sm:grid-cols-2">
+          {ABOUT_LINKS.map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className="block rounded-xl border border-bg-alt bg-white p-5 font-medium text-text-dark hover:border-primary hover:text-primary"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </>
+  );
+}

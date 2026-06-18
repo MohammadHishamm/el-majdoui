@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #101828;
+
+  /* Almajdouie Figma design tokens */
+  --primary: #005761;
+  --accent: #00b5c2;
+  --light-blue: #80a5e0;
+  --header-bg: #0a1f2d;
+  --footer-bg: #005761;
+  --bg-light: #f9fafb;
+  --bg-alt: #f0f7f8;
+  --text-dark: #101828;
+  --text-medium: #364153;
+  --text-light: #4a5565;
+  --text-muted: #6a7282;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --color-light-blue: var(--light-blue);
+  --color-header-bg: var(--header-bg);
+  --color-footer-bg: var(--footer-bg);
+  --color-bg-light: var(--bg-light);
+  --color-bg-alt: var(--bg-alt);
+  --color-text-dark: var(--text-dark);
+  --color-text-medium: var(--text-medium);
+  --color-text-light: var(--text-light);
+  --color-text-muted: var(--text-muted);
+  --font-sans: var(--font-itf-rayat);
+}
+
+body {
+  background: var(--background);
+  color: var(--text-dark);
+  font-family: var(--font-itf-rayat), "ITF Rayat", sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* ITF Rayat — primary font for all text */
+html,
+body,
+button,
+input,
+textarea,
+select {
+  font-family: var(--font-itf-rayat), "ITF Rayat", sans-serif;
+}
+
+/* Figma typography scale */
+h1 {
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+h2 {
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 32px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 20px;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Thin professional scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 87, 97, 0.45) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 87, 97, 0.35);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 181, 194, 0.55);
+}

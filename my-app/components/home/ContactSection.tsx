@@ -13,6 +13,8 @@ const labelClass = "mb-2 block text-right text-base font-medium text-text-dark";
 export function ContactSection() {
   const { locale } = useLocale();
   const t = translations[locale].contact;
+  const isArabic = locale === "ar";
+  const textAlign = isArabic ? "text-right" : "text-left";
 
   const contactRows = [
     { label: t.addressLabel, value: locale === "en" ? siteConfig.contact.addressEn : siteConfig.contact.address, ltr: false },
@@ -111,7 +113,7 @@ export function ContactSection() {
             </div>
 
             {/* Contact details */}
-            <div className="flex-1 text-right">
+            <div className={`flex-1 ${textAlign}`} dir={isArabic ? "rtl" : "ltr"}>
               <h2
                 id="contact-heading"
                 className="text-[28px] font-bold leading-snug text-white md:text-[36px]"
@@ -119,7 +121,7 @@ export function ContactSection() {
                 {t.heading}
               </h2>
 
-              <div className="mt-10 text-right">
+              <div className={`mt-10 ${textAlign}`}>
                 {contactRows.map((row) => (
                   <p
                     key={row.label}

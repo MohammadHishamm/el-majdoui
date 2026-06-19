@@ -363,6 +363,118 @@ function CircleArrowButton({ direction = "left" }: { direction?: "left" | "right
   );
 }
 
+type ProgramsTranslation = {
+  heading: string;
+  subheading: string;
+  viewPanelPrefix: string;
+  pathDetails: string;
+  hint: string;
+  pathsWithin: string;
+  initiativesIn: string;
+};
+
+type MobilePanelContentProps = {
+  panel: Panel;
+  activeInitiativeId: string | null;
+  onInitiativeToggle: (id: string) => void;
+  isArabic: boolean;
+  locale: "ar" | "en";
+  t: ProgramsTranslation;
+  footerText: string;
+};
+
+function MobilePanelContent({
+  panel,
+  activeInitiativeId,
+  onInitiativeToggle,
+  isArabic,
+  locale,
+  t,
+  footerText,
+}: MobilePanelContentProps) {
+  return (
+    <div
+      className="flex flex-col p-6 text-white"
+      style={{ backgroundColor: panel.bg }}
+      dir={isArabic ? "rtl" : "ltr"}
+    >
+      <div className={isArabic ? "text-right" : "text-left"}>
+        <h3 className="text-xl font-bold">{panel.name[locale]}</h3>
+        <p className="mt-2 text-sm leading-7 text-white/85">{panel.desc[locale]}</p>
+      </div>
+
+      <ul className="mt-5 flex flex-col gap-3">
+        {panel.initiatives.map((initiative) => {
+          const isExpanded = activeInitiativeId === initiative.id;
+
+          return (
+            <li key={initiative.id}>
+              <button
+                type="button"
+                onClick={() => onInitiativeToggle(initiative.id)}
+                className={`flex w-full items-center gap-4 rounded-2xl px-4 py-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 ${
+                  isArabic ? "text-right" : "text-left"
+                } ${isExpanded ? "bg-white/20" : "bg-white/15 hover:bg-white/20"}`}
+                aria-expanded={isExpanded}
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="font-bold text-sm">{initiative.title[locale]}</p>
+                  <p className="mt-0.5 line-clamp-2 text-xs leading-6 text-white/75">
+                    {initiative.desc[locale]}
+                  </p>
+                </div>
+                <CircleArrowButton direction={isArabic ? "left" : "right"} />
+              </button>
+
+              {isExpanded && (
+                <div className="mt-3 flex flex-col gap-3">
+                  {initiative.paths.map((path) => (
+                    <article
+                      key={path.id}
+                      className={`flex flex-col rounded-2xl bg-white p-5 text-text-dark ${
+                        isArabic ? "text-right" : "text-left"
+                      }`}
+                    >
+                      <div className="flex items-center justify-start gap-2">
+                        <span
+                          className="h-2 w-2 shrink-0 rounded-full"
+                          style={{ backgroundColor: panel.bg }}
+                          aria-hidden
+                        />
+                        <h4 className="font-bold text-sm">{path.title[locale]}</h4>
+                      </div>
+                      <p className="mt-2 flex-1 text-sm leading-7 text-text-light">
+                        {path.desc[locale]}
+                      </p>
+                      <Link
+                        href={path.href}
+                        className={`mt-4 inline-flex items-center gap-1 text-sm font-semibold leading-none transition-opacity hover:opacity-80 ${
+                          isArabic ? "self-end" : "self-start"
+                        }`}
+                        style={{ color: panel.bg }}
+                      >
+                        {t.pathDetails}
+                        <ArrowIcon
+                          className="block h-4 w-4 shrink-0"
+                          direction={isArabic ? "left" : "right"}
+                        />
+                      </Link>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+
+      <p className={`mt-5 text-xs text-white/70 ${isArabic ? "self-end" : "self-start"}`}>
+        {footerText}
+      </p>
+    </div>
+  );
+}
+
 export function ProgramsExplorer() {
   const [activePanelId, setActivePanelId] = useState("empowerment");
   const [activeInitiativeId, setActiveInitiativeId] = useState<string | null>(null);
@@ -405,7 +517,46 @@ export function ProgramsExplorer() {
           </p>
         </div>
 
-        <div className="mx-auto max-w-full overflow-hidden">
+        {/* ── Mobile layout (< md) ── */}
+        <div className="md:hidden overflow-hidden rounded-bl-[40px] shadow-sm">
+          {/* Tab bar */}
+          <div className="flex" dir="ltr" role="tablist">
+            {PANELS.map((panel) => {
+              const isActive = panel.id === activePanelId;
+              return (
+                <button
+                  key={panel.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => handlePanelChange(panel.id)}
+                  className="flex-1 py-3 px-2 text-center text-xs font-bold text-white transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+                  style={{
+                    backgroundColor: panel.bg,
+                    opacity: isActive ? 1 : 0.55,
+                    borderBottom: isActive ? "3px solid rgba(255,255,255,0.7)" : "3px solid transparent",
+                  }}
+                >
+                  {panel.name[locale]}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Active panel content */}
+          <MobilePanelContent
+            panel={activePanel}
+            activeInitiativeId={activeInitiativeId}
+            onInitiativeToggle={handleInitiativeToggle}
+            isArabic={isArabic}
+            locale={locale}
+            t={t}
+            footerText={footerText}
+          />
+        </div>
+
+        {/* ── Desktop layout (≥ md) — untouched ── */}
+        <div className="hidden md:block mx-auto max-w-full overflow-hidden">
           <div
             className="mx-auto flex overflow-hidden rounded-bl-[50px] shadow-sm"
             style={{

@@ -1,7 +1,26 @@
+"use client";
+
 import Image from "next/image";
 import { siteConfig } from "@/lib/site/config";
+import { useLocale } from "@/lib/i18n/context";
+import { translations } from "@/lib/i18n/translations";
+
+const fieldClass =
+  "w-full rounded-2xl border border-text-dark/15 bg-white px-4 py-3 text-base text-text-dark outline-none transition-colors placeholder:text-text-muted/50 focus:border-accent";
+
+const labelClass = "mb-2 block text-right text-base font-medium text-text-dark";
 
 export function ContactSection() {
+  const { locale } = useLocale();
+  const t = translations[locale].contact;
+
+  const contactRows = [
+    { label: t.addressLabel, value: locale === "en" ? siteConfig.contact.addressEn : siteConfig.contact.address, ltr: false },
+    { label: t.phoneLabel, value: siteConfig.contact.phone, ltr: true },
+    { label: t.emailLabel, value: siteConfig.contact.email, ltr: true },
+    { label: t.hoursLabel, value: locale === "en" ? siteConfig.contact.workingHoursEn : siteConfig.contact.workingHours, ltr: false },
+  ];
+
   return (
     <section
       className="bg-white py-16 md:py-24"
@@ -9,113 +28,114 @@ export function ContactSection() {
       aria-labelledby="contact-heading"
     >
       <div className="mx-auto w-full max-w-[1280px] px-6">
-        <div className="grid gap-8 md:grid-cols-2 md:gap-0 md:overflow-hidden md:rounded-2xl md:ring-1 md:ring-bg-alt">
-          {/* Info card */}
-          <div className="relative flex flex-col justify-center rounded-2xl bg-primary p-10 text-white md:rounded-none md:rounded-tr-[64px] md:p-12">
-            <h2 id="contact-heading" className="text-2xl font-bold md:text-3xl">
-              يسعدنا تواصلكم معنا
-            </h2>
-            <p className="mt-4 max-w-sm text-sm leading-8 text-white/80">
-              نرحب باستفساراتكم واقتراحاتكم. فريقنا جاهز للرد على جميع رسائلكم في أقرب وقت.
-            </p>
-
-            <div className="mt-8 space-y-4 text-sm">
-              <p className="flex items-center gap-3">
-                <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 shrink-0 text-accent" aria-hidden>
-                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                </svg>
-                {siteConfig.contact.phone}
-              </p>
-              <p className="flex items-center gap-3">
-                <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 shrink-0 text-accent" aria-hidden>
-                  <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                  <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                </svg>
-                {siteConfig.contact.email}
-              </p>
-              <p className="flex items-center gap-3">
-                <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 shrink-0 text-accent" aria-hidden>
-                  <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
-                </svg>
-                {siteConfig.contact.address}
-              </p>
-            </div>
-
-            {/* Decorative pattern */}
-            <div className="absolute bottom-6 end-6 opacity-20">
-              <Image
-                src="/images/figma/sections/First.png"
-                alt=""
-                width={80}
-                height={80}
-                className="h-20 w-20 invert"
-                aria-hidden
-              />
-            </div>
-          </div>
-
-          {/* Form */}
-          <form className="flex flex-col gap-5 rounded-2xl bg-white p-8 md:rounded-none md:p-12" action="/contact" method="post">
+        <div className="grid gap-8 border border-text-dark/15 md:grid-cols-2 md:gap-0 md:overflow-hidden md:rounded-2xl">
+          {/* Form — right in RTL */}
+          <form
+            className="flex flex-col gap-6 rounded-2xl bg-white p-8 md:rounded-none md:p-12"
+            action="/contact"
+            method="post"
+          >
             <div>
-              <label htmlFor="contact-name" className="mb-2 block text-right text-sm font-medium text-text-dark">
-                الاسم الكامل
+              <label htmlFor="contact-name" className={labelClass}>
+                {t.fullNameLabel}
               </label>
               <input
                 id="contact-name"
                 name="name"
                 type="text"
                 required
-                className="w-full rounded-2xl border border-bg-alt bg-white px-4 py-3 text-right text-sm text-text-dark outline-none transition-colors focus:border-accent"
-                placeholder="أدخل اسمك الكامل"
+                className={`${fieldClass} text-right`}
+                placeholder={t.fullNamePlaceholder}
               />
             </div>
             <div>
-              <label htmlFor="contact-email" className="mb-2 block text-right text-sm font-medium text-text-dark">
-                البريد الإلكتروني
+              <label htmlFor="contact-email" className={labelClass}>
+                {t.emailFieldLabel}
               </label>
               <input
                 id="contact-email"
                 name="email"
                 type="email"
                 required
-                className="w-full rounded-2xl border border-bg-alt bg-white px-4 py-3 text-right text-sm text-text-dark outline-none transition-colors focus:border-accent"
+                className={`${fieldClass} text-right`}
                 placeholder="example@email.com"
                 dir="ltr"
               />
             </div>
             <div>
-              <label htmlFor="contact-phone" className="mb-2 block text-right text-sm font-medium text-text-dark">
-                رقم الجوال
+              <label htmlFor="contact-phone" className={labelClass}>
+                {t.phoneFieldLabel}
               </label>
               <input
                 id="contact-phone"
                 name="phone"
                 type="tel"
-                className="w-full rounded-2xl border border-bg-alt bg-white px-4 py-3 text-right text-sm text-text-dark outline-none transition-colors focus:border-accent"
+                className={`${fieldClass} text-right`}
                 placeholder="05XXXXXXXX"
                 dir="ltr"
               />
             </div>
             <div>
-              <label htmlFor="contact-message" className="mb-2 block text-right text-sm font-medium text-text-dark">
-                نص الرسالة
+              <label htmlFor="contact-message" className={labelClass}>
+                {t.messageLabel}
               </label>
               <textarea
                 id="contact-message"
                 name="message"
                 rows={4}
                 required
-                className="w-full resize-none rounded-2xl border border-bg-alt bg-white px-4 py-3 text-right text-sm text-text-dark outline-none transition-colors focus:border-accent"
-                placeholder="اكتب رسالتك هنا..."
+                className={`${fieldClass} resize-none text-right`}
+                placeholder={t.messagePlaceholder}
               />
             </div>
             <button
               type="submit"
-              className="self-end rounded-full bg-primary px-10 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent"
+              className="self-start rounded-full bg-primary px-10 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent"
             >
-              إرسال الرسالة
+              {t.submitBtn}
             </button>
           </form>
+
+          {/* Info card — left in RTL */}
+          <div className="relative flex min-h-[420px] items-center overflow-hidden rounded-2xl bg-primary py-10 pe-10 ps-8 text-white md:rounded-none md:rounded-tr-[100px] md:py-14 md:pe-14 md:ps-10">
+            {/* Decorative vector — right in RTL */}
+            <div className="relative me-6 shrink-0 self-center md:me-10">
+              <Image
+                src="/images/figma/sections/Vector.png"
+                alt=""
+                width={112}
+                height={280}
+                className="h-[220px] w-auto object-contain md:h-[280px]"
+                aria-hidden
+              />
+            </div>
+
+            {/* Contact details */}
+            <div className="flex-1 text-right">
+              <h2
+                id="contact-heading"
+                className="text-[28px] font-bold leading-snug text-white md:text-[36px]"
+              >
+                {t.heading}
+              </h2>
+
+              <div className="mt-10 space-y-6">
+                {contactRows.map((row) => (
+                  <p key={row.label} className="text-base leading-8 md:text-[17px]">
+                    <span className="font-medium text-accent underline decoration-accent/60 underline-offset-4">
+                      {row.label}:
+                    </span>{" "}
+                    <span
+                      className="font-normal text-white"
+                      dir={row.ltr ? "ltr" : undefined}
+                    >
+                      {row.value}
+                    </span>
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

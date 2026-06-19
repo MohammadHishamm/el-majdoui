@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { LocalizeIcon } from "@/components/layout/header-icons";
-
-type Locale = "ar" | "en";
+import { useLocale, type Locale } from "@/lib/i18n/context";
+import { translations } from "@/lib/i18n/translations";
 
 const LOCALES: { code: Locale; label: string; short: string }[] = [
   { code: "ar", label: "العربية", short: "AR" },
@@ -23,24 +23,11 @@ function ChevronDown({ open }: { open: boolean }) {
   );
 }
 
-function applyLocale(locale: Locale) {
-  document.documentElement.lang = locale;
-  document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
-  localStorage.setItem("locale", locale);
-}
-
 export function LanguageSwitcher() {
-  const [locale, setLocale] = useState<Locale>("ar");
+  const { locale, setLocale } = useLocale();
+  const t = translations[locale].langSwitcher;
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("locale") as Locale | null;
-    if (saved === "ar" || saved === "en") {
-      setLocale(saved);
-      applyLocale(saved);
-    }
-  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -64,7 +51,6 @@ export function LanguageSwitcher() {
 
   const selectLocale = (code: Locale) => {
     setLocale(code);
-    applyLocale(code);
     setOpen(false);
   };
 
@@ -72,14 +58,14 @@ export function LanguageSwitcher() {
     <div ref={ref} className="relative hidden lg:block">
       <button
         type="button"
-        aria-label="تغيير اللغة"
+        aria-label={t.changeLanguage}
         aria-expanded={open}
         aria-haspopup="listbox"
         onClick={() => setOpen((v) => !v)}
         className="inline-flex h-9 items-center gap-1.5 rounded-full px-2.5 text-white/80 transition-colors hover:bg-white/10 hover:text-white"
       >
         <LocalizeIcon />
-        <span className="text-[13px] font-medium leading-none tracking-wide">
+        <span className=" pt-1 pl-1 text-[13px] font-medium leading-none tracking-wide">
           {current.short}
         </span>
         <ChevronDown open={open} />
@@ -88,7 +74,8 @@ export function LanguageSwitcher() {
       {open && (
         <ul
           role="listbox"
-          aria-label="اختر اللغة"
+          aria-label={t.chooseLanguage}
+
           className="absolute top-[calc(100%+6px)] inset-e-0 z-50 min-w-[148px] overflow-hidden rounded-lg border border-white/10 bg-header-bg py-1 shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
         >
           {LOCALES.map((item) => (

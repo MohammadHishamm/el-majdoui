@@ -1,81 +1,62 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { useLocale } from "@/lib/i18n/context";
+import { translations } from "@/lib/i18n/translations";
+
+type BilingualText = { ar: string; en: string };
 
 type KPI = {
   value: number;
   suffix: string;
-  label: string;
-  icon: ReactNode;
+  label: BilingualText;
+  year: string;
+  iconSrc: string;
 };
 
 const KPIS: KPI[] = [
   {
     value: 85,
     suffix: "%",
-    label: "نسبة الاستدامة",
-    icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
-        <circle cx="20" cy="20" r="16" stroke="currentColor" strokeWidth="2" />
-        <path d="M20 8v12l8 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
+    label: { ar: "نسبة الاستدامة", en: "Sustainability Rate" },
+    year: "2024",
+    iconSrc: "/images/figma/sections/stats-sixth-logo.svg",
   },
   {
     value: 3200,
     suffix: "",
-    label: "فرصة عمل",
-    icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
-        <rect x="6" y="14" width="28" height="18" rx="2" stroke="currentColor" strokeWidth="2" />
-        <path d="M14 14V11a6 6 0 0112 0v3" stroke="currentColor" strokeWidth="2" />
-      </svg>
-    ),
+    label: { ar: "فرصة عمل", en: "Job Opportunities" },
+    year: "2024",
+    iconSrc: "/images/figma/sections/stats-fifth-logo.svg",
   },
   {
     value: 15,
     suffix: "",
-    label: "شريك استراتيجي",
-    icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
-        <circle cx="14" cy="16" r="6" stroke="currentColor" strokeWidth="2" />
-        <circle cx="26" cy="16" r="6" stroke="currentColor" strokeWidth="2" />
-        <path d="M6 32c0-4.418 3.582-8 8-8s8 3.582 8 8M18 32c0-4.418 3.582-8 8-8s8 3.582 8 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
+    label: { ar: "شريك تنفيذي", en: "Executive Partners" },
+    year: "2024",
+    iconSrc: "/images/figma/sections/stats-fourth-logo.svg",
   },
   {
     value: 120,
     suffix: "",
-    label: "قرية مستفيدة",
-    icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
-        <path d="M6 34V18l14-10 14 10v16" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-        <rect x="15" y="24" width="10" height="10" stroke="currentColor" strokeWidth="2" />
-      </svg>
-    ),
+    label: { ar: "كربة مفرجة", en: "Hardships Relieved" },
+    year: "2024",
+    iconSrc: "/images/figma/sections/stats-heart-logo.svg",
   },
   {
     value: 2500,
     suffix: "",
-    label: "أسرة متعففة",
-    icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
-        <circle cx="20" cy="12" r="6" stroke="currentColor" strokeWidth="2" />
-        <path d="M8 34c0-6.627 5.373-12 12-12s12 5.373 12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      </svg>
-    ),
+    label: { ar: "أسرة مُمكّنة", en: "Empowered Families" },
+    year: "2024",
+    iconSrc: "/images/figma/sections/stats-second-logo.png",
   },
   {
     value: 45,
     suffix: "",
-    label: "مسجد نموذجي",
-    icon: (
-      <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10">
-        <path d="M20 6l12 10v18H8V16L20 6z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
-        <path d="M16 34V24a4 4 0 018 0v10" stroke="currentColor" strokeWidth="2" />
-      </svg>
-    ),
+    label: { ar: "مسجد نموذجي", en: "Model Mosques" },
+    year: "2024",
+    iconSrc: "/images/figma/sections/stats-first-logo.svg",
   },
 ];
 
@@ -110,37 +91,100 @@ function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) 
 
   return (
     <span ref={ref} className="tabular-nums">
-      {count.toLocaleString("ar-SA")}
+      {count.toLocaleString("en-US")}
       {suffix}
     </span>
   );
 }
 
 export function ImpactKPIs() {
+  const { locale } = useLocale();
+  const t = translations[locale].kpis;
+
   return (
     <section
-      className="bg-primary py-16 md:py-24"
+      className="relative overflow-hidden bg-primary pt-16 pb-8 md:pt-24 md:pb-10"
       data-nav-surface="solid"
       aria-labelledby="kpis-heading"
     >
-      <div className="mx-auto w-full max-w-[1280px] px-6">
+      <div
+        className="pointer-events-none absolute inset-y-0 right-[-250px] top-[-30px] h-[70%] w-1/2"
+        style={{ opacity: 0.3 }}
+        aria-hidden
+      >
+        <Image
+          src="/images/figma/sections/stats-right.png"
+          alt=""
+          fill
+          className="-scale-x-100 object-contain object-center"
+          sizes="320px"
+        />
+      </div>
+
+      <div
+        className="pointer-events-none absolute inset-y-0 left-[-75px] top-[-30px] h-[70%] w-1/2"
+        style={{ opacity: 0.3 }}
+        aria-hidden
+      >
+        <Image
+          src="/images/figma/sections/stats-left.png"
+          alt=""
+          fill
+          className="object-contain object-left"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto w-full max-w-[1280px] px-6">
         <div className="mb-14 text-center">
           <h2 id="kpis-heading" className="text-3xl font-bold text-white md:text-4xl">
-            أرقام الأثر
+            {t.heading}
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-base text-white/70">
-            إنجازاتنا في أرقام تعكس التزامنا بخدمة المجتمع
+            {t.subheading}
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-6">
-          {KPIS.map((kpi, i) => (
-            <div key={i} className="flex flex-col items-center text-center text-white">
-              <div className="mb-4 text-white/80">{kpi.icon}</div>
-              <p className="text-3xl font-black md:text-4xl">
-                <AnimatedNumber target={kpi.value} suffix={kpi.suffix} />
+        <div
+          className="grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 lg:grid-cols-6 lg:gap-x-2"
+          dir="ltr"
+        >
+          {KPIS.map((kpi) => (
+            <div key={kpi.label.ar} className="flex flex-col items-center text-center text-white">
+              <div className="mb-4 flex h-[32px] w-[32px] items-center justify-center">
+                <Image
+                  src={kpi.iconSrc}
+                  alt=""
+                  width={32}
+                  height={32}
+                  className="h-[32px] w-[32px] object-contain"
+                  aria-hidden
+                />
+              </div>
+
+              <div
+                className="flex items-center justify-center"
+                style={{ minWidth: 86, height: 40, marginTop: -5.08 }}
+              >
+                <p
+                  className="font-bold tabular-nums text-white"
+                  style={{
+                    fontSize: 36,
+                    lineHeight: "40px",
+                    letterSpacing: 0,
+                  }}
+                >
+                  <AnimatedNumber target={kpi.value} suffix={kpi.suffix} />
+                </p>
+              </div>
+
+              <p
+                className="mt-4 text-base font-normal leading-6 text-white"
+                dir="rtl"
+              >
+                {kpi.label[locale]}
               </p>
-              <p className="mt-2 text-sm text-white/70">{kpi.label}</p>
+              <p className="mt-1 text-sm font-normal leading-5 text-white/70">{kpi.year}</p>
             </div>
           ))}
         </div>

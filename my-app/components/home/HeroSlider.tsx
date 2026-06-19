@@ -3,36 +3,43 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { useLocale } from "@/lib/i18n/context";
+import { translations } from "@/lib/i18n/translations";
 
 type Slide = {
   id: string;
   image: string;
-  title: string;
+  title: { ar: string; en: string };
   href: string;
-  cta: string;
 };
 
 const SLIDES: Slide[] = [
   {
     id: "3",
     image: "/images/slide-show03.png",
-    title: "إطلاق برنامج كفالة الأيتام في المنطقة الشرقية",
+    title: {
+      ar: "إطلاق برنامج كفالة الأيتام في المنطقة الشرقية",
+      en: "Launching the Orphan Sponsorship Program in the Eastern Province",
+    },
     href: "/programs",
-    cta: "اقرأ المزيد",
   },
   {
     id: "1",
     image: "/images/hero-slide-1.png",
-    title: "شراكة استراتيجية مع 15 جهة تنفيذية لتحقيق أثر مستدام",
+    title: {
+      ar: "شراكة استراتيجية مع 15 جهة تنفيذية لتحقيق أثر مستدام",
+      en: "Strategic Partnership with 15 Implementing Entities for Sustainable Impact",
+    },
     href: "/programs",
-    cta: "اقرأ المزيد",
   },
   {
     id: "2",
     image: "/images/hero-slide-2.png",
-    title: "حفل تكريم الشركاء وداعمي مؤسسة المجدوعي الخيرية",
+    title: {
+      ar: "حفل تكريم الشركاء وداعمي مؤسسة المجدوعي الخيرية",
+      en: "Almajdouie Foundation Partners & Supporters Appreciation Ceremony",
+    },
     href: "/news",
-    cta: "اقرأ المزيد",
   },
 ];
 
@@ -53,6 +60,8 @@ function ArrowLeft() {
 export function HeroSlider() {
   const [active, setActive] = useState(0);
   const [autoplayKey, setAutoplayKey] = useState(0);
+  const { locale } = useLocale();
+  const t = translations[locale].hero;
 
   const goToSlide = useCallback((index: number) => {
     setActive(index);
@@ -81,7 +90,7 @@ export function HeroSlider() {
     <section
       className="relative -mt-28 -mb-px h-[652px] w-full overflow-hidden md:h-[752px]"
       data-nav-surface="dark"
-      aria-label="أبرز الأخبار والمبادرات"
+      aria-label={t.sectionLabel}
     >
       {SLIDES.map((slide, i) => (
         <div
@@ -122,14 +131,14 @@ export function HeroSlider() {
         <div className="mx-auto w-full max-w-[1280px] px-6">
           <div className="ms-auto max-w-[580px] text-right">
             <h1 className="text-[30px] font-bold leading-[1.45] text-white md:text-[42px] lg:text-[52px] lg:leading-[1.35]">
-              {SLIDES[active].title}
+              {SLIDES[active].title[locale]}
             </h1>
 
             <Link
               href={SLIDES[active].href}
               className="mt-8 inline-flex items-center gap-2.5 rounded-[20px] bg-white px-8 py-3.5 text-[15px] font-medium text-[#0a1f2d] transition-all hover:bg-accent hover:text-white"
             >
-              {SLIDES[active].cta}
+              {t.readMore}
               <ArrowLeft />
             </Link>
           </div>
@@ -140,7 +149,7 @@ export function HeroSlider() {
         type="button"
         onClick={prev}
         className="absolute inset-e-4 top-1/2 z-20 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/15 text-white backdrop-blur-sm transition-colors hover:bg-white/30"
-        aria-label="الشريحة السابقة"
+        aria-label={t.prevSlide}
       >
         <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
           <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd" />
@@ -151,7 +160,7 @@ export function HeroSlider() {
         type="button"
         onClick={next}
         className="absolute inset-s-4 top-1/2 z-20 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/15 text-white backdrop-blur-sm transition-colors hover:bg-white/30"
-        aria-label="الشريحة التالية"
+        aria-label={t.nextSlide}
       >
         <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
           <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
@@ -164,7 +173,7 @@ export function HeroSlider() {
             key={i}
             type="button"
             onClick={() => goToSlide(i)}
-            aria-label={`الانتقال إلى الشريحة ${i + 1}`}
+            aria-label={`${t.goToSlide} ${i + 1}`}
             className={`rounded-full transition-all duration-300 ${
               i === active
                 ? "h-[6px] w-9 bg-white"

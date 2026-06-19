@@ -4,10 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
-import { MoonIcon, SearchIcon, LocalizeIcon } from "@/components/layout/header-icons";
+import { MoonIcon, SearchIcon } from "@/components/layout/header-icons";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { HEADER_SOLID_BG, useHeaderOverLight } from "@/components/layout/use-header-surface";
 import { mainNavigation, siteConfig } from "@/lib/site/config";
+import { useLocale } from "@/lib/i18n/context";
+import { translations } from "@/lib/i18n/translations";
 
 function ChevronDown({ open }: { open: boolean }) {
   return (
@@ -39,6 +41,8 @@ export function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const overLight = useHeaderOverLight(headerRef);
   const solidHeader = overLight || openMenu !== null;
+  const { locale } = useLocale();
+  const t = translations[locale].header;
 
   const navItemClass = (active = false) =>
     `relative z-10 flex items-center gap-1 px-3 py-2 text-[16px] font-medium transition-colors ${
@@ -91,7 +95,7 @@ export function Header() {
 
           <nav
             className="hidden h-full flex-1 items-stretch justify-center gap-1 lg:flex"
-            aria-label="القائمة الرئيسية"
+            aria-label={t.mainNavLabel}
           >
             {mainNavigation.map((item) => {
               const isOpen = openMenu === item.href;
@@ -110,7 +114,7 @@ export function Header() {
                       aria-haspopup="true"
                       className={navItemClass(isOpen)}
                     >
-                      {item.label}
+                      {locale === "en" ? (item.labelEn ?? item.label) : item.label}
                       <ChevronDown open={isOpen} />
                     </button>
                   ) : (
@@ -119,7 +123,7 @@ export function Header() {
                       onClick={() => setOpenMenu(null)}
                       className={navItemClass()}
                     >
-                      {item.label}
+                      {locale === "en" ? (item.labelEn ?? item.label) : item.label}
                     </Link>
                   )}
 
@@ -136,7 +140,7 @@ export function Header() {
                       <div style={{ paddingTop: HEADER_H }}>
                         <div className="mx-auto max-w-[1280px] px-6 pt-5 pb-7">
                           <p className="text-right text-[18px] font-bold text-white">
-                            {item.label}
+                            {locale === "en" ? (item.labelEn ?? item.label) : item.label}
                           </p>
                           <div className="my-4 h-px w-full bg-white/20" />
                           <div className="flex justify-start">
@@ -148,7 +152,7 @@ export function Header() {
                                   onClick={() => setOpenMenu(null)}
                                   className="block py-[9px] text-right text-[15px] text-white/80 transition-colors hover:text-accent"
                                 >
-                                  {child.label}
+                                  {locale === "en" ? (child.labelEn ?? child.label) : child.label}
                                 </Link>
                               ))}
                             </div>
@@ -169,25 +173,19 @@ export function Header() {
           <div className="relative z-10 flex items-center gap-0.5" dir="ltr">
             <button
               type="button"
-              aria-label="بحث"
+              aria-label={t.searchLabel}
               className="hidden h-9 w-9 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white lg:inline-flex"
             >
               <SearchIcon />
             </button>
             <button
               type="button"
-              aria-label="تبديل الوضع الليلي"
+              aria-label={t.darkModeLabel}
               className="hidden h-9 w-9 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white lg:inline-flex"
             >
               <MoonIcon />
             </button>
-            <button
-              type="button"
-              aria-label="تبديل اللغة"
-              className="hidden h-9 w-9 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white lg:inline-flex"
-            >
-              <LocalizeIcon />
-            </button>
+            <LanguageSwitcher />
             <MobileNav />
           </div>
 

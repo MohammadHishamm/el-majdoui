@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { siteConfig } from "@/lib/site/config";
+import { LocaleProvider } from "@/lib/i18n/context";
 import "./globals.css";
 
 const itfRayat = localFont({
@@ -41,7 +42,7 @@ export default function RootLayout({
       className={`${itfRayat.variable} h-full antialiased`}
     >
       <body className={`${itfRayat.className} flex min-h-full flex-col font-sans`}>
-        {children}
+        <LocaleProvider>{children}</LocaleProvider>
       </body>
     </html>
   );

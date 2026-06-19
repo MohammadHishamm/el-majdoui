@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { siteConfig, footerNavigation } from "@/lib/site/config";
+import { useLocale } from "@/lib/i18n/context";
+import { translations } from "@/lib/i18n/translations";
 
 function FooterColumn({
   title,
@@ -76,16 +80,47 @@ const SOCIAL = [
   },
 ];
 
+const QUICK_LINK_HREFS = ["/about", "/programs", "/media-center", "/careers"];
+
 export function Footer() {
   const year = new Date().getFullYear();
+  const { locale } = useLocale();
+  const t = translations[locale].footer;
+
+  const quickLinks = QUICK_LINK_HREFS.map((href, i) => ({
+    label: t.quickLinkLabels[i],
+    href,
+  }));
+
+  const focusLinks = footerNavigation.focus.map((link) => ({
+    label: locale === "en" ? (link.labelEn ?? link.label) : link.label,
+    href: link.href,
+  }));
 
   return (
     <footer className="mt-auto bg-footer-bg text-white">
       <div className="mx-auto w-full max-w-[1280px] px-6 py-14 md:py-16">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          {/* Contact */}
+        {/* Figma column order (RTL: first = rightmost): Brand → Quick Links → Focus Areas → Contact */}
+        <div className="grid items-start gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          {/* Brand — rightmost in RTL */}
           <div className="text-right">
-            <h2 className="mb-4 text-sm font-bold">تواصل معنا</h2>
+            <Image
+              src="/images/logo.png"
+              alt={siteConfig.name}
+              width={240}
+              height={96}
+              className="-mt-4 mb-1 block h-auto w-[200px] md:w-[240px]"
+            />
+            <p className="text-sm leading-7 text-white/75">{t.siteDescription}</p>
+          </div>
+
+          <FooterColumn title={t.quickLinks} links={quickLinks} />
+
+          <FooterColumn title={t.focusAreas} links={focusLinks} />
+
+          {/* Contact — leftmost in RTL */}
+          <div className="text-right">
+            <h2 className="mb-4 text-sm font-bold">{t.contactUs}</h2>
             <ul className="space-y-3 text-sm text-white/75">
               <li className="flex items-center justify-end gap-2">
                 {siteConfig.contact.phone}
@@ -101,44 +136,17 @@ export function Footer() {
                 </svg>
               </li>
               <li className="flex items-center justify-end gap-2">
-                {siteConfig.contact.address}
+                {locale === "en" ? siteConfig.contact.addressEn : siteConfig.contact.address}
                 <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 shrink-0 text-accent" aria-hidden>
                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
               </li>
             </ul>
           </div>
-
-          <FooterColumn title="مجالات العمل" links={footerNavigation.focus} />
-
-          <FooterColumn
-            title="روابط سريعة"
-            links={[
-              { label: "عن المؤسسة", href: "/about" },
-              { label: "البرامج والمبادرات", href: "/programs" },
-              { label: "المركز الإعلامي", href: "/media-center" },
-              { label: "التوظيف", href: "/careers" },
-            ]}
-          />
-
-          {/* Brand */}
-          <div className="text-right">
-            <Image
-              src="/images/logo.png"
-              alt={siteConfig.name}
-              width={120}
-              height={48}
-              className="mb-4 h-12 w-auto brightness-0 invert"
-            />
-            <p className="text-sm leading-7 text-white/75">{siteConfig.description}</p>
-          </div>
         </div>
 
+        {/* Bottom bar: social icons RIGHT, copyright LEFT (RTL: social first in DOM) */}
         <div className="mt-12 flex flex-col gap-6 border-t border-white/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-white/60">
-            © {year} {siteConfig.fullName}. جميع الحقوق محفوظة.
-          </p>
-
           <div className="flex gap-3">
             {SOCIAL.map((s) => (
               <a
@@ -153,6 +161,10 @@ export function Footer() {
               </a>
             ))}
           </div>
+
+          <p className="text-sm text-white/60">
+            © {year} {siteConfig.fullName}. {t.allRights}.
+          </p>
         </div>
       </div>
     </footer>

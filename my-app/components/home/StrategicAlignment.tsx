@@ -1,28 +1,35 @@
 "use client";
 
 import { useState, type ReactNode } from "react";
+import { useLocale } from "@/lib/i18n/context";
+import { translations } from "@/lib/i18n/translations";
+
+type BilingualText = { ar: string; en: string };
 
 type AlignmentCard = {
-  name: string;
-  nationalText: string;
+  name: BilingualText;
+  nationalText: BilingualText;
   sdgColors: string[];
   icon: ReactNode;
 };
 
 type Tab = {
   id: string;
-  label: string;
+  label: BilingualText;
   cards: AlignmentCard[];
 };
 
 const TABS: Tab[] = [
   {
     id: "empowerment",
-    label: "تمكين المحتاج",
+    label: { ar: "تمكين المحتاج", en: "Empowering the Needy" },
     cards: [
       {
-        name: "تضمين",
-        nationalText: "تمكين اقتصادي مستدام — برنامج تنمية القدرات البشرية",
+        name: { ar: "تضمين", en: "Tadmeen" },
+        nationalText: {
+          ar: "تمكين اقتصادي مستدام — برنامج تنمية القدرات البشرية",
+          en: "Sustainable Economic Empowerment — Human Capacity Development Program",
+        },
         sdgColors: ["#E5243B", "#C5192D", "#DDA63A"],
         icon: (
           <svg viewBox="0 0 32 32" fill="none" className="h-8 w-8 text-primary">
@@ -32,8 +39,11 @@ const TABS: Tab[] = [
         ),
       },
       {
-        name: "تفريج كربة",
-        nationalText: "حماية الاحتياجات شاملة — برنامج التحول الوطني",
+        name: { ar: "تفريج كربة", en: "Relief of Hardship" },
+        nationalText: {
+          ar: "حماية الاحتياجات شاملة — برنامج التحول الوطني",
+          en: "Comprehensive Needs Protection — National Transformation Program",
+        },
         sdgColors: ["#E5243B", "#C5192D"],
         icon: (
           <svg viewBox="0 0 32 32" fill="none" className="h-8 w-8 text-primary">
@@ -42,8 +52,11 @@ const TABS: Tab[] = [
         ),
       },
       {
-        name: "استجابة",
-        nationalText: "الاستجابة السريعة والفعالة — برنامج جودة الحياة",
+        name: { ar: "استجابة", en: "Response" },
+        nationalText: {
+          ar: "الاستجابة السريعة والفعالة — برنامج جودة الحياة",
+          en: "Fast and Effective Response — Quality of Life Program",
+        },
         sdgColors: ["#E5243B", "#3F7E44", "#C5192D"],
         icon: (
           <svg viewBox="0 0 32 32" fill="none" className="h-8 w-8 text-primary">
@@ -56,11 +69,14 @@ const TABS: Tab[] = [
   },
   {
     id: "mosques",
-    label: "مساجد المجدوعي",
+    label: { ar: "مساجد المجدوعي", en: "Almajdouie Mosques" },
     cards: [
       {
-        name: "عمارة",
-        nationalText: "تعزيز القيم الإسلامية — برنامج جودة الحياة",
+        name: { ar: "عمارة", en: "Construction" },
+        nationalText: {
+          ar: "تعزيز القيم الإسلامية — برنامج جودة الحياة",
+          en: "Promoting Islamic Values — Quality of Life Program",
+        },
         sdgColors: ["#4C9F38", "#3F7E44"],
         icon: (
           <svg viewBox="0 0 32 32" fill="none" className="h-8 w-8 text-primary">
@@ -69,8 +85,11 @@ const TABS: Tab[] = [
         ),
       },
       {
-        name: "منارة",
-        nationalText: "تمكين اقتصادي مستدام — برنامج تنمية القدرات البشرية",
+        name: { ar: "منارة", en: "Beacon" },
+        nationalText: {
+          ar: "تمكين اقتصادي مستدام — برنامج تنمية القدرات البشرية",
+          en: "Sustainable Economic Empowerment — Human Capacity Development Program",
+        },
         sdgColors: ["#E5243B", "#DDA63A"],
         icon: (
           <svg viewBox="0 0 32 32" fill="none" className="h-8 w-8 text-primary">
@@ -82,11 +101,14 @@ const TABS: Tab[] = [
   },
   {
     id: "partners",
-    label: "شركاء التنفيذ",
+    label: { ar: "شركاء التنفيذ", en: "Implementation Partners" },
     cards: [
       {
-        name: "تطوير",
-        nationalText: "شراكات فاعلة — برنامج التحول الوطني",
+        name: { ar: "تطوير", en: "Development" },
+        nationalText: {
+          ar: "شراكات فاعلة — برنامج التحول الوطني",
+          en: "Effective Partnerships — National Transformation Program",
+        },
         sdgColors: ["#19486A", "#0A97D9"],
         icon: (
           <svg viewBox="0 0 32 32" fill="none" className="h-8 w-8 text-primary">
@@ -100,11 +122,14 @@ const TABS: Tab[] = [
   },
   {
     id: "internal",
-    label: "ممكنات داخلية",
+    label: { ar: "ممكنات داخلية", en: "Internal Enablers" },
     cards: [
       {
-        name: "حوكمة",
-        nationalText: "شفافية ومساءلة — برنامج التحول الوطني",
+        name: { ar: "حوكمة", en: "Governance" },
+        nationalText: {
+          ar: "شفافية ومساءلة — برنامج التحول الوطني",
+          en: "Transparency and Accountability — National Transformation Program",
+        },
         sdgColors: ["#19486A"],
         icon: (
           <svg viewBox="0 0 32 32" fill="none" className="h-8 w-8 text-primary">
@@ -137,14 +162,14 @@ const SDG_MAP: Record<string, number> = {
   "#19486A": 17,
 };
 
-function SdgBadge({ color }: { color: string }) {
+function SdgBadge({ color, sdgGoalLabel }: { color: string; sdgGoalLabel: string }) {
   const goal = SDG_MAP[color.toUpperCase()] ?? SDG_MAP[color];
   return (
     <span
       className="inline-flex h-11 w-11 flex-col items-center justify-center rounded-lg text-white"
       style={{ backgroundColor: color }}
       title={goal ? `SDG ${goal}` : undefined}
-      aria-label={goal ? `هدف التنمية المستدامة ${goal}` : undefined}
+      aria-label={goal ? `${sdgGoalLabel} ${goal}` : undefined}
     >
       <span className="text-[9px] font-bold leading-none opacity-80">SDG</span>
       <span className="text-base font-black leading-tight">{goal ?? "?"}</span>
@@ -154,7 +179,10 @@ function SdgBadge({ color }: { color: string }) {
 
 export function StrategicAlignment() {
   const [activeTab, setActiveTab] = useState("empowerment");
-  const tab = TABS.find((t) => t.id === activeTab) ?? TABS[0];
+  const { locale } = useLocale();
+  const t = translations[locale].strategic;
+
+  const tab = TABS.find((tb) => tb.id === activeTab) ?? TABS[0];
 
   return (
     <section
@@ -168,28 +196,27 @@ export function StrategicAlignment() {
             id="alignment-heading"
             className="text-3xl font-bold text-text-dark md:text-4xl"
           >
-            المواءمة الاستراتيجية للأعمال
+            {t.heading}
           </h2>
           <p className="mx-auto mt-3 max-w-3xl text-base leading-8 text-text-light">
-            مواءمة مبادراتنا ومشاريعنا الداخلية ببرامج رؤية المملكة ٢٠٣٠ وأهداف التنمية المستدامة
-            العالمية
+            {t.subheading}
           </p>
         </div>
 
         {/* Tab pills */}
         <div className="mb-8 flex flex-wrap justify-center gap-3">
-          {TABS.map((t) => (
+          {TABS.map((tb) => (
             <button
-              key={t.id}
+              key={tb.id}
               type="button"
-              onClick={() => setActiveTab(t.id)}
+              onClick={() => setActiveTab(tb.id)}
               className={`rounded-full px-6 py-2.5 text-sm font-semibold transition-colors ${
-                activeTab === t.id
+                activeTab === tb.id
                   ? "bg-primary text-white"
                   : "bg-white text-text-dark ring-1 ring-bg-alt hover:bg-bg-alt"
               }`}
             >
-              {t.label}
+              {tb.label[locale]}
             </button>
           ))}
         </div>
@@ -198,7 +225,7 @@ export function StrategicAlignment() {
         <div className="flex flex-col gap-4">
           {tab.cards.map((card) => (
             <div
-              key={card.name}
+              key={card.name.ar}
               className="flex flex-col gap-6 rounded-2xl bg-white p-6 ring-1 ring-bg-alt md:flex-row md:items-center md:gap-8 md:p-8"
             >
               {/* Initiative icon + name */}
@@ -206,7 +233,7 @@ export function StrategicAlignment() {
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-bg-alt">
                   {card.icon}
                 </div>
-                <span className="text-sm font-bold text-primary">{card.name}</span>
+                <span className="text-sm font-bold text-primary">{card.name[locale]}</span>
               </div>
 
               {/* National alignment */}
@@ -215,17 +242,17 @@ export function StrategicAlignment() {
                   <span className="text-xs font-bold text-primary">٢٠٣٠</span>
                 </div>
                 <div>
-                  <p className="text-xs font-semibold text-text-muted">المواءمة الوطنية:</p>
-                  <p className="mt-1 text-sm leading-7 text-text-dark">{card.nationalText}</p>
+                  <p className="text-xs font-semibold text-text-muted">{t.nationalAlignment}</p>
+                  <p className="mt-1 text-sm leading-7 text-text-dark">{card.nationalText[locale]}</p>
                 </div>
               </div>
 
               {/* SDGs */}
               <div className="shrink-0 text-right md:w-48">
-                <p className="mb-3 text-xs font-semibold text-text-muted">أهداف التنمية المستدامة</p>
+                <p className="mb-3 text-xs font-semibold text-text-muted">{t.sdgLabel}</p>
                 <div className="flex gap-2 justify-end">
                   {card.sdgColors.map((color, i) => (
-                    <SdgBadge key={i} color={color} />
+                    <SdgBadge key={i} color={color} sdgGoalLabel={t.sdgGoalLabel} />
                   ))}
                 </div>
               </div>

@@ -5,12 +5,15 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { NavItem } from "@/lib/site/config";
 import { mainNavigation, siteConfig } from "@/lib/site/config";
+import { useLocale } from "@/lib/i18n/context";
 
 function NavLink({
   item,
+  locale,
   onNavigate,
 }: {
   item: NavItem;
+  locale: "ar" | "en";
   onNavigate?: () => void;
 }) {
   const pathname = usePathname();
@@ -18,6 +21,8 @@ function NavLink({
     item.href === "/"
       ? pathname === "/"
       : pathname === item.href || pathname.startsWith(`${item.href}/`);
+
+  const label = locale === "en" ? (item.labelEn ?? item.label) : item.label;
 
   const className = `block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
     isActive
@@ -34,14 +39,14 @@ function NavLink({
         className={className}
         onClick={onNavigate}
       >
-        {item.label}
+        {label}
       </a>
     );
   }
 
   return (
     <Link href={item.href} className={className} onClick={onNavigate}>
-      {item.label}
+      {label}
     </Link>
   );
 }
@@ -49,6 +54,12 @@ function NavLink({
 export function MobileNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const { locale } = useLocale();
+
+  const openLabel = locale === "en" ? "Close menu" : "إغلاق القائمة";
+  const closeLabel = locale === "en" ? "Open menu" : "فتح القائمة";
+  const siteLabel = locale === "en" ? siteConfig.nameEn : siteConfig.name;
+  const grantLabel = locale === "en" ? "Grants Portal" : siteConfig.grantPortalLabel;
 
   useEffect(() => {
     setOpen(false);
@@ -68,10 +79,10 @@ export function MobileNav() {
         className="inline-flex items-center justify-center rounded-lg p-2 text-white hover:bg-white/10 lg:hidden"
         aria-expanded={open}
         aria-controls="mobile-nav-panel"
-        aria-label={open ? "إغلاق القائمة" : "فتح القائمة"}
+        aria-label={open ? openLabel : closeLabel}
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="sr-only">{open ? "إغلاق" : "القائمة"}</span>
+        <span className="sr-only">{open ? (locale === "en" ? "Close" : "إغلاق") : (locale === "en" ? "Menu" : "القائمة")}</span>
         <svg
           className="h-6 w-6"
           fill="none"
@@ -97,16 +108,16 @@ export function MobileNav() {
           <button
             type="button"
             className="absolute inset-0 bg-black/50"
-            aria-label="إغلاق القائمة"
+            aria-label={openLabel}
             onClick={() => setOpen(false)}
           />
           <div className="absolute inset-y-0 start-0 w-full max-w-sm bg-header-bg shadow-xl">
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-4">
-              <span className="font-bold text-white">{siteConfig.name}</span>
+              <span className="font-bold text-white">{siteLabel}</span>
               <button
                 type="button"
                 className="rounded-lg p-2 text-white hover:bg-white/10"
-                aria-label="إغلاق"
+                aria-label={openLabel}
                 onClick={() => setOpen(false)}
               >
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -117,13 +128,14 @@ export function MobileNav() {
             <nav className="flex max-h-[calc(100vh-4rem)] flex-col gap-1 overflow-y-auto p-4">
               {mainNavigation.map((item) => (
                 <div key={item.href}>
-                  <NavLink item={item} onNavigate={() => setOpen(false)} />
+                  <NavLink item={item} locale={locale} onNavigate={() => setOpen(false)} />
                   {item.children && (
                     <div className="me-3 mt-1 space-y-1 border-s border-white/10 ps-3">
                       {item.children.map((child) => (
                         <NavLink
                           key={child.href}
                           item={child}
+                          locale={locale}
                           onNavigate={() => setOpen(false)}
                         />
                       ))}
@@ -138,7 +150,7 @@ export function MobileNav() {
                 className="mt-4 block rounded-lg bg-accent px-4 py-3 text-center text-sm font-bold text-white"
                 onClick={() => setOpen(false)}
               >
-                {siteConfig.grantPortalLabel}
+                {grantLabel}
               </a>
             </nav>
           </div>

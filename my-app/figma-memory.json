@@ -60,7 +60,8 @@
       "navSurface": "light",
       "title": "المجالات والمبادرات",
       "layout": "horizontal accordion — 1 expanded + 2 collapsed vertical panels",
-      "interaction": "click panel to expand, click initiative to navigate",
+      "container": "1232×760px, rounded-bl-[50px]",
+      "interaction": "click panel to expand; click initiative to reveal path sub-cards (no page nav); path detail links only on تفاصيل المسار",
       "instruction": "اضغط على المجال لاستكشاف مبادراته، ثم اضغط على المبادرة لعرض المسارات"
     },
     {

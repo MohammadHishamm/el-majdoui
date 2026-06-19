@@ -1,7 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useLocale } from "@/lib/i18n/context";
+import { translations } from "@/lib/i18n/translations";
 
 export function AboutBlock() {
+  const { locale } = useLocale();
+  const t = translations[locale].about;
+
   return (
     <section
       className="relative overflow-hidden bg-bg-light py-20 md:py-28"
@@ -30,8 +37,7 @@ export function AboutBlock() {
       </div>
 
       {/* Physical LEFT — about-left.png */}
-    {/* Physical LEFT — about-left.png */}
-    <div
+      <div
         className="pointer-events-none absolute inset-y-0 left-[-75px] top-[-30px] w-1/2 h-[70%]"
         style={{ opacity: 0.3 }}
         aria-hidden
@@ -51,16 +57,14 @@ export function AboutBlock() {
           className="text-[40px] leading-[1.35] text-primary md:text-[44px]"
           style={{ fontWeight: 500 }}
         >
-          تمكين لأثر مستدام
+          {t.heading}
         </h2>
 
         <p
           className="mx-auto mt-6 max-w-[800px] text-[18px] leading-[1.85] md:text-[19px]"
           style={{ color: "#4A5565" }}
         >
-          المجدوعي الخيرية مؤسسة مانحة تُسهم في تحسين جودة الحياة الاقتصادية
-          للمحتاج والعناية بمساجد المجدوعي، من خلال حلول مبتكرة وشراكات فاعلة
-          ومنح ميسّر.
+          {t.body}
         </p>
 
         <Link
@@ -68,7 +72,7 @@ export function AboutBlock() {
           className="mt-10 inline-flex items-center gap-2.5 rounded-full border border-text-dark px-8 py-3 text-[16px] text-text-dark transition-all hover:border-primary hover:bg-primary hover:text-white"
           style={{ fontWeight: 500 }}
         >
-          المزيد عن المؤسسة
+          {t.cta}
           <svg viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4" aria-hidden>
             <path
               fillRule="evenodd"

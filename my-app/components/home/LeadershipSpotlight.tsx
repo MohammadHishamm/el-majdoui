@@ -5,13 +5,6 @@ import { useLocale } from "@/lib/i18n/context";
 import { translations } from "@/lib/i18n/translations";
 
 const PORTRAIT_WIDTH = 506;
-const PORTRAIT_HEIGHT = 467;
-
-const DECO_BOX_SIZE = 182;
-const DECO_BOX_PADDING = 13;
-const DECO_BOX_RADIUS_BL = 30;
-const DECO_BOX_LEFT = -91;
-const DECO_BOX_TOP = 352;
 
 const TEXT_WIDTH = 592.02;
 const QUOTE_HEIGHT = 116.96;
@@ -33,40 +26,25 @@ export function LeadershipSpotlight() {
         <div className="flex flex-col items-center gap-12 lg:flex-row lg:items-start lg:justify-between">
           {/* Portrait — right in RTL */}
           <div
-            className="relative shrink-0 overflow-visible pb-[67px]"
+            className="relative w-full shrink-0 overflow-visible pb-10 max-lg:max-w-[min(100%,380px)] lg:pb-[67px]"
             style={{
               width: PORTRAIT_WIDTH,
               maxWidth: "100%",
             }}
           >
-            <div
-              className="relative overflow-hidden rounded-tr-[75px]"
-              style={{
-                width: PORTRAIT_WIDTH,
-                height: PORTRAIT_HEIGHT,
-                maxWidth: "100%",
-              }}
-            >
+            <div className="relative aspect-[506/467] w-full overflow-hidden rounded-tr-[75px] max-lg:max-w-full lg:h-[467px] lg:w-[506px] lg:aspect-auto">
               <Image
                 src="/images/figma/sections/leadership.jpg"
                 alt={t.imageAlt}
                 fill
                 className="object-cover object-top"
-                sizes={`${PORTRAIT_WIDTH}px`}
+                sizes="(max-width: 1024px) 90vw, 506px"
                 priority
               />
             </div>
 
             <div
-              className="absolute flex items-center justify-center bg-primary shadow-lg"
-              style={{
-                width: DECO_BOX_SIZE,
-                height: DECO_BOX_SIZE,
-                padding: DECO_BOX_PADDING,
-                borderBottomLeftRadius: DECO_BOX_RADIUS_BL,
-                left: DECO_BOX_LEFT,
-                top: DECO_BOX_TOP,
-              }}
+              className="absolute bottom-0 left-0 z-10 flex h-[100px] w-[100px] items-center justify-center rounded-bl-[22px] bg-primary p-2 shadow-lg max-lg:translate-x-2 lg:bottom-auto lg:left-[-91px] lg:top-[352px] lg:h-[182px] lg:w-[182px] lg:translate-x-0 lg:rounded-bl-[30px] lg:p-[13px]"
               aria-hidden
             >
               <Image

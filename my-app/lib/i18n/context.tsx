@@ -21,6 +21,8 @@ export function LocaleProvider({ children }: { children: ReactNode }) {
     const saved = localStorage.getItem("locale") as Locale | null;
     if (saved === "ar" || saved === "en") {
       setLocaleState(saved);
+      document.documentElement.lang = saved;
+      document.documentElement.dir = saved === "ar" ? "rtl" : "ltr";
     }
   }, []);
 

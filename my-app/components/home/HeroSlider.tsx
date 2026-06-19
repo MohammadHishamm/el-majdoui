@@ -47,10 +47,22 @@ const AUTO_PLAY_MS = 5000;
 
 function ArrowLeft() {
   return (
-    <svg viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4" aria-hidden>
+    <svg viewBox="0 0 16 16" fill="currentColor" className="block h-4 w-4 shrink-0" aria-hidden>
       <path
         fillRule="evenodd"
         d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+function ArrowRight() {
+  return (
+    <svg viewBox="0 0 16 16" fill="currentColor" className="block h-4 w-4 shrink-0" aria-hidden>
+      <path
+        fillRule="evenodd"
+        d="M1 8a.5.5 0 0 1 .5-.5h11.793L10.146 4.854a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
         clipRule="evenodd"
       />
     </svg>
@@ -62,6 +74,7 @@ export function HeroSlider() {
   const [autoplayKey, setAutoplayKey] = useState(0);
   const { locale } = useLocale();
   const t = translations[locale].hero;
+  const isArabic = locale === "ar";
 
   const goToSlide = useCallback((index: number) => {
     setActive(index);
@@ -126,20 +139,23 @@ export function HeroSlider() {
         </div>
       ))}
 
-      {/* Content — right side, natural RTL alignment (matches Figma) */}
+      {/* Content — right in Arabic, left in English (layout locked per locale) */}
       <div className="relative z-10 flex h-full items-center pt-28">
         <div className="mx-auto w-full max-w-[1280px] px-6">
-          <div className="ms-auto max-w-[580px] text-right">
+          <div
+            className={`max-w-[580px] ${isArabic ? "ms-auto text-right" : "text-left"}`}
+            dir={isArabic ? "rtl" : "ltr"}
+          >
             <h1 className="text-[30px] font-bold leading-[1.45] text-white md:text-[42px] lg:text-[52px] lg:leading-[1.35]">
               {SLIDES[active].title[locale]}
             </h1>
 
             <Link
               href={SLIDES[active].href}
-              className="mt-8 inline-flex items-center gap-2.5 rounded-[20px] bg-white px-8 py-3.5 text-[15px] font-medium text-[#0a1f2d] transition-all hover:bg-accent hover:text-white"
+              className="mt-8 inline-flex items-center gap-2 rounded-[20px] bg-white px-8 py-3.5 text-[15px] font-medium leading-none text-[#0a1f2d] transition-all hover:bg-accent hover:text-white"
             >
-              {t.readMore}
-              <ArrowLeft />
+              <span>{t.readMore}</span>
+              {isArabic ? <ArrowLeft /> : <ArrowRight />}
             </Link>
           </div>
         </div>
@@ -148,7 +164,7 @@ export function HeroSlider() {
       <button
         type="button"
         onClick={prev}
-        className="absolute inset-e-4 top-1/2 z-20 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/15 text-white backdrop-blur-sm transition-colors hover:bg-white/30"
+        className="absolute inset-e-4 top-1/2 z-20 hidden -translate-y-1/2 md:flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/15 text-white backdrop-blur-sm transition-colors hover:bg-white/30"
         aria-label={t.prevSlide}
       >
         <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
@@ -159,7 +175,7 @@ export function HeroSlider() {
       <button
         type="button"
         onClick={next}
-        className="absolute inset-s-4 top-1/2 z-20 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/15 text-white backdrop-blur-sm transition-colors hover:bg-white/30"
+        className="absolute inset-s-4 top-1/2 z-20 hidden -translate-y-1/2 md:flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/15 text-white backdrop-blur-sm transition-colors hover:bg-white/30"
         aria-label={t.nextSlide}
       >
         <svg viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">

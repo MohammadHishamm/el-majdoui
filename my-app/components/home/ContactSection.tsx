@@ -119,18 +119,16 @@ export function ContactSection() {
                 {t.heading}
               </h2>
 
-              <div className="mt-10 space-y-6">
+              <div className="mt-10 text-right">
                 {contactRows.map((row) => (
-                  <p key={row.label} className="text-base leading-8 md:text-[17px]">
-                    <span className="font-medium text-accent underline decoration-accent/60 underline-offset-4">
+                  <p
+                    key={row.label}
+                    className="text-sm font-medium leading-[40px] tracking-normal text-white"
+                  >
+                    <span className="text-accent underline decoration-accent/60 underline-offset-4">
                       {row.label}:
                     </span>{" "}
-                    <span
-                      className="font-normal text-white"
-                      dir={row.ltr ? "ltr" : undefined}
-                    >
-                      {row.value}
-                    </span>
+                    <span dir={row.ltr ? "ltr" : undefined}>{row.value}</span>
                   </p>
                 ))}
               </div>

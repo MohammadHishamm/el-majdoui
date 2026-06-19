@@ -61,9 +61,35 @@ const BADGE_PADDING_X = 16.01;
 const ICON_ROW_TOP = 24; // matches top-6 on left watermark
 const BADGE_TOP = ICON_ROW_TOP + (WATERMARK_SIZE - BADGE_SIZE) / 2;
 
+function ArrowLeft({ className = "block h-3.5 w-3.5 shrink-0" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 16 16" fill="currentColor" className={className} aria-hidden>
+      <path
+        fillRule="evenodd"
+        d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
+function ArrowRight({ className = "block h-3.5 w-3.5 shrink-0" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 16 16" fill="currentColor" className={className} aria-hidden>
+      <path
+        fillRule="evenodd"
+        d="M1 8a.5.5 0 0 1 .5-.5h11.793L10.146 4.854a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"
+        clipRule="evenodd"
+      />
+    </svg>
+  );
+}
+
 export function FocusAreaTiles() {
   const { locale } = useLocale();
   const t = translations[locale].focusAreas;
+  const isArabic = locale === "ar";
+  const textAlign = isArabic ? "text-right" : "text-left";
 
   return (
     <section
@@ -88,7 +114,8 @@ export function FocusAreaTiles() {
           {FOCUS_AREAS.map((area) => (
             <div
               key={area.slug}
-              className="relative flex h-[377px] w-[390px] max-w-full flex-col overflow-hidden rounded-tr-[60px] border border-white/25 p-6 text-right text-white"
+              dir="rtl"
+              className={`relative flex h-[377px] w-[390px] max-w-full flex-col overflow-hidden rounded-tr-[60px] border border-white/25 p-6 text-white ${textAlign}`}
               style={{ backgroundColor: area.bg, borderWidth: "1.18px" }}
             >
               {/* Small icon badge — aligned with left watermark row */}
@@ -114,7 +141,7 @@ export function FocusAreaTiles() {
                 />
               </div>
 
-              {/* Large watermark — top-left in RTL */}
+              {/* Large watermark — physical top-left (locked with dir=rtl on card) */}
               <div
                 className="pointer-events-none absolute end-6 top-6 z-0 select-none opacity-50"
                 style={{ width: WATERMARK_SIZE, height: WATERMARK_SIZE }}
@@ -130,18 +157,23 @@ export function FocusAreaTiles() {
               </div>
 
               {/* Title + text below icons */}
-              <div className="relative z-10 mt-[148px] flex flex-1 flex-col text-right">
-                <h3 className="text-2xl font-bold leading-snug">{area.name[locale]}</h3>
-                <p className="mt-3 flex-1 text-sm leading-7 text-white/90">
+              <div className={`relative z-10 mt-[148px] flex min-h-0 flex-1 flex-col ${textAlign}`}>
+                <h3 className="shrink-0 text-2xl font-bold leading-snug">{area.name[locale]}</h3>
+                <p
+                  dir={isArabic ? "rtl" : "ltr"}
+                  className="mt-3 line-clamp-3 min-h-0 text-sm leading-6 text-white/90"
+                >
                   {area.desc[locale]}
                 </p>
 
                 <Link
                   href={`/focus-areas/${area.slug}`}
-                  className="mt-4 flex w-full items-center justify-center rounded-full bg-white py-3 text-sm font-semibold transition-opacity hover:opacity-90"
+                  dir={isArabic ? "rtl" : "ltr"}
+                  className="mt-auto shrink-0 pt-4 inline-flex w-full items-center justify-center gap-2 rounded-full bg-white py-3 text-sm font-semibold leading-none transition-opacity hover:opacity-90"
                   style={{ color: area.btnText }}
                 >
-                  {t.exploreCTA}
+                  <span>{t.exploreCTA}</span>
+                  {isArabic ? <ArrowLeft /> : <ArrowRight />}
                 </Link>
               </div>
             </div>

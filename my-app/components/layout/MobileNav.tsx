@@ -3,9 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
+import { MoonIcon, SearchIcon } from "@/components/layout/header-icons";
 import type { NavItem } from "@/lib/site/config";
 import { mainNavigation, siteConfig } from "@/lib/site/config";
 import { useLocale } from "@/lib/i18n/context";
+import { translations } from "@/lib/i18n/translations";
 
 function NavLink({
   item,
@@ -55,11 +58,11 @@ export function MobileNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const { locale } = useLocale();
+  const t = translations[locale].header;
 
   const openLabel = locale === "en" ? "Close menu" : "إغلاق القائمة";
   const closeLabel = locale === "en" ? "Open menu" : "فتح القائمة";
   const siteLabel = locale === "en" ? siteConfig.nameEn : siteConfig.name;
-  const grantLabel = locale === "en" ? "Grants Portal" : siteConfig.grantPortalLabel;
 
   useEffect(() => {
     setOpen(false);
@@ -143,15 +146,23 @@ export function MobileNav() {
                   )}
                 </div>
               ))}
-              <a
-                href={siteConfig.grantPortalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 block rounded-lg bg-accent px-4 py-3 text-center text-sm font-bold text-white"
-                onClick={() => setOpen(false)}
-              >
-                {grantLabel}
-              </a>
+              <div className="mt-6 flex items-center justify-center gap-1" dir="ltr">
+                <button
+                  type="button"
+                  aria-label={t.searchLabel}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  <SearchIcon />
+                </button>
+                <button
+                  type="button"
+                  aria-label={t.darkModeLabel}
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  <MoonIcon />
+                </button>
+                <LanguageSwitcher mobile />
+              </div>
             </nav>
           </div>
         </div>

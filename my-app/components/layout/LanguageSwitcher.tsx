@@ -23,7 +23,7 @@ function ChevronDown({ open }: { open: boolean }) {
   );
 }
 
-export function LanguageSwitcher() {
+export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
   const { locale, setLocale } = useLocale();
   const t = translations[locale].langSwitcher;
   const [open, setOpen] = useState(false);
@@ -55,7 +55,7 @@ export function LanguageSwitcher() {
   };
 
   return (
-    <div ref={ref} className="relative hidden lg:block">
+    <div ref={ref} className={mobile ? "relative" : "relative hidden lg:block"}>
       <button
         type="button"
         aria-label={t.changeLanguage}
@@ -76,7 +76,9 @@ export function LanguageSwitcher() {
           role="listbox"
           aria-label={t.chooseLanguage}
 
-          className="absolute top-[calc(100%+6px)] inset-e-0 z-50 min-w-[148px] overflow-hidden rounded-lg border border-white/10 bg-header-bg py-1 shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
+          className={`absolute inset-e-0 z-50 min-w-[148px] overflow-hidden rounded-lg border border-white/10 bg-header-bg py-1 shadow-[0_8px_24px_rgba(0,0,0,0.35)] ${
+            mobile ? "bottom-[calc(100%+6px)]" : "top-[calc(100%+6px)]"
+          }`}
         >
           {LOCALES.map((item) => (
             <li key={item.code} role="option" aria-selected={locale === item.code}>

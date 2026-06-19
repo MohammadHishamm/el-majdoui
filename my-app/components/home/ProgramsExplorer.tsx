@@ -355,10 +355,10 @@ function CollapsedArrowButton() {
   );
 }
 
-function CircleArrowButton() {
+function CircleArrowButton({ direction = "left" }: { direction?: "left" | "right" }) {
   return (
     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20">
-      <ArrowIcon className="h-4 w-4" />
+      <ArrowIcon className="h-4 w-4" direction={direction} />
     </span>
   );
 }
@@ -368,6 +368,7 @@ export function ProgramsExplorer() {
   const [activeInitiativeId, setActiveInitiativeId] = useState<string | null>(null);
   const { locale } = useLocale();
   const t = translations[locale].programs;
+  const isArabic = locale === "ar";
 
   const activePanel = PANELS.find((p) => p.id === activePanelId) ?? PANELS[0];
   const activeInitiative = activePanel.initiatives.find((i) => i.id === activeInitiativeId);
@@ -392,7 +393,7 @@ export function ProgramsExplorer() {
       aria-labelledby="programs-explorer-heading"
     >
       <div className="mx-auto w-full max-w-[1280px] px-6">
-        <div className="mb-10 text-right">
+        <div className={`mb-10 ${isArabic ? "text-right" : "text-left"}`}>
           <h2
             id="programs-explorer-heading"
             className="text-3xl font-bold text-text-dark md:text-4xl"
@@ -489,9 +490,9 @@ export function ProgramsExplorer() {
                 key={panel.id}
                 className="flex min-w-0 flex-1 flex-col overflow-hidden p-8 text-white md:p-10"
                 style={{ backgroundColor: panel.bg }}
-                dir="rtl"
+                dir={isArabic ? "rtl" : "ltr"}
               >
-                <div className="text-right">
+                <div className={isArabic ? "text-right" : "text-left"}>
                   <h3 className="text-2xl font-bold md:text-3xl">{panel.name[locale]}</h3>
                   <p className="mt-2 max-w-2xl text-sm leading-7 text-white/85">{panel.desc[locale]}</p>
                 </div>
@@ -505,18 +506,18 @@ export function ProgramsExplorer() {
                         <button
                           type="button"
                           onClick={() => handleInitiativeToggle(initiative.id)}
-                          className={`flex w-full items-center gap-4 rounded-2xl px-5 py-4 text-right transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 ${
-                            isExpanded ? "bg-white/20" : "bg-white/15 hover:bg-white/20"
-                          }`}
+                          className={`flex w-full items-center gap-4 rounded-2xl px-5 py-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 ${
+                            isArabic ? "text-right" : "text-left"
+                          } ${isExpanded ? "bg-white/20" : "bg-white/15 hover:bg-white/20"}`}
                           aria-expanded={isExpanded}
                         >
                           <div className="min-w-0 flex-1">
                             <p className="font-bold">{initiative.title[locale]}</p>
-                            <p className="mt-0.5 text-xs leading-6 text-white/75">
+                            <p className="mt-0.5 line-clamp-2 text-xs leading-6 text-white/75">
                               {initiative.desc[locale]}
                             </p>
                           </div>
-                          <CircleArrowButton />
+                          <CircleArrowButton direction={isArabic ? "left" : "right"} />
                         </button>
 
                         {isExpanded && (
@@ -524,7 +525,9 @@ export function ProgramsExplorer() {
                             {initiative.paths.map((path) => (
                               <article
                                 key={path.id}
-                                className="flex flex-col rounded-2xl bg-white p-5 text-right text-text-dark"
+                                className={`flex flex-col rounded-2xl bg-white p-5 text-text-dark ${
+                                  isArabic ? "text-right" : "text-left"
+                                }`}
                               >
                                 <div className="flex items-center justify-start gap-2">
                                   <span
@@ -539,11 +542,16 @@ export function ProgramsExplorer() {
                                 </p>
                                 <Link
                                   href={path.href}
-                                  className="mt-4 inline-flex items-center gap-1 self-start text-sm font-semibold transition-opacity hover:opacity-80"
+                                  className={`mt-4 inline-flex items-center gap-1 text-sm font-semibold leading-none transition-opacity hover:opacity-80 ${
+                                    isArabic ? "self-end" : "self-start"
+                                  }`}
                                   style={{ color: panel.bg }}
                                 >
                                   {t.pathDetails}
-                                  <ArrowIcon className="h-4 w-4" />
+                                  <ArrowIcon
+                                    className="block h-4 w-4 shrink-0"
+                                    direction={isArabic ? "left" : "right"}
+                                  />
                                 </Link>
                               </article>
                             ))}
@@ -554,21 +562,26 @@ export function ProgramsExplorer() {
                   })}
                 </ul>
 
-                <p className="mt-auto self-end text-xs text-white/70">{footerText}</p>
+                <p className={`mt-auto text-xs text-white/70 ${isArabic ? "self-end" : "self-start"}`}>
+                  {footerText}
+                </p>
               </div>
             );
           })}
           </div>
         </div>
 
-        <p className="mt-6 flex items-center justify-center gap-2 text-sm text-text-muted" dir="rtl">
+        <p
+          className="mt-6 flex items-center justify-center gap-2 text-sm text-text-muted"
+          dir={isArabic ? "rtl" : "ltr"}
+        >
           {t.hint}
           <Image
             src="/images/figma/sections/arrow-left.svg"
             alt=""
             width={16}
             height={16}
-            className="shrink-0"
+            className={`shrink-0 ${isArabic ? "" : "rotate-180"}`}
             aria-hidden
           />
         </p>

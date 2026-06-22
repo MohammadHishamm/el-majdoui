@@ -3,6 +3,10 @@ import localFont from "next/font/local";
 import { siteConfig } from "@/lib/site/config";
 import { LocaleProvider } from "@/lib/i18n/context";
 import "./globals.css";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const itfRayat = localFont({
   src: [
@@ -39,7 +43,7 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className={`${itfRayat.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", itfRayat.variable, "font-sans", geist.variable)}
     >
       <body className={`${itfRayat.className} flex min-h-full flex-col font-sans`}>
         <LocaleProvider>{children}</LocaleProvider>

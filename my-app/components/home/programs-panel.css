@@ -1,0 +1,83 @@
+.program-panels-track {
+  display: flex;
+}
+
+.program-panel {
+  position: relative;
+  flex: 0 0 160px;
+  width: 160px;
+  overflow: hidden;
+  transition:
+    flex-grow 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    flex-basis 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: flex-grow, width;
+}
+
+.program-panel.is-active {
+  flex: 1 1 0%;
+  width: auto;
+  min-width: 0;
+}
+
+.program-panel-collapsed-view {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  text-align: inherit;
+  color: inherit;
+  cursor: pointer;
+  opacity: 1;
+  transition:
+    opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.3s ease;
+}
+
+.program-panel-collapsed-view:hover {
+  filter: brightness(1.08);
+}
+
+.program-panel.is-active .program-panel-collapsed-view {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.program-panel-expanded-view {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  height: 100%;
+  min-width: 0;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.14s,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.14s;
+}
+
+.program-panel-expanded-view.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .program-panel,
+  .program-panel-collapsed-view,
+  .program-panel-expanded-view {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .program-panel.is-active .program-panel-collapsed-view {
+    display: none;
+  }
+}

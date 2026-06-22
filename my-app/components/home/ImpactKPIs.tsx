@@ -103,7 +103,7 @@ export function ImpactKPIs() {
 
   return (
     <section
-      className="relative overflow-hidden bg-primary pt-16 pb-8 md:pt-24 md:pb-10"
+      className="relative overflow-hidden bg-footer-bg pt-16 pb-8 md:pt-24 md:pb-10"
       data-nav-surface="solid"
       aria-labelledby="kpis-heading"
     >

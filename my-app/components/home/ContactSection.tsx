@@ -92,14 +92,14 @@ export function ContactSection() {
             </div>
             <button
               type="submit"
-              className="self-start rounded-full bg-primary px-10 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent"
+              className="self-start rounded-full bg-footer-bg px-10 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent"
             >
               {t.submitBtn}
             </button>
           </form>
 
           {/* Info card — left in RTL */}
-          <div className="relative flex min-h-[420px] items-center overflow-hidden rounded-2xl bg-primary py-10 pe-10 ps-8 text-white md:rounded-none md:rounded-tr-[100px] md:py-14 md:pe-14 md:ps-10">
+          <div className="relative flex min-h-[420px] items-center overflow-hidden rounded-2xl bg-footer-bg py-10 pe-10 ps-8 text-white md:rounded-none md:rounded-tr-[100px] md:py-14 md:pe-14 md:ps-10">
             {/* Decorative vector — right in RTL */}
             <div className="relative me-6 shrink-0 self-center md:me-10">
               <Image

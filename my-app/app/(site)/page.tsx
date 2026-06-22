@@ -9,6 +9,7 @@ import { StrategicAlignment } from "@/components/home/StrategicAlignment";
 import { ImpactKPIs } from "@/components/home/ImpactKPIs";
 import { LatestNews } from "@/components/home/LatestNews";
 import { ContactSection } from "@/components/home/ContactSection";
+import { FadeInUp } from "@/components/ui/fade-in-up";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -19,14 +20,14 @@ export default function HomePage() {
   return (
     <main>
       <HeroSlider />
-      <AboutBlock />
-      <LeadershipSpotlight />
-      <FocusAreaTiles />
-      <ProgramsExplorer />
-      <StrategicAlignment />
-      <ImpactKPIs />
-      <LatestNews />
-      <ContactSection />
+      <FadeInUp><AboutBlock /></FadeInUp>
+      <FadeInUp><LeadershipSpotlight /></FadeInUp>
+      <FadeInUp><FocusAreaTiles /></FadeInUp>
+      <FadeInUp><ProgramsExplorer /></FadeInUp>
+      <FadeInUp><StrategicAlignment /></FadeInUp>
+      <FadeInUp><ImpactKPIs /></FadeInUp>
+      <FadeInUp><LatestNews /></FadeInUp>
+      <FadeInUp><ContactSection /></FadeInUp>
     </main>
   );
 }

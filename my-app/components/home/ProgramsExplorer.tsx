@@ -3,8 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { ExpandFade } from "@/components/ui/expand-fade";
 import { useLocale } from "@/lib/i18n/context";
 import { translations } from "@/lib/i18n/translations";
+import "./programs-panel.css";
 
 type BilingualText = { ar: string; en: string };
 
@@ -311,7 +313,6 @@ const PANELS: Panel[] = [
 
 const CONTAINER_WIDTH = 1232;
 const CONTAINER_HEIGHT = 760;
-const COLLAPSED_WIDTH = 160;
 
 const COLLAPSED_TITLE_STYLE = {
   top: 256.02,
@@ -355,9 +356,19 @@ function CollapsedArrowButton() {
   );
 }
 
-function CircleArrowButton({ direction = "left" }: { direction?: "left" | "right" }) {
+function CircleArrowButton({
+  direction = "left",
+  expanded = false,
+}: {
+  direction?: "left" | "right";
+  expanded?: boolean;
+}) {
   return (
-    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20">
+    <span
+      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/20 transition-transform duration-500 ease-out ${
+        expanded ? "rotate-90" : "rotate-0"
+      }`}
+    >
       <ArrowIcon className="h-4 w-4" direction={direction} />
     </span>
   );
@@ -412,7 +423,7 @@ function MobilePanelContent({
               <button
                 type="button"
                 onClick={() => onInitiativeToggle(initiative.id)}
-                className={`flex w-full items-center gap-4 rounded-2xl px-4 py-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 ${
+                className={`flex w-full items-center gap-4 rounded-2xl px-4 py-4 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 ${
                   isArabic ? "text-right" : "text-left"
                 } ${isExpanded ? "bg-white/20" : "bg-white/15 hover:bg-white/20"}`}
                 aria-expanded={isExpanded}
@@ -423,17 +434,18 @@ function MobilePanelContent({
                     {initiative.desc[locale]}
                   </p>
                 </div>
-                <CircleArrowButton direction={isArabic ? "left" : "right"} />
+                <CircleArrowButton direction={isArabic ? "left" : "right"} expanded={isExpanded} />
               </button>
 
-              {isExpanded && (
-                <div className="mt-3 flex flex-col gap-3">
-                  {initiative.paths.map((path) => (
+              <ExpandFade open={isExpanded}>
+                <div className="flex flex-col gap-3">
+                  {initiative.paths.map((path, index) => (
                     <article
                       key={path.id}
-                      className={`flex flex-col rounded-2xl bg-white p-5 text-text-dark ${
+                      className={`expand-path-card flex flex-col rounded-2xl bg-white p-5 text-text-dark ${
                         isArabic ? "text-right" : "text-left"
                       }`}
+                      style={{ animationDelay: `${120 + index * 90}ms` }}
                     >
                       <div className="flex items-center justify-start gap-2">
                         <span
@@ -462,7 +474,7 @@ function MobilePanelContent({
                     </article>
                   ))}
                 </div>
-              )}
+              </ExpandFade>
             </li>
           );
         })}
@@ -472,6 +484,170 @@ function MobilePanelContent({
         {footerText}
       </p>
     </div>
+  );
+}
+
+function DesktopPanelContent({
+  panel,
+  activeInitiativeId,
+  onInitiativeToggle,
+  isArabic,
+  locale,
+  t,
+  footerText,
+}: MobilePanelContentProps) {
+  return (
+    <>
+      <div className={isArabic ? "text-right" : "text-left"}>
+        <h3 className="text-2xl font-bold md:text-3xl">{panel.name[locale]}</h3>
+        <p className="mt-2 max-w-2xl text-sm leading-7 text-white/85">{panel.desc[locale]}</p>
+      </div>
+
+      <ul className="mt-6 flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto overflow-x-hidden pe-1">
+        {panel.initiatives.map((initiative) => {
+          const isExpanded = activeInitiativeId === initiative.id;
+
+          return (
+            <li key={initiative.id}>
+              <button
+                type="button"
+                onClick={() => onInitiativeToggle(initiative.id)}
+                className={`flex w-full items-center gap-4 rounded-2xl px-5 py-4 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 ${
+                  isArabic ? "text-right" : "text-left"
+                } ${isExpanded ? "bg-white/20" : "bg-white/15 hover:bg-white/20"}`}
+                aria-expanded={isExpanded}
+              >
+                <div className="min-w-0 flex-1">
+                  <p className="font-bold">{initiative.title[locale]}</p>
+                  <p className="mt-0.5 line-clamp-2 text-xs leading-6 text-white/75">
+                    {initiative.desc[locale]}
+                  </p>
+                </div>
+                <CircleArrowButton direction={isArabic ? "left" : "right"} expanded={isExpanded} />
+              </button>
+
+              <ExpandFade open={isExpanded}>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {initiative.paths.map((path, index) => (
+                    <article
+                      key={path.id}
+                      className={`expand-path-card flex flex-col rounded-2xl bg-white p-5 text-text-dark ${
+                        isArabic ? "text-right" : "text-left"
+                      }`}
+                      style={{ animationDelay: `${120 + index * 90}ms` }}
+                    >
+                      <div className="flex items-center justify-start gap-2">
+                        <span
+                          className="h-2 w-2 shrink-0 rounded-full"
+                          style={{ backgroundColor: panel.bg }}
+                          aria-hidden
+                        />
+                        <h4 className="font-bold">{path.title[locale]}</h4>
+                      </div>
+                      <p className="mt-2 flex-1 text-sm leading-7 text-text-light">
+                        {path.desc[locale]}
+                      </p>
+                      <Link
+                        href={path.href}
+                        className={`mt-4 inline-flex items-center gap-1 text-sm font-semibold leading-none transition-opacity hover:opacity-80 ${
+                          isArabic ? "self-end" : "self-start"
+                        }`}
+                        style={{ color: panel.bg }}
+                      >
+                        {t.pathDetails}
+                        <ArrowIcon
+                          className="block h-4 w-4 shrink-0"
+                          direction={isArabic ? "left" : "right"}
+                        />
+                      </Link>
+                    </article>
+                  ))}
+                </div>
+              </ExpandFade>
+            </li>
+          );
+        })}
+      </ul>
+
+      <p className={`mt-auto text-xs text-white/70 ${isArabic ? "self-end" : "self-start"}`}>
+        {footerText}
+      </p>
+    </>
+  );
+}
+
+function CollapsedPanelFace({
+  panel,
+  locale,
+  viewPanelPrefix,
+  isActive,
+  onSelect,
+}: {
+  panel: Panel;
+  locale: "ar" | "en";
+  viewPanelPrefix: string;
+  isActive: boolean;
+  onSelect: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onSelect}
+      className="program-panel-collapsed-view"
+      aria-expanded={isActive}
+      aria-hidden={isActive}
+      tabIndex={isActive ? -1 : 0}
+      aria-label={`${viewPanelPrefix} ${panel.name[locale]}`}
+    >
+      {panel.id === "partners" && (
+        <Image
+          src="/images/figma/sections/program-2.svg"
+          alt=""
+          width={100}
+          height={160}
+          className="pointer-events-none absolute select-none"
+          style={{
+            top: 20.02,
+            left: 32.36,
+            width: 100.15263366699219,
+            height: 160,
+            opacity: 0.4,
+          }}
+          aria-hidden
+        />
+      )}
+
+      {panel.id === "mosques" && (
+        <Image
+          src="/images/figma/sections/program-1.svg"
+          alt=""
+          width={139}
+          height={138}
+          className="pointer-events-none absolute select-none"
+          style={{
+            top: 528.02,
+            left: 11.94,
+            width: 139,
+            height: 138,
+            opacity: 1,
+            transformOrigin: "center center",
+          }}
+          aria-hidden
+        />
+      )}
+
+      <span
+        className="absolute flex items-center justify-center text-center font-bold"
+        style={COLLAPSED_TITLE_STYLE}
+        dir="rtl"
+      >
+        {panel.name[locale]}
+      </span>
+
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
+        <CollapsedArrowButton />
+      </div>
+    </button>
   );
 }
 
@@ -555,10 +731,10 @@ export function ProgramsExplorer() {
           />
         </div>
 
-        {/* ── Desktop layout (≥ md) — untouched ── */}
+        {/* ── Desktop layout (≥ md) ── */}
         <div className="hidden md:block mx-auto max-w-full overflow-hidden">
           <div
-            className="mx-auto flex overflow-hidden rounded-bl-[50px] shadow-sm"
+            className="program-panels-track mx-auto overflow-hidden rounded-bl-[50px] shadow-sm"
             style={{
               width: CONTAINER_WIDTH,
               maxWidth: "100%",
@@ -566,159 +742,46 @@ export function ProgramsExplorer() {
             }}
             dir="ltr"
           >
-          {PANELS.map((panel) => {
-            const isActive = panel.id === activePanelId;
+            {PANELS.map((panel) => {
+              const isActive = panel.id === activePanelId;
 
-            if (!isActive) {
               return (
-                <button
+                <div
                   key={panel.id}
-                  type="button"
-                  onClick={() => handlePanelChange(panel.id)}
-                  className="relative shrink-0 overflow-hidden text-white transition-colors hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
-                  style={{
-                    backgroundColor: panel.bg,
-                    width: COLLAPSED_WIDTH,
-                    height: CONTAINER_HEIGHT,
-                  }}
-                  aria-expanded={false}
-                  aria-label={`${t.viewPanelPrefix} ${panel.name[locale]}`}
+                  className={`program-panel text-white${isActive ? " is-active" : ""}`}
+                  style={{ backgroundColor: panel.bg, height: CONTAINER_HEIGHT }}
                 >
-                  {panel.id === "partners" && (
-                    <Image
-                      src="/images/figma/sections/program-2.svg"
-                      alt=""
-                      width={100}
-                      height={160}
-                      className="pointer-events-none absolute select-none"
-                      style={{
-                        top: 20.02,
-                        left: 32.36,
-                        width: 100.15263366699219,
-                        height: 160,
-                        opacity: 0.4,
-                      }}
-                      aria-hidden
-                    />
-                  )}
+                  <CollapsedPanelFace
+                    panel={panel}
+                    locale={locale}
+                    viewPanelPrefix={t.viewPanelPrefix}
+                    isActive={isActive}
+                    onSelect={() => handlePanelChange(panel.id)}
+                  />
 
-                  {panel.id === "mosques" && (
-                    <Image
-                      src="/images/figma/sections/program-1.svg"
-                      alt=""
-                      width={139}
-                      height={138}
-                      className="pointer-events-none absolute select-none"
-                      style={{
-                        top: 528.02,
-                        left: 11.94,
-                        width: 139,
-                        height: 138,
-                        opacity: 1,
-                        transformOrigin: "center center",
-                      }}
-                      aria-hidden
-                    />
-                  )}
-
-                  <span
-                    className="absolute flex items-center justify-center text-center font-bold"
-                    style={COLLAPSED_TITLE_STYLE}
-                    dir="rtl"
+                  <div
+                    className={`program-panel-expanded-view p-8 md:p-10${isActive ? " is-visible" : ""}`}
+                    style={{ backgroundColor: panel.bg }}
+                    dir={isArabic ? "rtl" : "ltr"}
+                    aria-hidden={!isActive}
                   >
-                    {panel.name[locale]}
-                  </span>
-
-                  <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
-                    <CollapsedArrowButton />
+                    <DesktopPanelContent
+                      panel={panel}
+                      activeInitiativeId={isActive ? activeInitiativeId : null}
+                      onInitiativeToggle={handleInitiativeToggle}
+                      isArabic={isArabic}
+                      locale={locale}
+                      t={t}
+                      footerText={
+                        isActive
+                          ? footerText
+                          : `${panel.initiatives.length} ${t.initiativesIn} ${panel.name[locale]}`
+                      }
+                    />
                   </div>
-                </button>
-              );
-            }
-
-            return (
-              <div
-                key={panel.id}
-                className="flex min-w-0 flex-1 flex-col overflow-hidden p-8 text-white md:p-10"
-                style={{ backgroundColor: panel.bg }}
-                dir={isArabic ? "rtl" : "ltr"}
-              >
-                <div className={isArabic ? "text-right" : "text-left"}>
-                  <h3 className="text-2xl font-bold md:text-3xl">{panel.name[locale]}</h3>
-                  <p className="mt-2 max-w-2xl text-sm leading-7 text-white/85">{panel.desc[locale]}</p>
                 </div>
-
-                <ul className="mt-6 flex min-h-0 flex-1 flex-col gap-3 overflow-hidden">
-                  {panel.initiatives.map((initiative) => {
-                    const isExpanded = activeInitiativeId === initiative.id;
-
-                    return (
-                      <li key={initiative.id}>
-                        <button
-                          type="button"
-                          onClick={() => handleInitiativeToggle(initiative.id)}
-                          className={`flex w-full items-center gap-4 rounded-2xl px-5 py-4 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60 ${
-                            isArabic ? "text-right" : "text-left"
-                          } ${isExpanded ? "bg-white/20" : "bg-white/15 hover:bg-white/20"}`}
-                          aria-expanded={isExpanded}
-                        >
-                          <div className="min-w-0 flex-1">
-                            <p className="font-bold">{initiative.title[locale]}</p>
-                            <p className="mt-0.5 line-clamp-2 text-xs leading-6 text-white/75">
-                              {initiative.desc[locale]}
-                            </p>
-                          </div>
-                          <CircleArrowButton direction={isArabic ? "left" : "right"} />
-                        </button>
-
-                        {isExpanded && (
-                          <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                            {initiative.paths.map((path) => (
-                              <article
-                                key={path.id}
-                                className={`flex flex-col rounded-2xl bg-white p-5 text-text-dark ${
-                                  isArabic ? "text-right" : "text-left"
-                                }`}
-                              >
-                                <div className="flex items-center justify-start gap-2">
-                                  <span
-                                    className="h-2 w-2 shrink-0 rounded-full"
-                                    style={{ backgroundColor: panel.bg }}
-                                    aria-hidden
-                                  />
-                                  <h4 className="font-bold">{path.title[locale]}</h4>
-                                </div>
-                                <p className="mt-2 flex-1 text-sm leading-7 text-text-light">
-                                  {path.desc[locale]}
-                                </p>
-                                <Link
-                                  href={path.href}
-                                  className={`mt-4 inline-flex items-center gap-1 text-sm font-semibold leading-none transition-opacity hover:opacity-80 ${
-                                    isArabic ? "self-end" : "self-start"
-                                  }`}
-                                  style={{ color: panel.bg }}
-                                >
-                                  {t.pathDetails}
-                                  <ArrowIcon
-                                    className="block h-4 w-4 shrink-0"
-                                    direction={isArabic ? "left" : "right"}
-                                  />
-                                </Link>
-                              </article>
-                            ))}
-                          </div>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-
-                <p className={`mt-auto text-xs text-white/70 ${isArabic ? "self-end" : "self-start"}`}>
-                  {footerText}
-                </p>
-              </div>
-            );
-          })}
+              );
+            })}
           </div>
         </div>
 

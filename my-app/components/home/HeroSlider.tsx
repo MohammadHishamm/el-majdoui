@@ -143,7 +143,8 @@ export function HeroSlider() {
       <div className="relative z-10 flex h-full items-center pt-28">
         <div className="mx-auto w-full max-w-[1280px] px-6">
           <div
-            className={`max-w-[580px] ${isArabic ? "ms-auto text-right" : "text-left"}`}
+            key={active}
+            className={`animate-slide-up max-w-[580px] ${isArabic ? "ms-auto text-right" : "text-left"}`}
             dir={isArabic ? "rtl" : "ltr"}
           >
             <h1 className="text-[30px] font-bold leading-[1.45] text-white md:text-[42px] lg:text-[52px] lg:leading-[1.35]">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { FadeInUp } from "@/components/ui/fade-in-up";
 
 export const metadata: Metadata = {
   title: "من نحن | مؤسسة المجدوعي الخيرية",
@@ -88,7 +89,7 @@ export default function WhoWeArePage() {
       </section>
 
       {/* ── Content: text + info card ── */}
-      <section className="bg-white py-10 sm:py-[51px]">
+      <FadeInUp><section className="bg-white py-10 sm:py-[51px]">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-8 lg:min-h-[332px] lg:flex-row lg:items-start lg:justify-between lg:gap-10">
             {/* Text — RTL start = physical right */}
@@ -148,10 +149,10 @@ export default function WhoWeArePage() {
             </div>
           </div>
         </div>
-      </section>
+      </section></FadeInUp>
 
       {/* ── Competitive Advantages ── */}
-      <section className="bg-bg-light py-16 md:py-24" aria-labelledby="advantages-heading">
+      <FadeInUp><section className="bg-bg-light py-16 md:py-24" aria-labelledby="advantages-heading">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <h2
             id="advantages-heading"
@@ -172,10 +173,10 @@ export default function WhoWeArePage() {
             />
           </div>
         </div>
-      </section>
+      </section></FadeInUp>
 
       {/* ── Quote Banner ── */}
-      <section className="relative min-h-[200px] overflow-hidden bg-white py-14 sm:min-h-[260px] sm:py-16 lg:h-[328px] lg:overflow-visible lg:py-0">
+      <FadeInUp><section className="relative min-h-[200px] overflow-hidden bg-white py-14 sm:min-h-[260px] sm:py-16 lg:h-[328px] lg:overflow-visible lg:py-0">
         <span
           aria-hidden
           className="pointer-events-none absolute top-5 right-2 select-none text-right font-black leading-none text-[#00B5C226] text-[clamp(80px,22vw,140px)] lg:top-[-30px] lg:right-[170px] lg:w-[152px] lg:text-[220px] lg:leading-[320px]"
@@ -188,7 +189,7 @@ export default function WhoWeArePage() {
             تعظيم أثر المنح ابتغاءً للأجر عبر تنمية المحتاج بإحسان
           </blockquote>
         </div>
-      </section>
+      </section></FadeInUp>
     </main>
   );
 }

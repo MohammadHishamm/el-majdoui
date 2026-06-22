@@ -1,0 +1,56 @@
+/* Header search — strip all focus borders/outlines (incl. global :focus-visible) */
+.header-search-form {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.header-search-form:focus,
+.header-search-form:focus-within {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.header-search-input {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.header-search-input:focus,
+.header-search-input:focus-visible,
+.header-search-input:active {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.header-search-input::-webkit-textfield-decoration-container {
+  display: flex !important;
+  align-items: center;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+.header-search-input::-webkit-search-decoration,
+.header-search-input::-webkit-search-cancel-button,
+.header-search-input::-webkit-search-results-button,
+.header-search-input::-webkit-search-results-decoration {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  display: none !important;
+}
+
+.header-search-underline {
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.25);
+}

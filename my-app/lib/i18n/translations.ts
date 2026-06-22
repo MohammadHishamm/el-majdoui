@@ -2,6 +2,8 @@ export const translations = {
   ar: {
     header: {
       searchLabel: "بحث",
+      searchPlaceholder: "ابحث هنا عن البرامج، المبادرات، أو مجالات التركيز...",
+      searchClose: "إغلاق",
       darkModeLabel: "تبديل الوضع الليلي",
       mainNavLabel: "القائمة الرئيسية",
     },
@@ -86,6 +88,8 @@ export const translations = {
   en: {
     header: {
       searchLabel: "Search",
+      searchPlaceholder: "Search for programs, initiatives, or focus areas...",
+      searchClose: "Close",
       darkModeLabel: "Toggle Dark Mode",
       mainNavLabel: "Main Navigation",
     },

@@ -23,15 +23,14 @@ export function AboutBlock() {
 
       {/* Physical RIGHT — about-right.png */}
       <div
-        className="pointer-events-none absolute top-[-30px] right-[-20px] h-[70%] w-1/2 max-w-[180px] lg:inset-y-0 lg:top-auto lg:right-[-65px] lg:h-auto lg:w-[320px] lg:max-w-none lg:inset-s-0"
-        style={{ opacity: 0.3 }}
+        className="pointer-events-none absolute inset-y-0 right-0 w-[140px] opacity-30 sm:w-[180px] lg:w-[320px]"
         aria-hidden
       >
         <Image
           src="/images/about-right.png"
           alt=""
           fill
-          className="object-contain object-center"
+          className="object-contain object-right"
           sizes="320px"
         />
       </div>

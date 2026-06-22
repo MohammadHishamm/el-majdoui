@@ -44,7 +44,7 @@ export function LeadershipSpotlight() {
             </div>
 
             <div
-              className="absolute bottom-0 left-0 z-10 flex h-[100px] w-[100px] items-center justify-center rounded-bl-[22px] bg-primary p-2 shadow-lg max-lg:translate-x-2 lg:bottom-auto lg:left-[-91px] lg:top-[352px] lg:h-[182px] lg:w-[182px] lg:translate-x-0 lg:rounded-bl-[30px] lg:p-[13px]"
+              className="absolute bottom-0 left-0 z-10 flex h-[100px] w-[100px] items-center justify-center rounded-bl-[22px] bg-footer-bg p-2 shadow-lg max-lg:translate-x-2 lg:bottom-auto lg:left-[-91px] lg:top-[352px] lg:h-[182px] lg:w-[182px] lg:translate-x-0 lg:rounded-bl-[30px] lg:p-[13px]"
               aria-hidden
             >
               <Image

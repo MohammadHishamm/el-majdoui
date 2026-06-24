@@ -1,14 +1,6 @@
-import type { Metadata } from "next";
-import { PagePlaceholder } from "@/components/ui/PagePlaceholder";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = { title: "القيادات التنفيذية" };
-
+// القيادة التنفيذية lives within the combined "مجلس الأمناء والقيادات" page.
 export default function LeadershipPage() {
-  return (
-    <PagePlaceholder
-      title="القيادات التنفيذية"
-      eyebrow="عن المؤسسة"
-      backHref="/about"
-    />
-  );
+  redirect("/about/board#leadership");
 }

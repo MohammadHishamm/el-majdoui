@@ -1,0 +1,153 @@
+/* ===================================================
+   ProgramsSection — القسم الرابع: البرامج والمبادرات الحالية
+   =================================================== */
+
+.section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 80px 24px;  /* Align with section 1, 2, and 3 */
+  direction: rtl;
+}
+
+/* ---- Section Heading ---- */
+.heading {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 900;
+  font-size: 40px;
+  line-height: 40px;
+  color: #005761;
+  text-align: right;
+  margin-bottom: 48px;
+}
+
+/* ---- Cards Grid ---- */
+.grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 27.5px; /* Exact gap between cards */
+  direction: rtl;
+  width: 100%;
+}
+
+/* ---- Single Card ---- */
+.card {
+  flex: 1 1 0px;
+  max-width: 355px;
+  min-width: 280px;
+  background-color: #FFFFFF;
+  border: 1.09px solid #E5E7EB;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 87, 97, 0.08);
+}
+
+/* ---- Card Image ---- */
+.imageWrapper {
+  width: 100%;
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1.09px solid #E5E7EB;
+}
+
+/* ---- Badge Tags ---- */
+.badge {
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* Tag Color Configurations */
+.training {
+  background-color: #E6F5F6;
+  color: #005761;
+}
+
+.grants {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+}
+
+.empowerment {
+  background-color: #E3F2FD;
+  color: #1565C0;
+}
+
+/* ---- Card Body ---- */
+.cardBody {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  text-align: right;
+}
+
+/* ---- Card Title ---- */
+.cardTitle {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  color: #005761;
+  margin-bottom: 12px;
+}
+
+/* ---- Card Description ---- */
+.cardDescription {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 25.5px;
+  color: #4A5565;
+  margin-bottom: 24px;
+  flex-grow: 1;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+/* ---- Link to details ---- */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 21px;
+  color: #005761;
+  text-decoration: none;
+  width: fit-content;
+  transition: color 0.2s ease;
+}
+
+.linkIcon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+/* Hover effects for link */
+.link:hover {
+  color: #00363D;
+}
+
+.link:hover .linkIcon {
+  transform: translateX(-4px); /* Move left arrow slightly to the left in RTL */
+}

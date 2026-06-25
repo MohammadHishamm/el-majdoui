@@ -1,4 +1,5 @@
 import { useEffect, useState, type RefObject } from "react";
+import { usePathname } from "next/navigation";
 
 const NAV_SURFACE = "data-nav-surface";
 
@@ -23,6 +24,7 @@ function isLightBackground(color: string): boolean {
  */
 export function useHeaderOverLight(headerRef: RefObject<HTMLElement | null>) {
   const [overLight, setOverLight] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const update = () => {
@@ -40,27 +42,34 @@ export function useHeaderOverLight(headerRef: RefObject<HTMLElement | null>) {
       const surfaceHost = behind.closest(`[${NAV_SURFACE}]`) as HTMLElement | null;
       if (surfaceHost) {
         const surface = surfaceHost.getAttribute(NAV_SURFACE);
-        setOverLight(surface === "light" || surface === "solid");
+        const next = surface === "light" || surface === "solid";
+        setOverLight((prev) => (prev === next ? prev : next));
         return;
       }
 
       const section = behind.closest("section, main") as HTMLElement | null;
       if (section) {
-        setOverLight(isLightBackground(getComputedStyle(section).backgroundColor));
+        const next = isLightBackground(getComputedStyle(section).backgroundColor);
+        setOverLight((prev) => (prev === next ? prev : next));
         return;
       }
 
-      setOverLight(isLightBackground(getComputedStyle(document.body).backgroundColor));
+      const next = isLightBackground(getComputedStyle(document.body).backgroundColor);
+      setOverLight((prev) => (prev === next ? prev : next));
     };
 
     update();
+    // Re-measure after the newly navigated page paints (route change has no
+    // scroll/resize event to trigger an update otherwise).
+    const raf = requestAnimationFrame(update);
     window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
     return () => {
+      cancelAnimationFrame(raf);
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [headerRef]);
+  }, [headerRef, pathname]);
 
   return overLight;
 }

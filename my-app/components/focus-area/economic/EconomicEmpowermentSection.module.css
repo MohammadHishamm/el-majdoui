@@ -1,0 +1,56 @@
+/* ===================================================
+   EconomicEmpowermentSection — مجالات التركيز: القسم الأول
+   =================================================== */
+
+.section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px;
+  direction: rtl;
+}
+.label {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  letter-spacing: 0px;
+  color: #6A7282;
+  text-align: right;
+  margin-bottom: 8px;
+}
+
+/* ---- Heading (full width, right aligned) ---- */
+.heading {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 1.2;
+  letter-spacing: 0px;
+  color: #005761;
+  text-align: right;
+  width: 100%;
+  margin: 0 0 24px 0;
+}
+
+/* ---- Divider line — full width, 1px, color: #E5E7EB ---- */
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: #E5E7EB;
+  border: none;
+  margin: 0 0 32px 0;
+}
+
+/* ---- Description paragraph (full width, spreads across the line) ---- */
+.description {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 40px;
+  letter-spacing: 0px;
+  color: #1E2939;
+  text-align: right;
+  width: 100%;
+  margin: 0;
+}

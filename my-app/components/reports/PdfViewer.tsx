@@ -43,8 +43,7 @@ export function PdfViewer({ report, onClose }: { report: Report; onClose: () => 
     };
   }, [onClose]);
 
-  // Load the document (the viewer is remounted per report via `key`, so
-  // initial state already reflects a fresh "loading" on page 1)
+  // Load the document (remounted per report via `key`)
   useEffect(() => {
     let cancelled = false;
 
@@ -57,6 +56,9 @@ export function PdfViewer({ report, onClose }: { report: Report; onClose: () => 
           standardFontDataUrl: "/standard_fonts/",
           cMapUrl: "/cmaps/",
           cMapPacked: true,
+          // Draw glyphs from the embedded font outlines instead of the browser
+          // font engine — fixes mangled letter spacing on embedded-font PDFs.
+          disableFontFace: true,
         });
         const pdf = (await loadingTask.promise) as unknown as PdfDoc;
         if (cancelled) return;
@@ -101,10 +103,7 @@ export function PdfViewer({ report, onClose }: { report: Report; onClose: () => 
       canvas.style.height = `${Math.floor(viewport.height / outputScale)}px`;
 
       if (renderTaskRef.current) renderTaskRef.current.cancel();
-      const task = pageObj.render({
-        canvasContext: ctx,
-        viewport,
-      });
+      const task = pageObj.render({ canvasContext: ctx, viewport });
       renderTaskRef.current = task;
       try {
         await task.promise;
@@ -142,7 +141,8 @@ export function PdfViewer({ report, onClose }: { report: Report; onClose: () => 
     setTimeout(() => iframe.remove(), 60000);
   }, [report.file]);
 
-  const chip = "flex size-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20";
+  const chip =
+    "flex size-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20";
 
   return (
     <div
@@ -201,7 +201,7 @@ export function PdfViewer({ report, onClose }: { report: Report; onClose: () => 
         </div>
       </div>
 
-      {/* Bottom bar */}
+      {/* Bottom bar — page nav + zoom */}
       <div className="flex shrink-0 items-center justify-between bg-[#0a1f2d] px-4 py-3 sm:px-6">
         <div className="flex items-center gap-2">
           <button

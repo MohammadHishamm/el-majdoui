@@ -10,6 +10,10 @@ import MosquesIntroSection from "@/components/focus-area/mosques/MosquesIntroSec
 import MosquesTargetGroupsSection from "@/components/focus-area/mosques/MosquesTargetGroupsSection";
 import MosquesStatsSection from "@/components/focus-area/mosques/MosquesStatsSection";
 import MosquesProgramsSection from "@/components/focus-area/mosques/MosquesProgramsSection";
+import PartnersIntroSection from "@/components/focus-area/partners/PartnersIntroSection";
+import PartnersTargetGroupsSection from "@/components/focus-area/partners/PartnersTargetGroupsSection";
+import PartnersStatsSection from "@/components/focus-area/partners/PartnersStatsSection";
+import PartnersProgramsSection from "@/components/focus-area/partners/PartnersProgramsSection";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -49,6 +53,18 @@ export default async function FocusAreaDetailPage({ params }: Props) {
         <MosquesTargetGroupsSection />
         <MosquesStatsSection />
         <MosquesProgramsSection />
+      </main>
+    );
+  }
+
+  // شركاء التنفيذ — same animated layout, different content
+  if (slug === "partners-development") {
+    return (
+      <main dir="rtl" data-nav-surface="light">
+        <PartnersIntroSection />
+        <PartnersTargetGroupsSection />
+        <PartnersStatsSection />
+        <PartnersProgramsSection />
       </main>
     );
   }

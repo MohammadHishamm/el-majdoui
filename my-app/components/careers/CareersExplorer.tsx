@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Search } from "lucide-react";
 import { FadeInUp } from "@/components/ui/fade-in-up";
-import { jobs, reasons, type Job } from "@/lib/careers";
+import { reasons, type Job } from "@/lib/careers";
 
 const I = "/images/tawzeef";
 const TAG_ICON: Record<string, string> = {
@@ -107,14 +107,14 @@ function JobItem({ job, defaultOpen }: { job: Job; defaultOpen?: boolean }) {
   );
 }
 
-export function CareersExplorer() {
+export function CareersExplorer({ jobs }: { jobs: Job[] }) {
   const [query, setQuery] = useState("");
 
   const filtered = useMemo(() => {
     const q = query.trim();
     if (!q) return jobs;
     return jobs.filter((j) => j.title.includes(q) || j.summary.includes(q) || j.department.includes(q));
-  }, [query]);
+  }, [query, jobs]);
 
   return (
     <div>

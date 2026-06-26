@@ -4,12 +4,7 @@ import { ArrowLeft, CalendarDays, User } from "lucide-react";
 import { FadeInUp } from "@/components/ui/fade-in-up";
 import { NewsActions } from "@/components/news/NewsActions";
 import { NewsCard } from "@/components/news/NewsCard";
-import {
-  getNews,
-  mostReadSlugs,
-  newsCategoryLabel,
-  type NewsItem,
-} from "@/lib/news";
+import { newsCategoryLabel, type NewsItem } from "@/lib/news";
 
 const TAG_ICON = "/images/news-and-announces/tag-icon.svg";
 
@@ -21,16 +16,15 @@ function SectionHeading({ children, id }: { children: React.ReactNode; id?: stri
   );
 }
 
-export default function NewsDetails({ item }: { item: NewsItem }) {
-  const related = item.related
-    .map((slug) => getNews(slug))
-    .filter((n): n is NewsItem => Boolean(n))
-    .slice(0, 3);
-
-  const mostRead = mostReadSlugs
-    .map((slug) => getNews(slug))
-    .filter((n): n is NewsItem => Boolean(n))
-    .slice(0, 3);
+export default function NewsDetails({
+  item,
+  related = [],
+  mostRead = [],
+}: {
+  item: NewsItem;
+  related?: NewsItem[];
+  mostRead?: NewsItem[];
+}) {
 
   return (
     <main dir="rtl" className="bg-white" data-nav-surface="light">

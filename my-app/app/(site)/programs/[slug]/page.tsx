@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProgramDetails from "@/components/programs/program-details";
-import { getProgram, programs } from "@/lib/programs";
+import { type Program } from "@/lib/programs";
+import { getAllPrograms, getProgramBySlug } from "@/lib/cms/fetchers";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return programs.map((p) => ({ slug: p.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const program = getProgram(slug);
+  const program = await getProgramBySlug(slug);
   if (!program) return { title: "مبادرة غير موجودة" };
   return {
     title: `${program.title} | مؤسسة المجدوعي الخيرية`,
@@ -21,8 +20,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProgramDetailPage({ params }: Props) {
   const { slug } = await params;
-  const program = getProgram(slug);
+  const program = await getProgramBySlug(slug);
   if (!program) notFound();
 
-  return <ProgramDetails program={program} />;
+  const all = await getAllPrograms();
+  const bySlug = new Map(all.map((p) => [p.slug, p]));
+  const related = program.related
+    .map((s) => bySlug.get(s))
+    .filter((p): p is Program => Boolean(p))
+    .slice(0, 3);
+
+  return <ProgramDetails program={program} related={related} />;
 }

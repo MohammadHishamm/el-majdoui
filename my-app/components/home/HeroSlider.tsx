@@ -13,7 +13,7 @@ type Slide = {
   href: string;
 };
 
-const SLIDES: Slide[] = [
+const DEFAULT_SLIDES: Slide[] = [
   {
     id: "3",
     image: "/images/slide-show03.png",
@@ -69,7 +69,8 @@ function ArrowRight() {
   );
 }
 
-export function HeroSlider() {
+export function HeroSlider({ slides }: { slides?: Slide[] } = {}) {
+  const SLIDES = slides && slides.length ? slides : DEFAULT_SLIDES;
   const [active, setActive] = useState(0);
   const [autoplayKey, setAutoplayKey] = useState(0);
   const { locale } = useLocale();
@@ -84,12 +85,12 @@ export function HeroSlider() {
   const next = useCallback(() => {
     setActive((current) => (current + 1) % SLIDES.length);
     setAutoplayKey((key) => key + 1);
-  }, []);
+  }, [SLIDES.length]);
 
   const prev = useCallback(() => {
     setActive((current) => (current - 1 + SLIDES.length) % SLIDES.length);
     setAutoplayKey((key) => key + 1);
-  }, []);
+  }, [SLIDES.length]);
 
   useEffect(() => {
     const id = window.setInterval(() => {
@@ -97,7 +98,7 @@ export function HeroSlider() {
     }, AUTO_PLAY_MS);
 
     return () => window.clearInterval(id);
-  }, [autoplayKey]);
+  }, [autoplayKey, SLIDES.length]);
 
   return (
     <section

@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import { FadeInUp } from "@/components/ui/fade-in-up";
 import { ReportsList } from "@/components/reports/ReportsList";
+import { getReports } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
   title: "التقارير والوثائق | مؤسسة المجدوعي الخيرية",
   description: "التقارير السنوية وتقارير الأثر والقوائم المالية ووثائق مؤسسة المجدوعي الخيرية.",
 };
 
-export default function ReportsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ReportsPage() {
+  const items = await getReports();
   return (
     <main dir="rtl" className="bg-white" data-nav-surface="light">
       {/* Header (negative margin keeps the sticky navbar solid on load) */}
@@ -28,7 +32,7 @@ export default function ReportsPage() {
       {/* Reports list */}
       <section className="bg-white pb-20 pt-10 md:pb-28" aria-label="قائمة التقارير والوثائق">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <ReportsList />
+          <ReportsList items={items} />
         </div>
       </section>
     </main>

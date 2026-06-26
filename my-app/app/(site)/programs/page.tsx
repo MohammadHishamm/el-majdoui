@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { FadeInUp } from "@/components/ui/fade-in-up";
 import { ProgramsList } from "@/components/programs/ProgramsList";
+import { getAllPrograms } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
   title: "البرامج والمبادرات | مؤسسة المجدوعي الخيرية",
@@ -8,7 +9,10 @@ export const metadata: Metadata = {
     "استكشف برامج ومبادرات مؤسسة المجدوعي الخيرية التنموية وأهداف الأثر المستدام لكل مبادرة.",
 };
 
-export default function ProgramsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ProgramsPage() {
+  const items = await getAllPrograms();
   return (
     <main dir="rtl" className="bg-white">
       {/* Header (negative margin keeps the sticky navbar solid on load) */}
@@ -29,7 +33,7 @@ export default function ProgramsPage() {
       {/* Filters + grid */}
       <section className="bg-white pb-20 pt-10 md:pb-28" aria-label="قائمة المبادرات">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <ProgramsList />
+          <ProgramsList items={items} />
         </div>
       </section>
     </main>

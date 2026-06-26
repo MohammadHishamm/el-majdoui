@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import { FadeInUp } from "@/components/ui/fade-in-up";
 import { CareersExplorer } from "@/components/careers/CareersExplorer";
+import { getAllJobs } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
   title: "التوظيف | مؤسسة المجدوعي الخيرية",
   description: "انضم إلى فريق مؤسسة المجدوعي الخيرية واستعرض الفرص الوظيفية المتاحة.",
 };
 
-export default function CareersPage() {
+export const dynamic = "force-dynamic";
+
+export default async function CareersPage() {
+  const jobs = await getAllJobs();
   return (
     <main dir="rtl" className="bg-white" data-nav-surface="light">
       <section className="-mt-28 bg-white pt-40 md:pt-44">
@@ -27,7 +31,7 @@ export default function CareersPage() {
 
       <section className="bg-white pb-20 pt-12 md:pb-28" aria-label="الفرص الوظيفية">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <CareersExplorer />
+          <CareersExplorer jobs={jobs} />
         </div>
       </section>
     </main>

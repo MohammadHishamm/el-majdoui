@@ -1,120 +1,166 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
+import Link from "next/link";
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
+  Briefcase,
+  FolderKanban,
+  Home,
+  Landmark,
+  LayoutDashboard,
+  Newspaper,
   Settings2,
-  SquareTerminal,
-} from "lucide-react"
+  Target,
+  type LucideIcon,
+} from "lucide-react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
+import { useAdminT } from "@/components/admin/i18n";
+import type { AdminDict } from "@/lib/admin-i18n";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import type { AppRole } from "@/lib/roles";
 
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+type NavKey = keyof AdminDict["nav"];
+type NavLeaf = { key: NavKey; url: string; roles?: AppRole[] };
+type NavGroup = {
+  key: NavKey;
+  icon: LucideIcon;
+  roles?: AppRole[];
+  items: NavLeaf[];
+};
+
+// Nav organised by site page → its sections. `roles` (omitted = everyone)
+// gates each group/leaf so each role only sees what it can manage.
+const NAV: NavGroup[] = [
+  {
+    key: "homePage",
+    icon: Home,
+    roles: ["super_admin", "content_editor"],
+    items: [
+      { key: "heroSlides", url: "/admin/dashboard/hero-slides" },
+      { key: "aboutLeadership", url: "/admin/dashboard/site-settings" },
+      { key: "focusAreas", url: "/admin/dashboard/focus-areas" },
+      { key: "impactKpis", url: "/admin/dashboard/kpis" },
+    ],
   },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        { title: "History", url: "#" },
-        { title: "Starred", url: "#" },
-        { title: "Settings", url: "#" },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        { title: "Genesis", url: "#" },
-        { title: "Explorer", url: "#" },
-        { title: "Quantum", url: "#" },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        { title: "Introduction", url: "#" },
-        { title: "Get Started", url: "#" },
-        { title: "Tutorials", url: "#" },
-        { title: "Changelog", url: "#" },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        { title: "General", url: "#" },
-        { title: "Team", url: "#" },
-        { title: "Billing", url: "#" },
-        { title: "Limits", url: "#" },
-      ],
-    },
-  ],
-  projects: [
-    { name: "Design Engineering", url: "#", icon: Frame },
-    { name: "Sales & Marketing", url: "#", icon: PieChart },
-    { name: "Travel", url: "#", icon: Map },
-  ],
+  {
+    key: "newsMedia",
+    icon: Newspaper,
+    roles: ["super_admin", "news_manager"],
+    items: [
+      { key: "allArticles", url: "/admin/dashboard/news" },
+      { key: "newArticle", url: "/admin/dashboard/news/new" },
+      { key: "galleryVideos", url: "/admin/dashboard/gallery" },
+      { key: "reports", url: "/admin/dashboard/reports" },
+    ],
+  },
+  {
+    key: "focusAreas",
+    icon: Target,
+    roles: ["super_admin", "content_editor"],
+    items: [{ key: "manageAreas", url: "/admin/dashboard/focus-areas" }],
+  },
+  {
+    key: "programs",
+    icon: FolderKanban,
+    roles: ["super_admin", "content_editor"],
+    items: [
+      { key: "allPrograms", url: "/admin/dashboard/programs" },
+      { key: "newProgram", url: "/admin/dashboard/programs/new" },
+    ],
+  },
+  {
+    key: "careers",
+    icon: Briefcase,
+    roles: ["super_admin", "content_editor"],
+    items: [
+      { key: "allJobs", url: "/admin/dashboard/careers" },
+      { key: "newJob", url: "/admin/dashboard/careers/new" },
+    ],
+  },
+  {
+    key: "aboutGroup",
+    icon: Landmark,
+    roles: ["super_admin", "content_editor"],
+    items: [
+      { key: "boardLeadership", url: "/admin/dashboard/team" },
+      { key: "policies", url: "/admin/dashboard/policies" },
+    ],
+  },
+  {
+    key: "settings",
+    icon: Settings2,
+    items: [
+      { key: "siteContent", url: "/admin/dashboard/site-settings", roles: ["super_admin", "content_editor"] },
+      { key: "usersRoles", url: "/admin/dashboard/users", roles: ["super_admin"] },
+    ],
+  },
+];
+
+function navForRole(role: AppRole, nav: AdminDict["nav"]) {
+  return NAV.filter((g) => !g.roles || g.roles.includes(role))
+    .map((g) => ({
+      title: nav[g.key],
+      url: g.items[0]?.url ?? "/admin/dashboard",
+      icon: g.icon,
+      items: g.items
+        .filter((i) => !i.roles || i.roles.includes(role))
+        .map((i) => ({ title: nav[i.key], url: i.url })),
+    }))
+    .filter((g) => g.items.length > 0);
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  user,
+  side,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & {
+  user: { name: string; email: string; role: AppRole };
+  side?: "left" | "right";
+}) {
+  const { locale, t } = useAdminT();
+  const items = navForRole(user.role, t.nav);
+  const resolvedSide = side ?? (locale === "ar" ? "right" : "left");
+
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar
+      collapsible="icon"
+      side={resolvedSide}
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      {...props}
+    >
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" render={<Link href="/admin/dashboard" />}>
+              <span className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                <LayoutDashboard className="size-4" />
+              </span>
+              <span className="grid flex-1 text-start text-sm leading-tight">
+                <span className="truncate font-semibold">{t.brand.name}</span>
+                <span className="truncate text-xs">{t.brand.sub}</span>
+              </span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavMain items={items} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

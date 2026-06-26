@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { FadeInUp } from "@/components/ui/fade-in-up";
 import { PoliciesList } from "@/components/about/PoliciesList";
+import { getPolicies } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
   title: "السياسات واللوائح | مؤسسة المجدوعي الخيرية",
@@ -8,7 +9,10 @@ export const metadata: Metadata = {
     "لوائح وسياسات وأدلة عمل مؤسسة المجدوعي الخيرية متاحة للتحميل.",
 };
 
-export default function PoliciesPage() {
+export const dynamic = "force-dynamic";
+
+export default async function PoliciesPage() {
+  const policies = await getPolicies();
   return (
     <main dir="rtl" className="bg-white">
       {/* ── Header ── (negative margin keeps the sticky navbar solid on load) */}
@@ -30,7 +34,7 @@ export default function PoliciesPage() {
       <FadeInUp>
         <section className="bg-white pb-20 pt-8 md:pb-28" aria-label="قائمة السياسات واللوائح">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-            <PoliciesList />
+            <PoliciesList items={policies} />
           </div>
         </section>
       </FadeInUp>

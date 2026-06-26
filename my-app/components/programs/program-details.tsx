@@ -3,11 +3,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { FadeInUp } from "@/components/ui/fade-in-up";
 import { ProgramActions } from "@/components/programs/ProgramActions";
-import {
-  getCategoryLabel,
-  getProgram,
-  type Program,
-} from "@/lib/programs";
+import { getCategoryLabel, type Program } from "@/lib/programs";
 
 const ICON = {
   check: "/images/program-cards/correct-icon.svg",
@@ -49,12 +45,13 @@ function InfoRow({ icon, label, value }: { icon: string; label: string; value: s
   );
 }
 
-export default function ProgramDetails({ program }: { program: Program }) {
-  const related = program.related
-    .map((slug) => getProgram(slug))
-    .filter((p): p is Program => Boolean(p))
-    .slice(0, 3);
-
+export default function ProgramDetails({
+  program,
+  related = [],
+}: {
+  program: Program;
+  related?: Program[];
+}) {
   return (
     <main dir="rtl" className="bg-white" data-nav-surface="light">
       {/* ── Hero ── */}

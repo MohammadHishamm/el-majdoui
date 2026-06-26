@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import { FadeInUp } from "@/components/ui/fade-in-up";
 import { GalleryExplorer } from "@/components/gallery/GalleryExplorer";
+import { getGalleryItems } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
   title: "معرض الصور والفيديو | مؤسسة المجدوعي الخيرية",
   description: "ألبومات صور ومكتبة فيديو فعاليات ومبادرات مؤسسة المجدوعي الخيرية.",
 };
 
-export default function GalleryPage() {
+export const dynamic = "force-dynamic";
+
+export default async function GalleryPage() {
+  const items = await getGalleryItems();
   return (
     <main dir="rtl" className="bg-white" data-nav-surface="light">
       {/* Header (negative margin keeps the sticky navbar solid on load) */}
@@ -28,7 +32,7 @@ export default function GalleryPage() {
       {/* Filters + gallery */}
       <section className="bg-white pb-20 pt-8 md:pb-28" aria-label="معرض الصور والفيديو">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <GalleryExplorer />
+          <GalleryExplorer data={items} />
         </div>
       </section>
     </main>

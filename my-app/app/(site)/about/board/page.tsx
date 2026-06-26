@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { FadeInUp } from "@/components/ui/fade-in-up";
+import { getTeam } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
   title: "مجلس الأمناء والقيادات | مؤسسة المجدوعي الخيرية",
@@ -10,22 +11,18 @@ export const metadata: Metadata = {
 
 const CLONE = "/images/leaders-group/clone-sheikh.jpg";
 
-const BOARD_MEMBERS = Array.from({ length: 6 }, (_, i) => ({
+const FALLBACK_BOARD = Array.from({ length: 6 }, (_, i) => ({
   id: `member-${i + 1}`,
   name: "الأستاذ/ عبدالعزيز بن علي المجدوعي",
   role: "عضو مجلس الأمناء",
   image: CLONE,
 }));
 
-const LEADERSHIP = [
-  { id: "sg-1", name: "الأستاذ/ —", role: "الأمين العام للمؤسسة" },
-  { id: "sg-2", name: "الأستاذ/ —", role: "الأمين العام للمؤسسة" },
-  { id: "mosques", name: "الأستاذ/ —", role: "مدير إدارة المساجد والبرامج" },
-  {
-    id: "governance",
-    name: "الأستاذ/ —",
-    role: "مدير إدارة الخدمات المساندة والحوكمة",
-  },
+const FALLBACK_LEADERSHIP = [
+  { id: "sg-1", name: "الأستاذ/ —", role: "الأمين العام للمؤسسة", image: "" },
+  { id: "sg-2", name: "الأستاذ/ —", role: "الأمين العام للمؤسسة", image: "" },
+  { id: "mosques", name: "الأستاذ/ —", role: "مدير إدارة المساجد والبرامج", image: "" },
+  { id: "governance", name: "الأستاذ/ —", role: "مدير إدارة الخدمات المساندة والحوكمة", image: "" },
 ];
 
 function boardCardImageRadiusClass(index: number) {
@@ -106,7 +103,12 @@ function LeadershipCard({
   );
 }
 
-export default function BoardPage() {
+export const dynamic = "force-dynamic";
+
+export default async function BoardPage() {
+  const team = await getTeam();
+  const BOARD_MEMBERS = team.board.length ? team.board : FALLBACK_BOARD;
+  const LEADERSHIP = team.leadership.length ? team.leadership : FALLBACK_LEADERSHIP;
   return (
     <main dir="rtl" className="bg-white">
       {/* ── Header ── (negative margin keeps the sticky navbar solid on load) */}
@@ -215,7 +217,7 @@ export default function BoardPage() {
                   index={index}
                   name={leader.name}
                   role={leader.role}
-                  image={CLONE}
+                  image={leader.image || CLONE}
                 />
               ))}
             </div>

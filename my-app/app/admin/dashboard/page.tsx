@@ -1,55 +1,43 @@
-import { AppSidebar } from "@/components/app-sidebar"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
+import Link from "next/link";
+import { FileText, Image as ImageIcon, Target, Users } from "lucide-react";
+import { getCurrentProfile, ROLE_LABELS } from "@/lib/auth";
+import { getAdminT } from "@/lib/admin-locale";
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const profile = await getCurrentProfile();
+  const role = profile?.role ?? "news_manager";
+  const { t } = await getAdminT();
+
+  const cards = [
+    { title: t.dash.heroSlides, href: "/admin/dashboard/hero-slides", icon: ImageIcon, roles: ["super_admin", "content_editor"] },
+    { title: t.dash.news, href: "/admin/dashboard/news", icon: FileText, roles: ["super_admin", "news_manager"] },
+    { title: t.dash.focus, href: "/admin/dashboard/focus-areas", icon: Target, roles: ["super_admin", "content_editor"] },
+    { title: t.dash.users, href: "/admin/dashboard/users", icon: Users, roles: ["super_admin"] },
+  ].filter((c) => c.roles.includes(role));
+
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator
-              orientation="vertical"
-              className="mr-2 data-[orientation=vertical]:h-4"
-            />
-            <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/admin/dashboard">
-                    Dashboard
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Overview</BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
-            </Breadcrumb>
-          </div>
-        </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-            <div className="aspect-video rounded-xl bg-muted/50" />
-          </div>
-          <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
-  )
+    <div className="flex flex-col gap-6">
+      <div>
+        <h1 className="text-xl font-semibold">{t.dash.welcome}{profile?.full_name ? `، ${profile.full_name}` : ""}</h1>
+        <p className="text-sm text-muted-foreground">
+          {t.dash.signedInAs} {profile?.email} · {ROLE_LABELS[role]}
+        </p>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {cards.map((c) => (
+          <Link
+            key={c.href}
+            href={c.href}
+            className="flex items-center gap-3 rounded-xl border bg-card p-5 transition-colors hover:bg-accent"
+          >
+            <span className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <c.icon className="size-5" />
+            </span>
+            <span className="font-medium">{c.title}</span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
 }

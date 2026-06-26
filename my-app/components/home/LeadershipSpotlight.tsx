@@ -12,9 +12,19 @@ const ATTRIBUTION_HEIGHT = 77.2;
 const ATTRIBUTION_PADDING_TOP = 25.17;
 const ATTRIBUTION_BORDER_TOP = 1.18;
 
-export function LeadershipSpotlight() {
+type Bi = { ar: string; en: string };
+
+export function LeadershipSpotlight({
+  data,
+}: {
+  data?: { quote: Bi; name: Bi; position: Bi; photo: string | null };
+} = {}) {
   const { locale } = useLocale();
   const t = translations[locale].leadership;
+  const quote = data?.quote[locale] || t.quote;
+  const name = data?.name[locale] || t.name;
+  const role = data?.position[locale] || t.role;
+  const photo = data?.photo || "/images/figma/sections/leadership.png";
 
   return (
     <section
@@ -34,7 +44,7 @@ export function LeadershipSpotlight() {
           >
             <div className="relative aspect-[506/467] w-full overflow-hidden rounded-tr-[75px] max-lg:max-w-full lg:h-[467px] lg:w-[506px] lg:aspect-auto">
               <Image
-                src="/images/figma/sections/leadership.png"
+                src={photo}
                 alt={t.imageAlt}
                 fill
                 className="object-cover object-top"
@@ -76,7 +86,7 @@ export function LeadershipSpotlight() {
               className="text-right font-normal text-text-dark"
               style={{ fontSize: 24, lineHeight: "39px", minHeight: QUOTE_HEIGHT }}
             >
-              {t.quote}
+              {quote}
             </blockquote>
 
             <footer
@@ -91,10 +101,10 @@ export function LeadershipSpotlight() {
               }}
             >
               <p className="text-right font-medium leading-10 text-primary" style={{ fontSize: 36 }}>
-                {t.name}
+                {name}
               </p>
               <p className="mt-2 text-right font-medium leading-10 text-text-muted" style={{ fontSize: 24 }}>
-                {t.role}
+                {role}
               </p>
             </footer>
           </div>

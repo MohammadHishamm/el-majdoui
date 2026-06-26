@@ -5,23 +5,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Search } from "lucide-react";
 import { FadeInUp } from "@/components/ui/fade-in-up";
-import { programFilters, programs, getCategoryLabel } from "@/lib/programs";
+import { programFilters, getCategoryLabel, type Program } from "@/lib/programs";
 
 const PAGE_SIZE = 6;
 
-export function ProgramsList() {
+export function ProgramsList({ items }: { items: Program[] }) {
   const [active, setActive] = useState<(typeof programFilters)[number]["id"]>("all");
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
 
   const filtered = useMemo(() => {
     const q = query.trim();
-    return programs.filter((p) => {
+    return items.filter((p) => {
       const matchesCat = active === "all" || p.category === active;
       const matchesQuery = q === "" || p.title.includes(q) || p.shortDesc.includes(q);
       return matchesCat && matchesQuery;
     });
-  }, [active, query]);
+  }, [active, query, items]);
 
   const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const current = Math.min(page, pageCount);

@@ -4,17 +4,17 @@ import { useMemo, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { FadeInUp } from "@/components/ui/fade-in-up";
 import { NewsCard } from "@/components/news/NewsCard";
-import { newsFilters, news } from "@/lib/news";
+import { newsFilters, type NewsItem } from "@/lib/news";
 
 const PAGE_SIZE = 6;
 
-export function NewsExplorer() {
+export function NewsExplorer({ items }: { items: NewsItem[] }) {
   const [active, setActive] = useState<(typeof newsFilters)[number]["id"]>("all");
   const [page, setPage] = useState(1);
 
   const filtered = useMemo(
-    () => (active === "all" ? news : news.filter((n) => n.category === active)),
-    [active],
+    () => (active === "all" ? items : items.filter((n) => n.category === active)),
+    [active, items],
   );
 
   const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));

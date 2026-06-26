@@ -15,7 +15,7 @@ type KPI = {
   iconSrc: string;
 };
 
-const KPIS: KPI[] = [
+const DEFAULT_KPIS: KPI[] = [
   {
     value: 85,
     suffix: "%",
@@ -97,9 +97,10 @@ function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) 
   );
 }
 
-export function ImpactKPIs() {
+export function ImpactKPIs({ items }: { items?: KPI[] } = {}) {
   const { locale } = useLocale();
   const t = translations[locale].kpis;
+  const KPIS = items && items.length ? items : DEFAULT_KPIS;
 
   return (
     <section

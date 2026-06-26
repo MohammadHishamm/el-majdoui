@@ -5,9 +5,13 @@ import Link from "next/link";
 import { useLocale } from "@/lib/i18n/context";
 import { translations } from "@/lib/i18n/translations";
 
-export function AboutBlock() {
+type Bi = { ar: string; en: string };
+
+export function AboutBlock({ about }: { about?: { title: Bi; body: Bi } }) {
   const { locale } = useLocale();
   const t = translations[locale].about;
+  const heading = about?.title[locale] || t.heading;
+  const body = about?.body[locale] || t.body;
 
   return (
     <section
@@ -49,11 +53,11 @@ export function AboutBlock() {
           id="about-heading"
           className="text-[28px] font-medium leading-[1.2] text-[#005761] md:text-[36px]"
         >
-          {t.heading}
+          {heading}
         </h2>
 
         <p className="mx-auto mt-6 max-w-[896px] text-[16px] leading-[1.7] text-[#364153] md:text-[20px] md:leading-[32.5px]">
-          {t.body}
+          {body}
         </p>
 
         <Link

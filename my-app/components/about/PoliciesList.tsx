@@ -78,7 +78,9 @@ const POLICIES: Policy[] = [
   },
 ];
 
-function PolicyRow({ policy }: { policy: Policy }) {
+type PolicyInput = { id: string; title: string; version: string; category: string; file: string };
+
+function PolicyRow({ policy }: { policy: PolicyInput }) {
   const pending = policy.file === "#";
 
   return (
@@ -125,13 +127,12 @@ function PolicyRow({ policy }: { policy: Policy }) {
   );
 }
 
-export function PoliciesList() {
+export function PoliciesList({ items }: { items?: PolicyInput[] }) {
   const [active, setActive] = useState<CategoryId>("all");
+  const all: PolicyInput[] = items && items.length ? items : POLICIES;
 
   const visible =
-    active === "all"
-      ? POLICIES
-      : POLICIES.filter((policy) => policy.category === active);
+    active === "all" ? all : all.filter((policy) => policy.category === active);
 
   return (
     <div>

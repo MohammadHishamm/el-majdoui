@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { FadeInUp } from "@/components/ui/fade-in-up";
-import { reports, type Report } from "@/lib/reports";
+import { type Report } from "@/lib/reports";
 import { PdfViewer } from "@/components/reports/PdfViewer";
 
 const ICON = {
@@ -72,13 +72,13 @@ function Row({ report, onPreview }: { report: Report; onPreview: () => void }) {
   );
 }
 
-export function ReportsList() {
+export function ReportsList({ items }: { items: Report[] }) {
   const [active, setActive] = useState<Report | null>(null);
 
   return (
     <>
       <div className="divide-y divide-[#e5e7eb] overflow-hidden rounded-[16px] border border-[#eef0f2] bg-white">
-        {reports.map((report, i) => (
+        {items.map((report, i) => (
           <FadeInUp key={report.id} delay={i * 80} duration={500}>
             <Row report={report} onPreview={() => setActive(report)} />
           </FadeInUp>

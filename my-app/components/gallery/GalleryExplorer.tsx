@@ -4,7 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FadeInUp } from "@/components/ui/fade-in-up";
-import { galleryFilters, galleryItems, type GalleryItem } from "@/lib/gallery";
+import { galleryFilters, type GalleryItem } from "@/lib/gallery";
 
 const PLAY_ICON = "/images/Galley-of-images/play-icon.svg";
 
@@ -44,14 +44,14 @@ function GalleryCard({ item }: { item: GalleryItem }) {
   );
 }
 
-export function GalleryExplorer() {
+export function GalleryExplorer({ data }: { data: GalleryItem[] }) {
   const [filter, setFilter] = useState<(typeof galleryFilters)[number]["id"]>("all");
   const [featured, setFeatured] = useState(0);
   const rowRef = useRef<HTMLDivElement>(null);
 
   const items = useMemo(
-    () => (filter === "all" ? galleryItems : galleryItems.filter((i) => i.type === filter)),
-    [filter],
+    () => (filter === "all" ? data : data.filter((i) => i.type === filter)),
+    [filter, data],
   );
 
   const count = items.length;

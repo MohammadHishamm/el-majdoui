@@ -59,11 +59,22 @@ const BADGE_SIZE = 80;
 const BADGE_RADIUS = 20;
 const BADGE_PADDING_X = 16.01;
 
-export function FocusAreaTiles() {
+type AreaTile = {
+  slug: string;
+  name: BilingualText;
+  desc: BilingualText;
+  bg: string;
+  btnText: string;
+  icon: string;
+  watermark: string;
+};
+
+export function FocusAreaTiles({ areas }: { areas?: AreaTile[] }) {
   const { locale } = useLocale();
   const t = translations[locale].focusAreas;
   const isArabic = locale === "ar";
   const textAlign = isArabic ? "text-right" : "text-left";
+  const list: AreaTile[] = areas && areas.length ? areas : FOCUS_AREAS;
 
   return (
     <section
@@ -86,7 +97,7 @@ export function FocusAreaTiles() {
 
         {/* dir=rtl so the first card (المحتاج) sits on the right, as in Figma */}
         <div dir="rtl" className="flex flex-wrap justify-center gap-5">
-          {FOCUS_AREAS.map((area) => (
+          {list.map((area) => (
             <div
               key={area.slug}
               dir="rtl"

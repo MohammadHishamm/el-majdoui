@@ -4,15 +4,16 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
-import { news } from "@/lib/news";
+import { type NewsItem } from "@/lib/news";
 
-const SLIDES = news.filter((n) => n.featured).concat(news.filter((n) => !n.featured)).slice(0, 5);
-
-export function NewsHero() {
+export function NewsHero({ items }: { items: NewsItem[] }) {
+  const SLIDES = items.filter((n) => n.featured).concat(items.filter((n) => !n.featured)).slice(0, 5);
   const [active, setActive] = useState(0);
   const count = SLIDES.length;
-  const item = SLIDES[active];
+  const item = SLIDES[Math.min(active, count - 1)];
   const go = (dir: 1 | -1) => setActive((a) => (a + dir + count) % count);
+
+  if (count === 0) return null;
 
   return (
     <section

@@ -28,26 +28,41 @@ const LEADERSHIP = [
   },
 ];
 
+function boardCardImageRadiusClass(index: number) {
+  if (index === 0) return "lg:rounded-tr-[120px]";
+  if (index === 2) return "lg:rounded-bl-[120px]";
+  if (index === 3) return "lg:rounded-br-[120px]";
+  if (index === 5) return "lg:rounded-tl-[120px]";
+  return "";
+}
+
+function leadershipCardImageRadiusClass(index: number) {
+  if (index === 0 || index === 2) return "lg:rounded-tr-[69px]";
+  if (index === 1) return "lg:rounded-bl-[69px]";
+  return "";
+}
+
 function BoardCard({
   name,
   role,
   image,
+  index,
 }: {
   name: string;
   role: string;
   image: string;
+  index: number;
 }) {
   return (
     <article className="flex w-full max-w-[300px] flex-col">
-      <div className="relative aspect-[300/350] w-full overflow-hidden rounded-bl-[80px]">
-        <Image
-          src={image}
-          alt={name}
-          fill
-          className="object-cover object-top"
-          sizes="(max-width: 1024px) 90vw, 300px"
-        />
-      </div>
+      <div
+        role="img"
+        aria-label={name}
+        className={`relative aspect-[300/350] w-full overflow-hidden ${boardCardImageRadiusClass(index)}`}
+        style={{
+          background: `url(${image}) lightgray 50% / cover no-repeat`,
+        }}
+      />
       <div className="rounded-[12px] border-[1.18px] border-[#f3f4f6] bg-white p-5 text-right shadow-[0_1px_1.5px_rgba(0,0,0,0.04),0_4px_6px_rgba(0,0,0,0.03)]">
         <h3 className="text-right text-[18px] font-bold leading-[25px] text-[#005761]">
           {name}
@@ -60,18 +75,27 @@ function BoardCard({
   );
 }
 
-function LeadershipCard({ name, role }: { name: string; role: string }) {
+function LeadershipCard({
+  name,
+  role,
+  image,
+  index,
+}: {
+  name: string;
+  role: string;
+  image: string;
+  index: number;
+}) {
   return (
     <article className="flex w-full max-w-[265px] flex-col items-end rounded-[12px] border-[1.18px] border-[#f3f4f6] bg-white p-[17px] text-right shadow-[0_1px_1.5px_rgba(0,0,0,0.04),0_4px_6px_rgba(0,0,0,0.03)]">
-      <div className="relative aspect-square w-full overflow-hidden rounded-bl-[69px]">
-        <Image
-          src={CLONE}
-          alt={name}
-          fill
-          className="object-cover object-top"
-          sizes="(max-width: 1024px) 45vw, 231px"
-        />
-      </div>
+      <div
+        role="img"
+        aria-label={name}
+        className={`relative aspect-square w-full overflow-hidden ${leadershipCardImageRadiusClass(index)}`}
+        style={{
+          background: `url(${image}) lightgray 50% / cover no-repeat`,
+        }}
+      />
       <h3 className="mt-3 w-full text-right text-[16px] font-bold leading-[22px] text-[#005761]">
         {name}
       </h3>
@@ -162,8 +186,8 @@ export default function BoardPage() {
               أعضاء مجلس الأمناء
             </h2>
             <div className="grid grid-cols-1 justify-items-center gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
-              {BOARD_MEMBERS.map((member) => (
-                <BoardCard key={member.id} {...member} />
+              {BOARD_MEMBERS.map((member, index) => (
+                <BoardCard key={member.id} index={index} {...member} />
               ))}
             </div>
           </div>
@@ -185,8 +209,14 @@ export default function BoardPage() {
               القيادة التنفيذية
             </h2>
             <div className="grid grid-cols-2 justify-items-center gap-5 lg:grid-cols-4 lg:gap-6">
-              {LEADERSHIP.map((leader) => (
-                <LeadershipCard key={leader.id} name={leader.name} role={leader.role} />
+              {LEADERSHIP.map((leader, index) => (
+                <LeadershipCard
+                  key={leader.id}
+                  index={index}
+                  name={leader.name}
+                  role={leader.role}
+                  image={CLONE}
+                />
               ))}
             </div>
           </div>

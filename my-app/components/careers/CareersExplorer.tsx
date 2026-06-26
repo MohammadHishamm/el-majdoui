@@ -125,9 +125,12 @@ export function CareersExplorer() {
         </h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {reasons.map((r) => (
-            <div key={r.id} className="relative h-[360px] overflow-hidden rounded-tr-[60px] rounded-bl-[12px]">
+            <div
+              key={r.id}
+              className="relative h-[360px] overflow-hidden rounded-[0_60px_0_0] [box-shadow:0_1px_3px_0_rgba(0,0,0,0.04),0_4px_12px_0_rgba(0,0,0,0.03)]"
+            >
               <Image src={r.image} alt="" fill sizes="(max-width: 1024px) 90vw, 360px" className="object-cover" />
-              <div className="absolute inset-x-0 bottom-0 p-6 text-right" style={{ backgroundColor: r.color }}>
+              <div className="absolute inset-x-0 bottom-0 p-6 text-right" style={{ backgroundColor: r.color, borderRadius: "0 60px 0 0" }}>
                 <h3 className="text-[22px] font-bold text-white">{r.title}</h3>
                 <p className="mt-2 text-[14px] leading-[24px] text-white/90">{r.desc}</p>
               </div>

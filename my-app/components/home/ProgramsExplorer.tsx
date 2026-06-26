@@ -786,18 +786,31 @@ export function ProgramsExplorer() {
         </div>
 
         <p
-          className="mt-6 flex items-center justify-center gap-2 text-sm text-text-muted"
+          className="mx-auto mt-6 max-w-3xl text-center text-sm leading-7 text-text-muted"
           dir={isArabic ? "rtl" : "ltr"}
         >
-          {t.hint}
-          <Image
-            src="/images/figma/sections/arrow-left.svg"
-            alt=""
-            width={16}
-            height={16}
-            className={`shrink-0 ${isArabic ? "" : "rotate-180"}`}
-            aria-hidden
-          />
+          <span className="md:hidden">
+            {t.hint}
+            <Image
+              src="/images/figma/sections/arrow-left.svg"
+              alt=""
+              width={16}
+              height={16}
+              className={`ms-1.5 inline-block h-4 w-4 align-[-2px] ${isArabic ? "" : "rotate-180"}`}
+              aria-hidden
+            />
+          </span>
+          <span className="hidden items-center justify-center gap-2 md:inline-flex">
+            <span>{t.hint}</span>
+            <Image
+              src="/images/figma/sections/arrow-left.svg"
+              alt=""
+              width={16}
+              height={16}
+              className={`shrink-0 ${isArabic ? "" : "rotate-180"}`}
+              aria-hidden
+            />
+          </span>
         </p>
       </div>
     </section>

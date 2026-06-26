@@ -57,15 +57,20 @@
   opacity: 0;
   transform: translateY(14px);
   pointer-events: none;
+  /* Fast fade-out when a tab closes */
   transition:
-    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.14s,
-    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.14s;
+    opacity 0.16s cubic-bezier(0.4, 0, 1, 1),
+    transform 0.2s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .program-panel-expanded-view.is-visible {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
+  /* Slower fade-in when a tab opens */
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.14s,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1) 0.14s;
 }
 
 @media (prefers-reduced-motion: reduce) {

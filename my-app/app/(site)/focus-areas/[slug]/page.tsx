@@ -6,6 +6,10 @@ import EconomicEmpowermentSection from "@/components/focus-area/economic/Economi
 import TargetGroupsSection from "@/components/focus-area/economic/TargetGroupsSection";
 import StatsSection from "@/components/focus-area/economic/StatsSection";
 import ProgramsSection from "@/components/focus-area/economic/ProgramsSection";
+import MosquesIntroSection from "@/components/focus-area/mosques/MosquesIntroSection";
+import MosquesTargetGroupsSection from "@/components/focus-area/mosques/MosquesTargetGroupsSection";
+import MosquesStatsSection from "@/components/focus-area/mosques/MosquesStatsSection";
+import MosquesProgramsSection from "@/components/focus-area/mosques/MosquesProgramsSection";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -33,6 +37,18 @@ export default async function FocusAreaDetailPage({ params }: Props) {
         <TargetGroupsSection />
         <StatsSection />
         <ProgramsSection />
+      </main>
+    );
+  }
+
+  // مساجد المجدوعي — same animated layout as the economic page, different content
+  if (slug === "mosques") {
+    return (
+      <main dir="rtl" data-nav-surface="light">
+        <MosquesIntroSection />
+        <MosquesTargetGroupsSection />
+        <MosquesStatsSection />
+        <MosquesProgramsSection />
       </main>
     );
   }

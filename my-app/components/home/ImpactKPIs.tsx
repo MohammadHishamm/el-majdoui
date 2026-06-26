@@ -108,7 +108,7 @@ export function ImpactKPIs() {
       aria-labelledby="kpis-heading"
     >
       <div
-        className="pointer-events-none absolute inset-y-0 right-[-250px] top-[-30px] h-[70%] w-1/2"
+        className="pointer-events-none absolute inset-y-0 right-[-250px] top-[-30px] hidden h-[70%] w-1/2 lg:block"
         style={{ opacity: 0.3 }}
         aria-hidden
       >
@@ -122,7 +122,7 @@ export function ImpactKPIs() {
       </div>
 
       <div
-        className="pointer-events-none absolute inset-y-0 left-[-75px] top-[-30px] h-[70%] w-1/2"
+        className="pointer-events-none absolute inset-y-0 left-[-75px] top-[-30px] hidden h-[70%] w-1/2 lg:block"
         style={{ opacity: 0.3 }}
         aria-hidden
       >
@@ -151,7 +151,7 @@ export function ImpactKPIs() {
         >
           {KPIS.map((kpi) => (
             <div key={kpi.label.ar} className="flex flex-col items-center text-center text-white">
-              <div className="mb-4 flex h-[32px] w-[32px] items-center justify-center">
+              <div className="mb-4 hidden h-[32px] w-[32px] items-center justify-center lg:flex">
                 <Image
                   src={kpi.iconSrc}
                   alt=""

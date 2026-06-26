@@ -34,7 +34,7 @@ export function LeadershipSpotlight() {
           >
             <div className="relative aspect-[506/467] w-full overflow-hidden rounded-tr-[75px] max-lg:max-w-full lg:h-[467px] lg:w-[506px] lg:aspect-auto">
               <Image
-                src="/images/figma/sections/leadership.jpg"
+                src="/images/figma/sections/leadership.png"
                 alt={t.imageAlt}
                 fill
                 className="object-cover object-top"

@@ -29,7 +29,7 @@ const NEWS: NewsItem[] = [
       en: "The foundation organized an appreciation ceremony for its partners and supporters in recognition of their contributions to the journey of giving.",
     },
     date: { ar: "٢٨ أبريل ٢٠٢٤", en: "April 28, 2024" },
-    image: "/images/figma/sections/leadership.jpg",
+    image: "/images/figma/sections/leadership.png",
   },
   {
     id: "2",

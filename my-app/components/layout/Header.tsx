@@ -60,6 +60,8 @@ export function Header() {
   const solidHeader = overLight || openMenu !== null || searchOpen;
   const { locale } = useLocale();
   const t = translations[locale].header;
+  const isArabic = locale === "ar";
+  const dropdownTextAlign = isArabic ? "text-right" : "text-left";
 
   const navItemClass = (active = false) =>
     `relative z-10 flex items-center gap-1 px-3 py-2 text-[16px] font-medium transition-colors ${
@@ -185,18 +187,18 @@ export function Header() {
                     >
                       <div style={{ paddingTop: HEADER_H }}>
                         <div className="mx-auto max-w-[1280px] px-6 pt-5 pb-7">
-                          <p className="text-right text-[18px] font-bold text-white">
+                          <p className={`${dropdownTextAlign} text-[18px] font-bold text-white`}>
                             {locale === "en" ? (item.labelEn ?? item.label) : item.label}
                           </p>
                           <div className="my-4 h-px w-full bg-white/20" />
                           <div className="flex justify-start">
-                            <div className="min-w-[240px]">
+                            <div className={`min-w-[240px] ${dropdownTextAlign}`}>
                               {item.children.map((child) => (
                                 <Link
                                   key={child.href}
                                   href={child.href}
                                   onClick={() => setOpenMenu(null)}
-                                  className="block py-[9px] text-right text-[15px] text-white/80 transition-colors hover:text-accent"
+                                  className={`block py-[9px] text-[15px] text-white/80 transition-colors hover:text-accent ${dropdownTextAlign}`}
                                 >
                                   {locale === "en" ? (child.labelEn ?? child.label) : child.label}
                                 </Link>

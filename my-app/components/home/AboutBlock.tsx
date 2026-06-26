@@ -11,68 +11,58 @@ export function AboutBlock() {
 
   return (
     <section
-      className="relative overflow-hidden bg-bg-light py-20 md:py-28"
+      className="relative overflow-hidden bg-[#f9fafb] py-16 md:py-24"
       data-nav-surface="light"
       aria-labelledby="about-heading"
     >
-      {/*
-       * Decorative side images — both at 30% opacity so they are very faint
-       * like in the Figma reference.
-       * In RTL:  inset-s-0 = physical right,  inset-e-0 = physical left
-       */}
-
-      {/* Physical RIGHT — about-right.png */}
+      {/* Decorative botanical motifs — faint, desktop only (matches Figma) */}
+      {/* Physical LEFT — top corner, ~480×340 @ 25% */}
       <div
-        className="pointer-events-none absolute inset-y-0 right-0 w-[140px] opacity-30 sm:w-[180px] lg:w-[320px]"
-        aria-hidden
-      >
-        <Image
-          src="/images/about-right.png"
-          alt=""
-          fill
-          className="object-contain object-right"
-          sizes="320px"
-        />
-      </div>
-
-      {/* Physical LEFT — about-left.png */}
-      <div
-        className="pointer-events-none absolute inset-y-0 left-[-75px] top-[-30px] w-1/2 h-[70%]"
-        style={{ opacity: 0.3 }}
+        className="pointer-events-none absolute left-[-80px] top-[-40px] hidden h-[340px] w-[480px] opacity-25 md:block"
         aria-hidden
       >
         <Image
           src="/images/about-left.png"
           alt=""
           fill
-          className="object-contain object-left"
-          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-contain object-left-top"
+          sizes="480px"
         />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[960px] px-6 text-center">
+      {/* Physical RIGHT — ~320×320 @ 30% */}
+      <div
+        className="pointer-events-none absolute right-[-60px] top-[41px] hidden size-[320px] opacity-30 md:block"
+        aria-hidden
+      >
+        <Image
+          src="/images/about-right.png"
+          alt=""
+          fill
+          className="object-contain object-right-top"
+          sizes="320px"
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto w-full max-w-[896px] px-6 text-center">
         <h2
           id="about-heading"
-          className="text-[40px] leading-[1.35] text-primary md:text-[44px]"
-          style={{ fontWeight: 500 }}
+          className="text-[28px] font-medium leading-[1.2] text-[#005761] md:text-[36px]"
         >
           {t.heading}
         </h2>
 
-        <p
-          className="mx-auto mt-6 max-w-[800px] text-[18px] leading-[1.85] md:text-[19px]"
-          style={{ color: "#4A5565" }}
-        >
+        <p className="mx-auto mt-6 max-w-[896px] text-[16px] leading-[1.7] text-[#364153] md:text-[20px] md:leading-[32.5px]">
           {t.body}
         </p>
 
         <Link
           href="/about/who-we-are"
-          className="mt-10 inline-flex items-center gap-2.5 rounded-full border border-text-dark px-8 py-3 text-[16px] text-text-dark transition-all hover:border-primary hover:bg-primary hover:text-white"
-          style={{ fontWeight: 500 }}
+          dir="rtl"
+          className="mt-9 inline-flex items-center gap-2 rounded-full border-[1.18px] border-[#005761] bg-white px-6 py-2.5 text-[14px] font-bold text-[#005761] transition-colors hover:bg-[#005761] hover:text-white"
         >
           {t.cta}
-          <svg viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4" aria-hidden>
+          <svg viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4 shrink-0" aria-hidden>
             <path
               fillRule="evenodd"
               d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"

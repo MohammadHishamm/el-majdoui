@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
 import { siteConfig } from "@/lib/site/config";
 import { useLocale } from "@/lib/i18n/context";
@@ -16,6 +17,11 @@ export function ContactSection() {
   const isArabic = locale === "ar";
   const textAlign = isArabic ? "text-right" : "text-left";
 
+  useEffect(() => {
+    if (window.location.hash !== "#contact") return;
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+
   const contactRows = [
     { label: t.addressLabel, value: locale === "en" ? siteConfig.contact.addressEn : siteConfig.contact.address, ltr: false },
     { label: t.phoneLabel, value: siteConfig.contact.phone, ltr: true },
@@ -25,7 +31,8 @@ export function ContactSection() {
 
   return (
     <section
-      className="bg-white py-16 md:py-24"
+      id="contact"
+      className="scroll-mt-28 bg-white py-16 md:py-24"
       data-nav-surface="light"
       aria-labelledby="contact-heading"
     >

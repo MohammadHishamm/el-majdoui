@@ -1,21 +1,24 @@
 import type { Metadata } from "next";
-import { PagePlaceholder } from "@/components/ui/PagePlaceholder";
+import { notFound } from "next/navigation";
+import { JobApplicationForm } from "@/components/careers/JobApplicationForm";
+import { getJob, jobs } from "@/lib/careers";
 
 type Props = { params: Promise<{ id: string }> };
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
-  return { title: `وظيفة — ${id}` };
+export function generateStaticParams() {
+  return jobs.map((j) => ({ id: j.id }));
 }
 
-export default async function CareerDetailPage({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  return (
-    <PagePlaceholder
-      title={`تفاصيل الوظيفة (${id})`}
-      eyebrow="التوظيف"
-      backHref="/careers"
-      backLabel="جميع الوظائف"
-    />
-  );
+  const job = getJob(id);
+  if (!job) return { title: "وظيفة غير موجودة" };
+  return { title: `التقديم على ${job.title} | مؤسسة المجدوعي الخيرية`, description: job.summary };
+}
+
+export default async function JobApplyPage({ params }: Props) {
+  const { id } = await params;
+  const job = getJob(id);
+  if (!job) notFound();
+  return <JobApplicationForm job={job} />;
 }

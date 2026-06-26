@@ -85,7 +85,7 @@ export const mainNavigation: NavItem[] = [
     ],
   },
   { label: "التوظيف", labelEn: "Careers", href: "/careers" },
-  { label: "اتصل بنا", labelEn: "Contact Us", href: "/contact" },
+  { label: "اتصل بنا", labelEn: "Contact Us", href: "/#contact" },
 ];
 
 export const footerNavigation = {

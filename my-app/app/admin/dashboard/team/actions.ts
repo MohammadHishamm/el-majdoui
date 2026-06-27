@@ -37,6 +37,21 @@ export async function updateMember(id: string, form: FormData) {
   redirect("/admin/dashboard/team");
 }
 
+export async function updateChairman(form: FormData) {
+  const supabase = await createClient();
+  let content: unknown = {};
+  try {
+    content = JSON.parse(String(form.get("content") ?? "{}"));
+  } catch {
+    content = {};
+  }
+  const { error } = await supabase.from("page_content").upsert({ slug: "board", content }, { onConflict: "slug" });
+  if (error) redirect(`/admin/dashboard/team?error=${encodeURIComponent(error.message)}`);
+  revalidatePath("/admin/dashboard/team");
+  revalidatePath("/about/board");
+  redirect("/admin/dashboard/team");
+}
+
 export async function deleteMember(id: string) {
   const supabase = await createClient();
   await supabase.from("team_members").delete().eq("id", id);

@@ -1,7 +1,8 @@
 "use client"
 
-import { ChevronRight, type LucideIcon } from "lucide-react"
+import { ChevronLeft, ChevronRight, type LucideIcon } from "lucide-react"
 
+import { useAdminT } from "@/components/admin/i18n"
 import {
   Collapsible,
   CollapsibleContent,
@@ -32,6 +33,9 @@ export function NavMain({
     }[]
   }[]
 }) {
+  const { locale } = useAdminT()
+  const isArabic = locale === "ar"
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Platform</SidebarGroupLabel>
@@ -43,18 +47,33 @@ export function NavMain({
               className="group/collapsible"
             >
               <CollapsibleTrigger
-                render={<SidebarMenuButton tooltip={item.title} />}
+                render={
+                  <SidebarMenuButton
+                    tooltip={item.title}
+                    dir={isArabic ? "rtl" : "ltr"}
+                  />
+                }
               >
-                {item.icon && <item.icon />}
-                <span>{item.title}</span>
-                <ChevronRight className="ms-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90 rtl:rotate-180" />
+                {item.icon && <item.icon className="shrink-0" />}
+                <span className="flex-1 truncate text-start">{item.title}</span>
+                {isArabic ? (
+                  <ChevronLeft
+                    className="size-4 shrink-0 transition-transform duration-200 group-data-open/collapsible:-rotate-90"
+                    aria-hidden
+                  />
+                ) : (
+                  <ChevronRight
+                    className="ms-auto size-4 shrink-0 transition-transform duration-200 group-data-open/collapsible:rotate-90"
+                    aria-hidden
+                  />
+                )}
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <SidebarMenuSub>
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton href={subItem.url}>
-                        <span>{subItem.title}</span>
+                        <span className="text-start">{subItem.title}</span>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}

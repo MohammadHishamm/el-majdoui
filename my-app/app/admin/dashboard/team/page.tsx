@@ -2,7 +2,8 @@ import Link from "next/link";
 import { Pencil, Plus, Trash2, Users } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
-import { deleteMember } from "./actions";
+import { deleteMember, updateChairman } from "./actions";
+import { BoardForm } from "@/components/admin/pages/BoardForm";
 
 type Row = { id: string; type: string; name_ar: string; role_ar: string; image: string | null; published: boolean };
 
@@ -17,8 +18,16 @@ export default async function TeamListPage() {
     .order("sort_order");
   const rows = (data ?? []) as Row[];
 
+  const { data: boardData } = await supabase.from("page_content").select("content").eq("slug", "board").single();
+  const chairman = (boardData?.content as Record<string, unknown>) ?? {};
+
   return (
     <div className="flex flex-col gap-6">
+      <div className="rounded-xl border p-5">
+        <h2 className="mb-4 text-base font-semibold">{t.nav.boardChairman}</h2>
+        <BoardForm action={updateChairman} defaults={chairman} submitLabel={t.common.save} />
+      </div>
+
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">{t.team.heading}</h1>
         <Link href="/admin/dashboard/team/new" className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90">

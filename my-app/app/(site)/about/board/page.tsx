@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { FadeInUp } from "@/components/ui/fade-in-up";
-import { getTeam } from "@/lib/cms/fetchers";
+import { getTeam, getPageContent } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
   title: "مجلس الأمناء والقيادات | مؤسسة المجدوعي الخيرية",
@@ -10,6 +10,15 @@ export const metadata: Metadata = {
 };
 
 const CLONE = "/images/leaders-group/clone-sheikh.jpg";
+
+const FALLBACK_CHAIRMAN = {
+  eyebrow: "رئيس مجلس الأمناء",
+  name: "الشيخ علي بن إبراهيم المجدوعي",
+  position: "رئيس مجلس الأمناء — مؤسس المؤسسة",
+  quote:
+    "تؤمن المؤسسة بأن الإحسان الحقيقي هو ذلك الذي يُمكّن المحتاج من الاعتماد على نفسه، ويبني مستقبلاً مستداماً له ولأسرته.",
+  photo: "/images/leaders-group/main-sheikh.jpg",
+};
 
 const FALLBACK_BOARD = Array.from({ length: 6 }, (_, i) => ({
   id: `member-${i + 1}`,
@@ -106,9 +115,16 @@ function LeadershipCard({
 export const dynamic = "force-dynamic";
 
 export default async function BoardPage() {
-  const team = await getTeam();
+  const [team, boardContent] = await Promise.all([getTeam(), getPageContent("board")]);
   const BOARD_MEMBERS = team.board.length ? team.board : FALLBACK_BOARD;
   const LEADERSHIP = team.leadership.length ? team.leadership : FALLBACK_LEADERSHIP;
+  const chairman = {
+    eyebrow: (boardContent.eyebrow as string) || FALLBACK_CHAIRMAN.eyebrow,
+    name: (boardContent.name as string) || FALLBACK_CHAIRMAN.name,
+    position: (boardContent.position as string) || FALLBACK_CHAIRMAN.position,
+    quote: (boardContent.quote as string) || FALLBACK_CHAIRMAN.quote,
+    photo: (boardContent.photo as string) || FALLBACK_CHAIRMAN.photo,
+  };
   return (
     <main dir="rtl" className="bg-white">
       {/* ── Header ── (negative margin keeps the sticky navbar solid on load) */}
@@ -134,8 +150,8 @@ export default async function BoardPage() {
               {/* Portrait — RTL start (physical right) */}
               <div className="relative aspect-[325/406] w-full max-w-[325px] shrink-0 overflow-hidden rounded-tr-[120px]">
                 <Image
-                  src="/images/leaders-group/main-sheikh.jpg"
-                  alt="الشيخ علي بن إبراهيم المجدوعي"
+                  src={chairman.photo}
+                  alt={chairman.name}
                   fill
                   priority
                   className="object-cover object-top"
@@ -149,27 +165,26 @@ export default async function BoardPage() {
                   className="w-full text-right text-[#005761]"
                   style={{ fontSize: 14, fontWeight: 700, lineHeight: "21px" }}
                 >
-                  رئيس مجلس الأمناء
+                  {chairman.eyebrow}
                 </p>
                 <h2
                   className="w-full text-right text-[#005761]"
                   style={{ fontSize: 28, fontWeight: 900, lineHeight: "33.6px" }}
                 >
-                  الشيخ علي بن إبراهيم المجدوعي
+                  {chairman.name}
                 </h2>
                 <div
                   className="w-full text-right text-[#4A5565]"
                   style={{ fontSize: 18, fontWeight: 400, lineHeight: "27px" }}
                 >
-                  رئيس مجلس الأمناء — مؤسس المؤسسة
+                  {chairman.position}
                 </div>
                 <div className="my-1 h-px w-16 bg-[rgba(0,87,97,0.3)]" />
                 <div
                   className="w-full max-w-[673px] text-right text-[#364153]"
                   style={{ fontSize: 24, fontWeight: 400, lineHeight: "28.8px" }}
                 >
-                  &quot;تؤمن المؤسسة بأن الإحسان الحقيقي هو ذلك الذي يُمكّن المحتاج من
-                  الاعتماد على نفسه، ويبني مستقبلاً مستداماً له ولأسرته.&quot;
+                  &quot;{chairman.quote}&quot;
                 </div>
               </div>
             </div>

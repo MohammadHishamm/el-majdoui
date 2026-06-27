@@ -61,9 +61,10 @@ const NEWS: NewsItem[] = [
   },
 ];
 
-export function LatestNews() {
+export function LatestNews({ items }: { items?: NewsItem[] }) {
   const { locale } = useLocale();
   const t = translations[locale].news;
+  const list = items && items.length ? items : NEWS;
 
   return (
     <section
@@ -103,7 +104,7 @@ export function LatestNews() {
         </div>
 
         <div className="flex gap-6 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {NEWS.map((item) => (
+          {list.map((item) => (
             <Link
               key={item.id}
               href={`/news/${item.slug}`}

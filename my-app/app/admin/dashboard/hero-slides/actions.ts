@@ -12,10 +12,7 @@ function rowFromForm(form: FormData) {
   return {
     title_ar: str(form.get("title_ar")),
     title_en: str(form.get("title_en")),
-    excerpt_ar: str(form.get("excerpt_ar")),
-    excerpt_en: str(form.get("excerpt_en")),
     image: str(form.get("image")),
-    category: str(form.get("category")) || null,
     href: str(form.get("href")) || null,
     sort_order: Number(str(form.get("sort_order")) || "0"),
     published: form.get("published") === "on",

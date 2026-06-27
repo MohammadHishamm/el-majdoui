@@ -7,6 +7,7 @@ import { useAdminT } from "@/components/admin/i18n";
 export type NewsFormValues = {
   slug?: string;
   category?: string;
+  home_featured?: boolean;
   title_ar?: string;
   title_en?: string;
   excerpt_ar?: string;
@@ -117,7 +118,8 @@ export function NewsForm({
         />
       </Section>
 
-      <div className="flex items-center gap-6">
+      <div className="flex flex-wrap items-center gap-6">
+        <Toggle name="home_featured" label={f.showOnHome} defaultChecked={d.home_featured} />
         <Toggle name="featured" label={f.featuredHome} defaultChecked={d.featured} />
         <Toggle name="published" label={f.published} defaultChecked={d.published ?? true} />
       </div>

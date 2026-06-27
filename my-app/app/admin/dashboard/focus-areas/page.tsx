@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { LayoutPanelTop, Pencil, Plus, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
 import { deleteFocusArea } from "./actions";
+
+const DETAIL_SLUGS = new Set(["empowerment", "mosques", "partners-development"]);
 
 type Row = {
   id: string;
@@ -53,6 +55,14 @@ export default async function FocusAreasListPage() {
                 {!a.published && <span className="rounded-full bg-muted px-2 py-0.5 text-[11px]">{t.common.draft}</span>}
               </div>
               <div className="flex items-center gap-2">
+                {DETAIL_SLUGS.has(a.slug) && (
+                  <Link
+                    href={`/admin/dashboard/focus-areas/${a.id}/detail`}
+                    className="inline-flex items-center gap-1 rounded-md border border-primary/40 px-2 py-1 text-xs text-primary hover:bg-primary/5"
+                  >
+                    <LayoutPanelTop className="size-3.5" /> {t.focus.editDetail}
+                  </Link>
+                )}
                 <Link
                   href={`/admin/dashboard/focus-areas/${a.id}`}
                   className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent"

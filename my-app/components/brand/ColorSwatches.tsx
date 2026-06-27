@@ -3,14 +3,17 @@
 import { useState } from "react";
 import Image from "next/image";
 
-const COLORS = [
+type Color = { name: string; hex: string };
+
+const DEFAULT_COLORS: Color[] = [
   { name: "اللون الأساسي للمؤسسة", hex: "#005761" },
   { name: "اللون الثانوي", hex: "#00B5C2" },
   { name: "اللون المساند", hex: "#80A5E0" },
   { name: "الرمادي الناعم", hex: "#E5E7EB" },
 ];
 
-export function ColorSwatches() {
+export function ColorSwatches({ colors }: { colors?: Color[] } = {}) {
+  const COLORS = colors && colors.length ? colors : DEFAULT_COLORS;
   const [copied, setCopied] = useState<string | null>(null);
 
   const copy = async (hex: string) => {

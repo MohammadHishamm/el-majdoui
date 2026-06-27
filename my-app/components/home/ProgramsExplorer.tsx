@@ -32,7 +32,7 @@ type Panel = {
   initiatives: Initiative[];
 };
 
-const PANELS: Panel[] = [
+const DEFAULT_PANELS: Panel[] = [
   {
     id: "empowerment",
     name: { ar: "المحتاج", en: "The Needy" },
@@ -651,8 +651,9 @@ function CollapsedPanelFace({
   );
 }
 
-export function ProgramsExplorer() {
-  const [activePanelId, setActivePanelId] = useState("empowerment");
+export function ProgramsExplorer({ panels }: { panels?: Panel[] } = {}) {
+  const PANELS = panels && panels.length ? panels : DEFAULT_PANELS;
+  const [activePanelId, setActivePanelId] = useState(PANELS[0]?.id ?? "empowerment");
   const [activeInitiativeId, setActiveInitiativeId] = useState<string | null>(null);
   const { locale } = useLocale();
   const t = translations[locale].programs;

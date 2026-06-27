@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { FadeInUp } from "@/components/ui/fade-in-up";
 
-type Perspective = {
+export type Perspective = {
   id: string;
   /** بُعد — the BSC perspective name */
   title: string;
@@ -20,7 +20,7 @@ type Perspective = {
 /**
  * The four Balanced Scorecard perspectives (أربعة أبعاد) shown right-to-left.
  */
-const PERSPECTIVES: Perspective[] = [
+const DEFAULT_PERSPECTIVES: Perspective[] = [
   {
     id: "beneficiaries",
     title: "بُعد المستفيدين",
@@ -141,8 +141,9 @@ function PerspectiveCard({
   );
 }
 
-export function StrategyPerspectives() {
+export function StrategyPerspectives({ perspectives }: { perspectives?: Perspective[] } = {}) {
   const [openId, setOpenId] = useState<string | null>(null);
+  const PERSPECTIVES = perspectives && perspectives.length ? perspectives : DEFAULT_PERSPECTIVES;
 
   return (
     <section className="bg-white pb-20 pt-8 sm:pb-24" data-nav-surface="light" aria-label="أبعاد الاستراتيجية">

@@ -4,6 +4,7 @@ import * as React from "react";
 import Link from "next/link";
 import {
   Briefcase,
+  FileText,
   FolderKanban,
   Home,
   Landmark,
@@ -51,6 +52,7 @@ const NAV: NavGroup[] = [
       { key: "aboutLeadership", url: "/admin/dashboard/site-settings" },
       { key: "focusAreas", url: "/admin/dashboard/focus-areas" },
       { key: "impactKpis", url: "/admin/dashboard/kpis" },
+      { key: "homePrograms", url: "/admin/dashboard/panels" },
     ],
   },
   {
@@ -98,10 +100,22 @@ const NAV: NavGroup[] = [
     ],
   },
   {
+    key: "sitePages",
+    icon: FileText,
+    roles: ["super_admin", "content_editor"],
+    items: [
+      { key: "pgVision", url: "/admin/dashboard/pages/vision-mission" },
+      { key: "pgWho", url: "/admin/dashboard/pages/who-we-are" },
+      { key: "pgStrategy", url: "/admin/dashboard/pages/strategy" },
+      { key: "pgBrand", url: "/admin/dashboard/pages/brand-identity" },
+    ],
+  },
+  {
     key: "settings",
     icon: Settings2,
     items: [
       { key: "siteContent", url: "/admin/dashboard/site-settings", roles: ["super_admin", "content_editor"] },
+      { key: "messages", url: "/admin/dashboard/messages", roles: ["super_admin", "content_editor"] },
       { key: "usersRoles", url: "/admin/dashboard/users", roles: ["super_admin"] },
     ],
   },

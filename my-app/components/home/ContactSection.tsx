@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useActionState } from "react";
 import Image from "next/image";
 import { siteConfig } from "@/lib/site/config";
 import { useLocale } from "@/lib/i18n/context";
 import { translations } from "@/lib/i18n/translations";
+import { submitContactMessage, type ContactState } from "@/components/home/contact-actions";
+
+const initialContactState: ContactState = { ok: false, error: null };
 
 const fieldClass =
   "w-full rounded-2xl border border-text-dark/15 bg-white px-4 py-3 text-base text-text-dark outline-none transition-colors placeholder:text-text-muted/50 focus:border-accent";
@@ -16,6 +19,15 @@ export function ContactSection() {
   const t = translations[locale].contact;
   const isArabic = locale === "ar";
   const textAlign = isArabic ? "text-right" : "text-left";
+  const [state, formAction, pending] = useActionState(submitContactMessage, initialContactState);
+
+  const feedback = state.ok
+    ? { tone: "ok", text: isArabic ? "تم إرسال رسالتك بنجاح. سنتواصل معك قريباً." : "Your message has been sent. We'll be in touch soon." }
+    : state.error === "missing"
+      ? { tone: "err", text: isArabic ? "يرجى تعبئة الحقول المطلوبة." : "Please fill in the required fields." }
+      : state.error
+        ? { tone: "err", text: isArabic ? "تعذّر الإرسال. يرجى المحاولة مرة أخرى." : "Could not send. Please try again." }
+        : null;
 
   useEffect(() => {
     if (window.location.hash !== "#contact") return;
@@ -41,8 +53,7 @@ export function ContactSection() {
           {/* Form — right in RTL */}
           <form
             className="flex flex-col gap-6 rounded-2xl bg-white p-8 md:rounded-none md:p-12"
-            action="/contact"
-            method="post"
+            action={formAction}
           >
             <div>
               <label htmlFor="contact-name" className={labelClass}>
@@ -97,11 +108,24 @@ export function ContactSection() {
                 placeholder={t.messagePlaceholder}
               />
             </div>
+            {feedback && (
+              <p
+                role="status"
+                className={`rounded-xl px-4 py-3 text-sm ${
+                  feedback.tone === "ok"
+                    ? "bg-green-50 text-green-700"
+                    : "bg-red-50 text-red-700"
+                } ${textAlign}`}
+              >
+                {feedback.text}
+              </p>
+            )}
             <button
               type="submit"
-              className="self-start rounded-full bg-footer-bg px-10 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent"
+              disabled={pending}
+              className="self-start rounded-full bg-footer-bg px-10 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent disabled:opacity-60"
             >
-              {t.submitBtn}
+              {pending ? (isArabic ? "جارٍ الإرسال…" : "Sending…") : t.submitBtn}
             </button>
           </form>
 

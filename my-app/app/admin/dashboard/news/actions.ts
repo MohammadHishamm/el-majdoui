@@ -49,6 +49,7 @@ function rowFromForm(form: FormData) {
     tags: csv(form.get("tags")),
     related: csv(form.get("related")),
     featured: form.get("featured") === "on",
+    home_featured: form.get("home_featured") === "on",
     published: form.get("published") === "on",
   };
 }
@@ -63,6 +64,7 @@ export async function createNews(form: FormData) {
   if (error) redirect(`/admin/dashboard/news/new?error=${encodeURIComponent(error.message)}`);
   revalidatePath("/admin/dashboard/news");
   revalidatePath("/news");
+  revalidatePath("/");
   redirect("/admin/dashboard/news");
 }
 
@@ -73,6 +75,7 @@ export async function updateNews(id: string, form: FormData) {
   if (error) redirect(`/admin/dashboard/news/${id}?error=${encodeURIComponent(error.message)}`);
   revalidatePath("/admin/dashboard/news");
   revalidatePath("/news");
+  revalidatePath("/");
   redirect("/admin/dashboard/news");
 }
 
@@ -81,6 +84,7 @@ export async function deleteNews(id: string) {
   await supabase.from("news").delete().eq("id", id);
   revalidatePath("/admin/dashboard/news");
   revalidatePath("/news");
+  revalidatePath("/");
 }
 
 export async function togglePublishNews(id: string, next: boolean) {
@@ -88,4 +92,5 @@ export async function togglePublishNews(id: string, next: boolean) {
   await supabase.from("news").update({ published: next }).eq("id", id);
   revalidatePath("/admin/dashboard/news");
   revalidatePath("/news");
+  revalidatePath("/");
 }

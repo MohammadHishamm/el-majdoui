@@ -9,7 +9,6 @@ const staticRoutes = [
   "",
   "/focus-areas",
   "/programs",
-  "/media-center",
   "/news",
   "/gallery",
   "/videos",

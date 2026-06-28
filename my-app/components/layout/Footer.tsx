@@ -100,7 +100,7 @@ const SOCIAL = [
   },
 ];
 
-const QUICK_LINK_HREFS = ["/about", "/programs", "/media-center", "/careers"];
+const QUICK_LINK_HREFS = ["/about", "/programs", "/news", "/careers"];
 
 export function Footer({
   contact,

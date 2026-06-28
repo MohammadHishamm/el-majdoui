@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { PageHeader } from "@/components/ui/PageHeader";
 import { Container } from "@/components/ui/Container";
 
 export const metadata: Metadata = {
@@ -19,9 +18,19 @@ const ABOUT_LINKS = [
 
 export default function AboutHubPage() {
   return (
-    <>
-      <PageHeader title="عن المؤسسة" />
-      <Container as="main" className="py-12">
+    <main dir="rtl" className="bg-white">
+      <section
+        className="-mt-28 bg-footer-bg pt-40 md:pt-44"
+        data-nav-surface="solid"
+      >
+        <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
+          <h1 className="text-right text-[36px] font-medium leading-[1.15] text-white md:text-[44px]">
+            عن المؤسسة
+          </h1>
+        </div>
+      </section>
+
+      <Container as="section" className="py-12">
         <ul className="grid gap-4 sm:grid-cols-2">
           {ABOUT_LINKS.map((link) => (
             <li key={link.href}>
@@ -35,6 +44,6 @@ export default function AboutHubPage() {
           ))}
         </ul>
       </Container>
-    </>
+    </main>
   );
 }

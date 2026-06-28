@@ -156,15 +156,16 @@ export function Header() {
                   onMouseLeave={() => item.children && closeMenuOnHover()}
                 >
                   {item.children ? (
-                    <button
-                      type="button"
+                    <Link
+                      href={item.href}
                       aria-expanded={isOpen}
                       aria-haspopup="true"
+                      onClick={() => setOpenMenu(null)}
                       className={navItemClass(isOpen)}
                     >
                       {locale === "en" ? (item.labelEn ?? item.label) : item.label}
                       <ChevronDown open={isOpen} />
-                    </button>
+                    </Link>
                   ) : (
                     <Link
                       href={item.href}

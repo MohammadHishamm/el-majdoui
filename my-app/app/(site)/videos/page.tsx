@@ -8,7 +8,7 @@ export default function VideosPage() {
     <PagePlaceholder
       title="مكتبة الفيديو"
       description="فيديوهات المؤسسة من YouTube ومنصات أخرى."
-      backHref="/media-center"
+      backHref="/news"
       backLabel="المركز الإعلامي"
     />
   );

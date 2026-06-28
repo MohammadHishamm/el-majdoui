@@ -68,16 +68,19 @@ export default async function VisionMissionPage() {
   return (
     <main dir="rtl">
       {/* ── Hero ── */}
-      <section className="relative -mt-28 h-[427px] w-full overflow-hidden border-b-4 border-[#00B5C2]" data-nav-surface="dark">
+      <section className="relative -mt-28 min-h-[360px] w-full overflow-hidden border-b-4 border-[#00B5C2] lg:h-[427px]" data-nav-surface="dark">
         <Image src={s("hero_image")} alt="" fill priority className="object-cover object-center" sizes="100vw" />
-        <div className="absolute inset-0 bg-gradient-to-l from-black/55 via-black/20 to-transparent" />
-        <div className="relative z-10 mx-auto w-full max-w-[1280px] px-4 pt-[150px] text-right sm:px-6 lg:px-8">
-          <nav aria-label="مسار التنقل" className="mb-5 flex w-full items-center justify-start gap-2 text-[14px] font-normal leading-none text-light-blue">
+        <div className="absolute inset-0 bg-gradient-to-l from-black/70 via-black/40 to-black/15 lg:from-black/55 lg:via-black/20 lg:to-transparent" />
+        <div className="relative z-10 mx-auto flex min-h-[360px] w-full max-w-[1280px] flex-col justify-end px-4 pb-10 pt-32 text-right sm:px-6 sm:pt-36 lg:min-h-0 lg:justify-start lg:pb-0 lg:pt-[150px] lg:px-8">
+          <nav aria-label="مسار التنقل" className="mb-3 flex w-full items-center justify-start gap-2 text-[13px] font-normal leading-none text-light-blue sm:text-[14px] lg:mb-5">
             <Link href="/" className="transition-colors hover:text-white">الرئيسية</Link>
             <span aria-hidden>←</span>
             <Link href="/about" className="transition-colors hover:text-white">عن المؤسسة</Link>
           </nav>
-          <h1 className="w-full max-w-[1280px] text-right text-white" style={{ fontFeatureSettings: DISPLAY_FEATURES, fontSize: 64, fontWeight: 500, lineHeight: "40px" }}>
+          <h1
+            className="me-auto w-full max-w-[72%] !text-[24px] !leading-[1.4] text-white sm:max-w-[65%] sm:!text-[34px] md:max-w-none md:!text-[48px] lg:max-w-[1280px] lg:!text-[70px] lg:!leading-[56px]"
+            style={{ fontFeatureSettings: DISPLAY_FEATURES }}
+          >
             {s("title")}
           </h1>
         </div>

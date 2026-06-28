@@ -72,7 +72,7 @@ export const mainNavigation: NavItem[] = [
   {
     label: "المركز الإعلامي",
     labelEn: "Media Center",
-    href: "/media-center",
+    href: "/news",
     children: [
       { label: "الأخبار والإعلانات", labelEn: "News & Announcements", href: "/news" },
       {

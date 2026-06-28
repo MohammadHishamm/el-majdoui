@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
 import { deleteMember, updateChairman } from "./actions";
 import { BoardForm } from "@/components/admin/pages/BoardForm";
+import { ReorderButtons } from "@/components/admin/reorder-buttons";
 
 type Row = { id: string; type: string; name_ar: string; role_ar: string; image: string | null; published: boolean };
 
@@ -39,9 +40,16 @@ export default async function TeamListPage() {
         {rows.length === 0 ? (
           <p className="rounded-xl border p-6 text-center text-muted-foreground">{t.common.noItems}</p>
         ) : (
-          rows.map((m) => (
+          rows.map((m, i) => (
             <div key={m.id} className="flex items-center justify-between rounded-xl border p-3">
               <div className="flex items-center gap-3" dir="rtl">
+                <ReorderButtons
+                  table="team_members"
+                  id={m.id}
+                  canUp={i > 0 && rows[i - 1].type === m.type}
+                  canDown={i < rows.length - 1 && rows[i + 1].type === m.type}
+                  index={rows.slice(0, i + 1).filter((r) => r.type === m.type).length}
+                />
                 <span className="relative size-10 overflow-hidden rounded-full bg-muted">
                   {m.image
                     // eslint-disable-next-line @next/next/no-img-element

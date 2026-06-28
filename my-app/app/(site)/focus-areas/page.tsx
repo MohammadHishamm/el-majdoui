@@ -6,6 +6,7 @@ import { getFocusAreas } from "@/lib/cms/fetchers";
 import { focusAreas as FALLBACK } from "@/lib/site/config";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/focus-areas" },
   title: "مجالات التركيز",
   description: "مجالات تركيز مؤسسة المجدوعي الخيرية",
 };
@@ -33,8 +34,8 @@ export default async function FocusAreasPage() {
               className="rounded-xl border border-bg-alt bg-white p-6 transition-shadow hover:shadow-md"
               style={{ borderTopColor: area.color, borderTopWidth: 4 }}
             >
-              <h2 className="text-xl font-bold text-text-dark">{area.name}</h2>
-              <p className="mt-2 text-text-medium">{area.shortDesc}</p>
+              <h2 className="line-clamp-2 break-words text-xl font-bold text-text-dark">{area.name}</h2>
+              <p className="mt-2 line-clamp-3 break-words text-text-medium">{area.shortDesc}</p>
               <span className="mt-4 inline-block text-sm font-medium text-primary">
                 استعرض المبادرات ←
               </span>

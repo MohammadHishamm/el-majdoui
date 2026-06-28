@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { nextSortOrder } from "@/app/admin/dashboard/_actions/reorder";
 
 const str = (v: FormDataEntryValue | null) => String(v ?? "").trim();
 const lines = (v: FormDataEntryValue | null) =>
@@ -24,14 +25,13 @@ function rowFromForm(form: FormData) {
     posted: str(form.get("posted")) || null,
     responsibilities: lines(form.get("responsibilities")),
     qualifications: lines(form.get("qualifications")),
-    sort_order: Number(str(form.get("sort_order")) || "0"),
     published: form.get("published") === "on",
   };
 }
 
 export async function createJob(form: FormData) {
   const supabase = await createClient();
-  const { error } = await supabase.from("jobs").insert(rowFromForm(form));
+  const { error } = await supabase.from("jobs").insert({ ...rowFromForm(form), sort_order: await nextSortOrder("jobs") });
   if (error) redirect(`/admin/dashboard/careers/new?error=${encodeURIComponent(error.message)}`);
   revalidatePath("/admin/dashboard/careers");
   revalidatePath("/careers");

@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { nextSortOrder } from "@/app/admin/dashboard/_actions/reorder";
 
 function str(v: FormDataEntryValue | null): string {
   return String(v ?? "").trim();
@@ -14,14 +15,13 @@ function rowFromForm(form: FormData) {
     title_en: str(form.get("title_en")),
     image: str(form.get("image")),
     href: str(form.get("href")) || null,
-    sort_order: Number(str(form.get("sort_order")) || "0"),
     published: form.get("published") === "on",
   };
 }
 
 export async function createHeroSlide(form: FormData) {
   const supabase = await createClient();
-  const { error } = await supabase.from("hero_slides").insert(rowFromForm(form));
+  const { error } = await supabase.from("hero_slides").insert({ ...rowFromForm(form), sort_order: await nextSortOrder("hero_slides") });
   if (error) redirect(`/admin/dashboard/hero-slides/new?error=${encodeURIComponent(error.message)}`);
   revalidatePath("/admin/dashboard/hero-slides");
   revalidatePath("/");

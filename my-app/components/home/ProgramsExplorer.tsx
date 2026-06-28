@@ -410,8 +410,8 @@ function MobilePanelContent({
       dir={isArabic ? "rtl" : "ltr"}
     >
       <div className={isArabic ? "text-right" : "text-left"}>
-        <h3 className="text-xl font-bold">{panel.name[locale]}</h3>
-        <p className="mt-2 text-sm leading-7 text-white/85">{panel.desc[locale]}</p>
+        <h3 className="line-clamp-2 break-words text-xl font-bold">{panel.name[locale]}</h3>
+        <p className="mt-2 line-clamp-3 text-sm leading-7 text-white/85">{panel.desc[locale]}</p>
       </div>
 
       <ul className="mt-5 flex flex-col gap-3">
@@ -429,7 +429,7 @@ function MobilePanelContent({
                 aria-expanded={isExpanded}
               >
                 <div className="min-w-0 flex-1">
-                  <p className="font-bold text-sm">{initiative.title[locale]}</p>
+                  <p className="line-clamp-2 break-words font-bold text-sm">{initiative.title[locale]}</p>
                   <p className="mt-0.5 line-clamp-2 text-xs leading-6 text-white/75">
                     {initiative.desc[locale]}
                   </p>
@@ -453,7 +453,7 @@ function MobilePanelContent({
                           style={{ backgroundColor: panel.bg }}
                           aria-hidden
                         />
-                        <h4 className="font-bold text-sm">{path.title[locale]}</h4>
+                        <h4 className="line-clamp-2 break-words font-bold text-sm">{path.title[locale]}</h4>
                       </div>
                       <p className="mt-2 flex-1 text-sm leading-7 text-text-light">
                         {path.desc[locale]}
@@ -480,7 +480,7 @@ function MobilePanelContent({
         })}
       </ul>
 
-      <p className={`mt-5 text-xs text-white/70 ${isArabic ? "self-end" : "self-start"}`}>
+      <p className={`mt-5 line-clamp-2 break-words text-xs text-white/70 ${isArabic ? "self-end" : "self-start"}`}>
         {footerText}
       </p>
     </div>
@@ -499,8 +499,8 @@ function DesktopPanelContent({
   return (
     <>
       <div className={isArabic ? "text-right" : "text-left"}>
-        <h3 className="text-2xl font-bold md:text-3xl">{panel.name[locale]}</h3>
-        <p className="mt-2 max-w-2xl text-sm leading-7 text-white/85">{panel.desc[locale]}</p>
+        <h3 className="line-clamp-2 break-words text-2xl font-bold md:text-3xl">{panel.name[locale]}</h3>
+        <p className="mt-2 line-clamp-3 max-w-2xl text-sm leading-7 text-white/85">{panel.desc[locale]}</p>
       </div>
 
       <ul className="mt-6 flex min-h-0 flex-1 flex-col gap-3 overflow-y-auto overflow-x-hidden pe-1">
@@ -518,7 +518,7 @@ function DesktopPanelContent({
                 aria-expanded={isExpanded}
               >
                 <div className="min-w-0 flex-1">
-                  <p className="font-bold">{initiative.title[locale]}</p>
+                  <p className="line-clamp-2 break-words font-bold">{initiative.title[locale]}</p>
                   <p className="mt-0.5 line-clamp-2 text-xs leading-6 text-white/75">
                     {initiative.desc[locale]}
                   </p>
@@ -542,7 +542,7 @@ function DesktopPanelContent({
                           style={{ backgroundColor: panel.bg }}
                           aria-hidden
                         />
-                        <h4 className="font-bold">{path.title[locale]}</h4>
+                        <h4 className="line-clamp-2 break-words font-bold">{path.title[locale]}</h4>
                       </div>
                       <p className="mt-2 flex-1 text-sm leading-7 text-text-light">
                         {path.desc[locale]}
@@ -569,7 +569,7 @@ function DesktopPanelContent({
         })}
       </ul>
 
-      <p className={`mt-auto text-xs text-white/70 ${isArabic ? "self-end" : "self-start"}`}>
+      <p className={`mt-auto line-clamp-2 break-words text-xs text-white/70 ${isArabic ? "self-end" : "self-start"}`}>
         {footerText}
       </p>
     </>
@@ -637,11 +637,11 @@ function CollapsedPanelFace({
       )}
 
       <span
-        className="absolute flex items-center justify-center text-center font-bold"
+        className="absolute flex items-center justify-center overflow-hidden text-center font-bold"
         style={COLLAPSED_TITLE_STYLE}
         dir="rtl"
       >
-        {panel.name[locale]}
+        <span className="line-clamp-2 break-words">{panel.name[locale]}</span>
       </span>
 
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2">
@@ -707,12 +707,13 @@ export function ProgramsExplorer({ panels }: { panels?: Panel[] } = {}) {
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => handlePanelChange(panel.id)}
-                  className="flex-1 py-3 px-2 text-center text-xs font-bold text-white transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
+                  className="min-w-0 flex-1 truncate px-2 py-3 text-center text-xs font-bold text-white transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
                   style={{
                     backgroundColor: panel.bg,
                     opacity: isActive ? 1 : 0.55,
                     borderBottom: isActive ? "3px solid rgba(255,255,255,0.7)" : "3px solid transparent",
                   }}
+                  title={panel.name[locale]}
                 >
                   {panel.name[locale]}
                 </button>

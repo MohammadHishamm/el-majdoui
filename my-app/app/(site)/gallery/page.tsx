@@ -4,6 +4,7 @@ import { GalleryExplorer } from "@/components/gallery/GalleryExplorer";
 import { getGalleryItems } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/gallery" },
   title: "معرض الصور والفيديو | مؤسسة المجدوعي الخيرية",
   description: "ألبومات صور ومكتبة فيديو فعاليات ومبادرات مؤسسة المجدوعي الخيرية.",
 };

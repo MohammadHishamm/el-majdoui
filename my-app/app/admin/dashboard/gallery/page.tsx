@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Pencil, Plus, Trash2, Video, Images } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
+import { ReorderButtons } from "@/components/admin/reorder-buttons";
 import { deleteGalleryItem } from "./actions";
 
 type Row = {
@@ -44,9 +45,10 @@ export default async function GalleryListPage() {
         {rows.length === 0 ? (
           <p className="rounded-xl border p-6 text-center text-muted-foreground">{t.common.noItems}</p>
         ) : (
-          rows.map((g) => (
+          rows.map((g, i) => (
             <div key={g.id} className="flex items-center justify-between rounded-xl border p-3">
               <div className="flex items-center gap-3">
+                <ReorderButtons table="gallery_items" id={g.id} canUp={i > 0} canDown={i < rows.length - 1} index={i + 1} />
                 <span className="relative h-12 w-20 overflow-hidden rounded bg-muted">
                   {g.thumb && (
                     // eslint-disable-next-line @next/next/no-img-element

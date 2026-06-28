@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { nextSortOrder } from "@/app/admin/dashboard/_actions/reorder";
 
 const str = (v: FormDataEntryValue | null) => String(v ?? "").trim();
 
@@ -13,14 +14,13 @@ function rowFromForm(form: FormData) {
     period_ar: str(form.get("period_ar")),
     period_en: str(form.get("period_en")),
     file: str(form.get("file")),
-    sort_order: Number(str(form.get("sort_order")) || "0"),
     published: form.get("published") === "on",
   };
 }
 
 export async function createReport(form: FormData) {
   const supabase = await createClient();
-  const { error } = await supabase.from("reports").insert(rowFromForm(form));
+  const { error } = await supabase.from("reports").insert({ ...rowFromForm(form), sort_order: await nextSortOrder("reports") });
   if (error) redirect(`/admin/dashboard/reports/new?error=${encodeURIComponent(error.message)}`);
   revalidatePath("/admin/dashboard/reports");
   revalidatePath("/reports");

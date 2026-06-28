@@ -4,6 +4,7 @@ import { ProgramsList } from "@/components/programs/ProgramsList";
 import { getAllPrograms } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/programs" },
   title: "البرامج والمبادرات | مؤسسة المجدوعي الخيرية",
   description:
     "استكشف برامج ومبادرات مؤسسة المجدوعي الخيرية التنموية وأهداف الأثر المستدام لكل مبادرة.",

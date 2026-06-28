@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { nextSortOrder } from "@/app/admin/dashboard/_actions/reorder";
 
 const str = (v: FormDataEntryValue | null) => String(v ?? "").trim();
 const lines = (v: FormDataEntryValue | null) =>
@@ -40,14 +41,13 @@ function rowFromForm(form: FormData) {
       sector: str(form.get("sector")),
     },
     related: csv(form.get("related")),
-    sort_order: Number(str(form.get("sort_order")) || "0"),
     published: form.get("published") === "on",
   };
 }
 
 export async function createProgram(form: FormData) {
   const supabase = await createClient();
-  const { error } = await supabase.from("programs").insert(rowFromForm(form));
+  const { error } = await supabase.from("programs").insert({ ...rowFromForm(form), sort_order: await nextSortOrder("programs") });
   if (error) redirect(`/admin/dashboard/programs/new?error=${encodeURIComponent(error.message)}`);
   revalidatePath("/admin/dashboard/programs");
   revalidatePath("/programs");

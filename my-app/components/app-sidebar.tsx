@@ -49,7 +49,7 @@ const NAV: NavGroup[] = [
     roles: ["super_admin", "content_editor"],
     items: [
       { key: "heroSlides", url: "/admin/dashboard/hero-slides" },
-      { key: "aboutLeadership", url: "/admin/dashboard/site-settings" },
+      { key: "aboutLeadership", url: "/admin/dashboard/about-leadership" },
       { key: "focusAreas", url: "/admin/dashboard/focus-areas" },
       { key: "impactKpis", url: "/admin/dashboard/kpis" },
       { key: "homePrograms", url: "/admin/dashboard/panels" },

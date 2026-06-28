@@ -64,7 +64,6 @@ export function JobForm({
           <TextField name="education" label={f.education} defaultValue={d.education ?? ""} dir="rtl" />
           <TextField name="deadline" label={f.deadline} defaultValue={d.deadline ?? ""} dir="rtl" placeholder="30 يونيو 2026" />
           <TextField name="posted" label={f.posted} defaultValue={d.posted ?? ""} dir="rtl" />
-          <TextField name="sort_order" label={f.sortOrder} defaultValue={String(d.sort_order ?? 0)} dir="ltr" type="number" />
         </div>
       </Section>
 

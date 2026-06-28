@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { nextSortOrder } from "@/app/admin/dashboard/_actions/reorder";
 
 function str(v: FormDataEntryValue | null): string {
   return String(v ?? "").trim();
@@ -18,14 +19,13 @@ function rowFromForm(form: FormData) {
     thumb: str(form.get("thumb")),
     cover: str(form.get("cover")) || str(form.get("thumb")),
     video_url: str(form.get("video_url")) || null,
-    sort_order: Number(str(form.get("sort_order")) || "0"),
     published: form.get("published") === "on",
   };
 }
 
 export async function createGalleryItem(form: FormData) {
   const supabase = await createClient();
-  const { error } = await supabase.from("gallery_items").insert(rowFromForm(form));
+  const { error } = await supabase.from("gallery_items").insert({ ...rowFromForm(form), sort_order: await nextSortOrder("gallery_items") });
   if (error) redirect(`/admin/dashboard/gallery/new?error=${encodeURIComponent(error.message)}`);
   revalidatePath("/admin/dashboard/gallery");
   revalidatePath("/gallery");

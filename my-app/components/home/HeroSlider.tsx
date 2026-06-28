@@ -148,7 +148,7 @@ export function HeroSlider({ slides }: { slides?: Slide[] } = {}) {
             className={`animate-slide-up max-w-[580px] ${isArabic ? "ms-auto text-right" : "text-left"}`}
             dir={isArabic ? "rtl" : "ltr"}
           >
-            <h1 className="text-[30px] font-bold leading-[1.45] text-white md:text-[42px] lg:text-[52px] lg:leading-[1.35]">
+            <h1 className="line-clamp-3 break-words text-[30px] font-bold leading-[1.45] text-white md:text-[42px] lg:text-[52px] lg:leading-[1.35]">
               {SLIDES[active].title[locale]}
             </h1>
 

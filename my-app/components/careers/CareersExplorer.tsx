@@ -48,9 +48,9 @@ function JobItem({ job, defaultOpen }: { job: Job; defaultOpen?: boolean }) {
     <article className="overflow-hidden rounded-[16px] border-[1.18px] border-[#f3f4f6] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
       <div className="flex flex-col gap-6 p-7 lg:flex-row lg:items-start lg:justify-between">
         {/* Title + summary + tags (right) */}
-        <div className="flex-1 text-right">
-          <h3 className="text-[20px] font-bold text-[#005761]">{job.title}</h3>
-          <p className="mt-3 text-[15px] leading-[24px] text-[#4a5565]">{job.summary}</p>
+        <div className="min-w-0 flex-1 text-right">
+          <h3 className="line-clamp-2 break-words text-[20px] font-bold text-[#005761]">{job.title}</h3>
+          <p className="mt-3 line-clamp-3 break-words text-[15px] leading-[24px] text-[#4a5565]">{job.summary}</p>
           <div className="mt-4 flex flex-wrap justify-start gap-2">
             <Tag icon={TAG_ICON.deadline} label={`آخر موعد ${job.deadline}`} />
             <Tag icon={TAG_ICON.education} label={job.education} />
@@ -142,8 +142,8 @@ export function CareersExplorer({
             >
               <Image src={r.image} alt="" fill sizes="(max-width: 1024px) 90vw, 360px" className="object-cover" />
               <div className="absolute inset-x-0 bottom-0 p-6 text-right" style={{ backgroundColor: r.color, borderRadius: "0 60px 0 0" }}>
-                <h3 className="text-[22px] font-bold text-white">{r.title}</h3>
-                <p className="mt-2 text-[14px] leading-[24px] text-white/90">{r.desc}</p>
+                <h3 className="line-clamp-2 break-words text-[22px] font-bold text-white">{r.title}</h3>
+                <p className="mt-2 line-clamp-3 break-words text-[14px] leading-[24px] text-white/90">{r.desc}</p>
               </div>
             </div>
           ))}

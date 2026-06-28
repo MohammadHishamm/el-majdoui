@@ -12,7 +12,7 @@ export default async function SiteLayout({
     <>
       <Header />
       <div className="flex flex-1 flex-col">{children}</div>
-      <Footer contact={settings?.contact} social={settings?.social} />
+      <Footer contact={settings?.contact} social={settings?.social} socialShow={settings?.socialShow} />
     </>
   );
 }

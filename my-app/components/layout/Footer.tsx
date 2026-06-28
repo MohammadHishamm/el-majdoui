@@ -39,7 +39,9 @@ type FooterSocial = {
   twitter?: string | null;
   facebook?: string | null;
   snapchat?: string | null;
+  youtube?: string | null;
 };
+type FooterSocialShow = Partial<Record<keyof FooterSocial, boolean>>;
 
 const SOCIAL = [
   {
@@ -87,11 +89,28 @@ const SOCIAL = [
       </svg>
     ),
   },
+  {
+    label: "YouTube",
+    href: "#",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4" aria-hidden>
+        <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+      </svg>
+    ),
+  },
 ];
 
 const QUICK_LINK_HREFS = ["/about", "/programs", "/media-center", "/careers"];
 
-export function Footer({ contact, social }: { contact?: FooterContact; social?: FooterSocial } = {}) {
+export function Footer({
+  contact,
+  social,
+  socialShow,
+}: {
+  contact?: FooterContact;
+  social?: FooterSocial;
+  socialShow?: FooterSocialShow;
+} = {}) {
   const year = new Date().getFullYear();
   const { locale } = useLocale();
   const t = translations[locale].footer;
@@ -101,13 +120,23 @@ export function Footer({ contact, social }: { contact?: FooterContact; social?: 
   const address =
     (locale === "en" ? contact?.address?.en : contact?.address?.ar) ||
     (locale === "en" ? siteConfig.contact.addressEn : siteConfig.contact.address);
-  const socialHref: Record<string, string | null | undefined> = {
-    LinkedIn: social?.linkedin,
-    Instagram: social?.instagram,
-    Snapchat: social?.snapchat,
-    Facebook: social?.facebook,
-    X: social?.twitter,
+  // Each social maps to its URL + a show flag + the social-object key.
+  const socialMeta: Record<string, { href: string | null | undefined; key: keyof FooterSocial }> = {
+    LinkedIn: { href: social?.linkedin, key: "linkedin" },
+    Instagram: { href: social?.instagram, key: "instagram" },
+    Snapchat: { href: social?.snapchat, key: "snapchat" },
+    Facebook: { href: social?.facebook, key: "facebook" },
+    X: { href: social?.twitter, key: "twitter" },
+    YouTube: { href: social?.youtube, key: "youtube" },
   };
+  // Show a platform only when its checkbox is on AND it has a real URL (not empty / not "#").
+  const visibleSocial = SOCIAL.filter((s) => {
+    const meta = socialMeta[s.label];
+    if (!meta) return false;
+    const show = socialShow?.[meta.key] ?? true;
+    const url = (meta.href ?? "").trim();
+    return show && url !== "" && url !== "#";
+  });
 
   const quickLinks = QUICK_LINK_HREFS.map((href, i) => ({
     label: t.quickLinkLabels[i],
@@ -127,7 +156,7 @@ export function Footer({ contact, social }: { contact?: FooterContact; social?: 
           {/* Brand — rightmost in RTL */}
           <div className="text-right">
             <Image
-              src="/images/logo.png"
+              src="/images/home/main-home-logo.jpg"
               alt={siteConfig.name}
               width={240}
               height={96}
@@ -170,10 +199,10 @@ export function Footer({ contact, social }: { contact?: FooterContact; social?: 
         {/* Bottom bar: social icons RIGHT, copyright LEFT (RTL: social first in DOM) */}
         <div className="mt-12 flex flex-col gap-6 border-t border-white/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex gap-3">
-            {SOCIAL.map((s) => (
+            {visibleSocial.map((s) => (
               <a
                 key={s.label}
-                href={socialHref[s.label] || s.href}
+                href={socialMeta[s.label]?.href || s.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BarChart3, Pencil, Plus, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
+import { ReorderButtons } from "@/components/admin/reorder-buttons";
 import { deleteKpi } from "./actions";
 
 type Row = { id: string; value: number; suffix: string; label_ar: string; published: boolean };
@@ -28,9 +29,10 @@ export default async function KpisListPage() {
         {rows.length === 0 ? (
           <p className="rounded-xl border p-6 text-center text-muted-foreground sm:col-span-2">{t.common.noItems}</p>
         ) : (
-          rows.map((k) => (
+          rows.map((k, i) => (
             <div key={k.id} className="flex items-center justify-between rounded-xl border p-4">
               <div className="flex items-center gap-3" dir="rtl">
+                <ReorderButtons table="kpis" id={k.id} canUp={i > 0} canDown={i < rows.length - 1} index={i + 1} />
                 <span className="grid size-9 place-items-center rounded bg-muted text-muted-foreground"><BarChart3 className="size-4" /></span>
                 <div>
                   <div className="font-bold text-primary">{k.value}{k.suffix}</div>

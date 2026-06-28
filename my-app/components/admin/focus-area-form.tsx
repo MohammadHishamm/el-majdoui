@@ -42,7 +42,6 @@ export function FocusAreaForm({
       <div className="grid gap-4 sm:grid-cols-3">
         <TextField name="bg_color" label={f.bgColor} defaultValue={d.bg_color ?? "#005761"} dir="ltr" />
         <TextField name="btn_text_color" label={f.btnTextColor} defaultValue={d.btn_text_color ?? "#005761"} dir="ltr" />
-        <TextField name="sort_order" label={f.sortOrder} defaultValue={String(d.sort_order ?? 0)} dir="ltr" type="number" />
       </div>
       <ImageField name="icon" label={f.icon} defaultValue={d.icon ?? ""} folder="focus-areas" />
       <ImageField name="watermark" label={f.watermark} defaultValue={d.watermark ?? ""} folder="focus-areas" />

@@ -17,6 +17,7 @@ function rowToJob(r: Record<string, unknown>): Job {
     education: (r.education as string) ?? "",
     deadline: (r.deadline as string) ?? "",
     posted: (r.posted as string) ?? "",
+    postedAt: (r.created_at as string) ?? undefined,
     responsibilities: (r.responsibilities as string[]) ?? [],
     qualifications: (r.qualifications as string[]) ?? [],
   };
@@ -178,6 +179,7 @@ function rowToNewsItem(r: Record<string, unknown>): NewsItem {
     category: r.category as NewsCategoryId,
     kicker: (r.kicker as string) ?? undefined,
     date: (r.date as string) ?? "",
+    publishedAt: (r.published_at as string) ?? undefined,
     source: (r.source as string) ?? "",
     readTime: (r.read_time as string) ?? "",
     title: (r.title_ar as string) ?? "",
@@ -285,6 +287,27 @@ export async function getLatestNews(limit = 6): Promise<LatestNewsItem[]> {
   }
 }
 
+/** ALL published news (newest first) in the home carousel shape. */
+export async function getNewsCarousel(): Promise<LatestNewsItem[]> {
+  try {
+    const { data } = await supabaseAnon
+      .from("news")
+      .select("id, slug, title_ar, title_en, excerpt_ar, excerpt_en, date, image, published_at")
+      .eq("published", true)
+      .order("published_at", { ascending: false });
+    return (data ?? []).map((r) => ({
+      id: r.id as string,
+      slug: r.slug as string,
+      title: { ar: (r.title_ar as string) ?? "", en: (r.title_en as string) || (r.title_ar as string) || "" },
+      excerpt: { ar: (r.excerpt_ar as string) ?? "", en: (r.excerpt_en as string) || (r.excerpt_ar as string) || "" },
+      date: { ar: (r.date as string) ?? "", en: (r.date as string) ?? "" },
+      image: (r.image as string) ?? "",
+    }));
+  } catch {
+    return [];
+  }
+}
+
 /** Published gallery items (photo albums + videos) in display order. */
 export async function getGalleryItems(): Promise<GalleryItem[]> {
   try {
@@ -317,6 +340,15 @@ export type SiteSettingsData = {
     twitter: string | null;
     facebook: string | null;
     snapchat: string | null;
+    youtube: string | null;
+  };
+  socialShow: {
+    linkedin: boolean;
+    instagram: boolean;
+    twitter: boolean;
+    facebook: boolean;
+    snapchat: boolean;
+    youtube: boolean;
   };
 };
 
@@ -365,6 +397,15 @@ export async function getSiteSettings(): Promise<SiteSettingsData | null> {
         twitter: data.social_twitter,
         facebook: data.social_facebook,
         snapchat: data.social_snapchat,
+        youtube: data.social_youtube,
+      },
+      socialShow: {
+        linkedin: data.social_linkedin_show !== false,
+        instagram: data.social_instagram_show !== false,
+        twitter: data.social_twitter_show !== false,
+        facebook: data.social_facebook_show !== false,
+        snapchat: data.social_snapchat_show !== false,
+        youtube: data.social_youtube_show !== false,
       },
     };
   } catch {

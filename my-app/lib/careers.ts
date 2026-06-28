@@ -44,6 +44,8 @@ export type Job = {
   /** Deadline date label, e.g. "30 يونيو 2026". */
   deadline: string;
   posted: string;
+  /** ISO posting timestamp (for SEO/JobPosting structured data). */
+  postedAt?: string;
   responsibilities: string[];
   qualifications: string[];
 };

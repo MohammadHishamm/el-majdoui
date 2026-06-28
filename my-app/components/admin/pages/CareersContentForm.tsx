@@ -39,7 +39,7 @@ export function CareersContentForm({ action, defaults, submitLabel }: { action: 
                 <input className={inp} dir="ltr" value={r.color} onChange={(e) => editR((x) => { x[i].color = e.target.value; })} />
               </label>
             </div>
-            <div className="mt-2"><InlineUpload value={r.image} onChange={(u) => editR((x) => { x[i].image = u; })} folder="careers" label="Card image" /></div>
+            <div className="mt-2"><InlineUpload value={r.image} onChange={(u) => editR((x) => { x[i].image = u; })} folder="careers" label="Card image" recommendedSize="720 × 720 px (square)" hint="Background photo of the benefit card; a coloured panel sits over its lower part." /></div>
           </div>
         ))}
         <AddBtn onClick={() => set("reasons", [...reasons, { title: "", desc: "", image: "", color: "#005761" }])}>Add card</AddBtn>

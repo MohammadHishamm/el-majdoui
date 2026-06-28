@@ -25,6 +25,8 @@ export type NewsItem = {
   /** Short category label shown on the detail meta row (e.g. "إعلان رسمي"). */
   kicker?: string;
   date: string;
+  /** ISO publish timestamp (for SEO/Article structured data). */
+  publishedAt?: string;
   source: string;
   readTime: string;
   title: string;

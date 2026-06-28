@@ -90,9 +90,10 @@ export function StrategicAlignment({ data }: { data?: StrategicAlignmentData }) 
                   type="button"
                   onClick={() => setActive(i)}
                   aria-pressed={on}
-                  className={`flex-1 basis-0 min-w-[140px] whitespace-nowrap rounded-[16px] px-4 py-3 text-[14px] font-bold transition-colors sm:text-[16px] ${
+                  className={`flex-1 basis-0 min-w-[140px] truncate rounded-[16px] px-4 py-3 text-[14px] font-bold transition-colors sm:text-[16px] ${
                     on ? "bg-[#005761] text-white" : "text-[#374151] hover:bg-white/60"
                   }`}
+                  title={tb.label?.[locale] || tb.label?.ar}
                 >
                   {tb.label?.[locale] || tb.label?.ar}
                 </button>

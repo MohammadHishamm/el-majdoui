@@ -10,11 +10,14 @@ import { ImpactKPIs } from "@/components/home/ImpactKPIs";
 import { LatestNews } from "@/components/home/LatestNews";
 import { ContactSection } from "@/components/home/ContactSection";
 import { FadeInUp } from "@/components/ui/fade-in-up";
-import { getFocusAreas, getHeroSlides, getKPIs, getLatestNews, getProgramPanels, getSiteSettings, getStrategicAlignment } from "@/lib/cms/fetchers";
+import { getFocusAreas, getHeroSlides, getKPIs, getNewsCarousel, getProgramPanels, getSiteSettings, getStrategicAlignment } from "@/lib/cms/fetchers";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
   description: siteConfig.description,
+  alternates: { canonical: "/" },
 };
 
 export const dynamic = "force-dynamic";
@@ -25,7 +28,7 @@ export default async function HomePage() {
     getFocusAreas(),
     getHeroSlides(),
     getKPIs(),
-    getLatestNews(),
+    getNewsCarousel(),
     getProgramPanels(),
     getStrategicAlignment(),
   ]);
@@ -41,8 +44,25 @@ export default async function HomePage() {
     watermark: a.watermark ?? "",
   }));
 
+  const orgLd = organizationJsonLd({
+    email: settings?.contact.email,
+    phone: settings?.contact.phone,
+    address: settings?.contact.address.ar,
+    sameAs: settings
+      ? [
+          settings.social.linkedin,
+          settings.social.instagram,
+          settings.social.twitter,
+          settings.social.facebook,
+          settings.social.snapchat,
+          settings.social.youtube,
+        ]
+      : [],
+  });
+
   return (
     <main>
+      <JsonLd data={[orgLd, websiteJsonLd()]} />
       <HeroSlider slides={heroProps.length ? heroProps : undefined} />
       <FadeInUp><AboutBlock about={settings?.about} /></FadeInUp>
       <FadeInUp><LeadershipSpotlight data={settings?.leadership} /></FadeInUp>

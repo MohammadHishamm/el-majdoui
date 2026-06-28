@@ -37,8 +37,8 @@ function GalleryCard({ item }: { item: GalleryItem }) {
         )}
       </div>
       <div className="flex flex-col gap-1.5 p-5 text-right">
-        <h3 className="text-[16px] font-bold leading-[24px] text-[#005761]">{item.title}</h3>
-        <p className="text-[13px] leading-[19.5px] text-[#6a7282]">{item.meta}</p>
+        <h3 className="line-clamp-2 break-words text-[16px] font-bold leading-[24px] text-[#005761]">{item.title}</h3>
+        <p className="line-clamp-1 break-words text-[13px] leading-[19.5px] text-[#6a7282]">{item.meta}</p>
       </div>
     </article>
   );
@@ -114,10 +114,10 @@ export function GalleryExplorer({ data }: { data: GalleryItem[] }) {
 
             {/* Title overlay — bottom right */}
             <div className="absolute inset-x-0 bottom-0 p-6 text-right sm:p-10">
-              <h2 className="text-[22px] font-bold leading-[1.3] text-white sm:text-[26px]">
+              <h2 className="line-clamp-2 break-words text-[22px] font-bold leading-[1.3] text-white sm:text-[26px]">
                 {current.title}
               </h2>
-              <p className="mt-1 text-[14px] text-white/85 sm:text-[15px]">{current.meta}</p>
+              <p className="mt-1 line-clamp-1 break-words text-[14px] text-white/85 sm:text-[15px]">{current.meta}</p>
             </div>
 
             {/* Prev / next arrows */}

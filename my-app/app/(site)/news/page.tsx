@@ -4,6 +4,7 @@ import { NewsExplorer } from "@/components/news/NewsExplorer";
 import { getAllNews } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/news" },
   title: "الأخبار والإعلانات | مؤسسة المجدوعي الخيرية",
   description: "آخر أخبار وإعلانات وفعاليات وشراكات مؤسسة المجدوعي الخيرية.",
 };

@@ -21,8 +21,17 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const area = focusAreas.find((a) => a.slug === slug);
-  if (!area) return { title: "مجال غير موجود" };
-  return { title: area.name, description: area.shortDesc };
+  if (!area) return { title: "مجال غير موجود", robots: { index: false, follow: true } };
+  const detail = DETAIL_SLUGS.has(slug) ? await getFocusAreaDetail(slug) : null;
+  const title = detail?.title || area.name;
+  const description = detail?.intro || area.shortDesc;
+  const url = `/focus-areas/${slug}`;
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: { type: "website", url, title, description },
+  };
 }
 
 export default async function FocusAreaDetailPage({ params }: Props) {

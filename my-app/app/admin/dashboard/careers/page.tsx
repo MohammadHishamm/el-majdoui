@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Briefcase, Pencil, Plus, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
+import { ReorderButtons } from "@/components/admin/reorder-buttons";
 import { deleteJob, updateCareersContent } from "./actions";
 import { CareersContentForm } from "@/components/admin/pages/CareersContentForm";
 
@@ -53,9 +54,10 @@ export default async function CareersListPage() {
         {rows.length === 0 ? (
           <p className="rounded-xl border p-6 text-center text-muted-foreground">{t.common.noItems}</p>
         ) : (
-          rows.map((j) => (
+          rows.map((j, i) => (
             <div key={j.id} className="flex items-center justify-between rounded-xl border p-4">
               <div className="flex items-center gap-3" dir="rtl">
+                <ReorderButtons table="jobs" id={j.id} canUp={i > 0} canDown={i < rows.length - 1} index={i + 1} />
                 <span className="grid size-8 place-items-center rounded bg-muted text-muted-foreground">
                   <Briefcase className="size-4" />
                 </span>

@@ -4,6 +4,7 @@ import { CareersExplorer } from "@/components/careers/CareersExplorer";
 import { getAllJobs, getPageContent } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/careers" },
   title: "التوظيف | مؤسسة المجدوعي الخيرية",
   description: "انضم إلى فريق مؤسسة المجدوعي الخيرية واستعرض الفرص الوظيفية المتاحة.",
 };

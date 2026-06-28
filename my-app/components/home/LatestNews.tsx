@@ -61,10 +61,44 @@ const NEWS: NewsItem[] = [
   },
 ];
 
+function NewsCard({ item, locale }: { item: NewsItem; locale: "ar" | "en" }) {
+  return (
+    <Link
+      href={`/news/${item.slug}`}
+      className="group flex w-[300px] shrink-0 flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-bg-alt transition-all hover:-translate-y-1 hover:shadow-lg sm:w-[340px]"
+    >
+      <div className="relative h-52 w-full overflow-hidden">
+        <Image
+          src={item.image}
+          alt={item.title[locale]}
+          fill
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          sizes="340px"
+        />
+      </div>
+
+      <div className="flex flex-1 flex-col p-5 text-right">
+        <div className="mb-3 flex items-center gap-2 text-xs text-text-muted">
+          <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4" aria-hidden>
+            <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+          </svg>
+          {item.date[locale]}
+        </div>
+        <h3 className="line-clamp-2 text-base font-bold leading-6 text-text-dark transition-colors group-hover:text-primary">
+          {item.title[locale]}
+        </h3>
+        <p className="mt-2 line-clamp-2 text-sm leading-6 text-text-light">{item.excerpt[locale]}</p>
+      </div>
+    </Link>
+  );
+}
+
 export function LatestNews({ items }: { items?: NewsItem[] }) {
   const { locale } = useLocale();
   const t = translations[locale].news;
   const list = items && items.length ? items : NEWS;
+  // ~4.5s of travel per card keeps the speed constant regardless of how many there are.
+  const duration = Math.max(24, Math.round(list.length * 4.5));
 
   return (
     <section
@@ -103,39 +137,72 @@ export function LatestNews({ items }: { items?: NewsItem[] }) {
           </Link>
         </div>
 
-        <div className="flex gap-6 overflow-x-auto pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {list.map((item) => (
-            <Link
-              key={item.id}
-              href={`/news/${item.slug}`}
-              className="group flex w-[340px] shrink-0 flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-bg-alt transition-all hover:-translate-y-1 hover:shadow-lg"
-            >
-              <div className="relative h-52 w-full overflow-hidden">
-                <Image
-                  src={item.image}
-                  alt={item.title[locale]}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  sizes="340px"
-                />
-              </div>
-
-              <div className="flex flex-1 flex-col p-5 text-right">
-                <div className="mb-3 flex items-center gap-2 text-xs text-text-muted">
-                  <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4" aria-hidden>
-                    <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
-                  </svg>
-                  {item.date[locale]}
-                </div>
-                <h3 className="line-clamp-2 text-base font-bold leading-6 text-text-dark transition-colors group-hover:text-primary">
-                  {item.title[locale]}
-                </h3>
-                <p className="mt-2 line-clamp-2 text-sm leading-6 text-text-light">{item.excerpt[locale]}</p>
-              </div>
-            </Link>
-          ))}
+        {/* Auto-scrolling carousel — pauses on hover, manual-scroll fallback for reduced motion */}
+        <div
+          className="news-marquee"
+          style={{ "--news-marquee-dur": `${duration}s` } as React.CSSProperties}
+        >
+          <div className="news-marquee__track">
+            <ul className="news-marquee__group">
+              {list.map((item) => (
+                <li key={item.id}>
+                  <NewsCard item={item} locale={locale} />
+                </li>
+              ))}
+            </ul>
+            <ul className="news-marquee__group" aria-hidden>
+              {list.map((item) => (
+                <li key={`dup-${item.id}`}>
+                  <NewsCard item={item} locale={locale} />
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
+
+      <style>{`
+        .news-marquee {
+          overflow: hidden;
+          direction: ltr;
+          -webkit-mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
+        }
+        .news-marquee__track {
+          display: flex;
+          gap: 24px;
+          width: max-content;
+          padding-block: 4px 16px;
+          animation: news-marquee var(--news-marquee-dur, 40s) linear infinite;
+          will-change: transform;
+        }
+        .news-marquee:hover .news-marquee__track,
+        .news-marquee:focus-within .news-marquee__track {
+          animation-play-state: paused;
+        }
+        .news-marquee__group {
+          display: flex;
+          gap: 24px;
+          flex-shrink: 0;
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+        @keyframes news-marquee {
+          to { transform: translateX(calc(-50% - 12px)); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .news-marquee {
+            overflow-x: auto;
+            -webkit-mask-image: none;
+            mask-image: none;
+            scrollbar-width: none;
+          }
+          .news-marquee::-webkit-scrollbar { display: none; }
+          .news-marquee__track { animation: none; }
+          .news-marquee__group[aria-hidden] { display: none; }
+        }
+      `}</style>
     </section>
   );
 }

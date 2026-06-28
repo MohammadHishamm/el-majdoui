@@ -83,7 +83,7 @@ export function LeadershipSpotlight({
 
             <blockquote
               id="leadership-heading"
-              className="text-right font-normal text-text-dark"
+              className="line-clamp-6 break-words text-right font-normal text-text-dark"
               style={{ fontSize: 24, lineHeight: "39px", minHeight: QUOTE_HEIGHT }}
             >
               {quote}
@@ -100,10 +100,10 @@ export function LeadershipSpotlight({
                 minHeight: ATTRIBUTION_HEIGHT,
               }}
             >
-              <p className="text-right font-medium leading-10 text-primary" style={{ fontSize: 36 }}>
+              <p className="line-clamp-2 break-words text-right font-medium leading-10 text-primary" style={{ fontSize: 36 }}>
                 {name}
               </p>
-              <p className="mt-2 text-right font-medium leading-10 text-text-muted" style={{ fontSize: 24 }}>
+              <p className="mt-2 line-clamp-2 break-words text-right font-medium leading-10 text-text-muted" style={{ fontSize: 24 }}>
                 {role}
               </p>
             </footer>

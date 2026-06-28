@@ -36,7 +36,6 @@ export function ReportForm({
       </div>
       <FileField name="file" label={f.file} defaultValue={d.file ?? ""} folder="reports" accept=".pdf" />
       <div className="grid gap-4 sm:grid-cols-2">
-        <TextField name="sort_order" label={f.sortOrder} defaultValue={String(d.sort_order ?? 0)} dir="ltr" type="number" />
         <div className="flex items-end">
           <Toggle name="published" label={f.published} defaultChecked={d.published ?? true} />
         </div>

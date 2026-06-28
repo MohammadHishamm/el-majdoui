@@ -144,7 +144,7 @@ export function FocusAreaTiles({ areas }: { areas?: AreaTile[] }) {
 
               {/* Title + text below icons */}
               <div className={`relative z-10 mt-6 flex min-h-0 flex-1 flex-col ${textAlign}`}>
-                <h3 className="shrink-0 text-[28px] font-medium leading-tight md:text-[34px]">
+                <h3 className="line-clamp-2 shrink-0 break-words text-[28px] font-medium leading-tight md:text-[34px]">
                   {area.name[locale]}
                 </h3>
                 <p

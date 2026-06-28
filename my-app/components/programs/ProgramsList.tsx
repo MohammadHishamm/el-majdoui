@@ -96,12 +96,13 @@ export function ProgramsList({ items }: { items: Program[] }) {
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col p-6 text-right">
-                  <h3 className="text-[20px] font-bold leading-[28px] text-[#005761]">
+                  <h3 className="line-clamp-2 break-words text-[20px] font-bold leading-[28px] text-[#005761]">
                     {p.title}
                   </h3>
-                  <p className="mt-3 flex-1 text-[15px] leading-[25.5px] text-text-light">
+                  <p className="mt-3 line-clamp-3 flex-1 break-words text-[15px] leading-[25.5px] text-text-light">
                     {p.shortDesc}
                   </p>
+
                   <span className="mt-6 inline-flex items-center gap-2 text-[15px] font-bold text-[#005761]">
                     اعرف أكثر عن المبادرة
                     <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />

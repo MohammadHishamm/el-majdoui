@@ -20,7 +20,7 @@ export function BoardForm({ action, defaults, submitLabel }: { action: (f: FormD
         <Txt label="Name" value={str("name")} onChange={(v) => set("name", v)} />
         <Txt label="Position" value={str("position")} onChange={(v) => set("position", v)} />
         <Area label="Quote" value={str("quote")} onChange={(v) => set("quote", v)} rows={3} />
-        <InlineUpload value={str("photo")} onChange={(u) => set("photo", u)} folder="board" label="Portrait photo" />
+        <InlineUpload value={str("photo")} onChange={(u) => set("photo", u)} folder="board" label="Portrait photo" recommendedSize="650 × 812 px (4:5 portrait)" hint="Head-and-shoulders portrait; the top-right corner is rounded on the site." />
       </Box>
 
       <div><SubmitButton label={submitLabel} /></div>

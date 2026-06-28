@@ -14,26 +14,27 @@ export function Box({ title, children }: { title: string; children: React.ReactN
   );
 }
 
-export function Field({ label, children }: { label: string; children: React.ReactNode }) {
+export function Field({ label, children, hint }: { label: string; children: React.ReactNode; hint?: string }) {
   return (
     <label className="flex flex-col gap-1">
       <span className="text-[11px] text-muted-foreground">{label}</span>
       {children}
+      {hint && <span className="text-[11px] text-muted-foreground/80">{hint}</span>}
     </label>
   );
 }
 
-export function Txt({ label, value, onChange, dir = "rtl" }: { label: string; value: string; onChange: (v: string) => void; dir?: "rtl" | "ltr" }) {
+export function Txt({ label, value, onChange, dir = "rtl", hint }: { label: string; value: string; onChange: (v: string) => void; dir?: "rtl" | "ltr"; hint?: string }) {
   return (
-    <Field label={label}>
+    <Field label={label} hint={hint}>
       <input className={inp} dir={dir} value={value ?? ""} onChange={(e) => onChange(e.target.value)} />
     </Field>
   );
 }
 
-export function Area({ label, value, onChange, rows = 3, dir = "rtl" }: { label: string; value: string; onChange: (v: string) => void; rows?: number; dir?: "rtl" | "ltr" }) {
+export function Area({ label, value, onChange, rows = 3, dir = "rtl", hint }: { label: string; value: string; onChange: (v: string) => void; rows?: number; dir?: "rtl" | "ltr"; hint?: string }) {
   return (
-    <Field label={label}>
+    <Field label={label} hint={hint}>
       <textarea className={`${inp} resize-y`} dir={dir} rows={rows} value={value ?? ""} onChange={(e) => onChange(e.target.value)} />
     </Field>
   );

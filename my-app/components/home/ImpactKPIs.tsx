@@ -180,7 +180,7 @@ export function ImpactKPIs({ items }: { items?: KPI[] } = {}) {
               </div>
 
               <p
-                className="mt-4 text-base font-normal leading-6 text-white"
+                className="mt-4 line-clamp-3 break-words text-base font-normal leading-6 text-white"
                 dir="rtl"
               >
                 {kpi.label[locale]}

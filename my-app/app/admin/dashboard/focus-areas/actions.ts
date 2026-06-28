@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { nextSortOrder } from "@/app/admin/dashboard/_actions/reorder";
 
 function str(v: FormDataEntryValue | null): string {
   return String(v ?? "").trim();
@@ -19,14 +20,13 @@ function rowFromForm(form: FormData) {
     btn_text_color: str(form.get("btn_text_color")) || "#005761",
     icon: str(form.get("icon")) || null,
     watermark: str(form.get("watermark")) || null,
-    sort_order: Number(str(form.get("sort_order")) || "0"),
     published: form.get("published") === "on",
   };
 }
 
 export async function createFocusArea(form: FormData) {
   const supabase = await createClient();
-  const { error } = await supabase.from("focus_areas").insert(rowFromForm(form));
+  const { error } = await supabase.from("focus_areas").insert({ ...rowFromForm(form), sort_order: await nextSortOrder("focus_areas") });
   if (error) redirect(`/admin/dashboard/focus-areas/new?error=${encodeURIComponent(error.message)}`);
   revalidatePath("/admin/dashboard/focus-areas");
   revalidatePath("/");

@@ -1,10 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
-import { TextField, TextArea, SubmitButton } from "@/components/admin/fields";
-import { ImageField } from "@/components/admin/image-field";
+import { TextField, Toggle, SubmitButton } from "@/components/admin/fields";
 import { updateSiteSettings } from "./actions";
 
-type Settings = Record<string, string | null>;
+type Settings = Record<string, string | boolean | null>;
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -21,6 +20,16 @@ export default async function SiteSettingsPage() {
   const { data, error } = await supabase.from("site_settings").select("*").eq("id", true).single();
   const s = (data ?? {}) as Settings;
   const v = (k: string) => (s[k] ?? "") as string;
+  const b = (k: string) => s[k] !== false; // show flags default to ON
+
+  const socials: { key: string; label: string }[] = [
+    { key: "linkedin", label: t.form.socLinkedin },
+    { key: "instagram", label: t.form.socInstagram },
+    { key: "twitter", label: t.form.socTwitter },
+    { key: "facebook", label: t.form.socFacebook },
+    { key: "snapchat", label: t.form.socSnapchat },
+    { key: "youtube", label: t.form.socYoutube },
+  ];
 
   return (
     <div className="flex flex-col gap-6">
@@ -33,27 +42,6 @@ export default async function SiteSettingsPage() {
       )}
 
       <form action={updateSiteSettings} className="grid max-w-3xl gap-6">
-        <Section title={t.form.secAbout}>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <TextField name="about_title_ar" label={t.form.aboutTitleAr} defaultValue={v("about_title_ar")} dir="rtl" />
-            <TextField name="about_title_en" label={t.form.aboutTitleEn} defaultValue={v("about_title_en")} dir="ltr" />
-          </div>
-          <TextArea name="about_body_ar" label={t.form.aboutBodyAr} defaultValue={v("about_body_ar")} dir="rtl" rows={4} />
-          <TextArea name="about_body_en" label={t.form.aboutBodyEn} defaultValue={v("about_body_en")} dir="ltr" rows={4} />
-        </Section>
-
-        <Section title={t.form.secLeadership}>
-          <TextArea name="leadership_quote_ar" label={t.form.quoteAr} defaultValue={v("leadership_quote_ar")} dir="rtl" rows={3} />
-          <TextArea name="leadership_quote_en" label={t.form.quoteEn} defaultValue={v("leadership_quote_en")} dir="ltr" rows={3} />
-          <div className="grid gap-4 sm:grid-cols-2">
-            <TextField name="leadership_name_ar" label={t.form.nameAr} defaultValue={v("leadership_name_ar")} dir="rtl" />
-            <TextField name="leadership_name_en" label={t.form.nameEn} defaultValue={v("leadership_name_en")} dir="ltr" />
-            <TextField name="leadership_position_ar" label={t.form.posAr} defaultValue={v("leadership_position_ar")} dir="rtl" />
-            <TextField name="leadership_position_en" label={t.form.posEn} defaultValue={v("leadership_position_en")} dir="ltr" />
-          </div>
-          <ImageField name="leadership_photo" label={t.form.photo} defaultValue={v("leadership_photo")} folder="leadership" />
-        </Section>
-
         <Section title={t.form.secFacts}>
           <div className="grid gap-4 sm:grid-cols-2">
             <TextField name="founded_year" label={t.form.foundedYear} defaultValue={v("founded_year")} dir="ltr" />
@@ -66,12 +54,20 @@ export default async function SiteSettingsPage() {
         </Section>
 
         <Section title={t.form.secSocial}>
+          <p className="text-xs text-muted-foreground">{t.form.socialHint}</p>
           <div className="grid gap-4 sm:grid-cols-2">
-            <TextField name="social_linkedin" label={t.form.socLinkedin} defaultValue={v("social_linkedin")} dir="ltr" />
-            <TextField name="social_instagram" label={t.form.socInstagram} defaultValue={v("social_instagram")} dir="ltr" />
-            <TextField name="social_twitter" label={t.form.socTwitter} defaultValue={v("social_twitter")} dir="ltr" />
-            <TextField name="social_facebook" label={t.form.socFacebook} defaultValue={v("social_facebook")} dir="ltr" />
-            <TextField name="social_snapchat" label={t.form.socSnapchat} defaultValue={v("social_snapchat")} dir="ltr" />
+            {socials.map((soc) => (
+              <div key={soc.key} className="flex flex-col gap-2 rounded-lg border p-3">
+                <TextField
+                  name={`social_${soc.key}`}
+                  label={soc.label}
+                  defaultValue={v(`social_${soc.key}`)}
+                  dir="ltr"
+                  hint={t.form.socUrlHint}
+                />
+                <Toggle name={`social_${soc.key}_show`} label={t.form.socShow} defaultChecked={b(`social_${soc.key}_show`)} />
+              </div>
+            ))}
           </div>
         </Section>
 

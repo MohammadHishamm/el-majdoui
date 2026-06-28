@@ -70,10 +70,10 @@ function BoardCard({
         }}
       />
       <div className="rounded-[12px] border-[1.18px] border-[#f3f4f6] bg-white p-5 text-right shadow-[0_1px_1.5px_rgba(0,0,0,0.04),0_4px_6px_rgba(0,0,0,0.03)]">
-        <h3 className="text-right text-[18px] font-bold leading-[25px] text-[#005761]">
+        <h3 className="line-clamp-2 break-words text-right text-[18px] font-bold leading-[25px] text-[#005761]">
           {name}
         </h3>
-        <p className="mt-3 text-right text-[14px] leading-[21px] text-[#6a7282]">
+        <p className="mt-3 line-clamp-2 break-words text-right text-[14px] leading-[21px] text-[#6a7282]">
           {role}
         </p>
       </div>
@@ -102,10 +102,10 @@ function LeadershipCard({
           background: `url(${image}) lightgray 50% / cover no-repeat`,
         }}
       />
-      <h3 className="mt-3 w-full text-right text-[16px] font-bold leading-[22px] text-[#005761]">
+      <h3 className="mt-3 line-clamp-2 w-full break-words text-right text-[16px] font-bold leading-[22px] text-[#005761]">
         {name}
       </h3>
-      <p className="mt-2 w-full text-right text-[13px] leading-[19.5px] text-[#6a7282]">
+      <p className="mt-2 line-clamp-2 w-full break-words text-right text-[13px] leading-[19.5px] text-[#6a7282]">
         {role}
       </p>
     </article>

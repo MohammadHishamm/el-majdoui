@@ -2,6 +2,7 @@ import Link from "next/link";
 import { LayoutPanelTop, Pencil, Plus, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
+import { ReorderButtons } from "@/components/admin/reorder-buttons";
 import { deleteFocusArea } from "./actions";
 
 const DETAIL_SLUGS = new Set(["empowerment", "mosques", "partners-development"]);
@@ -46,9 +47,10 @@ export default async function FocusAreasListPage() {
         {rows.length === 0 ? (
           <p className="rounded-xl border p-6 text-center text-muted-foreground">{t.common.noItems}</p>
         ) : (
-          rows.map((a) => (
+          rows.map((a, i) => (
             <div key={a.id} className="flex items-center justify-between rounded-xl border p-4">
               <div className="flex items-center gap-3">
+                <ReorderButtons table="focus_areas" id={a.id} canUp={i > 0} canDown={i < rows.length - 1} index={i + 1} />
                 <span className="size-6 rounded" style={{ backgroundColor: a.bg_color }} />
                 <span className="font-medium" dir="rtl">{a.name_ar}</span>
                 <span className="text-xs text-muted-foreground">/{a.slug}</span>

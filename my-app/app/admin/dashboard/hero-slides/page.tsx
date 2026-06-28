@@ -3,6 +3,7 @@ import { Pencil, Plus, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
 import { deleteHeroSlide } from "./actions";
+import { ReorderButtons } from "@/components/admin/reorder-buttons";
 
 type Row = {
   id: string;
@@ -43,9 +44,10 @@ export default async function HeroSlidesListPage() {
         {rows.length === 0 ? (
           <p className="rounded-xl border p-6 text-center text-muted-foreground">{t.common.noItems}</p>
         ) : (
-          rows.map((sld) => (
+          rows.map((sld, i) => (
             <div key={sld.id} className="flex items-center justify-between rounded-xl border p-3">
               <div className="flex items-center gap-3">
+                <ReorderButtons table="hero_slides" id={sld.id} canUp={i > 0} canDown={i < rows.length - 1} index={i + 1} />
                 <span className="relative h-12 w-20 overflow-hidden rounded bg-muted">
                   {sld.image && (
                     // eslint-disable-next-line @next/next/no-img-element

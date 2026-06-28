@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Pencil, Plus, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
+import { ReorderButtons } from "@/components/admin/reorder-buttons";
 import { deleteProgram } from "./actions";
 
 type Row = {
@@ -49,9 +50,10 @@ export default async function ProgramsListPage() {
         {rows.length === 0 ? (
           <p className="rounded-xl border p-6 text-center text-muted-foreground">{t.common.noItems}</p>
         ) : (
-          rows.map((p) => (
+          rows.map((p, i) => (
             <div key={p.id} className="flex items-center justify-between rounded-xl border p-4">
               <div className="flex items-center gap-3" dir="rtl">
+                <ReorderButtons table="programs" id={p.id} canUp={i > 0} canDown={i < rows.length - 1} index={i + 1} />
                 <span className="font-medium">{p.title_ar}</span>
                 <span className="text-xs text-muted-foreground">{CAT[p.category] ?? p.category}</span>
                 {!p.published && <span className="rounded-full bg-muted px-2 py-0.5 text-[11px]">{t.common.draft}</span>}

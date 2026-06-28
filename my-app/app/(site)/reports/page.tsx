@@ -4,6 +4,7 @@ import { ReportsList } from "@/components/reports/ReportsList";
 import { getReports } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/reports" },
   title: "التقارير والوثائق | مؤسسة المجدوعي الخيرية",
   description: "التقارير السنوية وتقارير الأثر والقوائم المالية ووثائق مؤسسة المجدوعي الخيرية.",
 };

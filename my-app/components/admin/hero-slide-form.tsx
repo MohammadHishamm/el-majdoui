@@ -34,7 +34,6 @@ export function HeroSlideForm({
       <ImageField name="image" label={f.slideImage} defaultValue={d.image ?? ""} folder="hero" />
       <div className="grid gap-4 sm:grid-cols-2">
         <TextField name="href" label={f.href} defaultValue={d.href ?? ""} dir="ltr" placeholder="/programs" />
-        <TextField name="sort_order" label={f.sortOrder} defaultValue={String(d.sort_order ?? 0)} dir="ltr" type="number" />
       </div>
       <Toggle name="published" label={f.published} defaultChecked={d.published ?? true} />
       <div>

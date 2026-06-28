@@ -35,7 +35,6 @@ export function KpiForm({
         <TextField name="label_ar" label={f.labelAr} defaultValue={d.label_ar ?? ""} dir="rtl" required />
         <TextField name="label_en" label={f.labelEn} defaultValue={d.label_en ?? ""} dir="ltr" />
         <TextField name="year" label={f.year} defaultValue={d.year ?? ""} dir="ltr" />
-        <TextField name="sort_order" label={f.sortOrder} defaultValue={String(d.sort_order ?? 0)} dir="ltr" type="number" />
       </div>
       <ImageField name="icon" label={f.statIcon} defaultValue={d.icon ?? ""} folder="kpis" />
       <Toggle name="published" label={f.published} defaultChecked={d.published ?? true} />

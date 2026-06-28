@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FileText, Pencil, Plus, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
+import { ReorderButtons } from "@/components/admin/reorder-buttons";
 import { deletePolicy } from "./actions";
 
 type Row = { id: string; title_ar: string; category: string; version: string | null; published: boolean };
@@ -33,9 +34,10 @@ export default async function PoliciesListPage() {
         {rows.length === 0 ? (
           <p className="rounded-xl border p-6 text-center text-muted-foreground">{t.common.noItems}</p>
         ) : (
-          rows.map((p) => (
+          rows.map((p, i) => (
             <div key={p.id} className="flex items-center justify-between rounded-xl border p-4">
               <div className="flex items-center gap-3" dir="rtl">
+                <ReorderButtons table="policies" id={p.id} canUp={i > 0} canDown={i < rows.length - 1} index={i + 1} />
                 <span className="grid size-8 place-items-center rounded bg-muted text-muted-foreground"><FileText className="size-4" /></span>
                 <div>
                   <div className="font-medium">{p.title_ar}</div>

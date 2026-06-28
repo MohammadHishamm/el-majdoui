@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { nextSortOrder } from "@/app/admin/dashboard/_actions/reorder";
 
 const str = (v: FormDataEntryValue | null) => String(v ?? "").trim();
 
@@ -14,14 +15,15 @@ function rowFromForm(form: FormData) {
     role_ar: str(form.get("role_ar")),
     role_en: str(form.get("role_en")),
     image: str(form.get("image")) || null,
-    sort_order: Number(str(form.get("sort_order")) || "0"),
     published: form.get("published") === "on",
   };
 }
 
 export async function createMember(form: FormData) {
   const supabase = await createClient();
-  const { error } = await supabase.from("team_members").insert(rowFromForm(form));
+  const row = rowFromForm(form);
+  const sort_order = await nextSortOrder("team_members", { col: "type", val: row.type });
+  const { error } = await supabase.from("team_members").insert({ ...row, sort_order });
   if (error) redirect(`/admin/dashboard/team/new?error=${encodeURIComponent(error.message)}`);
   revalidatePath("/admin/dashboard/team");
   revalidatePath("/about/board");

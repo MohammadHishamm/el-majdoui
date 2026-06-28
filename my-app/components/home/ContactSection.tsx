@@ -131,14 +131,14 @@ export function ContactSection() {
 
           {/* Info card — left in RTL */}
           <div className="relative flex min-h-[420px] items-center overflow-hidden rounded-2xl bg-footer-bg py-10 pe-10 ps-8 text-white md:rounded-none md:rounded-tr-[100px] md:py-14 md:pe-14 md:ps-10">
-            {/* Decorative vector — right in RTL */}
-            <div className="relative me-6 shrink-0 self-center md:me-10">
+            {/* Logo — right in RTL */}
+            <div className="relative me-2 shrink-0 self-center md:me-4">
               <Image
-                src="/images/figma/sections/Vector.png"
+                src="/images/home/contact-us-form-logo.jpg"
                 alt=""
                 width={112}
                 height={280}
-                className="h-[220px] w-auto object-contain md:h-[280px]"
+                className="h-[250px] w-auto object-contain md:h-[260px]"
                 aria-hidden
               />
             </div>

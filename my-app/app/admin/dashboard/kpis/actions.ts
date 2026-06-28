@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { nextSortOrder } from "@/app/admin/dashboard/_actions/reorder";
 
 const str = (v: FormDataEntryValue | null) => String(v ?? "").trim();
 
@@ -14,14 +15,13 @@ function rowFromForm(form: FormData) {
     label_en: str(form.get("label_en")),
     year: str(form.get("year")) || null,
     icon: str(form.get("icon")) || null,
-    sort_order: Number(str(form.get("sort_order")) || "0"),
     published: form.get("published") === "on",
   };
 }
 
 export async function createKpi(form: FormData) {
   const supabase = await createClient();
-  const { error } = await supabase.from("kpis").insert(rowFromForm(form));
+  const { error } = await supabase.from("kpis").insert({ ...rowFromForm(form), sort_order: await nextSortOrder("kpis") });
   if (error) redirect(`/admin/dashboard/kpis/new?error=${encodeURIComponent(error.message)}`);
   revalidatePath("/admin/dashboard/kpis");
   revalidatePath("/");

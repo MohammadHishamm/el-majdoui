@@ -2,14 +2,22 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Container } from "@/components/ui/Container";
-import { focusAreas } from "@/lib/site/config";
+import { getFocusAreas } from "@/lib/cms/fetchers";
+import { focusAreas as FALLBACK } from "@/lib/site/config";
 
 export const metadata: Metadata = {
   title: "مجالات التركيز",
   description: "مجالات تركيز مؤسسة المجدوعي الخيرية",
 };
 
-export default function FocusAreasPage() {
+export const dynamic = "force-dynamic";
+
+export default async function FocusAreasPage() {
+  const data = await getFocusAreas();
+  const areas = data.length
+    ? data.map((a) => ({ slug: a.slug, name: a.name.ar, shortDesc: a.desc.ar, color: a.bg }))
+    : FALLBACK.map((a) => ({ slug: a.slug, name: a.name, shortDesc: a.shortDesc, color: a.color }));
+
   return (
     <>
       <PageHeader
@@ -18,7 +26,7 @@ export default function FocusAreasPage() {
       />
       <Container as="main" className="py-12">
         <div className="grid gap-6 md:grid-cols-3">
-          {focusAreas.map((area) => (
+          {areas.map((area) => (
             <Link
               key={area.slug}
               href={`/focus-areas/${area.slug}`}

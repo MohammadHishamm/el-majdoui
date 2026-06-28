@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/sidebar";
 import { getCurrentProfile } from "@/lib/auth";
 import { getAdminT } from "@/lib/admin-locale";
-import { LanguageToggle } from "@/components/admin/i18n";
+import { LanguageToggle, ThemeToggle } from "@/components/admin/i18n";
 
 export default async function DashboardLayout({
   children,
@@ -38,8 +38,9 @@ export default async function DashboardLayout({
           <SidebarTrigger className="-ms-1" />
           <Separator orientation="vertical" className="me-2 data-[orientation=vertical]:h-4" />
           <span className="text-sm font-medium">{t.header}</span>
-          <div className="ms-auto">
+          <div className="ms-auto flex items-center gap-2">
             <LanguageToggle />
+            <ThemeToggle />
           </div>
         </div>
       </header>

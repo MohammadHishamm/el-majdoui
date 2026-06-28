@@ -27,6 +27,11 @@ export async function updateSiteSettings(form: FormData) {
     contact_phone: str(form.get("contact_phone")) || null,
     contact_address_ar: str(form.get("contact_address_ar")) || null,
     contact_address_en: str(form.get("contact_address_en")) || null,
+    social_linkedin: str(form.get("social_linkedin")) || null,
+    social_instagram: str(form.get("social_instagram")) || null,
+    social_twitter: str(form.get("social_twitter")) || null,
+    social_facebook: str(form.get("social_facebook")) || null,
+    social_snapchat: str(form.get("social_snapchat")) || null,
   };
   const { error } = await supabase.from("site_settings").update(row).eq("id", true);
   if (error) {
@@ -34,5 +39,5 @@ export async function updateSiteSettings(form: FormData) {
     return;
   }
   revalidatePath("/admin/dashboard/site-settings");
-  revalidatePath("/");
+  revalidatePath("/", "layout");
 }

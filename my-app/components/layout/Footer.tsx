@@ -32,6 +32,15 @@ function FooterColumn({
   );
 }
 
+type FooterContact = { phone?: string | null; email?: string | null; address?: { ar?: string | null; en?: string | null } };
+type FooterSocial = {
+  linkedin?: string | null;
+  instagram?: string | null;
+  twitter?: string | null;
+  facebook?: string | null;
+  snapchat?: string | null;
+};
+
 const SOCIAL = [
   {
     label: "LinkedIn",
@@ -82,10 +91,23 @@ const SOCIAL = [
 
 const QUICK_LINK_HREFS = ["/about", "/programs", "/media-center", "/careers"];
 
-export function Footer() {
+export function Footer({ contact, social }: { contact?: FooterContact; social?: FooterSocial } = {}) {
   const year = new Date().getFullYear();
   const { locale } = useLocale();
   const t = translations[locale].footer;
+
+  const phone = contact?.phone || siteConfig.contact.phone;
+  const email = contact?.email || siteConfig.contact.email;
+  const address =
+    (locale === "en" ? contact?.address?.en : contact?.address?.ar) ||
+    (locale === "en" ? siteConfig.contact.addressEn : siteConfig.contact.address);
+  const socialHref: Record<string, string | null | undefined> = {
+    LinkedIn: social?.linkedin,
+    Instagram: social?.instagram,
+    Snapchat: social?.snapchat,
+    Facebook: social?.facebook,
+    X: social?.twitter,
+  };
 
   const quickLinks = QUICK_LINK_HREFS.map((href, i) => ({
     label: t.quickLinkLabels[i],
@@ -123,20 +145,20 @@ export function Footer() {
             <h2 className="mb-4 text-sm font-bold">{t.contactUs}</h2>
             <ul className="space-y-3 text-sm text-white/75">
               <li className="flex items-center justify-end gap-2">
-                {siteConfig.contact.phone}
+                {phone}
                 <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 shrink-0 text-accent" aria-hidden>
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                 </svg>
               </li>
               <li className="flex items-center justify-end gap-2">
-                {siteConfig.contact.email}
+                {email}
                 <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 shrink-0 text-accent" aria-hidden>
                   <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                   <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                 </svg>
               </li>
               <li className="flex items-center justify-end gap-2">
-                {locale === "en" ? siteConfig.contact.addressEn : siteConfig.contact.address}
+                {address}
                 <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 shrink-0 text-accent" aria-hidden>
                   <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
                 </svg>
@@ -151,7 +173,7 @@ export function Footer() {
             {SOCIAL.map((s) => (
               <a
                 key={s.label}
-                href={s.href}
+                href={socialHref[s.label] || s.href}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={s.label}

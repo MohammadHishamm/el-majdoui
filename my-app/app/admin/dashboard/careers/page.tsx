@@ -2,7 +2,8 @@ import Link from "next/link";
 import { Briefcase, Pencil, Plus, Trash2 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
-import { deleteJob } from "./actions";
+import { deleteJob, updateCareersContent } from "./actions";
+import { CareersContentForm } from "@/components/admin/pages/CareersContentForm";
 
 type Row = {
   id: string;
@@ -22,8 +23,16 @@ export default async function CareersListPage() {
     .order("sort_order");
   const rows = (data ?? []) as Row[];
 
+  const { data: pc } = await supabase.from("page_content").select("content").eq("slug", "careers").single();
+  const careersContent = (pc?.content as Record<string, unknown>) ?? {};
+
   return (
     <div className="flex flex-col gap-6">
+      <div className="rounded-xl border p-5">
+        <h2 className="mb-4 text-base font-semibold">{t.careers.pageContentHeading}</h2>
+        <CareersContentForm action={updateCareersContent} defaults={careersContent} submitLabel={t.common.save} />
+      </div>
+
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold">{t.careers.heading}</h1>
         <Link

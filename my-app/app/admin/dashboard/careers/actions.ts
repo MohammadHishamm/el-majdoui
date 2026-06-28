@@ -53,3 +53,18 @@ export async function deleteJob(id: string) {
   revalidatePath("/admin/dashboard/careers");
   revalidatePath("/careers");
 }
+
+export async function updateCareersContent(form: FormData) {
+  const supabase = await createClient();
+  let content: unknown = {};
+  try {
+    content = JSON.parse(String(form.get("content") ?? "{}"));
+  } catch {
+    content = {};
+  }
+  const { error } = await supabase.from("page_content").upsert({ slug: "careers", content }, { onConflict: "slug" });
+  if (error) redirect(`/admin/dashboard/careers?error=${encodeURIComponent(error.message)}`);
+  revalidatePath("/admin/dashboard/careers");
+  revalidatePath("/careers");
+  redirect("/admin/dashboard/careers");
+}

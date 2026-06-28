@@ -65,6 +65,16 @@ export default async function SiteSettingsPage() {
           </div>
         </Section>
 
+        <Section title={t.form.secSocial}>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <TextField name="social_linkedin" label={t.form.socLinkedin} defaultValue={v("social_linkedin")} dir="ltr" />
+            <TextField name="social_instagram" label={t.form.socInstagram} defaultValue={v("social_instagram")} dir="ltr" />
+            <TextField name="social_twitter" label={t.form.socTwitter} defaultValue={v("social_twitter")} dir="ltr" />
+            <TextField name="social_facebook" label={t.form.socFacebook} defaultValue={v("social_facebook")} dir="ltr" />
+            <TextField name="social_snapchat" label={t.form.socSnapchat} defaultValue={v("social_snapchat")} dir="ltr" />
+          </div>
+        </Section>
+
         <div>
           <SubmitButton label={t.settings.save} />
         </div>

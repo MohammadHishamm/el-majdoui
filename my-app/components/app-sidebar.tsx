@@ -112,6 +112,7 @@ const NAV: NavGroup[] = [
     key: "settings",
     icon: Settings2,
     items: [
+      { key: "siteContent", url: "/admin/dashboard/site-settings", roles: ["super_admin", "content_editor"] },
       { key: "messages", url: "/admin/dashboard/messages", roles: ["super_admin", "content_editor"] },
       { key: "usersRoles", url: "/admin/dashboard/users", roles: ["super_admin"] },
     ],

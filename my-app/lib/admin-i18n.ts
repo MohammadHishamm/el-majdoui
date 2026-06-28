@@ -3,6 +3,12 @@
 export type AdminLocale = "en" | "ar";
 export const ADMIN_LOCALE_COOKIE = "admin_locale";
 
+export type AdminTheme = "light" | "dark";
+export const ADMIN_THEME_COOKIE = "admin_theme";
+export function normalizeTheme(v: string | undefined | null): AdminTheme {
+  return v === "dark" ? "dark" : "light";
+}
+
 export type AdminDict = (typeof adminDict)["en"];
 
 export const adminDict = {
@@ -11,6 +17,7 @@ export const adminDict = {
     brand: { name: "Almajdouie CMS", sub: "Content Dashboard" },
     header: "Almajdouie Foundation — Content Management",
     langName: "العربية",
+    themeToggle: "Toggle dark mode",
     common: {
       save: "Save",
       saving: "Saving…",
@@ -144,6 +151,7 @@ export const adminDict = {
       quoteAr: "Quote (AR)", quoteEn: "Quote (EN)", posAr: "Position (AR)", posEn: "Position (EN)", photo: "Leadership photo",
       foundedYear: "Founded year", licenseNo: "License number", contactEmail: "Contact email", contactPhone: "Contact phone",
       addressAr: "Address (AR)", addressEn: "Address (EN)",
+      secSocial: "Footer — Social links", socLinkedin: "LinkedIn URL", socInstagram: "Instagram URL", socTwitter: "X (Twitter) URL", socFacebook: "Facebook URL", socSnapchat: "Snapchat URL",
       typeAlbum: "Photo album", typeVideo: "Video", published: "Published",
       heroDesc: "Hero description", about: "About (full)", objectives: "Objectives",
       stages: "Stages", stagesHint: "One per line — title :: description", targetGroups: "Target groups",
@@ -177,6 +185,7 @@ export const adminDict = {
     careers: {
       heading: "Careers & Jobs", newJob: "New job", editJob: "Edit job",
       backTo: "Back to jobs", create: "Create job",
+      pageContentHeading: "Page header & benefit cards",
     },
     kpis: {
       heading: "Impact KPIs", newKpi: "New KPI", editKpi: "Edit KPI", backTo: "Back to KPIs", create: "Create KPI",
@@ -204,6 +213,7 @@ export const adminDict = {
     brand: { name: "نظام إدارة المحتوى", sub: "لوحة تحكم المحتوى" },
     header: "مؤسسة المجدوعي الخيرية — إدارة المحتوى",
     langName: "English",
+    themeToggle: "تبديل الوضع الداكن",
     common: {
       save: "حفظ",
       saving: "جارٍ الحفظ…",
@@ -337,6 +347,7 @@ export const adminDict = {
       quoteAr: "الاقتباس (عربي)", quoteEn: "الاقتباس (إنجليزي)", posAr: "المنصب (عربي)", posEn: "المنصب (إنجليزي)", photo: "صورة القيادة",
       foundedYear: "سنة التأسيس", licenseNo: "رقم الترخيص", contactEmail: "بريد التواصل", contactPhone: "هاتف التواصل",
       addressAr: "العنوان (عربي)", addressEn: "العنوان (إنجليزي)",
+      secSocial: "التذييل — روابط التواصل", socLinkedin: "رابط لينكدإن", socInstagram: "رابط إنستغرام", socTwitter: "رابط إكس (تويتر)", socFacebook: "رابط فيسبوك", socSnapchat: "رابط سناب شات",
       typeAlbum: "ألبوم صور", typeVideo: "فيديو", published: "منشور",
       heroDesc: "وصف الواجهة", about: "نبذة كاملة", objectives: "الأهداف",
       stages: "المراحل", stagesHint: "سطر لكل مرحلة — العنوان :: الوصف", targetGroups: "الفئات المستهدفة",
@@ -370,6 +381,7 @@ export const adminDict = {
     careers: {
       heading: "التوظيف والوظائف", newJob: "وظيفة جديدة", editJob: "تعديل الوظيفة",
       backTo: "العودة إلى الوظائف", create: "إنشاء الوظيفة",
+      pageContentHeading: "رأس الصفحة وبطاقات المزايا",
     },
     kpis: {
       heading: "مؤشرات الأثر", newKpi: "مؤشر جديد", editKpi: "تعديل المؤشر", backTo: "العودة إلى المؤشرات", create: "إنشاء المؤشر",

@@ -310,6 +310,14 @@ export async function getGalleryItems(): Promise<GalleryItem[]> {
 export type SiteSettingsData = {
   about: { title: Bi; body: Bi };
   leadership: { quote: Bi; name: Bi; position: Bi; photo: string | null };
+  contact: { phone: string | null; email: string | null; address: Bi };
+  social: {
+    linkedin: string | null;
+    instagram: string | null;
+    twitter: string | null;
+    facebook: string | null;
+    snapchat: string | null;
+  };
 };
 
 export type FocusAreaData = {
@@ -345,6 +353,18 @@ export async function getSiteSettings(): Promise<SiteSettingsData | null> {
         name: { ar: data.leadership_name_ar, en: data.leadership_name_en },
         position: { ar: data.leadership_position_ar, en: data.leadership_position_en },
         photo: data.leadership_photo,
+      },
+      contact: {
+        phone: data.contact_phone,
+        email: data.contact_email,
+        address: { ar: data.contact_address_ar, en: data.contact_address_en },
+      },
+      social: {
+        linkedin: data.social_linkedin,
+        instagram: data.social_instagram,
+        twitter: data.social_twitter,
+        facebook: data.social_facebook,
+        snapchat: data.social_snapchat,
       },
     };
   } catch {

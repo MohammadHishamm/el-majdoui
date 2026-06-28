@@ -107,8 +107,19 @@ function JobItem({ job, defaultOpen }: { job: Job; defaultOpen?: boolean }) {
   );
 }
 
-export function CareersExplorer({ jobs }: { jobs: Job[] }) {
+type ReasonCard = { title: string; desc: string; image: string; color: string };
+
+export function CareersExplorer({
+  jobs,
+  reasonsHeading = "لماذا تعمل معنا؟",
+  reasons: reasonsProp,
+}: {
+  jobs: Job[];
+  reasonsHeading?: string;
+  reasons?: ReasonCard[];
+}) {
   const [query, setQuery] = useState("");
+  const cards: ReasonCard[] = reasonsProp?.length ? reasonsProp : reasons;
 
   const filtered = useMemo(() => {
     const q = query.trim();
@@ -121,12 +132,12 @@ export function CareersExplorer({ jobs }: { jobs: Job[] }) {
       {/* Why work with us */}
       <FadeInUp>
         <h2 className="mb-8 text-right text-[28px] font-medium text-[#005761] md:text-[32px]">
-          لماذا تعمل معنا؟
+          {reasonsHeading}
         </h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {reasons.map((r) => (
+          {cards.map((r, ri) => (
             <div
-              key={r.id}
+              key={r.title + ri}
               className="relative h-[360px] overflow-hidden rounded-[0_60px_0_0] [box-shadow:0_1px_3px_0_rgba(0,0,0,0.04),0_4px_12px_0_rgba(0,0,0,0.03)]"
             >
               <Image src={r.image} alt="" fill sizes="(max-width: 1024px) 90vw, 360px" className="object-cover" />

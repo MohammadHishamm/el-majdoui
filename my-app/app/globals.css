@@ -73,6 +73,36 @@
   --sidebar-ring: #00b5c2;
 }
 
+/* Admin dashboard — dark theme (scoped to .admin-theme.dark, public site untouched). */
+.admin-theme.dark {
+  --background: #0a1417;
+  --foreground: #e6eef0;
+  --card: #0f1d20;
+  --card-foreground: #e6eef0;
+  --popover: #0f1d20;
+  --popover-foreground: #e6eef0;
+  --primary: #00b5c2;
+  --primary-foreground: #04211f;
+  --secondary: #15282b;
+  --secondary-foreground: #cfeaed;
+  --accent: #16333a;
+  --accent-foreground: #bfeef3;
+  --muted: #15252a;
+  --muted-foreground: #93b0b4;
+  --destructive: #f87171;
+  --border: #20383c;
+  --input: #25434a;
+  --ring: #00b5c2;
+  --sidebar: #0b181b;
+  --sidebar-foreground: #d7e7e9;
+  --sidebar-primary: #00b5c2;
+  --sidebar-primary-foreground: #04211f;
+  --sidebar-accent: #16333a;
+  --sidebar-accent-foreground: #d7e7e9;
+  --sidebar-border: #1d3539;
+  --sidebar-ring: #00b5c2;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

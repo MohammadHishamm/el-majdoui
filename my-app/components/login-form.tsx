@@ -25,9 +25,9 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 
   return (
     <div className={cn("w-full", className)} {...props}>
-      <Card className="border-0 bg-white py-0 shadow-xl shadow-[#005761]/10 ring-1 ring-black/5">
+      <Card className="border-0 bg-white py-0 shadow-xl shadow-[#005761]/10 ring-1 ring-black/5 dark:bg-card dark:ring-white/10">
         <CardHeader className="hidden space-y-3 border-b border-border/60 px-10 pb-8 pt-10 lg:block">
-          <CardTitle className="text-3xl font-semibold text-[#0a1f2d]">{t.login.title}</CardTitle>
+          <CardTitle className="text-3xl font-semibold text-[#0a1f2d] dark:text-foreground">{t.login.title}</CardTitle>
           <CardDescription className="text-base leading-relaxed lg:text-lg">
             {t.login.subtitle}
           </CardDescription>
@@ -36,7 +36,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
           <form action={formAction}>
             <FieldGroup className="gap-8">
               <Field className="gap-2.5">
-                <FieldLabel htmlFor="email" className="text-base font-medium text-[#0a1f2d]">
+                <FieldLabel htmlFor="email" className="text-base font-medium text-[#0a1f2d] dark:text-foreground">
                   {t.login.email}
                 </FieldLabel>
                 <div className="relative">
@@ -48,13 +48,13 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                     placeholder="you@almajdouie.org"
                     autoComplete="email"
                     required
-                    className="h-14 border-input/80 bg-[#f9fafb] ps-11 text-base shadow-none focus-visible:bg-white"
+                    className="h-14 border-input/80 bg-[#f9fafb] ps-11 text-base shadow-none focus-visible:bg-white dark:bg-input/30 dark:focus-visible:bg-input/50"
                   />
                 </div>
               </Field>
 
               <Field className="gap-2.5">
-                <FieldLabel htmlFor="password" className="text-base font-medium text-[#0a1f2d]">
+                <FieldLabel htmlFor="password" className="text-base font-medium text-[#0a1f2d] dark:text-foreground">
                   {t.login.password}
                 </FieldLabel>
                 <div className="relative">
@@ -65,7 +65,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                     type="password"
                     autoComplete="current-password"
                     required
-                    className="h-14 border-input/80 bg-[#f9fafb] ps-11 text-base shadow-none focus-visible:bg-white"
+                    className="h-14 border-input/80 bg-[#f9fafb] ps-11 text-base shadow-none focus-visible:bg-white dark:bg-input/30 dark:focus-visible:bg-input/50"
                   />
                 </div>
               </Field>
@@ -84,7 +84,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                   type="submit"
                   disabled={pending}
                   size="lg"
-                  className="h-14 w-full bg-[#005761] text-base font-semibold text-white hover:bg-[#004a52]"
+                  className="h-14 w-full bg-[#005761] text-base font-semibold text-white hover:bg-[#004a52] dark:bg-primary dark:text-primary-foreground dark:hover:bg-primary/90"
                 >
                   {pending ? (
                     <>

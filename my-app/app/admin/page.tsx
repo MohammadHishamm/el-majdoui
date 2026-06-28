@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { LoginForm } from "@/components/login-form";
-import { LanguageToggle } from "@/components/admin/i18n";
+import { LanguageToggle, ThemeToggle } from "@/components/admin/i18n";
 import { adminDict } from "@/lib/admin-i18n";
 import { getAdminLocale } from "@/lib/admin-locale";
 
@@ -61,9 +61,10 @@ export default async function AdminLoginPage() {
       </section>
 
       {/* Form panel */}
-      <section className="flex min-h-svh flex-col bg-[#f0f7f8] px-6 py-10 sm:px-12 sm:py-14 lg:px-16 lg:py-16">
-        <div className="mb-8 flex justify-end lg:mb-10">
-          <LanguageToggle className="border-border bg-white px-4 py-2 text-sm text-foreground shadow-sm hover:bg-white/90" />
+      <section className="flex min-h-svh flex-col bg-[#f0f7f8] px-6 py-10 dark:bg-background sm:px-12 sm:py-14 lg:px-16 lg:py-16">
+        <div className="mb-8 flex justify-end gap-2 lg:mb-10">
+          <LanguageToggle className="border-border bg-white px-4 py-2 text-sm text-foreground shadow-sm hover:bg-white/90 dark:bg-card dark:hover:bg-card/90" />
+          <ThemeToggle className="border-border bg-white px-3 py-2 text-foreground shadow-sm hover:bg-white/90 dark:bg-card dark:hover:bg-card/90" />
         </div>
 
         <div className="flex flex-1 flex-col items-center justify-center">
@@ -76,7 +77,7 @@ export default async function AdminLoginPage() {
                 height={80}
                 className="mx-auto mb-6 block h-auto w-[160px]"
               />
-              <h1 className="text-2xl font-semibold text-[#0a1f2d]">{t.title}</h1>
+              <h1 className="text-2xl font-semibold text-[#0a1f2d] dark:text-foreground">{t.title}</h1>
               <p className="mt-3 text-base leading-relaxed text-muted-foreground">{t.subtitle}</p>
             </div>
             <LoginForm />

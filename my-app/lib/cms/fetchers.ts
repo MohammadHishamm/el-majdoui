@@ -373,6 +373,28 @@ export async function getSiteSettings(): Promise<SiteSettingsData | null> {
 }
 
 /** Flexible content blob for a bespoke static page (vision-mission, who-we-are, …). */
+export type StrategicAlignmentContent = {
+  background: string;
+  heading: Bi;
+  subheading: Bi;
+  tabs: { label: Bi; left: string; right: string }[];
+};
+
+/** Home "Strategic Alignment" section content, or null to use the component fallback. */
+export async function getStrategicAlignment(): Promise<StrategicAlignmentContent | null> {
+  try {
+    const { data } = await supabaseAnon
+      .from("page_content")
+      .select("content")
+      .eq("slug", "strategic-alignment")
+      .single();
+    const c = data?.content as StrategicAlignmentContent | undefined;
+    return c && Array.isArray(c.tabs) ? c : null;
+  } catch {
+    return null;
+  }
+}
+
 export async function getPageContent(slug: string): Promise<Record<string, unknown>> {
   try {
     const { data } = await supabaseAnon.from("page_content").select("content").eq("slug", slug).single();

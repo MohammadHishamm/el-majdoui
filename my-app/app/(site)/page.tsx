@@ -10,7 +10,7 @@ import { ImpactKPIs } from "@/components/home/ImpactKPIs";
 import { LatestNews } from "@/components/home/LatestNews";
 import { ContactSection } from "@/components/home/ContactSection";
 import { FadeInUp } from "@/components/ui/fade-in-up";
-import { getFocusAreas, getHeroSlides, getKPIs, getLatestNews, getProgramPanels, getSiteSettings } from "@/lib/cms/fetchers";
+import { getFocusAreas, getHeroSlides, getKPIs, getLatestNews, getProgramPanels, getSiteSettings, getStrategicAlignment } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
   title: siteConfig.name,
@@ -20,13 +20,14 @@ export const metadata: Metadata = {
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
-  const [settings, focusAreas, heroSlides, kpis, latestNews, panels] = await Promise.all([
+  const [settings, focusAreas, heroSlides, kpis, latestNews, panels, strategic] = await Promise.all([
     getSiteSettings(),
     getFocusAreas(),
     getHeroSlides(),
     getKPIs(),
     getLatestNews(),
     getProgramPanels(),
+    getStrategicAlignment(),
   ]);
 
   const heroProps = heroSlides.map((s) => ({ id: s.id, image: s.image, title: s.title, href: s.href }));
@@ -47,7 +48,7 @@ export default async function HomePage() {
       <FadeInUp><LeadershipSpotlight data={settings?.leadership} /></FadeInUp>
       <FadeInUp><FocusAreaTiles areas={tileProps.length ? tileProps : undefined} /></FadeInUp>
       <FadeInUp><ProgramsExplorer panels={panels.length ? panels : undefined} /></FadeInUp>
-      <FadeInUp><StrategicAlignment /></FadeInUp>
+      <FadeInUp><StrategicAlignment data={strategic ?? undefined} /></FadeInUp>
       <FadeInUp><ImpactKPIs items={kpis.length ? kpis : undefined} /></FadeInUp>
       <FadeInUp><LatestNews items={latestNews.length ? latestNews : undefined} /></FadeInUp>
       <FadeInUp><ContactSection /></FadeInUp>

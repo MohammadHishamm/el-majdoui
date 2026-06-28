@@ -53,6 +53,7 @@ const NAV: NavGroup[] = [
       { key: "focusAreas", url: "/admin/dashboard/focus-areas" },
       { key: "impactKpis", url: "/admin/dashboard/kpis" },
       { key: "homePrograms", url: "/admin/dashboard/panels" },
+      { key: "homeStrategic", url: "/admin/dashboard/strategic-alignment" },
     ],
   },
   {

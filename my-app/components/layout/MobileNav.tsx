@@ -162,8 +162,8 @@ export function MobileNav() {
             aria-label={openLabel}
             onClick={closeMenu}
           />
-          <div className="absolute inset-y-0 start-0 w-full max-w-sm bg-header-bg shadow-xl">
-            <div className="flex items-center justify-between gap-2 border-b border-white/10 px-4 py-4">
+          <div className="absolute start-0 top-0 flex h-[100dvh] w-full max-w-sm flex-col bg-header-bg shadow-xl">
+            <div className="flex shrink-0 items-center justify-between gap-2 border-b border-white/10 px-4 py-4">
               <div className="flex min-w-0 flex-1 items-center justify-start gap-0.5" dir="ltr">
                 <button
                   type="button"
@@ -197,7 +197,7 @@ export function MobileNav() {
               </button>
             </div>
             {searchMode ? (
-              <div className="flex max-h-[calc(100vh-4rem)] flex-col overflow-y-auto p-4">
+              <div className="flex min-h-0 flex-1 flex-col overflow-y-auto p-4 pb-8">
                 <div className="flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 focus-within:outline-none">
                   <SearchIcon />
                   <input
@@ -256,7 +256,7 @@ export function MobileNav() {
                 )}
               </div>
             ) : (
-              <nav className="flex max-h-[calc(100vh-4rem)] flex-col gap-1 overflow-y-auto p-4">
+              <nav className="flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto p-4 pb-8">
                 {mainNavigation.map((item) => (
                   <div key={item.href}>
                     <NavLink item={item} locale={locale} onNavigate={closeMenu} />

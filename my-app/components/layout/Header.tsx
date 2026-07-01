@@ -132,11 +132,11 @@ export function Header() {
         <div className="mx-auto flex h-28 w-full max-w-[1280px] items-center justify-between gap-6 px-6">
           <Link href="/" className="relative z-10 shrink-0" aria-label={siteConfig.name}>
             <Image
-              src="/images/logo.png"
+              src="/images/home/updated-svgs/header-footer-logo.svg"
               alt={siteConfig.name}
-              width={260}
-              height={143}
-              className="h-[100px] w-auto object-contain"
+              width={182.127}
+              height={111.994}
+              className=" object-contain"
               priority
             />
           </Link>

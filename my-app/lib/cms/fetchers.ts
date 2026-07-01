@@ -1,6 +1,6 @@
 import { supabaseAnon } from "@/lib/supabase/anon";
 import type { NewsItem, NewsCategoryId } from "@/lib/news";
-import type { GalleryItem, GalleryType } from "@/lib/gallery";
+import type { GalleryAlbum, GalleryItem, GalleryType } from "@/lib/gallery";
 import type { Program, ProgramCategoryId } from "@/lib/programs";
 import type { Report } from "@/lib/reports";
 import type { Job } from "@/lib/careers";
@@ -317,14 +317,73 @@ export async function getGalleryItems(): Promise<GalleryItem[]> {
       .select("*")
       .eq("published", true)
       .order("sort_order");
-    return (data ?? []).map((g) => ({
-      id: g.id as string,
-      type: g.type as GalleryType,
-      title: (g.title_ar as string) ?? "",
-      meta: (g.meta_ar as string) ?? "",
-      thumb: (g.thumb as string) ?? "",
-      cover: (g.cover as string) ?? "",
-    }));
+    return (data ?? []).map(rowToGalleryItem);
+  } catch {
+    return [];
+  }
+}
+
+function rowToGalleryItem(g: Record<string, unknown>): GalleryItem {
+  // The admin only manages "Cover" now — it's the single image shown on /gallery.
+  const cover = (g.cover as string) || (g.thumb as string) || "";
+  return {
+    id: g.id as string,
+    type: g.type as GalleryType,
+    slug: (g.slug as string) ?? (g.id as string),
+    title: (g.title_ar as string) ?? "",
+    meta: (g.meta_ar as string) ?? "",
+    thumb: cover,
+    cover,
+    videoUrl: (g.video_url as string) ?? null,
+  };
+}
+
+/** Full album detail for /gallery/[slug]. */
+export async function getGalleryAlbumBySlug(slug: string): Promise<GalleryAlbum | null> {
+  try {
+    const { data } = await supabaseAnon
+      .from("gallery_items")
+      .select("*")
+      .eq("slug", slug)
+      .eq("published", true)
+      .single();
+    if (!data) return null;
+    const images = Array.isArray(data.images) ? (data.images as string[]).filter(Boolean) : [];
+    const cover = (data.cover as string) || (data.thumb as string) || "";
+    const videosArr = Array.isArray(data.videos) ? (data.videos as string[]).filter(Boolean) : [];
+    const videoUrl = (data.video_url as string) ?? null;
+    return {
+      id: data.id as string,
+      slug: (data.slug as string) ?? (data.id as string),
+      type: data.type as GalleryType,
+      title: (data.title_ar as string) ?? "",
+      meta: (data.meta_ar as string) ?? "",
+      cover,
+      images: images.length ? images : cover ? [cover] : [],
+      date: (data.date_ar as string) ?? "",
+      location: (data.location_ar as string) ?? "",
+      photographer: (data.photographer_ar as string) ?? "",
+      section: (data.section_ar as string) ?? "",
+      about: (data.about_ar as string) ?? "",
+      videos: videosArr.length ? videosArr : videoUrl ? [videoUrl] : [],
+      videoUrl,
+    };
+  } catch {
+    return null;
+  }
+}
+
+/** Other published albums (for the "محتوى ذو صلة" row), excluding the current slug. */
+export async function getRelatedGalleryItems(slug: string, limit = 3): Promise<GalleryItem[]> {
+  try {
+    const { data } = await supabaseAnon
+      .from("gallery_items")
+      .select("*")
+      .eq("published", true)
+      .neq("slug", slug)
+      .order("sort_order")
+      .limit(limit);
+    return (data ?? []).map(rowToGalleryItem);
   } catch {
     return [];
   }

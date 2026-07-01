@@ -22,11 +22,11 @@ export function AboutBlock({ about }: { about?: { title: Bi; body: Bi } }) {
       {/* Decorative botanical motifs — faint, desktop only (matches Figma) */}
       {/* Physical LEFT — top corner, ~480×340 @ 25% */}
       <div
-        className="pointer-events-none absolute left-[-80px] top-[-40px] hidden h-[340px] w-[480px] opacity-25 md:block"
+        className="pointer-events-none absolute left-[20px] top-[20px] hidden w-[260px] h-[368.053px] opacity-25 md:block"
         aria-hidden
       >
         <Image
-          src="/images/about-left.png"
+          src="/images/home/updated-svgs/about-us-logo.svg"
           alt=""
           fill
           className="object-contain object-left-top"
@@ -40,7 +40,7 @@ export function AboutBlock({ about }: { about?: { title: Bi; body: Bi } }) {
         aria-hidden
       >
         <Image
-          src="/images/about-right.png"
+          src="/images/home/updated-svgs/about-us-logo.svg"
           alt=""
           fill
           className="object-contain object-right-top"

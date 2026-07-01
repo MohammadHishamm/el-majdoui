@@ -78,17 +78,29 @@ export function SelectField({
   name,
   label,
   defaultValue,
+  value,
+  onChange,
   options,
 }: {
   name: string;
   label: string;
   defaultValue?: string;
+  /** When provided (with onChange), the select is controlled. */
+  value?: string;
+  onChange?: (value: string) => void;
   options: { value: string; label: string }[];
 }) {
+  const controlled = value !== undefined && onChange !== undefined;
   return (
     <label className="flex flex-col gap-1.5">
       <span className="text-sm font-medium">{label}</span>
-      <select name={name} defaultValue={defaultValue} className={inputCls}>
+      <select
+        name={name}
+        className={inputCls}
+        {...(controlled
+          ? { value, onChange: (e) => onChange(e.target.value) }
+          : { defaultValue })}
+      >
         {options.map((o) => (
           <option key={o.value} value={o.value}>
             {o.label}

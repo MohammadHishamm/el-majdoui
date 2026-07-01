@@ -2,6 +2,7 @@
 
 import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FadeInUp } from "@/components/ui/fade-in-up";
 import { galleryFilters, type GalleryItem } from "@/lib/gallery";
@@ -21,14 +22,17 @@ function PlayBadge({ size = "lg" }: { size?: "lg" | "sm" }) {
 
 function GalleryCard({ item }: { item: GalleryItem }) {
   return (
-    <article className="flex w-full shrink-0 flex-col overflow-hidden rounded-[12px] border-[1.18px] border-[#f3f4f6] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
+    <Link
+      href={`/gallery/${item.slug}`}
+      className="group flex h-full w-full shrink-0 flex-col overflow-hidden rounded-[12px] border-[1.18px] border-[#f3f4f6] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]"
+    >
       <div className="relative aspect-[355/222] w-full overflow-hidden">
         <Image
           src={item.thumb}
           alt={item.title}
           fill
           sizes="(max-width: 1024px) 90vw, 355px"
-          className="object-cover"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {item.type === "video" && (
           <div className="absolute inset-0 grid place-items-center bg-black/40">
@@ -40,7 +44,7 @@ function GalleryCard({ item }: { item: GalleryItem }) {
         <h3 className="line-clamp-2 break-words text-[16px] font-bold leading-[24px] text-[#005761]">{item.title}</h3>
         <p className="line-clamp-1 break-words text-[13px] leading-[19.5px] text-[#6a7282]">{item.meta}</p>
       </div>
-    </article>
+    </Link>
   );
 }
 
@@ -114,9 +118,11 @@ export function GalleryExplorer({ data }: { data: GalleryItem[] }) {
 
             {/* Title overlay — bottom right */}
             <div className="absolute inset-x-0 bottom-0 p-6 text-right sm:p-10">
-              <h2 className="line-clamp-2 break-words text-[22px] font-bold leading-[1.3] text-white sm:text-[26px]">
-                {current.title}
-              </h2>
+              <Link href={`/gallery/${current.slug}`} className="inline-block transition-opacity hover:opacity-90">
+                <h2 className="line-clamp-2 break-words text-[22px] font-bold leading-[1.3] text-white sm:text-[26px]">
+                  {current.title}
+                </h2>
+              </Link>
               <p className="mt-1 line-clamp-1 break-words text-[14px] text-white/85 sm:text-[15px]">{current.meta}</p>
             </div>
 

@@ -37,11 +37,11 @@ export default async function AdminLoginPage() {
 
         <div className="relative z-10 flex items-center gap-5 sm:gap-6">
           <Image
-            src="/images/logo.png"
+            src="/images/home/updated-svgs/header-footer-logo.svg"
             alt="Almajdouie Foundation"
-            width={240}
-            height={96}
-            className="h-auto w-[130px] shrink-0 sm:w-[150px] lg:w-[170px]"
+            width={182.127}
+            height={111.994}
+            className=" object-contain"
             priority
           />
           <div className="text-start">

@@ -79,13 +79,13 @@ function PerspectiveCard({
 
   return (
     <div
-      className="relative flex w-full max-w-[300px] flex-col rounded-tr-[120px] px-7 pb-8 pt-[78px] text-white"
+      className="relative flex w-full max-w-[300px] flex-col rounded-tr-[20px] px-5 pb-5 pt-8 text-white sm:px-6 sm:pb-6 sm:pt-12 lg:max-w-[300px] lg:rounded-tr-[120px] lg:px-7 lg:pb-8 lg:pt-[78px]"
       style={{ backgroundColor: perspective.bg }}
     >
-      <h3 className="text-right text-[24px] font-medium leading-[40px]">
+      <h3 className="text-right text-[20px] font-medium leading-[1.35] lg:text-[24px] lg:leading-[40px]">
         {perspective.title}
       </h3>
-      <p className="mt-[15px] min-h-[120px] text-right text-[15px] font-normal leading-[30px] text-white/90">
+      <p className="mt-3 min-h-0 text-right text-[15px] font-normal leading-[26px] text-white/90 lg:mt-[15px] lg:min-h-[120px] lg:leading-[30px]">
         {perspective.description}
       </p>
 
@@ -95,7 +95,7 @@ function PerspectiveCard({
         aria-expanded={open}
         aria-label={open ? "إخفاء الأهداف الاستراتيجية" : "عرض الأهداف الاستراتيجية"}
         disabled={!hasObjectives}
-        className="mx-auto mt-10 flex size-[60px] shrink-0 items-center justify-center rounded-full bg-white/20 transition-colors hover:bg-white/30 disabled:cursor-default disabled:opacity-60"
+        className="mx-auto mt-4 flex size-[52px] shrink-0 items-center justify-center rounded-full bg-white/20 transition-colors hover:bg-white/30 disabled:cursor-default disabled:opacity-60 lg:mt-10 lg:size-[60px]"
       >
         <ChevronDown
           className={`size-7 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
@@ -106,7 +106,7 @@ function PerspectiveCard({
       {hasObjectives && (
         <ul
           className={`grid gap-2 overflow-hidden transition-all duration-500 ease-out ${
-            open ? "mt-[30px] grid-rows-[1fr] opacity-100" : "mt-0 grid-rows-[0fr] opacity-0"
+            open ? "mt-4 grid-rows-[1fr] opacity-100 lg:mt-[30px]" : "mt-0 grid-rows-[0fr] opacity-0"
           }`}
         >
           <li className="min-h-0">
@@ -148,7 +148,7 @@ export function StrategyPerspectives({ perspectives }: { perspectives?: Perspect
   return (
     <section className="bg-white pb-20 pt-8 sm:pb-24" data-nav-surface="light" aria-label="أبعاد الاستراتيجية">
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 items-start justify-items-center gap-[17px] sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 items-start justify-items-center gap-4 sm:grid-cols-2 sm:gap-[17px] lg:grid-cols-4">
           {PERSPECTIVES.map((perspective, i) => (
             <FadeInUp key={perspective.id} delay={i * 100} className="flex w-full justify-center">
               <PerspectiveCard

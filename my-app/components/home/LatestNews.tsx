@@ -110,7 +110,7 @@ export function LatestNews({ items }: { items?: NewsItem[] }) {
       <div
         className="mx-auto mb-12 h-11 w-full px-6 opacity-70"
         style={{
-          backgroundImage: "url('/images/figma/sections/Container.png')",
+          backgroundImage: "url('/images/home/updated-svgs/horizontal-art.svg')",
           backgroundRepeat: "repeat-x",
           backgroundSize: "auto 100%",
           backgroundPosition: "center",

@@ -49,7 +49,7 @@ export function StrategicAlignment({ data }: { data?: StrategicAlignmentData }) 
   return (
     <section
       className="relative overflow-hidden py-16 md:py-24"
-      data-nav-surface="dark"
+      data-nav-surface="solid"
       aria-labelledby="alignment-heading"
     >
       {/* Background photo */}

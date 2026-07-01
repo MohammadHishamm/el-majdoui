@@ -156,11 +156,11 @@ export function Footer({
           {/* Brand — rightmost in RTL */}
           <div className="text-right">
             <Image
-              src="/images/home/main-home-logo.jpg"
+              src="/images/home/updated-svgs/header-footer-logo.svg"
               alt={siteConfig.name}
               width={240}
               height={96}
-              className="-mt-4 mb-1 block h-auto w-[200px] md:w-[240px]"
+              className="-mt-4 mb-1 block h-auto w-[200px] md:w-[240px] p-2"
             />
             <p className="text-sm leading-7 text-white/75">{t.siteDescription}</p>
           </div>

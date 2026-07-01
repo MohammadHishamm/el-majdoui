@@ -76,9 +76,7 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
           role="listbox"
           aria-label={t.chooseLanguage}
 
-          className={`absolute inset-e-0 z-50 min-w-[148px] overflow-hidden rounded-lg border border-white/10 bg-header-bg py-1 shadow-[0_8px_24px_rgba(0,0,0,0.35)] ${
-            mobile ? "bottom-[calc(100%+6px)]" : "top-[calc(100%+6px)]"
-          }`}
+          className="absolute inset-e-0 top-[calc(100%+6px)] z-50 min-w-[148px] overflow-hidden rounded-lg border border-white/10 bg-header-bg py-1 shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
         >
           {LOCALES.map((item) => (
             <li key={item.code} role="option" aria-selected={locale === item.code}>

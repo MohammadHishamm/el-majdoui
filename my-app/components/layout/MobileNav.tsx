@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 import { MoonIcon, SearchIcon } from "@/components/layout/header-icons";
 import type { NavItem } from "@/lib/site/config";
-import { mainNavigation, siteConfig } from "@/lib/site/config";
+import { mainNavigation } from "@/lib/site/config";
 import { useLocale } from "@/lib/i18n/context";
 import { translations } from "@/lib/i18n/translations";
 
@@ -62,7 +62,6 @@ export function MobileNav() {
 
   const openLabel = locale === "en" ? "Close menu" : "إغلاق القائمة";
   const closeLabel = locale === "en" ? "Open menu" : "فتح القائمة";
-  const siteLabel = locale === "en" ? siteConfig.nameEn : siteConfig.name;
 
   useEffect(() => {
     setOpen(false);
@@ -115,11 +114,27 @@ export function MobileNav() {
             onClick={() => setOpen(false)}
           />
           <div className="absolute inset-y-0 start-0 w-full max-w-sm bg-header-bg shadow-xl">
-            <div className="flex items-center justify-between border-b border-white/10 px-4 py-4">
-              <span className="font-bold text-white">{siteLabel}</span>
+            <div className="flex items-center justify-between gap-2 border-b border-white/10 px-4 py-4">
+              <div className="flex min-w-0 flex-1 items-center justify-start gap-0.5" dir="ltr">
+                <button
+                  type="button"
+                  aria-label={t.searchLabel}
+                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  <SearchIcon />
+                </button>
+                <button
+                  type="button"
+                  aria-label={t.darkModeLabel}
+                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  <MoonIcon />
+                </button>
+                <LanguageSwitcher mobile />
+              </div>
               <button
                 type="button"
-                className="rounded-lg p-2 text-white hover:bg-white/10"
+                className="shrink-0 rounded-lg p-2 text-white hover:bg-white/10"
                 aria-label={openLabel}
                 onClick={() => setOpen(false)}
               >
@@ -146,23 +161,6 @@ export function MobileNav() {
                   )}
                 </div>
               ))}
-              <div className="mt-6 flex items-center justify-center gap-1" dir="ltr">
-                <button
-                  type="button"
-                  aria-label={t.searchLabel}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                >
-                  <SearchIcon />
-                </button>
-                <button
-                  type="button"
-                  aria-label={t.darkModeLabel}
-                  className="inline-flex h-10 w-10 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-                >
-                  <MoonIcon />
-                </button>
-                <LanguageSwitcher mobile />
-              </div>
             </nav>
           </div>
         </div>

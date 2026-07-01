@@ -90,13 +90,12 @@ function JobItem({ job, defaultOpen }: { job: Job; defaultOpen?: boolean }) {
             <CheckList heading="المؤهلات المطلوبة" items={job.qualifications} />
           </div>
           <div className="mt-6 flex justify-start">
-            <div
-              className="inline-flex items-start justify-center rounded-[12px] border-[1.18px] border-[#F3F4F6] bg-white text-[13px]"
-              style={{ padding: "16px 18.826px 14.361px 22px", gap: "240.011px" }}
-            >
-              <span className="font-bold text-[#005761]">ينتهي {job.deadline}</span>
-              <span className="inline-flex items-center gap-1.5 text-[#6a7282]">
-                <Image src={`${I}/calendar-icon.svg`} alt="" width={14} height={14} aria-hidden />
+            <div className="flex w-full max-w-full flex-col gap-3 rounded-[12px] border border-[#f3f4f6] bg-white p-4 text-[13px] sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-8 sm:px-5 sm:py-4 lg:gap-x-16">
+              <span className="shrink-0 font-bold whitespace-nowrap text-[#005761]">
+                ينتهي {job.deadline}
+              </span>
+              <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[#6a7282]">
+                <Image src={`${I}/calendar-icon.svg`} alt="" width={14} height={14} aria-hidden className="shrink-0" />
                 نشر بتاريخ {job.posted}
               </span>
             </div>

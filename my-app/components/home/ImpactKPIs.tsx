@@ -109,30 +109,28 @@ export function ImpactKPIs({ items }: { items?: KPI[] } = {}) {
       aria-labelledby="kpis-heading"
     >
       <div
-        className="pointer-events-none absolute inset-y-0 right-[-250px] top-[-30px] hidden h-[70%] w-1/2 lg:block"
+        className="pointer-events-none absolute inset-y-0 right-[-10px] top-[-50px] hidden w-[260px] h-[368.053px] lg:block"
         style={{ opacity: 0.3 }}
         aria-hidden
       >
         <Image
-          src="/images/figma/sections/stats-right.png"
+          src="/images/home/updated-svgs/about-us-logo.svg"
           alt=""
+          className=" -scale-y-100 object-contain object-center"
           fill
-          className="-scale-x-100 object-contain object-center"
-          sizes="320px"
         />
       </div>
 
       <div
-        className="pointer-events-none absolute inset-y-0 left-[-75px] top-[-30px] hidden h-[70%] w-1/2 lg:block"
+        className="pointer-events-none absolute inset-y-0 left-[-15px] top-[-50px] hidden w-[260px] h-[368.053px] lg:block"
         style={{ opacity: 0.3 }}
         aria-hidden
       >
         <Image
-          src="/images/figma/sections/stats-left.png"
+          src="/images/home/updated-svgs/about-us-logo.svg"
           alt=""
           fill
-          className="object-contain object-left"
-          sizes="(max-width: 768px) 100vw, 50vw"
+          className=" -scale-y-100 -scale-x-100 object-contain object-left"
         />
       </div>
 

@@ -11,6 +11,8 @@ import { HEADER_SOLID_BG, useHeaderOverLight } from "@/components/layout/use-hea
 import { mainNavigation, siteConfig } from "@/lib/site/config";
 import { useLocale } from "@/lib/i18n/context";
 import { translations } from "@/lib/i18n/translations";
+import { searchSite } from "@/lib/cms/search";
+import { TYPE_LABELS, type SearchResult } from "@/lib/cms/search-types";
 
 function ChevronDown({ open }: { open: boolean }) {
   return (
@@ -54,6 +56,8 @@ export function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const overLight = useHeaderOverLight(headerRef);
@@ -87,6 +91,34 @@ export function Header() {
     if (!searchOpen) return;
     searchInputRef.current?.focus();
   }, [searchOpen]);
+
+  // Debounced live search — queries the CMS as the user types.
+  useEffect(() => {
+    const term = searchQuery.trim();
+    let active = true;
+    const id = setTimeout(async () => {
+      if (term.length < 2) {
+        if (active) {
+          setSearchResults([]);
+          setSearchLoading(false);
+        }
+        return;
+      }
+      if (active) setSearchLoading(true);
+      try {
+        const res = await searchSite(term);
+        if (active) setSearchResults(res);
+      } catch {
+        if (active) setSearchResults([]);
+      } finally {
+        if (active) setSearchLoading(false);
+      }
+    }, term.length < 2 ? 0 : 250);
+    return () => {
+      active = false;
+      clearTimeout(id);
+    };
+  }, [searchQuery]);
 
   useEffect(() => {
     if (!openMenu && !searchOpen) return;
@@ -291,6 +323,46 @@ export function Header() {
                   </span>
                 </button>
               </div>
+
+              {/* Live results */}
+              {searchQuery.trim().length >= 2 && (
+                <div className="mt-3 max-h-[60vh] overflow-y-auto">
+                  {searchResults.length === 0 ? (
+                    <p className={`py-3 text-[14px] text-white/70 ${dropdownTextAlign}`}>
+                      {searchLoading
+                        ? isArabic
+                          ? "جارٍ البحث…"
+                          : "Searching…"
+                        : isArabic
+                          ? "لا توجد نتائج"
+                          : "No results"}
+                    </p>
+                  ) : (
+                    <ul className="flex flex-col divide-y divide-white/10">
+                      {searchResults.map((result) => (
+                        <li key={result.url}>
+                          <Link
+                            href={result.url}
+                            onClick={closeSearch}
+                            tabIndex={searchOpen ? 0 : -1}
+                            className="flex items-center justify-between gap-4 px-1 py-3 transition-colors hover:bg-white/5"
+                          >
+                            <span className={`min-w-0 flex-1 ${dropdownTextAlign}`}>
+                              <span className="block truncate text-[15px] font-medium text-white">{result.title}</span>
+                              {result.snippet && (
+                                <span className="block truncate text-[13px] text-white/55">{result.snippet}</span>
+                              )}
+                            </span>
+                            <span className="shrink-0 rounded-full bg-white/10 px-2.5 py-1 text-[11px] text-white/70">
+                              {TYPE_LABELS[result.typeKey][isArabic ? "ar" : "en"]}
+                            </span>
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
             </div>
           </div>
         </div>

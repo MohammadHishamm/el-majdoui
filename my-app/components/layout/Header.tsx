@@ -157,7 +157,7 @@ export function Header() {
   return (
     <header
       ref={headerRef}
-      className="sticky top-0 z-40 transition-[background-color] duration-300"
+      className="sticky top-0 z-40 max-lg:fixed max-lg:inset-x-0 transition-[background-color] duration-300"
       style={{ backgroundColor: solidHeader ? HEADER_SOLID_BG : "transparent" }}
     >
       <div className="relative">

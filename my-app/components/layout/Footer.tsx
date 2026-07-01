@@ -149,7 +149,7 @@ export function Footer({
   }));
 
   return (
-    <footer className="mt-auto bg-footer-bg text-white">
+    <footer className="mt-auto bg-footer-bg text-white" data-nav-surface="solid">
       <div className="mx-auto w-full max-w-[1280px] px-6 py-14 md:py-16">
         {/* Figma column order (RTL: first = rightmost): Brand → Quick Links → Focus Areas → Contact */}
         <div className="grid items-start gap-10 sm:grid-cols-2 lg:grid-cols-4">

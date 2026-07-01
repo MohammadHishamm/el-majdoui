@@ -39,6 +39,12 @@ export function useHeaderOverLight(headerRef: RefObject<HTMLElement | null>) {
       const behind = stack.find((el) => !header.contains(el));
       if (!behind) return;
 
+      const footerHost = behind.closest("footer") as HTMLElement | null;
+      if (footerHost) {
+        setOverLight((prev) => (prev === true ? prev : true));
+        return;
+      }
+
       const surfaceHost = behind.closest(`[${NAV_SURFACE}]`) as HTMLElement | null;
       if (surfaceHost) {
         const surface = surfaceHost.getAttribute(NAV_SURFACE);

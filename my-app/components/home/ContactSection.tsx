@@ -131,8 +131,8 @@ export function ContactSection() {
 
           {/* Info card — left in RTL */}
           <div className="relative flex min-h-[420px] items-center overflow-hidden rounded-2xl bg-footer-bg py-10 pe-10 ps-8 text-white md:rounded-none md:rounded-tr-[100px] md:py-14 md:pe-14 md:ps-10">
-            {/* Logo — right in RTL */}
-            <div className="relative me-2 shrink-0 self-center md:me-4">
+            {/* Logo — right in RTL; hidden on mobile */}
+            <div className="relative me-2 hidden shrink-0 self-center md:me-4 md:block">
               <Image
                 src="/images/home/contact-us-form-logo.jpg"
                 alt=""

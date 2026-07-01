@@ -176,9 +176,13 @@ export function LatestNews({ items }: { items?: NewsItem[] }) {
           animation: news-marquee var(--news-marquee-dur, 40s) linear infinite;
           will-change: transform;
         }
-        .news-marquee:hover .news-marquee__track,
-        .news-marquee:focus-within .news-marquee__track {
-          animation-play-state: paused;
+        /* Pause on hover only on hover-capable pointers — on touch, a press
+           triggers a sticky :hover that would freeze the marquee. */
+        @media (hover: hover) {
+          .news-marquee:hover .news-marquee__track,
+          .news-marquee:focus-within .news-marquee__track {
+            animation-play-state: paused;
+          }
         }
         .news-marquee__group {
           display: flex;

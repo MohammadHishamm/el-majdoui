@@ -151,3 +151,14 @@
 .link:hover .linkIcon {
   transform: translateX(-4px); /* Move left arrow slightly to the left in RTL */
 }
+
+@media (max-width: 767px) {
+  .cardTitle {
+    line-height: 36px;
+    margin-bottom: 14px;
+  }
+
+  .cardDescription {
+    line-height: 34px;
+  }
+}

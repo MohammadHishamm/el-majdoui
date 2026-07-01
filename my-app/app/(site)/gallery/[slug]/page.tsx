@@ -127,7 +127,7 @@ export default async function GalleryAlbumPage({ params }: Props) {
                 <FadeInUp>
                   <div className="w-full">
                     <h2 className="text-right text-[22px] font-bold leading-[33px] text-[#005761]">عن الألبوم</h2>
-                    <p className="mt-4 whitespace-pre-line text-right text-[16px] leading-[30.4px] text-[#364153]">
+                    <p className="mt-4 whitespace-pre-line text-right text-[16px] leading-[2.25] text-[#364153] lg:leading-[30.4px]">
                       {album.about}
                     </p>
                   </div>

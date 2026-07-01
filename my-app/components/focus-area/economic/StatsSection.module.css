@@ -64,12 +64,12 @@
   margin-bottom: 8px;
 }
 
-/* Label — itf rayat Regular 400, 32px, line-height 22.5px, color #6A7282 */
+/* Label — itf rayat Regular 400, 32px, color #6A7282 */
 .statLabel {
   font-family: var(--font-itf-rayat), sans-serif;
   font-weight: 400;
   font-size: 32px;
-  line-height: 22.5px;
+  line-height: 42px;
   letter-spacing: 0px;
   color: #6A7282;
   text-align: right;

@@ -152,13 +152,32 @@
   transform: translateX(-4px); /* Move left arrow slightly to the left in RTL */
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
+  .heading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 12px 0.35em;
+    font-size: 32px;
+    line-height: 1.45;
+    margin-bottom: 40px;
+  }
+
   .cardTitle {
-    line-height: 36px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px 0.3em;
+    font-size: 20px;
+    line-height: 1.45;
     margin-bottom: 14px;
   }
 
   .cardDescription {
-    line-height: 34px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px 0.25em;
+    line-height: 1.7;
   }
 }

@@ -31,12 +31,12 @@ export default async function FocusAreasPage() {
             <Link
               key={area.slug}
               href={`/focus-areas/${area.slug}`}
-              className="rounded-xl border border-bg-alt bg-white p-6 transition-shadow hover:shadow-md"
+              className="rounded-xl border border-panel-border bg-panel p-6 transition-shadow hover:shadow-md"
               style={{ borderTopColor: area.color, borderTopWidth: 4 }}
             >
-              <h2 className="line-clamp-2 break-words text-xl font-bold text-text-dark">{area.name}</h2>
-              <p className="mt-2 line-clamp-3 break-words text-text-medium">{area.shortDesc}</p>
-              <span className="mt-4 inline-block text-sm font-medium text-primary">
+              <h2 className="line-clamp-2 break-words text-xl font-bold text-body-1">{area.name}</h2>
+              <p className="mt-2 line-clamp-3 break-words text-body-2">{area.shortDesc}</p>
+              <span className="mt-4 inline-block text-sm font-medium text-heading">
                 استعرض المبادرات ←
               </span>
             </Link>

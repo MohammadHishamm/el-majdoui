@@ -24,7 +24,7 @@ function GalleryCard({ item }: { item: GalleryItem }) {
   return (
     <Link
       href={`/gallery/${item.slug}`}
-      className="group flex h-full w-full shrink-0 flex-col overflow-hidden rounded-[12px] border-[1.18px] border-[#f3f4f6] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]"
+      className="group flex h-full w-full shrink-0 flex-col overflow-hidden rounded-[12px] border-[1.18px] border-panel-border bg-panel shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]"
     >
       <div className="relative aspect-[355/222] w-full overflow-hidden">
         <Image
@@ -41,8 +41,8 @@ function GalleryCard({ item }: { item: GalleryItem }) {
         )}
       </div>
       <div className="flex flex-col gap-1.5 p-5 text-right">
-        <h3 className="line-clamp-2 break-words text-[16px] font-bold leading-[24px] text-[#005761]">{item.title}</h3>
-        <p className="line-clamp-1 break-words text-[13px] leading-[19.5px] text-[#6a7282]">{item.meta}</p>
+        <h3 className="line-clamp-2 break-words text-[16px] font-bold leading-[24px] text-heading">{item.title}</h3>
+        <p className="line-clamp-1 break-words text-[13px] leading-[19.5px] text-body-3">{item.meta}</p>
       </div>
     </Link>
   );
@@ -70,7 +70,7 @@ export function GalleryExplorer({ data }: { data: GalleryItem[] }) {
     rowRef.current?.scrollBy({ left: dir * (rowRef.current.clientWidth * 0.8), behavior: "smooth" });
 
   const arrowChip =
-    "flex size-11 items-center justify-center rounded-full bg-white/80 text-[#005761] shadow-md transition-colors hover:bg-white";
+    "flex size-11 items-center justify-center rounded-full bg-white/80 text-heading shadow-md transition-colors hover:bg-white";
 
   return (
     <div>
@@ -86,8 +86,8 @@ export function GalleryExplorer({ data }: { data: GalleryItem[] }) {
               aria-pressed={active}
               className={`rounded-full border-[1.18px] px-6 py-[10px] text-[14px] font-medium transition-colors ${
                 active
-                  ? "border-[#005761] bg-[#005761] text-white"
-                  : "border-[#e5e7eb] bg-white text-[#005761] hover:bg-[#f0f7f8]"
+                  ? "border-btn-primary bg-btn-primary text-btn-primary-text"
+                  : "border-panel-border bg-panel text-btn-2-text hover:bg-icon-box"
               }`}
             >
               {f.label}
@@ -158,7 +158,7 @@ export function GalleryExplorer({ data }: { data: GalleryItem[] }) {
             type="button"
             onClick={() => scrollRow(-1)}
             aria-label="عرض المزيد"
-            className="absolute -right-2 top-[40%] z-10 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full bg-[#005761] text-white shadow-md transition-colors hover:bg-[#00444c] lg:flex"
+            className="absolute -right-2 top-[40%] z-10 hidden size-11 -translate-y-1/2 items-center justify-center rounded-full bg-btn-primary text-btn-primary-text shadow-md transition-colors hover:bg-[#00444c] lg:flex"
           >
             <ChevronRight className="size-5" />
           </button>
@@ -174,7 +174,7 @@ export function GalleryExplorer({ data }: { data: GalleryItem[] }) {
           ))}
         </div>
         {count === 0 && (
-          <p className="py-12 text-center text-text-muted">لا يوجد محتوى في هذا التصنيف.</p>
+          <p className="py-12 text-center text-body-3">لا يوجد محتوى في هذا التصنيف.</p>
         )}
       </div>
     </div>

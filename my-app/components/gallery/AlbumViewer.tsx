@@ -78,7 +78,7 @@ export function AlbumViewer({ title, images }: { title: string; images: string[]
               type="button"
               onClick={() => go(-1)}
               aria-label="السابق"
-              className="absolute right-4 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-[#005761] shadow-md transition-colors hover:bg-white"
+              className="absolute right-4 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-heading shadow-md transition-colors hover:bg-white"
             >
               <ChevronRight className="size-5" />
             </button>
@@ -86,7 +86,7 @@ export function AlbumViewer({ title, images }: { title: string; images: string[]
               type="button"
               onClick={() => go(1)}
               aria-label="التالي"
-              className="absolute left-4 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-[#005761] shadow-md transition-colors hover:bg-white"
+              className="absolute left-4 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-white/85 text-heading shadow-md transition-colors hover:bg-white"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -100,7 +100,7 @@ export function AlbumViewer({ title, images }: { title: string; images: string[]
           <button
             type="button"
             onClick={share}
-            className="inline-flex items-center gap-2 rounded-full border border-[#e5e7eb] bg-white px-5 py-2.5 text-[14px] font-medium text-[#005761] transition-colors hover:bg-[#f0f7f8]"
+            className="inline-flex items-center gap-2 rounded-full border border-panel-border bg-panel px-5 py-2.5 text-[14px] font-medium text-heading transition-colors hover:bg-icon-box"
           >
             {copied ? <Check className="size-4" /> : <Image src={`${ICON}/share-icon.svg`} alt="" width={16} height={16} aria-hidden />}
             {copied ? "تم نسخ الرابط" : "مشاركة"}
@@ -109,13 +109,13 @@ export function AlbumViewer({ title, images }: { title: string; images: string[]
             type="button"
             onClick={download}
             disabled={downloading}
-            className="inline-flex items-center gap-2 rounded-full bg-[#005761] px-5 py-2.5 text-[14px] font-medium text-white transition-colors hover:bg-[#00444c] disabled:opacity-60"
+            className="inline-flex items-center gap-2 rounded-full bg-btn-primary px-5 py-2.5 text-[14px] font-medium text-btn-primary-text transition-colors hover:bg-[#00444c] disabled:opacity-60"
           >
             <Image src={`${ICON}/download-icon.svg`} alt="" width={16} height={16} aria-hidden className="[filter:brightness(0)_invert(1)]" />
             {downloading ? "جارٍ التحميل…" : "تحميل الصورة"}
           </button>
         </div>
-        <span className="text-[14px] text-[#6a7282]">
+        <span className="text-[14px] text-body-3">
           {active + 1} من {count}
         </span>
       </div>
@@ -131,7 +131,7 @@ export function AlbumViewer({ title, images }: { title: string; images: string[]
               aria-label={`صورة ${i + 1}`}
               aria-current={i === active}
               className={`relative aspect-square overflow-hidden rounded-[10px] border-2 transition-all ${
-                i === active ? "border-[#005761] opacity-100" : "border-transparent opacity-70 hover:opacity-100"
+                i === active ? "border-heading opacity-100" : "border-transparent opacity-70 hover:opacity-100"
               }`}
             >
               <Image src={src} alt="" fill sizes="120px" className="object-cover" />

@@ -29,7 +29,7 @@ export default function IntroSection({ title = '', intro = '' }) {
   }, [intro]);
 
   return (
-    <section ref={containerRef} className="-mt-28 bg-white pt-28" data-nav-surface="light">
+    <section ref={containerRef} className="-mt-28 bg-surface pt-28" data-nav-surface="light">
       <div className={styles.section}>
         <div className="animate-section-content" style={{ width: '100%' }}>
           <p className={`${styles.label} animate-title`}>مجالات التركيز</p>

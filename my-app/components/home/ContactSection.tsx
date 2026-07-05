@@ -10,9 +10,9 @@ import { submitContactMessage, type ContactState } from "@/components/home/conta
 const initialContactState: ContactState = { ok: false, error: null };
 
 const fieldClass =
-  "w-full rounded-2xl border border-text-dark/15 bg-white px-4 py-3 text-base text-text-dark outline-none transition-colors placeholder:text-text-muted/50 focus:border-accent";
+  "w-full rounded-2xl border border-panel-border bg-btn-2-bg px-4 py-3 text-base text-body-1 outline-none transition-colors placeholder:text-body-3/50 focus:border-icon";
 
-const labelClass = "mb-2 block text-right text-base font-medium text-text-dark";
+const labelClass = "mb-2 block text-right text-base font-medium text-body-1";
 
 export function ContactSection() {
   const { locale } = useLocale();
@@ -44,15 +44,15 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="scroll-mt-28 bg-white py-16 md:py-24"
+      className="scroll-mt-28 bg-surface py-16 md:py-24"
       data-nav-surface="light"
       aria-labelledby="contact-heading"
     >
       <div className="mx-auto w-full max-w-[1280px] px-6">
-        <div className="grid gap-8 border border-text-dark/15 md:grid-cols-2 md:gap-0 md:overflow-hidden md:rounded-2xl">
+        <div className="grid gap-8 border border-panel-border md:grid-cols-2 md:gap-0 md:overflow-hidden md:rounded-2xl">
           {/* Form — right in RTL */}
           <form
-            className="flex flex-col gap-6 rounded-2xl bg-white p-8 md:rounded-none md:p-12"
+            className="flex flex-col gap-6 rounded-2xl bg-panel p-8 md:rounded-none md:p-12"
             action={formAction}
           >
             <div>

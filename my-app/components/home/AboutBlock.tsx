@@ -15,7 +15,7 @@ export function AboutBlock({ about }: { about?: { title: Bi; body: Bi } }) {
 
   return (
     <section
-      className="relative overflow-hidden bg-[#f9fafb] py-16 md:py-24"
+      className="relative overflow-hidden bg-surface-alt py-16 md:py-24"
       data-nav-surface="light"
       aria-labelledby="about-heading"
     >
@@ -51,19 +51,19 @@ export function AboutBlock({ about }: { about?: { title: Bi; body: Bi } }) {
       <div className="relative z-10 mx-auto w-full max-w-[896px] px-6 text-center">
         <h2
           id="about-heading"
-          className="text-[28px] font-medium leading-[1.2] text-[#005761] md:text-[36px]"
+          className="text-[28px] font-medium leading-[1.2] text-heading md:text-[36px]"
         >
           {heading}
         </h2>
 
-        <p className="mx-auto mt-6 max-w-[896px] text-[16px] leading-[1.7] text-[#364153] md:text-[20px] md:leading-[32.5px]">
+        <p className="mx-auto mt-6 max-w-[896px] text-[16px] leading-[1.7] text-body-2 md:text-[20px] md:leading-[32.5px]">
           {body}
         </p>
 
         <Link
           href="/about/who-we-are"
           dir="rtl"
-          className="mt-9 inline-flex items-center gap-2 rounded-full border-[1.18px] border-[#005761] bg-white px-6 py-2.5 text-[14px] font-bold text-[#005761] transition-colors hover:bg-[#005761] hover:text-white"
+          className="mt-9 inline-flex items-center gap-2 rounded-full border-[1.18px] border-btn-2-stroke bg-btn-2-bg px-6 py-2.5 text-[14px] font-bold text-btn-2-text transition-colors hover:bg-btn-primary hover:text-btn-primary-text"
         >
           {t.cta}
           <svg viewBox="0 0 16 16" fill="currentColor" className="h-4 w-4 shrink-0" aria-hidden>

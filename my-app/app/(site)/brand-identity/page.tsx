@@ -34,7 +34,7 @@ const FALLBACK = {
 };
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
-  return <h2 className="mb-8 text-right text-[24px] font-bold leading-[33px] text-[#005761]">{children}</h2>;
+  return <h2 className="mb-8 text-right text-[24px] font-bold leading-[33px] text-heading">{children}</h2>;
 }
 
 export default async function BrandIdentityPage() {
@@ -44,21 +44,21 @@ export default async function BrandIdentityPage() {
   const colors = Array.isArray(raw.colors) ? (raw.colors as Color[]) : undefined;
 
   return (
-    <main dir="rtl" className="bg-white" data-nav-surface="light">
+    <main dir="rtl" className="bg-surface" data-nav-surface="light">
       {/* Header */}
-      <section className="-mt-28 bg-white pt-40 md:pt-44">
+      <section className="-mt-28 bg-surface pt-40 md:pt-44">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <FadeInUp>
-            <p className="text-right text-[14px] font-medium leading-none text-text-muted">{s("eyebrow")}</p>
-            <h1 className="mt-4 text-right text-[36px] font-medium leading-[40px] text-[#005761] md:text-[40px]">{s("title")}</h1>
-            <p className="mt-5 max-w-3xl text-right text-[16px] leading-[29px] text-text-medium">{s("intro")}</p>
-            <div className="mt-8 h-px w-full bg-gray-200" />
+            <p className="text-right text-[14px] font-medium leading-none text-body-3">{s("eyebrow")}</p>
+            <h1 className="mt-4 text-right text-[36px] font-medium leading-[40px] text-heading md:text-[40px]">{s("title")}</h1>
+            <p className="mt-5 max-w-3xl text-right text-[16px] leading-[29px] text-body-2">{s("intro")}</p>
+            <div className="mt-8 h-px w-full bg-panel-border" />
           </FadeInUp>
         </div>
       </section>
 
       {/* PDF guide banner */}
-      <section className="bg-white pt-10">
+      <section className="bg-surface pt-10">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <FadeInUp>
             <div className="flex flex-col items-stretch gap-6 rounded-[12px] bg-[#005761] px-6 py-7 text-right md:flex-row-reverse md:items-center md:justify-between md:px-9 md:py-8">
@@ -76,7 +76,7 @@ export default async function BrandIdentityPage() {
       </section>
 
       {/* Official logo & usages */}
-      <section className="bg-white pt-16" aria-labelledby="logos-heading">
+      <section className="bg-surface pt-16" aria-labelledby="logos-heading">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <FadeInUp>
             <SectionHeading><span id="logos-heading">{s("logos_heading")}</span></SectionHeading>
@@ -87,10 +87,10 @@ export default async function BrandIdentityPage() {
                     {card.image && <Image src={card.image} alt={card.label} width={400} height={160} sizes="(max-width: 1024px) 80vw, 400px" className="max-h-[180px] w-auto object-contain" />}
                   </div>
                   <div className="flex flex-col gap-3 px-5 pb-5 pt-5">
-                    <p className="text-right text-[14px] font-bold leading-[21px] text-[#005761]">{card.label}</p>
+                    <p className="text-right text-[14px] font-bold leading-[21px] text-heading">{card.label}</p>
                     <div className="flex flex-wrap justify-start gap-2">
                       {(card.links ?? []).map((link, li) => (
-                        <a key={li} href={link.href} download className="inline-flex items-center gap-1.5 rounded-full border-[1.18px] border-[#e5e7eb] px-3 py-[9px] text-[12px] font-bold text-[#005761] transition-colors hover:bg-[#f0f7f8]">
+                        <a key={li} href={link.href} download className="inline-flex items-center gap-1.5 rounded-full border-[1.18px] border-panel-border px-3 py-[9px] text-[12px] font-bold text-btn-2-text transition-colors hover:bg-icon-box">
                           <Image src={DOWNLOAD_ICON} alt="" width={14} height={14} aria-hidden />
                           {link.text}
                         </a>
@@ -105,7 +105,7 @@ export default async function BrandIdentityPage() {
       </section>
 
       {/* Approved colors */}
-      <section className="bg-white py-16 md:py-20" aria-labelledby="colors-heading">
+      <section className="bg-surface py-16 md:py-20" aria-labelledby="colors-heading">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <FadeInUp>
             <SectionHeading><span id="colors-heading">{s("colors_heading")}</span></SectionHeading>

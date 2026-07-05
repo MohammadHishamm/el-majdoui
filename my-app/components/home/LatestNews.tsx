@@ -65,7 +65,7 @@ function NewsCard({ item, locale }: { item: NewsItem; locale: "ar" | "en" }) {
   return (
     <Link
       href={`/news/${item.slug}`}
-      className="group flex w-[300px] shrink-0 flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-bg-alt transition-all hover:-translate-y-1 hover:shadow-lg sm:w-[340px]"
+      className="group flex w-[300px] shrink-0 flex-col overflow-hidden rounded-2xl bg-panel shadow-sm ring-1 ring-panel-border transition-all hover:-translate-y-1 hover:shadow-lg sm:w-[340px]"
     >
       <div className="relative h-52 w-full overflow-hidden">
         <Image
@@ -78,16 +78,16 @@ function NewsCard({ item, locale }: { item: NewsItem; locale: "ar" | "en" }) {
       </div>
 
       <div className="flex flex-1 flex-col p-5 text-right">
-        <div className="mb-3 flex items-center gap-2 text-xs text-text-muted">
+        <div className="mb-3 flex items-center gap-2 text-xs text-body-3">
           <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4" aria-hidden>
             <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
           </svg>
           {item.date[locale]}
         </div>
-        <h3 className="line-clamp-2 text-base font-bold leading-6 text-text-dark transition-colors group-hover:text-primary">
+        <h3 className="line-clamp-2 text-base font-bold leading-6 text-body-1 transition-colors group-hover:text-heading">
           {item.title[locale]}
         </h3>
-        <p className="mt-2 line-clamp-2 text-sm leading-6 text-text-light">{item.excerpt[locale]}</p>
+        <p className="mt-2 line-clamp-2 text-sm leading-6 text-body-4">{item.excerpt[locale]}</p>
       </div>
     </Link>
   );
@@ -102,7 +102,7 @@ export function LatestNews({ items }: { items?: NewsItem[] }) {
 
   return (
     <section
-      className="bg-white pt-9 pb-16 md:pt-12 md:pb-24"
+      className="bg-surface pt-9 pb-16 md:pt-12 md:pb-24"
       data-nav-surface="light"
       aria-labelledby="news-heading"
     >
@@ -121,14 +121,14 @@ export function LatestNews({ items }: { items?: NewsItem[] }) {
       <div className="mx-auto w-full max-w-[1280px] px-6">
         <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="text-right">
-            <h2 id="news-heading" className="text-3xl font-bold text-text-dark md:text-4xl">
+            <h2 id="news-heading" className="text-3xl font-bold text-body-1 md:text-4xl">
               {t.heading}
             </h2>
-            <p className="mt-2 text-base text-text-light">{t.subheading}</p>
+            <p className="mt-2 text-base text-body-4">{t.subheading}</p>
           </div>
           <Link
             href="/news"
-            className="inline-flex shrink-0 items-center gap-2 rounded-full border border-primary px-6 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
+            className="inline-flex shrink-0 items-center gap-2 rounded-full border border-btn-2-stroke px-6 py-2.5 text-sm font-semibold text-btn-2-text transition-colors hover:bg-btn-primary hover:text-btn-primary-text"
           >
             {t.allNewsCTA}
             <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 rtl:rotate-180">

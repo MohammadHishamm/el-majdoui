@@ -24,14 +24,14 @@ export default async function StrategyPage() {
   const perspectives = Array.isArray(raw.perspectives) ? (raw.perspectives as Perspective[]) : undefined;
 
   return (
-    <main dir="rtl" className="bg-white">
-      <section className="-mt-28 bg-white pt-40 md:pt-44" data-nav-surface="light">
+    <main dir="rtl" className="bg-surface">
+      <section className="-mt-28 bg-surface pt-40 md:pt-44" data-nav-surface="light">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <FadeInUp>
-            <p className="text-right text-[14px] font-medium leading-none text-text-muted">{s("eyebrow")}</p>
-            <h1 className="mt-4 text-right text-[36px] font-medium leading-[40px] text-[#005761]">{s("title")}</h1>
-            <div className="mt-8 h-px w-full bg-gray-200" />
-            <div className="mt-10 w-full max-w-[1126px] text-right text-[#364153]" style={{ fontSize: 32, fontWeight: 400, lineHeight: "45px" }}>
+            <p className="text-right text-[14px] font-medium leading-none text-body-3">{s("eyebrow")}</p>
+            <h1 className="mt-4 text-right text-[36px] font-medium leading-[40px] text-heading">{s("title")}</h1>
+            <div className="mt-8 h-px w-full bg-panel-border" />
+            <div className="mt-10 w-full max-w-[1126px] text-right text-body-2" style={{ fontSize: 32, fontWeight: 400, lineHeight: "45px" }}>
               {s("intro")}
             </div>
           </FadeInUp>

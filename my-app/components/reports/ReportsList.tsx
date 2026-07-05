@@ -19,11 +19,11 @@ function Row({ report, onPreview }: { report: Report; onPreview: () => void }) {
     <div className="flex flex-col gap-3 px-5 py-5 sm:px-6 lg:grid lg:grid-cols-[1fr_1fr_auto] lg:items-center lg:gap-6 lg:py-5">
       {/* Doc icon (right) + title — full width on mobile */}
       <div className="flex min-w-0 items-center justify-start gap-3 lg:justify-self-stretch">
-        <span className="grid size-10 shrink-0 place-items-center rounded-[12px] bg-[#e8f1f2]">
+        <span className="grid size-10 shrink-0 place-items-center rounded-[12px] bg-icon-box">
           <Image src={ICON.document} alt="" width={18} height={18} aria-hidden />
         </span>
         <h3
-          className="min-w-0 flex-1 text-right font-bold text-[#005761] lg:truncate"
+          className="min-w-0 flex-1 text-right font-bold text-heading lg:truncate"
           style={{ fontFamily: fontRayat, fontSize: 16, lineHeight: "24px" }}
         >
           {report.title}
@@ -32,7 +32,7 @@ function Row({ report, onPreview }: { report: Report; onPreview: () => void }) {
 
       {/* Period — centered on desktop */}
       <p
-        className="hidden shrink-0 text-center text-[13px] leading-[19.5px] text-[#6a7282] lg:block lg:justify-self-center"
+        className="hidden shrink-0 text-center text-[13px] leading-[19.5px] text-body-3 lg:block lg:justify-self-center"
         style={{ fontFamily: fontRayat }}
       >
         {report.period}
@@ -44,7 +44,7 @@ function Row({ report, onPreview }: { report: Report; onPreview: () => void }) {
           href={report.file}
           download
           dir="ltr"
-          className="inline-flex items-center gap-1.5 rounded-full border-[1.18px] border-[#005761] px-3 py-2 text-[12px] font-medium leading-none text-[#005761] transition-colors hover:bg-[#f0f7f8] lg:px-[17px] lg:py-[9px] lg:text-[13px] lg:leading-[19.5px]"
+          className="inline-flex items-center gap-1.5 rounded-full border-[1.18px] border-btn-2-stroke px-3 py-2 text-[12px] font-medium leading-none text-heading transition-colors hover:bg-icon-box lg:px-[17px] lg:py-[9px] lg:text-[13px] lg:leading-[19.5px]"
           style={{ fontFamily: fontRayat }}
         >
           <Image
@@ -61,7 +61,7 @@ function Row({ report, onPreview }: { report: Report; onPreview: () => void }) {
           type="button"
           onClick={onPreview}
           dir="ltr"
-          className="inline-flex items-center gap-1.5 rounded-full border-[1.18px] border-[#e5e7eb] px-3 py-2 text-[12px] font-medium leading-none text-[#005761] transition-colors hover:bg-[#f0f7f8] lg:px-[17px] lg:py-[9px] lg:text-[13px] lg:leading-[19.5px]"
+          className="inline-flex items-center gap-1.5 rounded-full border-[1.18px] border-panel-border px-3 py-2 text-[12px] font-medium leading-none text-heading transition-colors hover:bg-icon-box lg:px-[17px] lg:py-[9px] lg:text-[13px] lg:leading-[19.5px]"
           style={{ fontFamily: fontRayat }}
         >
           <Image src={ICON.preview} alt="" width={16} height={16} aria-hidden className="shrink-0" />
@@ -77,7 +77,7 @@ export function ReportsList({ items }: { items: Report[] }) {
 
   return (
     <>
-      <div className="divide-y divide-[#e5e7eb] overflow-hidden rounded-[16px] border border-[#eef0f2] bg-white">
+      <div className="divide-y divide-panel-border overflow-hidden rounded-[16px] border border-panel-border bg-panel">
         {items.map((report, i) => (
           <FadeInUp key={report.id} delay={i * 80} duration={500}>
             <Row report={report} onPreview={() => setActive(report)} />

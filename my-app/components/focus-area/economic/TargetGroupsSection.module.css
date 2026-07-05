@@ -7,7 +7,7 @@
   width: 100%;
   direction: rtl;
   position: relative;
-  background-color: #ffffff;
+  background-color: var(--surface);
   overflow-x: clip;
 }
 
@@ -30,7 +30,7 @@
   font-size: 40px;
   line-height: 40px;
   letter-spacing: 0px;
-  color: #005761;
+  color: var(--heading);
   text-align: right;
   margin-bottom: 48px;
   width: 100%;
@@ -109,7 +109,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 24px 0;
-  background-color: #FFFFFF;
+  background-color: var(--panel);
   position: relative;
   overflow: hidden;
 }
@@ -128,7 +128,7 @@
   font-size: 36px;
   line-height: 54px;
   letter-spacing: 0px;
-  color: #005761;
+  color: var(--heading);
   text-align: center;
   width: 220px;
 }
@@ -165,7 +165,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: #D1D5DB;
+  background-color: var(--panel-border);
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -173,7 +173,7 @@
 }
 
 .dotActive {
-  background-color: #005761;
+  background-color: var(--heading);
   transform: scale(1.3);
 }
 

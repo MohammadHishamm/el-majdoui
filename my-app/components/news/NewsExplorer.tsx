@@ -38,8 +38,8 @@ export function NewsExplorer({ items }: { items: NewsItem[] }) {
               aria-pressed={isActive}
               className={`rounded-full border-[1.18px] px-6 py-[9px] text-[14px] font-medium transition-colors ${
                 isActive
-                  ? "border-[#005761] bg-[#005761] text-white"
-                  : "border-[#e5e7eb] bg-white text-[#005761] hover:bg-[#f0f7f8]"
+                  ? "border-btn-primary bg-btn-primary text-btn-primary-text"
+                  : "border-panel-border bg-panel text-btn-2-text hover:bg-icon-box"
               }`}
             >
               {f.label}
@@ -65,7 +65,7 @@ export function NewsExplorer({ items }: { items: NewsItem[] }) {
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={current === 1}
             aria-label="السابق"
-            className="flex size-10 items-center justify-center rounded-full border border-[#e5e7eb] text-[#005761] transition-colors hover:bg-[#f0f7f8] disabled:opacity-40"
+            className="flex size-10 items-center justify-center rounded-full border border-panel-border text-btn-2-text transition-colors hover:bg-icon-box disabled:opacity-40"
           >
             <ArrowLeft className="size-4 rotate-180" />
           </button>
@@ -77,8 +77,8 @@ export function NewsExplorer({ items }: { items: NewsItem[] }) {
               aria-current={n === current}
               className={`size-10 rounded-full text-[14px] font-medium transition-colors ${
                 n === current
-                  ? "bg-[#005761] text-white"
-                  : "border border-[#e5e7eb] text-[#005761] hover:bg-[#f0f7f8]"
+                  ? "bg-btn-primary text-btn-primary-text"
+                  : "border border-panel-border text-btn-2-text hover:bg-icon-box"
               }`}
             >
               {n}
@@ -89,7 +89,7 @@ export function NewsExplorer({ items }: { items: NewsItem[] }) {
             onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
             disabled={current === pageCount}
             aria-label="التالي"
-            className="flex size-10 items-center justify-center rounded-full border border-[#e5e7eb] text-[#005761] transition-colors hover:bg-[#f0f7f8] disabled:opacity-40"
+            className="flex size-10 items-center justify-center rounded-full border border-panel-border text-btn-2-text transition-colors hover:bg-icon-box disabled:opacity-40"
           >
             <ArrowLeft className="size-4" />
           </button>

@@ -41,21 +41,21 @@ function InfoRow({ label, value, icon }: InfoItem) {
     <div>
       <div className="mb-1 flex items-center justify-start gap-1.5">
         {icon ? <Image src={icon} alt="" width={24} height={24} className="h-6 w-6 shrink-0" aria-hidden /> : null}
-        <span className="text-sm text-text-muted">{label}</span>
+        <span className="text-sm text-body-3">{label}</span>
       </div>
-      <div className="text-right text-[16px] font-bold leading-6 text-[#005761]">{value}</div>
+      <div className="text-right text-[16px] font-bold leading-6 text-heading">{value}</div>
     </div>
   );
 }
 
 function AdvantageCard({ icon, title, description }: { icon: string; title: string; description: string }) {
   return (
-    <div className="flex min-h-0 w-full flex-col rounded-[20px] border-[1.18px] border-bg-alt bg-white p-6 sm:p-8 lg:h-[239px]">
-      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-bg-alt">
+    <div className="flex min-h-0 w-full flex-col rounded-[20px] border-[1.18px] border-panel-border bg-panel p-6 sm:p-8 lg:h-[239px]">
+      <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-icon-box">
         {icon && <Image src={icon} alt="" width={28} height={28} aria-hidden />}
       </div>
-      <h3 className="mb-3 text-[20px] font-bold leading-[30px] text-[#005761]">{title}</h3>
-      <p className="text-base leading-relaxed text-text-light">{description}</p>
+      <h3 className="mb-3 text-[20px] font-bold leading-[30px] text-heading">{title}</h3>
+      <p className="text-base leading-relaxed text-body-4">{description}</p>
     </div>
   );
 }
@@ -84,16 +84,16 @@ export default async function WhoWeArePage() {
       </section>
 
       {/* ── Content: text + info card ── */}
-      <FadeInUp><section className="bg-white py-10 sm:py-[51px]">
+      <FadeInUp><section className="bg-surface py-10 sm:py-[51px]">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-8 lg:min-h-[332px] lg:flex-row lg:items-start lg:justify-between lg:gap-10">
             <div className="w-full space-y-6 text-right sm:space-y-8 lg:w-[653px]">
               {paragraphs.map((p, i) => (
-                <div key={i} className="text-[18px] font-normal leading-[32.4px] text-text-medium">{p}</div>
+                <div key={i} className="text-[18px] font-normal leading-[32.4px] text-body-2">{p}</div>
               ))}
             </div>
             <div className="w-full shrink-0 lg:w-[419px]">
-              <div className="flex flex-col gap-6 rounded-2xl bg-bg-alt px-5 py-7 sm:px-7 sm:py-8 lg:h-[332px] lg:justify-center lg:gap-6">
+              <div className="flex flex-col gap-6 rounded-2xl bg-icon-box px-5 py-7 sm:px-7 sm:py-8 lg:h-[332px] lg:justify-center lg:gap-6">
                 {info.map((row, i) => (
                   <InfoRow key={i} label={row.label} value={row.value} icon={row.icon} />
                 ))}
@@ -104,9 +104,9 @@ export default async function WhoWeArePage() {
       </section></FadeInUp>
 
       {/* ── Competitive Advantages ── */}
-      <FadeInUp><section className="bg-bg-light py-16 md:py-24" aria-labelledby="advantages-heading">
+      <FadeInUp><section className="bg-surface-alt py-16 md:py-24" aria-labelledby="advantages-heading">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <h2 id="advantages-heading" className="mb-10 text-right text-[36px] font-medium leading-[40px] text-[#005761] lg:mb-[102px]">
+          <h2 id="advantages-heading" className="mb-10 text-right text-[36px] font-medium leading-[40px] text-heading lg:mb-[102px]">
             {s("advantages_heading")}
           </h2>
           <div className="grid w-full max-w-[1120px] grid-cols-1 gap-6 md:grid-cols-2">
@@ -118,12 +118,12 @@ export default async function WhoWeArePage() {
       </section></FadeInUp>
 
       {/* ── Quote Banner ── */}
-      <FadeInUp><section className="relative min-h-[200px] overflow-hidden bg-white py-14 sm:min-h-[260px] sm:py-16 lg:h-[328px] lg:overflow-visible lg:py-0">
+      <FadeInUp><section className="relative min-h-[200px] overflow-hidden bg-surface py-14 sm:min-h-[260px] sm:py-16 lg:h-[328px] lg:overflow-visible lg:py-0">
         <span aria-hidden className="pointer-events-none absolute top-5 right-2 select-none text-right font-black leading-none text-[#00B5C226] text-[clamp(80px,22vw,140px)] lg:top-[-30px] lg:right-[170px] lg:w-[152px] lg:text-[220px] lg:leading-[320px]">
           {'"'}
         </span>
         <div className="relative z-10 flex h-full items-center justify-center px-4 sm:px-6 lg:px-8">
-          <blockquote className="relative top-[-5px] m-0 max-w-[783px] text-center text-[clamp(22px,5vw,40px)] font-medium leading-[1.25] tracking-normal text-[#005761] lg:text-[40px] lg:leading-[40px]">
+          <blockquote className="relative top-[-5px] m-0 max-w-[783px] text-center text-[clamp(22px,5vw,40px)] font-medium leading-[1.25] tracking-normal text-heading lg:text-[40px] lg:leading-[40px]">
             {s("quote")}
           </blockquote>
         </div>

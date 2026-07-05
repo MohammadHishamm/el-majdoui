@@ -41,8 +41,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 function DetailRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex w-full items-start justify-between gap-4">
-      <span className="shrink-0 text-[14px] leading-[21px] text-[#6a7282]">{label}</span>
-      <span className="text-left text-[14px] font-bold leading-[21px] text-[#005761]">{value}</span>
+      <span className="shrink-0 text-[14px] leading-[21px] text-body-3">{label}</span>
+      <span className="text-left text-[14px] font-bold leading-[21px] text-heading">{value}</span>
     </div>
   );
 }
@@ -85,31 +85,31 @@ export default async function GalleryAlbumPage({ params }: Props) {
   };
 
   return (
-    <main dir="rtl" className="bg-white" data-nav-surface="light">
+    <main dir="rtl" className="bg-surface" data-nav-surface="light">
       <JsonLd data={[mediaLd, breadcrumb]} />
 
       {/* Header */}
-      <section className="-mt-28 bg-white pt-40 md:pt-44">
+      <section className="-mt-28 bg-surface pt-40 md:pt-44">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <FadeInUp>
-            <nav className="flex flex-wrap items-center gap-2 text-[13px] text-text-muted" aria-label="مسار التنقل">
-              <Link href="/gallery" className="transition-colors hover:text-[#005761]">
+            <nav className="flex flex-wrap items-center gap-2 text-[13px] text-body-3" aria-label="مسار التنقل">
+              <Link href="/gallery" className="transition-colors hover:text-heading">
                 معرض الصور والفيديو
               </Link>
               <span aria-hidden>/</span>
-              <span className="text-[#374151]">{album.title}</span>
+              <span className="text-body-2">{album.title}</span>
             </nav>
-            <h1 className="mt-4 text-right text-[30px] font-medium leading-[38px] text-[#005761] md:text-[36px] md:leading-[44px]">
+            <h1 className="mt-4 text-right text-[30px] font-medium leading-[38px] text-heading md:text-[36px] md:leading-[44px]">
               {album.title}
             </h1>
-            {album.meta && <p className="mt-2 text-right text-[15px] text-[#6a7282]">{album.meta}</p>}
-            <div className="mt-8 h-px w-full bg-gray-200" />
+            {album.meta && <p className="mt-2 text-right text-[15px] text-body-3">{album.meta}</p>}
+            <div className="mt-8 h-px w-full bg-panel-border" />
           </FadeInUp>
         </div>
       </section>
 
       {/* Body */}
-      <section className="bg-white pb-20 pt-8 md:pb-28">
+      <section className="bg-surface pb-20 pt-8 md:pb-28">
         <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-10 px-4 sm:px-6 lg:px-8">
           {/* Media */}
           <FadeInUp className="min-w-0">
@@ -126,8 +126,8 @@ export default async function GalleryAlbumPage({ params }: Props) {
               {album.about && (
                 <FadeInUp>
                   <div className="w-full">
-                    <h2 className="text-right text-[22px] font-bold leading-[33px] text-[#005761]">عن الألبوم</h2>
-                    <p className="mt-4 whitespace-pre-line text-right text-[16px] leading-[2.25] text-[#364153] lg:leading-[30.4px]">
+                    <h2 className="text-right text-[22px] font-bold leading-[33px] text-heading">عن الألبوم</h2>
+                    <p className="mt-4 whitespace-pre-line text-right text-[16px] leading-[2.25] text-body-2 lg:leading-[30.4px]">
                       {album.about}
                     </p>
                   </div>
@@ -136,8 +136,8 @@ export default async function GalleryAlbumPage({ params }: Props) {
 
               {meta.length > 0 && (
                 <FadeInUp>
-                  <div className="w-full rounded-[16px] bg-[#e8f1f2] p-6">
-                    <h2 className="text-right text-[16px] font-bold leading-[24px] text-[#005761]">معلومات الألبوم</h2>
+                  <div className="w-full rounded-[16px] bg-icon-box p-6">
+                    <h2 className="text-right text-[16px] font-bold leading-[24px] text-heading">معلومات الألبوم</h2>
                     <div className="mt-4 flex w-full flex-col gap-3">
                       {meta.map((m) => (
                         <DetailRow key={m.key} label={m.label} value={m.value} />
@@ -153,10 +153,10 @@ export default async function GalleryAlbumPage({ params }: Props) {
 
       {/* Related */}
       {related.length > 0 && (
-        <section className="bg-[#f7fafa] py-16 md:py-20">
+        <section className="bg-surface-alt py-16 md:py-20">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
             <FadeInUp>
-              <h2 className="mb-8 text-right text-[24px] font-medium text-[#005761] md:text-[28px]">
+              <h2 className="mb-8 text-right text-[24px] font-medium text-heading md:text-[28px]">
                 محتوى ذو صلة
               </h2>
             </FadeInUp>
@@ -165,7 +165,7 @@ export default async function GalleryAlbumPage({ params }: Props) {
                 <FadeInUp key={item.id} delay={i * 80}>
                   <Link
                     href={`/gallery/${item.slug}`}
-                    className="group flex h-full flex-col overflow-hidden rounded-[12px] border-[1.18px] border-[#f3f4f6] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]"
+                    className="group flex h-full flex-col overflow-hidden rounded-[12px] border-[1.18px] border-panel-border bg-panel shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)]"
                   >
                     <div className="relative aspect-[355/222] w-full overflow-hidden">
                       <Image
@@ -177,10 +177,10 @@ export default async function GalleryAlbumPage({ params }: Props) {
                       />
                     </div>
                     <div className="flex flex-col gap-1.5 p-5 text-right">
-                      <h3 className="line-clamp-2 break-words text-[16px] font-bold leading-[24px] text-[#005761]">
+                      <h3 className="line-clamp-2 break-words text-[16px] font-bold leading-[24px] text-heading">
                         {item.title}
                       </h3>
-                      <p className="line-clamp-1 break-words text-[13px] leading-[19.5px] text-[#6a7282]">{item.meta}</p>
+                      <p className="line-clamp-1 break-words text-[13px] leading-[19.5px] text-body-3">{item.meta}</p>
                     </div>
                   </Link>
                 </FadeInUp>

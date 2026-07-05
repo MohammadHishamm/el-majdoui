@@ -47,8 +47,8 @@ export function ProgramsList({ items }: { items: Program[] }) {
                 aria-pressed={isActive}
                 className={`rounded-full border-[1.18px] px-6 py-[10px] text-[14px] font-medium transition-colors ${
                   isActive
-                    ? "border-[#005761] bg-[#005761] text-white"
-                    : "border-[#e5e7eb] bg-white text-[#005761] hover:bg-[#f0f7f8]"
+                    ? "border-heading bg-btn-primary text-btn-primary-text"
+                    : "border-panel-border bg-panel text-heading hover:bg-icon-box"
                 }`}
               >
                 {f.label}
@@ -58,21 +58,21 @@ export function ProgramsList({ items }: { items: Program[] }) {
         </div>
 
         <div className="relative w-full lg:w-[320px]">
-          <Search className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-text-muted" />
+          <Search className="pointer-events-none absolute right-4 top-1/2 size-4 -translate-y-1/2 text-body-3" />
           <input
             type="search"
             value={query}
             onChange={(e) => reset(() => setQuery(e.target.value))}
             placeholder="ابحث عن مبادرة معينة..."
             aria-label="ابحث عن مبادرة"
-            className="w-full rounded-full border border-[#e5e7eb] bg-white py-[11px] pr-11 pl-4 text-right text-[14px] text-text-dark placeholder:text-text-muted focus:border-[#005761] focus:outline-none"
+            className="w-full rounded-full border border-panel-border bg-btn-2-bg py-[11px] pr-11 pl-4 text-right text-[14px] text-body-1 placeholder:text-body-3 focus:border-icon focus:outline-none"
           />
         </div>
       </div>
 
       {/* Cards grid */}
       {visible.length === 0 ? (
-        <p className="mt-16 text-center text-[16px] text-text-muted">
+        <p className="mt-16 text-center text-[16px] text-body-3">
           لا توجد مبادرات مطابقة لبحثك.
         </p>
       ) : (
@@ -81,9 +81,9 @@ export function ProgramsList({ items }: { items: Program[] }) {
             <FadeInUp key={p.slug} delay={i * 80}>
               <Link
                 href={`/programs/${p.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-[20px] border border-[#f3f4f6] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_12px_24px_rgba(0,87,97,0.08)]"
+                className="group flex h-full flex-col overflow-hidden rounded-[20px] border border-panel-border bg-panel shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_12px_24px_rgba(0,87,97,0.08)]"
               >
-                <div className="relative h-[200px] w-full overflow-hidden border-b border-[#f3f4f6]">
+                <div className="relative h-[200px] w-full overflow-hidden border-b border-panel-border">
                   <Image
                     src={p.image}
                     alt={p.title}
@@ -96,14 +96,14 @@ export function ProgramsList({ items }: { items: Program[] }) {
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col p-6 text-right">
-                  <h3 className="line-clamp-2 break-words text-[20px] font-bold leading-[28px] text-[#005761]">
+                  <h3 className="line-clamp-2 break-words text-[20px] font-bold leading-[28px] text-heading">
                     {p.title}
                   </h3>
-                  <p className="mt-3 line-clamp-3 flex-1 break-words text-[15px] leading-[25.5px] text-text-light">
+                  <p className="mt-3 line-clamp-3 flex-1 break-words text-[15px] leading-[25.5px] text-body-4">
                     {p.shortDesc}
                   </p>
 
-                  <span className="mt-6 inline-flex items-center gap-2 text-[15px] font-bold text-[#005761]">
+                  <span className="mt-6 inline-flex items-center gap-2 text-[15px] font-bold text-heading">
                     اعرف أكثر عن المبادرة
                     <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
                   </span>
@@ -122,7 +122,7 @@ export function ProgramsList({ items }: { items: Program[] }) {
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={current === 1}
             aria-label="السابق"
-            className="flex size-9 items-center justify-center rounded-full border border-[#e5e7eb] text-[#005761] transition-colors hover:bg-[#f0f7f8] disabled:opacity-40"
+            className="flex size-9 items-center justify-center rounded-full border border-panel-border text-heading transition-colors hover:bg-icon-box disabled:opacity-40"
           >
             <ArrowLeft className="size-4 rotate-180" />
           </button>
@@ -134,8 +134,8 @@ export function ProgramsList({ items }: { items: Program[] }) {
               aria-current={n === current}
               className={`size-9 rounded-full text-[14px] font-medium transition-colors ${
                 n === current
-                  ? "bg-[#005761] text-white"
-                  : "border border-[#e5e7eb] text-[#005761] hover:bg-[#f0f7f8]"
+                  ? "bg-btn-primary text-btn-primary-text"
+                  : "border border-panel-border text-heading hover:bg-icon-box"
               }`}
             >
               {n}
@@ -146,7 +146,7 @@ export function ProgramsList({ items }: { items: Program[] }) {
             onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
             disabled={current === pageCount}
             aria-label="التالي"
-            className="flex size-9 items-center justify-center rounded-full border border-[#e5e7eb] text-[#005761] transition-colors hover:bg-[#f0f7f8] disabled:opacity-40"
+            className="flex size-9 items-center justify-center rounded-full border border-panel-border text-heading transition-colors hover:bg-icon-box disabled:opacity-40"
           >
             <ArrowLeft className="size-4" />
           </button>

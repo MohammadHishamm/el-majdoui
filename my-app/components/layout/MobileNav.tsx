@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
-import { MoonIcon, SearchIcon } from "@/components/layout/header-icons";
+import { MoonGlyph, SunGlyph, SearchIcon } from "@/components/layout/header-icons";
+import { useTheme } from "@/components/theme/ThemeProvider";
 import "@/components/layout/header-search.css";
 import type { NavItem } from "@/lib/site/config";
 import { mainNavigation } from "@/lib/site/config";
@@ -66,6 +67,7 @@ export function MobileNav() {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const pathname = usePathname();
   const { locale } = useLocale();
+  const { theme, toggle } = useTheme();
   const t = translations[locale].header;
   const isArabic = locale === "ar";
 
@@ -179,9 +181,11 @@ export function MobileNav() {
                 <button
                   type="button"
                   aria-label={t.darkModeLabel}
+                  aria-pressed={theme === "dark"}
+                  onClick={toggle}
                   className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white"
                 >
-                  <MoonIcon />
+                  {theme === "dark" ? <SunGlyph /> : <MoonGlyph />}
                 </button>
                 <LanguageSwitcher mobile />
               </div>

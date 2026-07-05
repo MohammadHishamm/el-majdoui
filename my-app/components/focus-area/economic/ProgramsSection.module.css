@@ -16,7 +16,7 @@
   font-weight: 900;
   font-size: 40px;
   line-height: 40px;
-  color: #005761;
+  color: var(--heading);
   text-align: right;
   margin-bottom: 48px;
 }
@@ -36,8 +36,8 @@
   flex: 1 1 0px;
   max-width: 355px;
   min-width: 280px;
-  background-color: #FFFFFF;
-  border: 1.09px solid #E5E7EB;
+  background-color: var(--panel);
+  border: 1.09px solid var(--panel-border);
   border-radius: 20px;
   overflow: hidden;
   display: flex;
@@ -57,7 +57,7 @@
   height: 200px;
   position: relative;
   overflow: hidden;
-  border-bottom: 1.09px solid #E5E7EB;
+  border-bottom: 1.09px solid var(--panel-border);
 }
 
 /* ---- Badge Tags ---- */
@@ -106,7 +106,7 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 28px;
-  color: #005761;
+  color: var(--heading);
   margin-bottom: 12px;
 }
 
@@ -116,7 +116,7 @@
   font-weight: 400;
   font-size: 15px;
   line-height: 25.5px;
-  color: #4A5565;
+  color: var(--body-4);
   margin-bottom: 24px;
   flex-grow: 1;
   text-align: justify;
@@ -132,7 +132,7 @@
   font-weight: 700;
   font-size: 15px;
   line-height: 21px;
-  color: #005761;
+  color: var(--heading);
   text-decoration: none;
   width: fit-content;
   transition: color 0.2s ease;

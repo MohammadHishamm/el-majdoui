@@ -19,7 +19,7 @@ const TAG_ICON: Record<string, string> = {
 
 function Tag({ icon, label }: { icon: string; label: string }) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f0f7f8] px-3 py-1.5 text-[13px] text-[#005761]">
+    <span className="inline-flex items-center gap-1.5 rounded-full bg-icon-box px-3 py-1.5 text-[13px] text-heading">
       <Image src={icon} alt="" width={14} height={14} aria-hidden />
       {label}
     </span>
@@ -29,12 +29,12 @@ function Tag({ icon, label }: { icon: string; label: string }) {
 function CheckList({ heading, items }: { heading: string; items: string[] }) {
   return (
     <div>
-      <h4 className="text-right text-[16px] font-bold text-[#005761]">{heading}</h4>
+      <h4 className="text-right text-[16px] font-bold text-heading">{heading}</h4>
       <ul className="mt-4 space-y-3">
         {items.map((it) => (
           <li key={it} className="flex items-start justify-start gap-2 text-right">
             <Image src={`${I}/correct-icon.svg`} alt="" width={16} height={16} aria-hidden className="mt-1 shrink-0" />
-            <span className="text-[15px] leading-[24px] text-[#4a5565]">{it}</span>
+            <span className="text-[15px] leading-[24px] text-body-4">{it}</span>
           </li>
         ))}
       </ul>
@@ -45,12 +45,12 @@ function CheckList({ heading, items }: { heading: string; items: string[] }) {
 function JobItem({ job, defaultOpen }: { job: Job; defaultOpen?: boolean }) {
   const [open, setOpen] = useState(Boolean(defaultOpen));
   return (
-    <article className="overflow-hidden rounded-[16px] border-[1.18px] border-[#f3f4f6] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
+    <article className="overflow-hidden rounded-[16px] border-[1.18px] border-panel-border bg-panel shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)]">
       <div className="flex flex-col gap-6 p-7 lg:flex-row lg:items-start lg:justify-between">
         {/* Title + summary + tags (right) */}
         <div className="min-w-0 flex-1 text-right">
-          <h3 className="line-clamp-2 break-words text-[20px] font-bold text-[#005761]">{job.title}</h3>
-          <p className="mt-3 line-clamp-3 break-words text-[15px] leading-[24px] text-[#4a5565]">{job.summary}</p>
+          <h3 className="line-clamp-2 break-words text-[20px] font-bold text-heading">{job.title}</h3>
+          <p className="mt-3 line-clamp-3 break-words text-[15px] leading-[24px] text-body-4">{job.summary}</p>
           <div className="mt-4 flex flex-wrap justify-start gap-2">
             <Tag icon={TAG_ICON.deadline} label={`آخر موعد ${job.deadline}`} />
             <Tag icon={TAG_ICON.education} label={job.education} />
@@ -66,7 +66,7 @@ function JobItem({ job, defaultOpen }: { job: Job; defaultOpen?: boolean }) {
           <Link
             href={`/careers/${job.id}`}
             dir="ltr"
-            className="inline-flex items-center gap-2 rounded-full bg-[#005761] px-6 py-2.5 text-[14px] font-medium text-white transition-colors hover:bg-[#00444c]"
+            className="inline-flex items-center gap-2 rounded-full bg-btn-primary px-6 py-2.5 text-[14px] font-medium text-white transition-colors hover:bg-[#00444c]"
           >
             <Image src={`${I}/arrow-icon.svg`} alt="" width={16} height={16} aria-hidden className="shrink-0 [filter:brightness(0)_invert(1)]" />
             قدّم الآن
@@ -75,7 +75,7 @@ function JobItem({ job, defaultOpen }: { job: Job; defaultOpen?: boolean }) {
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
-            className="inline-flex items-center gap-1.5 text-[14px] text-[#005761] hover:underline"
+            className="inline-flex items-center gap-1.5 text-[14px] text-heading hover:underline"
           >
             <ChevronDown className={`size-4 transition-transform ${open ? "rotate-180" : ""}`} />
             {open ? "إخفاء التفاصيل" : "عرض التفاصيل الكاملة"}
@@ -84,17 +84,17 @@ function JobItem({ job, defaultOpen }: { job: Job; defaultOpen?: boolean }) {
       </div>
 
       {open && (
-        <div className="border-t border-[#f3f4f6] bg-[#fafcfc] p-7">
+        <div className="border-t border-panel-border bg-surface-alt p-7">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <CheckList heading="المهام والمسؤوليات" items={job.responsibilities} />
             <CheckList heading="المؤهلات المطلوبة" items={job.qualifications} />
           </div>
           <div className="mt-6 flex justify-start">
-            <div className="flex w-full max-w-full flex-col gap-3 rounded-[12px] border border-[#f3f4f6] bg-white p-4 text-[13px] sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-8 sm:px-5 sm:py-4 lg:gap-x-16">
-              <span className="shrink-0 font-bold whitespace-nowrap text-[#005761]">
+            <div className="flex w-full max-w-full flex-col gap-3 rounded-[12px] border border-panel-border bg-panel p-4 text-[13px] sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-x-8 sm:px-5 sm:py-4 lg:gap-x-16">
+              <span className="shrink-0 font-bold whitespace-nowrap text-heading">
                 ينتهي {job.deadline}
               </span>
-              <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-[#6a7282]">
+              <span className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-body-3">
                 <Image src={`${I}/calendar-icon.svg`} alt="" width={14} height={14} aria-hidden className="shrink-0" />
                 نشر بتاريخ {job.posted}
               </span>
@@ -130,7 +130,7 @@ export function CareersExplorer({
     <div>
       {/* Why work with us */}
       <FadeInUp>
-        <h2 className="mb-8 text-right text-[28px] font-medium text-[#005761] md:text-[32px]">
+        <h2 className="mb-8 text-right text-[28px] font-medium text-heading md:text-[32px]">
           {reasonsHeading}
         </h2>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -152,14 +152,14 @@ export function CareersExplorer({
       {/* Search */}
       <div className="mt-12 flex justify-start">
         <div className="relative w-full sm:w-[340px]">
-          <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-text-muted" />
+          <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-body-3" />
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="ابحث بمسارات الوظائف..."
             aria-label="ابحث بمسارات الوظائف"
-            className="w-full rounded-full border border-[#e5e7eb] bg-white py-[11px] pl-11 pr-4 text-right text-[14px] text-text-dark placeholder:text-right placeholder:text-text-muted focus:border-[#005761] focus:outline-none"
+            className="w-full rounded-full border border-panel-border bg-btn-2-bg py-[11px] pl-11 pr-4 text-right text-[14px] text-body-1 placeholder:text-right placeholder:text-body-3 focus:border-icon focus:outline-none"
           />
         </div>
       </div>
@@ -167,7 +167,7 @@ export function CareersExplorer({
       {/* Job listings */}
       <div className="mt-6 space-y-6">
         {filtered.length === 0 ? (
-          <p className="py-12 text-center text-text-muted">لا توجد وظائف مطابقة لبحثك.</p>
+          <p className="py-12 text-center text-body-3">لا توجد وظائف مطابقة لبحثك.</p>
         ) : (
           filtered.map((job, i) => <JobItem key={job.id} job={job} defaultOpen={i === 0} />)
         )}

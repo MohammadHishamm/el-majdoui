@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
-import { MoonIcon, SearchIcon } from "@/components/layout/header-icons";
+import { MoonGlyph, SunGlyph, SearchIcon } from "@/components/layout/header-icons";
+import { useTheme } from "@/components/theme/ThemeProvider";
 import { MobileNav } from "@/components/layout/MobileNav";
 import "@/components/layout/header-search.css";
 import { HEADER_SOLID_BG, useHeaderOverLight } from "@/components/layout/use-header-surface";
@@ -61,6 +62,7 @@ export function Header() {
   const headerRef = useRef<HTMLElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const overLight = useHeaderOverLight(headerRef);
+  const { theme, toggle } = useTheme();
   const solidHeader = overLight || openMenu !== null || searchOpen;
   const { locale } = useLocale();
   const t = translations[locale].header;
@@ -263,9 +265,11 @@ export function Header() {
             <button
               type="button"
               aria-label={t.darkModeLabel}
+              aria-pressed={theme === "dark"}
+              onClick={toggle}
               className="hidden h-9 w-9 items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/10 hover:text-white lg:inline-flex"
             >
-              <MoonIcon />
+              {theme === "dark" ? <SunGlyph /> : <MoonGlyph />}
             </button>
             <LanguageSwitcher />
             <MobileNav />

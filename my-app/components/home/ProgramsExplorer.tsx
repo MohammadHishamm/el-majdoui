@@ -442,7 +442,7 @@ function MobilePanelContent({
                   {initiative.paths.map((path, index) => (
                     <article
                       key={path.id}
-                      className={`expand-path-card flex flex-col rounded-2xl bg-white p-5 text-text-dark ${
+                      className={`expand-path-card flex flex-col rounded-2xl bg-panel p-5 text-body-1 ${
                         isArabic ? "text-right" : "text-left"
                       }`}
                       style={{ animationDelay: `${120 + index * 90}ms` }}
@@ -455,7 +455,7 @@ function MobilePanelContent({
                         />
                         <h4 className="line-clamp-2 break-words font-bold text-sm">{path.title[locale]}</h4>
                       </div>
-                      <p className="mt-2 flex-1 text-sm leading-7 text-text-light">
+                      <p className="mt-2 flex-1 text-sm leading-7 text-body-4">
                         {path.desc[locale]}
                       </p>
                       <Link
@@ -531,7 +531,7 @@ function DesktopPanelContent({
                   {initiative.paths.map((path, index) => (
                     <article
                       key={path.id}
-                      className={`expand-path-card flex flex-col rounded-2xl bg-white p-5 text-text-dark ${
+                      className={`expand-path-card flex flex-col rounded-2xl bg-panel p-5 text-body-1 ${
                         isArabic ? "text-right" : "text-left"
                       }`}
                       style={{ animationDelay: `${120 + index * 90}ms` }}
@@ -544,7 +544,7 @@ function DesktopPanelContent({
                         />
                         <h4 className="line-clamp-2 break-words font-bold">{path.title[locale]}</h4>
                       </div>
-                      <p className="mt-2 flex-1 text-sm leading-7 text-text-light">
+                      <p className="mt-2 flex-1 text-sm leading-7 text-body-4">
                         {path.desc[locale]}
                       </p>
                       <Link
@@ -677,7 +677,7 @@ export function ProgramsExplorer({ panels }: { panels?: Panel[] } = {}) {
 
   return (
     <section
-      className="bg-white pt-6 pb-16 md:pt-8 md:pb-24"
+      className="bg-surface pt-6 pb-16 md:pt-8 md:pb-24"
       data-nav-surface="light"
       aria-labelledby="programs-explorer-heading"
     >
@@ -685,11 +685,11 @@ export function ProgramsExplorer({ panels }: { panels?: Panel[] } = {}) {
         <div className={`mb-10 ${isArabic ? "text-right" : "text-left"}`}>
           <h2
             id="programs-explorer-heading"
-            className="text-3xl font-bold text-text-dark md:text-4xl"
+            className="text-3xl font-bold text-body-1 md:text-4xl"
           >
             {t.heading}
           </h2>
-          <p className="mt-3 max-w-2xl text-base leading-8 text-text-light">
+          <p className="mt-3 max-w-2xl text-base leading-8 text-body-4">
             {t.subheading}
           </p>
         </div>
@@ -788,7 +788,7 @@ export function ProgramsExplorer({ panels }: { panels?: Panel[] } = {}) {
         </div>
 
         <p
-          className="mx-auto mt-6 max-w-3xl text-center text-sm leading-7 text-text-muted"
+          className="mx-auto mt-6 max-w-3xl text-center text-sm leading-7 text-body-3"
           dir={isArabic ? "rtl" : "ltr"}
         >
           <span className="md:hidden">

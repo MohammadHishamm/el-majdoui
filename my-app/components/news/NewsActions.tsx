@@ -31,11 +31,11 @@ export function NewsActions({ title }: { title: string }) {
   const onPrint = () => window.print();
 
   const chip =
-    "flex size-10 items-center justify-center rounded-full border border-[#e5e7eb] transition-colors hover:bg-[#f0f7f8]";
+    "flex size-10 items-center justify-center rounded-full border border-panel-border transition-colors hover:bg-icon-box";
 
   return (
     <div className="flex items-center gap-2">
-      <button type="button" onClick={() => setSaved((s) => !s)} aria-pressed={saved} aria-label="حفظ" className={`${chip} ${saved ? "bg-[#e8f1f2]" : ""}`}>
+      <button type="button" onClick={() => setSaved((s) => !s)} aria-pressed={saved} aria-label="حفظ" className={`${chip} ${saved ? "bg-icon-box" : ""}`}>
         <Image src={`${DIR}/save-icon.svg`} alt="" width={16} height={16} aria-hidden />
       </button>
       <button type="button" onClick={onPrint} aria-label="طباعة" className={chip}>

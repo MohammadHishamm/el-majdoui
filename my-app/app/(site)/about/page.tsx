@@ -18,7 +18,7 @@ const ABOUT_LINKS = [
 
 export default function AboutHubPage() {
   return (
-    <main dir="rtl" className="bg-white">
+    <main dir="rtl" className="bg-surface">
       <section
         className="-mt-28 bg-footer-bg pt-40 md:pt-44"
         data-nav-surface="solid"
@@ -36,7 +36,7 @@ export default function AboutHubPage() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="block rounded-xl border border-bg-alt bg-white p-5 font-medium text-text-dark hover:border-primary hover:text-primary"
+                className="block rounded-xl border border-panel-border bg-panel p-5 font-medium text-body-1 hover:border-heading hover:text-heading"
               >
                 {link.label}
               </Link>

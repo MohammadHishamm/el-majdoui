@@ -28,7 +28,7 @@ export function LeadershipSpotlight({
 
   return (
     <section
-      className="relative overflow-hidden bg-white py-20 md:py-28"
+      className="relative overflow-hidden bg-surface py-20 md:py-28"
       data-nav-surface="light"
       aria-labelledby="leadership-heading"
     >
@@ -83,27 +83,25 @@ export function LeadershipSpotlight({
 
             <blockquote
               id="leadership-heading"
-              className="line-clamp-6 break-words text-right font-normal text-text-dark"
+              className="line-clamp-6 break-words text-right font-normal text-body-1"
               style={{ fontSize: 24, lineHeight: "39px", minHeight: QUOTE_HEIGHT }}
             >
               {quote}
             </blockquote>
 
             <footer
-              className="text-right"
+              className="border-t border-black/10 text-right dark:border-white/12"
               style={{
                 marginTop: 24,
                 paddingTop: ATTRIBUTION_PADDING_TOP,
                 borderTopWidth: ATTRIBUTION_BORDER_TOP,
-                borderTopStyle: "solid",
-                borderTopColor: "rgba(0, 0, 0, 0.12)",
                 minHeight: ATTRIBUTION_HEIGHT,
               }}
             >
-              <p className="line-clamp-2 break-words text-right font-medium leading-10 text-primary" style={{ fontSize: 36 }}>
+              <p className="line-clamp-2 break-words text-right font-medium leading-10 text-body-1" style={{ fontSize: 36 }}>
                 {name}
               </p>
-              <p className="mt-2 line-clamp-2 break-words text-right font-medium leading-10 text-text-muted" style={{ fontSize: 24 }}>
+              <p className="mt-2 line-clamp-2 break-words text-right font-medium leading-10 text-body-3" style={{ fontSize: 24 }}>
                 {role}
               </p>
             </footer>

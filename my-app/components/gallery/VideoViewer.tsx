@@ -92,7 +92,7 @@ export function VideoViewer({
               aria-label={`فيديو ${i + 1}`}
               aria-current={i === active}
               className={`relative aspect-video overflow-hidden rounded-[10px] border-2 transition-all ${
-                i === active ? "border-[#005761] opacity-100" : "border-transparent opacity-70 hover:opacity-100"
+                i === active ? "border-heading opacity-100" : "border-transparent opacity-70 hover:opacity-100"
               }`}
             >
               {(() => {

@@ -31,23 +31,23 @@ export function ColorSwatches({ colors }: { colors?: Color[] } = {}) {
       {COLORS.map((color) => (
         <div
           key={color.hex}
-          className="overflow-hidden rounded-[16px] border-[1.18px] border-[#f3f4f6] bg-white"
+          className="overflow-hidden rounded-[16px] border-[1.18px] border-panel-border bg-panel"
         >
           <div className="h-[140px] w-full" style={{ backgroundColor: color.hex }} />
           <div className="flex flex-col gap-2 p-4">
-            <p className="text-right text-[12px] leading-[18px] text-[#6a7282]">{color.name}</p>
+            <p className="text-right text-[12px] leading-[18px] text-body-3">{color.name}</p>
             <div className="flex items-center justify-between">
-              <span className="text-[15px] font-bold leading-[22.5px] text-[#005761]">
+              <span className="text-[15px] font-bold leading-[22.5px] text-heading">
                 {color.hex}
               </span>
               <button
                 type="button"
                 onClick={() => copy(color.hex)}
                 aria-label={`نسخ كود اللون ${color.hex}`}
-                className="grid size-8 place-items-center rounded-[8px] bg-[#f9fafb] transition-colors hover:bg-[#e8f1f2]"
+                className="grid size-8 place-items-center rounded-[8px] bg-surface-alt transition-colors hover:bg-icon-box"
               >
                 {copied === color.hex ? (
-                  <span className="text-[11px] font-bold text-[#005761]">✓</span>
+                  <span className="text-[11px] font-bold text-heading">✓</span>
                 ) : (
                   <Image
                     src="/images/identity/copy-icon.svg"

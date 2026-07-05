@@ -69,11 +69,11 @@ function BoardCard({
           background: `url(${image}) lightgray 50% / cover no-repeat`,
         }}
       />
-      <div className="rounded-[12px] border-[1.18px] border-[#f3f4f6] bg-white p-5 text-right shadow-[0_1px_1.5px_rgba(0,0,0,0.04),0_4px_6px_rgba(0,0,0,0.03)]">
-        <h3 className="line-clamp-2 break-words text-right text-[18px] font-bold leading-[25px] text-[#005761]">
+      <div className="rounded-[12px] border-[1.18px] border-panel-border bg-panel p-5 text-right shadow-[0_1px_1.5px_rgba(0,0,0,0.04),0_4px_6px_rgba(0,0,0,0.03)]">
+        <h3 className="line-clamp-2 break-words text-right text-[18px] font-bold leading-[25px] text-heading">
           {name}
         </h3>
-        <p className="mt-3 line-clamp-2 break-words text-right text-[14px] leading-[21px] text-[#6a7282]">
+        <p className="mt-3 line-clamp-2 break-words text-right text-[14px] leading-[21px] text-body-3">
           {role}
         </p>
       </div>
@@ -93,7 +93,7 @@ function LeadershipCard({
   index: number;
 }) {
   return (
-    <article className="flex w-full max-w-[265px] flex-col items-end rounded-[12px] border-[1.18px] border-[#f3f4f6] bg-white p-[17px] text-right shadow-[0_1px_1.5px_rgba(0,0,0,0.04),0_4px_6px_rgba(0,0,0,0.03)]">
+    <article className="flex w-full max-w-[265px] flex-col items-end rounded-[12px] border-[1.18px] border-panel-border bg-panel p-[17px] text-right shadow-[0_1px_1.5px_rgba(0,0,0,0.04),0_4px_6px_rgba(0,0,0,0.03)]">
       <div
         role="img"
         aria-label={name}
@@ -102,10 +102,10 @@ function LeadershipCard({
           background: `url(${image}) lightgray 50% / cover no-repeat`,
         }}
       />
-      <h3 className="mt-3 line-clamp-2 w-full break-words text-right text-[16px] font-bold leading-[22px] text-[#005761]">
+      <h3 className="mt-3 line-clamp-2 w-full break-words text-right text-[16px] font-bold leading-[22px] text-heading">
         {name}
       </h3>
-      <p className="mt-2 line-clamp-2 w-full break-words text-right text-[13px] leading-[19.5px] text-[#6a7282]">
+      <p className="mt-2 line-clamp-2 w-full break-words text-right text-[13px] leading-[19.5px] text-body-3">
         {role}
       </p>
     </article>
@@ -126,27 +126,27 @@ export default async function BoardPage() {
     photo: (boardContent.photo as string) || FALLBACK_CHAIRMAN.photo,
   };
   return (
-    <main dir="rtl" className="bg-white">
+    <main dir="rtl" className="bg-surface">
       {/* ── Header ── (negative margin keeps the sticky navbar solid on load) */}
-      <section className="-mt-28 bg-white pt-40 md:pt-44" data-nav-surface="light">
+      <section className="-mt-28 bg-surface pt-40 md:pt-44" data-nav-surface="light">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <FadeInUp>
-            <p className="text-right text-[14px] font-medium leading-none text-text-muted">
+            <p className="text-right text-[14px] font-medium leading-none text-body-3">
               عن المؤسسة
             </p>
-            <h1 className="mt-4 text-right text-[36px] font-medium leading-[40px] text-[#005761]">
+            <h1 className="mt-4 text-right text-[36px] font-medium leading-[40px] text-heading">
               مجلس الأمناء والقيادات
             </h1>
-            <div className="mt-8 h-px w-full bg-gray-200" />
+            <div className="mt-8 h-px w-full bg-panel-border" />
           </FadeInUp>
         </div>
       </section>
 
       {/* ── Chairman ── */}
       <FadeInUp>
-        <section className="bg-white py-12 md:py-16" aria-label="رئيس مجلس الأمناء">
+        <section className="bg-surface py-12 md:py-16" aria-label="رئيس مجلس الأمناء">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-            <div className="flex min-h-[487px] flex-col items-center justify-center gap-8 rounded-[20px] bg-white p-10 lg:flex-row">
+            <div className="flex min-h-[487px] flex-col items-center justify-center gap-8 rounded-[20px] bg-panel p-10 lg:flex-row">
               {/* Portrait — RTL start (physical right) */}
               <div className="relative aspect-[325/406] w-full max-w-[325px] shrink-0 overflow-hidden rounded-tr-[120px]">
                 <Image
@@ -162,26 +162,26 @@ export default async function BoardPage() {
               {/* Text — RTL end (physical left), right-aligned */}
               <div className="flex w-full flex-col items-start gap-4 text-right lg:max-w-[683px]">
                 <p
-                  className="w-full text-right text-[#005761]"
+                  className="w-full text-right text-heading"
                   style={{ fontSize: 14, fontWeight: 700, lineHeight: "21px" }}
                 >
                   {chairman.eyebrow}
                 </p>
                 <h2
-                  className="w-full text-right text-[#005761]"
+                  className="w-full text-right text-heading"
                   style={{ fontSize: 28, fontWeight: 900, lineHeight: "33.6px" }}
                 >
                   {chairman.name}
                 </h2>
                 <div
-                  className="w-full text-right text-[#4A5565]"
+                  className="w-full text-right text-body-4"
                   style={{ fontSize: 18, fontWeight: 400, lineHeight: "27px" }}
                 >
                   {chairman.position}
                 </div>
                 <div className="my-1 h-px w-16 bg-[rgba(0,87,97,0.3)]" />
                 <div
-                  className="w-full max-w-[673px] text-right text-[#364153]"
+                  className="w-full max-w-[673px] text-right text-body-2"
                   style={{ fontSize: 24, fontWeight: 400, lineHeight: "28.8px" }}
                 >
                   &quot;{chairman.quote}&quot;
@@ -194,11 +194,11 @@ export default async function BoardPage() {
 
       {/* ── Board members ── */}
       <FadeInUp>
-        <section className="bg-white py-12 md:py-16" aria-labelledby="board-members-heading">
+        <section className="bg-surface py-12 md:py-16" aria-labelledby="board-members-heading">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
             <h2
               id="board-members-heading"
-              className="mb-10 text-right text-[32px] font-bold leading-[36px] text-[#005761]"
+              className="mb-10 text-right text-[32px] font-bold leading-[36px] text-heading"
             >
               أعضاء مجلس الأمناء
             </h2>
@@ -215,13 +215,13 @@ export default async function BoardPage() {
       <FadeInUp>
         <section
           id="leadership"
-          className="scroll-mt-32 bg-white pb-20 pt-8 md:pb-28"
+          className="scroll-mt-32 bg-surface pb-20 pt-8 md:pb-28"
           aria-labelledby="leadership-heading"
         >
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
             <h2
               id="leadership-heading"
-              className="mb-10 text-right text-[32px] font-bold leading-[36px] text-[#005761]"
+              className="mb-10 text-right text-[32px] font-bold leading-[36px] text-heading"
             >
               القيادة التنفيذية
             </h2>

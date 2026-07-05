@@ -10,10 +10,10 @@ import type { Job } from "@/lib/careers";
 const I = "/images/tawzeef";
 
 const inputClass =
-  "w-full rounded-[10px] border border-[#e5e7eb] bg-white px-4 py-[11px] text-right text-[14px] text-text-dark placeholder:text-text-muted focus:border-[#005761] focus:outline-none";
+  "w-full rounded-[10px] border border-panel-border bg-btn-2-bg px-4 py-[11px] text-right text-[14px] text-body-1 placeholder:text-body-3 focus:border-icon focus:outline-none";
 
 const formLabelClass =
-  "mb-2 block w-full text-right text-[13px] font-medium leading-[19.5px] text-[#005761]";
+  "mb-2 block w-full text-right text-[13px] font-medium leading-[19.5px] text-heading";
 const formLabelStyle = { fontFamily: "var(--font-itf-rayat), sans-serif" };
 
 function Field({
@@ -69,32 +69,32 @@ export function JobApplicationForm({ job }: { job: Job }) {
   };
 
   return (
-    <main dir="rtl" className="bg-white" data-nav-surface="light">
+    <main dir="rtl" className="bg-surface" data-nav-surface="light">
       {/* Header */}
-      <section className="-mt-28 bg-white pt-36 md:pt-40">
+      <section className="-mt-28 bg-surface pt-36 md:pt-40">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <FadeInUp>
             <Link
               href="/careers"
-              className="inline-flex items-center gap-2 text-[14px] text-text-muted transition-colors hover:text-[#005761]"
+              className="inline-flex items-center gap-2 text-[14px] text-body-3 transition-colors hover:text-heading"
             >
               <ArrowLeft className="size-4" />
               العودة إلى التوظيف
             </Link>
-            <p className="mt-6 text-right text-[14px] text-text-muted">نموذج التقديم على وظيفة</p>
-            <h1 className="mt-2 text-right text-[28px] font-bold text-[#005761] md:text-[36px]">
+            <p className="mt-6 text-right text-[14px] text-body-3">نموذج التقديم على وظيفة</p>
+            <h1 className="mt-2 text-right text-[28px] font-bold text-heading md:text-[36px]">
               {job.title}
             </h1>
             <div className="mt-4 flex flex-wrap justify-start gap-2">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f0f7f8] px-3 py-1.5 text-[13px] text-[#005761]">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-icon-box px-3 py-1.5 text-[13px] text-heading">
                 <Image src={`${I}/people-icon.svg`} alt="" width={14} height={14} aria-hidden />
                 {job.department}
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f0f7f8] px-3 py-1.5 text-[13px] text-[#005761]">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-icon-box px-3 py-1.5 text-[13px] text-heading">
                 <Image src={`${I}/loacation-icon.svg`} alt="" width={14} height={14} aria-hidden />
                 {job.location}
               </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-[#f0f7f8] px-3 py-1.5 text-[13px] text-[#005761]">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-icon-box px-3 py-1.5 text-[13px] text-heading">
                 <Image src={`${I}/bag-icon.svg`} alt="" width={14} height={14} aria-hidden />
                 {job.type}
               </span>
@@ -104,27 +104,27 @@ export function JobApplicationForm({ job }: { job: Job }) {
       </section>
 
       {/* Form + sidebar */}
-      <section className="bg-white py-12 md:py-16">
+      <section className="bg-surface py-12 md:py-16">
         <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_352px] lg:px-8">
           {/* Form (right) */}
-          <div className="order-2 rounded-[16px] border-[1.18px] border-[#f3f4f6] bg-white p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] sm:p-8 lg:order-1">
+          <div className="order-2 rounded-[16px] border-[1.18px] border-panel-border bg-panel p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] sm:p-8 lg:order-1">
             {submitted ? (
               <div className="flex flex-col items-center justify-center gap-4 py-16 text-center">
-                <span className="grid size-16 place-items-center rounded-full bg-[#e8f1f2]">
-                  <Check className="size-8 text-[#005761]" />
+                <span className="grid size-16 place-items-center rounded-full bg-icon-box">
+                  <Check className="size-8 text-heading" />
                 </span>
-                <h2 className="text-[22px] font-bold text-[#005761]">تم إرسال طلبك بنجاح</h2>
-                <p className="max-w-md text-[15px] leading-[26px] text-text-light">
+                <h2 className="text-[22px] font-bold text-heading">تم إرسال طلبك بنجاح</h2>
+                <p className="max-w-md text-[15px] leading-[26px] text-body-4">
                   شكراً لتقديمك على وظيفة «{job.title}». سيقوم فريق التوظيف بمراجعة طلبك والتواصل معك قريباً.
                 </p>
-                <Link href="/careers" className="mt-2 text-[14px] font-bold text-[#005761] hover:underline">
+                <Link href="/careers" className="mt-2 text-[14px] font-bold text-heading hover:underline">
                   العودة إلى التوظيف
                 </Link>
               </div>
             ) : (
               <form onSubmit={onSubmit} noValidate>
-                <h2 className="text-right text-[22px] font-bold text-[#005761]">البيانات الشخصية</h2>
-                <p className="mt-1 text-right text-[14px] text-text-muted">
+                <h2 className="text-right text-[22px] font-bold text-heading">البيانات الشخصية</h2>
+                <p className="mt-1 text-right text-[14px] text-body-3">
                   نرجو تعبئة الحقول الأساسية ليتسنى لنا التواصل معك.
                 </p>
 
@@ -149,10 +149,10 @@ export function JobApplicationForm({ job }: { job: Job }) {
                   </Field>
                 </div>
 
-                <div className="my-8 h-px w-full bg-[#f0f0f0]" />
+                <div className="my-8 h-px w-full bg-panel-border" />
 
-                <h2 className="text-right text-[22px] font-bold text-[#005761]">المؤهلات والملفات</h2>
-                <p className="mt-1 text-right text-[14px] text-text-muted">
+                <h2 className="text-right text-[22px] font-bold text-heading">المؤهلات والملفات</h2>
+                <p className="mt-1 text-right text-[14px] text-body-3">
                   ارفع سيرتك الذاتية وأخبرنا لماذا تناسبك هذه الوظيفة.
                 </p>
 
@@ -164,15 +164,15 @@ export function JobApplicationForm({ job }: { job: Job }) {
                   <button
                     type="button"
                     onClick={() => fileRef.current?.click()}
-                    className="flex w-full flex-col items-center justify-center gap-2 rounded-[12px] border border-dashed border-[#cfe0e2] bg-[#fafcfc] px-6 py-10 text-center transition-colors hover:bg-[#f0f7f8]"
+                    className="flex w-full flex-col items-center justify-center gap-2 rounded-[12px] border border-dashed border-panel-border bg-surface-alt px-6 py-10 text-center transition-colors hover:bg-icon-box"
                   >
-                    <span className="grid size-12 place-items-center rounded-full bg-[#e8f1f2]">
+                    <span className="grid size-12 place-items-center rounded-full bg-icon-box">
                       <Image src={`${I}/upload-icon.svg`} alt="" width={20} height={20} aria-hidden />
                     </span>
-                    <span className="text-[15px] font-bold text-[#005761]">
+                    <span className="text-[15px] font-bold text-heading">
                       {fileName ?? "اضغط لرفع السيرة الذاتية"}
                     </span>
-                    <span className="text-[13px] text-text-muted">الحد الأقصى 5MB · PDF أو DOCX</span>
+                    <span className="text-[13px] text-body-3">الحد الأقصى 5MB · PDF أو DOCX</span>
                   </button>
                   <input
                     ref={fileRef}
@@ -207,9 +207,9 @@ export function JobApplicationForm({ job }: { job: Job }) {
                     type="checkbox"
                     checked={agree}
                     onChange={(e) => setAgree(e.target.checked)}
-                    className="mt-0.5 size-4 shrink-0 accent-[#005761]"
+                    className="mt-0.5 size-4 shrink-0 accent-heading"
                   />
-                  <span className="text-right text-[14px] leading-[22px] text-[#4a5565]">
+                  <span className="text-right text-[14px] leading-[22px] text-body-4">
                     أوافق على معالجة بياناتي وفق سياسة خصوصية البيانات المعتمدة في مؤسسة المجدوعي الخيرية.
                   </span>
                 </label>
@@ -219,13 +219,13 @@ export function JobApplicationForm({ job }: { job: Job }) {
                 <div className="mt-8 flex items-center justify-start gap-3">
                   <button
                     type="submit"
-                    className="rounded-full bg-[#005761] px-7 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#00444c]"
+                    className="rounded-full bg-btn-primary px-7 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#00444c]"
                   >
                     إرسال الطلب
                   </button>
                   <Link
                     href="/careers"
-                    className="rounded-full px-6 py-3 text-[14px] font-medium text-[#4a5565] transition-colors hover:bg-[#f0f7f8]"
+                    className="rounded-full px-6 py-3 text-[14px] font-medium text-body-4 transition-colors hover:bg-icon-box"
                   >
                     إلغاء
                   </Link>
@@ -236,8 +236,8 @@ export function JobApplicationForm({ job }: { job: Job }) {
 
           {/* Sidebar (left) */}
           <aside className="order-1 flex flex-col gap-5 lg:order-2">
-            <div className="rounded-[16px] bg-[#e8f1f2] p-6">
-              <h3 className="text-right text-[16px] font-bold text-[#005761]">ملخص الوظيفة</h3>
+            <div className="rounded-[16px] bg-icon-box p-6">
+              <h3 className="text-right text-[16px] font-bold text-heading">ملخص الوظيفة</h3>
               <ul className="mt-4 space-y-3">
                 {[
                   ["القسم", job.department],
@@ -246,20 +246,20 @@ export function JobApplicationForm({ job }: { job: Job }) {
                   ["آخر موعد للتقديم", job.deadline],
                 ].map(([label, value]) => (
                   <li key={label} className="flex items-center justify-between gap-3">
-                    <span className="text-[14px] text-[#6a7282]">{label}</span>
-                    <span className="text-[14px] font-bold text-[#005761]">{value}</span>
+                    <span className="text-[14px] text-body-3">{label}</span>
+                    <span className="text-[14px] font-bold text-heading">{value}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="rounded-[16px] border-[1.18px] border-[#f3f4f6] bg-white p-6">
-              <h3 className="text-right text-[16px] font-bold text-[#005761]">المتطلبات الأساسية</h3>
+            <div className="rounded-[16px] border-[1.18px] border-panel-border bg-panel p-6">
+              <h3 className="text-right text-[16px] font-bold text-heading">المتطلبات الأساسية</h3>
               <ul className="mt-4 space-y-3">
                 {job.qualifications.map((q) => (
                   <li key={q} className="flex items-start justify-start gap-2 text-right">
                     <Image src={`${I}/correct-icon.svg`} alt="" width={16} height={16} aria-hidden className="mt-0.5 shrink-0" />
-                    <span className="text-[14px] leading-[22px] text-[#4a5565]">{q}</span>
+                    <span className="text-[14px] leading-[22px] text-body-4">{q}</span>
                   </li>
                 ))}
               </ul>

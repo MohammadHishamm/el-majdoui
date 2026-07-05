@@ -78,7 +78,7 @@ export function FocusAreaTiles({ areas }: { areas?: AreaTile[] }) {
 
   return (
     <section
-      className="bg-white pt-6 pb-16 md:pt-8 md:pb-24"
+      className="bg-surface pt-6 pb-16 md:pt-8 md:pb-24"
       data-nav-surface="light"
       aria-labelledby="focus-heading"
     >
@@ -86,11 +86,11 @@ export function FocusAreaTiles({ areas }: { areas?: AreaTile[] }) {
         <div className="mb-12 text-center">
           <h2
             id="focus-heading"
-            className="text-[28px] font-medium text-[#101828] md:text-[36px]"
+            className="text-[28px] font-medium text-body-1 md:text-[36px]"
           >
             {t.heading}
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-7 text-[#4a5565] md:text-[20px] md:leading-[28px]">
+          <p className="mx-auto mt-4 max-w-2xl text-[16px] leading-7 text-body-4 md:text-[20px] md:leading-[28px]">
             {t.subheading}
           </p>
         </div>

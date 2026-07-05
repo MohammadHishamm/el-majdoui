@@ -5,6 +5,28 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  color-scheme: light;
+
+  /* ── Public site — dark-mode semantic tokens (light values) ──
+     Source of truth: designer's "Dark Mode UI Specification — Color Mapping Table".
+     Only these tokens flip between light/dark; edit the pairs here, never inline. */
+  --surface: #ffffff;        /* Main Background       */
+  --surface-alt: #f9fafb;    /* Section Dividers      */
+  --surface-focus: #f9fafb;  /* Main Focus Areas      */
+  --panel: #ffffff;          /* Card Background       */
+  --panel-border: #f3f4f6;   /* Card Borders          */
+  --icon-box: #e8f1f2;       /* Icon Box Background   */
+  --icon: #005761;           /* Icon Color            */
+  --heading: #005761;        /* Headings              */
+  --body-1: #1e2939;         /* Paragraph Text 1      */
+  --body-2: #364153;         /* Paragraph Text 2      */
+  --body-3: #6a7282;         /* Paragraph Text 3      */
+  --body-4: #4a5565;         /* Paragraph Text 4      */
+  --btn-primary: #005761;    /* Primary — unchanged in both modes */
+  --btn-primary-text: #ffffff;
+  --btn-2-bg: #ffffff;       /* Secondary BG          */
+  --btn-2-stroke: #005761;   /* Secondary Stroke      */
+  --btn-2-text: #005761;     /* Secondary Text        */
 
   /* Almajdouie Figma design tokens */
   --primary: oklch(0.205 0 0);
@@ -104,6 +126,26 @@
 }
 
 @theme inline {
+  /* Public site — dark-mode semantic color utilities
+     (bg-surface, text-heading, text-body-2, border-panel-border, …) */
+  --color-surface: var(--surface);
+  --color-surface-alt: var(--surface-alt);
+  --color-surface-focus: var(--surface-focus);
+  --color-panel: var(--panel);
+  --color-panel-border: var(--panel-border);
+  --color-icon-box: var(--icon-box);
+  --color-icon: var(--icon);
+  --color-heading: var(--heading);
+  --color-body-1: var(--body-1);
+  --color-body-2: var(--body-2);
+  --color-body-3: var(--body-3);
+  --color-body-4: var(--body-4);
+  --color-btn-primary: var(--btn-primary);
+  --color-btn-primary-text: var(--btn-primary-text);
+  --color-btn-2-bg: var(--btn-2-bg);
+  --color-btn-2-stroke: var(--btn-2-stroke);
+  --color-btn-2-text: var(--btn-2-text);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
@@ -156,10 +198,23 @@
 }
 
 body {
-  color: var(--text-dark);
+  background-color: var(--surface);
+  color: var(--body-2);
   font-family: var(--font-itf-rayat), "ITF Rayat", sans-serif;
   font-size: 16px;
   line-height: 1.8;
+}
+
+/* Admin keeps its own scoped theme — don't let the site surface bleed through. */
+.admin-theme {
+  background-color: var(--background);
+  color: var(--foreground);
+}
+
+/* Smooth light↔dark transition for surfaces, text and borders.
+   Guarded so it never animates the very first paint (no-flash script sets .dark synchronously). */
+.theme-ready :where(section, header, footer, main, aside, article, div, a, button, p, h1, h2, h3, h4, span, li, svg, input, textarea) {
+  transition: background-color 0.35s ease, border-color 0.35s ease, color 0.35s ease;
 }
 
 /* ITF Rayat — primary font for all text */
@@ -240,6 +295,27 @@ p {
 }
 
 .dark {
+  color-scheme: dark;
+
+  /* ── Public site — dark-mode semantic tokens (dark values) ── */
+  --surface: #0c1117;
+  --surface-alt: #0b121b;
+  --surface-focus: #080e15;
+  --panel: #10171e;
+  --panel-border: #2d9896;
+  --icon-box: #18252d;
+  --icon: #2d9896;
+  --heading: #2d9896;
+  --body-1: #898b8a;
+  --body-2: #707579;
+  --body-3: #707579;
+  --body-4: #707579;
+  --btn-primary: #005761;
+  --btn-primary-text: #ffffff;
+  --btn-2-bg: #18252d;
+  --btn-2-stroke: #2d9896;
+  --btn-2-text: #2d9896;
+
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);

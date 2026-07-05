@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { siteConfig } from "@/lib/site/config";
 import { LocaleProvider } from "@/lib/i18n/context";
+import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { InlineScript } from "@/components/theme/InlineScript";
 import AlMajdouieLoader from "@/components/AlMajdouieLoader";
 import { DEFAULT_OG_IMAGE } from "@/lib/seo";
 import "./globals.css";
@@ -81,11 +83,18 @@ export default function RootLayout({
     <html
       lang="ar"
       dir="rtl"
+      suppressHydrationWarning
       className={cn("h-full", "antialiased", itfRayat.variable, "font-sans", geist.variable)}
     >
+      <head>
+        {/* No-flash theme: apply the saved theme before first paint. Defaults to light. */}
+        <InlineScript html="(function(){try{if(localStorage.getItem('theme')==='dark'){document.documentElement.classList.add('dark');}}catch(e){}})();" />
+      </head>
       <body className={`${itfRayat.className} flex min-h-full flex-col font-sans`}>
         <AlMajdouieLoader />
-        <LocaleProvider>{children}</LocaleProvider>
+        <ThemeProvider>
+          <LocaleProvider>{children}</LocaleProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

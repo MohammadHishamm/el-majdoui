@@ -42,9 +42,9 @@
 
 /* Stat card — background #FFFFFF, border-radius 20px, border ~1px, padding 28px */
 .statCard {
-  background-color: #FFFFFF;
+  background-color: var(--panel);
   border-radius: 20px;
-  border: 1.09px solid #E5E7EB;
+  border: 1.09px solid var(--panel-border);
   padding: 28px;
   display: flex;
   flex-direction: column;
@@ -59,7 +59,7 @@
   font-size: 56px;
   line-height: 56px;
   letter-spacing: 0px;
-  color: #005761;
+  color: var(--heading);
   text-align: right;
   margin-bottom: 8px;
 }
@@ -71,7 +71,7 @@
   font-size: 32px;
   line-height: 42px;
   letter-spacing: 0px;
-  color: #6A7282;
+  color: var(--body-3);
   text-align: right;
 }
 

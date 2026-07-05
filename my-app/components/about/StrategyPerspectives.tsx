@@ -146,7 +146,7 @@ export function StrategyPerspectives({ perspectives }: { perspectives?: Perspect
   const PERSPECTIVES = perspectives && perspectives.length ? perspectives : DEFAULT_PERSPECTIVES;
 
   return (
-    <section className="bg-white pb-20 pt-8 sm:pb-24" data-nav-surface="light" aria-label="أبعاد الاستراتيجية">
+    <section className="bg-surface pb-20 pt-8 sm:pb-24" data-nav-surface="light" aria-label="أبعاد الاستراتيجية">
       <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 items-start justify-items-center gap-4 sm:grid-cols-2 sm:gap-[17px] lg:grid-cols-4">
           {PERSPECTIVES.map((perspective, i) => (

@@ -87,7 +87,7 @@ function PolicyRow({ policy }: { policy: PolicyInput }) {
     <div className="flex flex-wrap items-center justify-between gap-4 px-5 py-5 sm:px-6 lg:grid lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,0.72fr)] lg:gap-6">
       {/* Doc icon + title — RTL start (physical right) */}
       <div className="flex min-w-0 items-center gap-4 lg:justify-self-start">
-        <span className="grid size-11 shrink-0 place-items-center rounded-[12px] bg-[#e8f1f2]">
+        <span className="grid size-11 shrink-0 place-items-center rounded-[12px] bg-icon-box">
           <Image
             src="/images/policies/document-icon.svg"
             alt=""
@@ -96,13 +96,13 @@ function PolicyRow({ policy }: { policy: PolicyInput }) {
             aria-hidden
           />
         </span>
-        <h3 className="text-right text-[16px] font-bold leading-[24px] text-[#005761]">
+        <h3 className="text-right text-[16px] font-bold leading-[24px] text-heading">
           {policy.title}
         </h3>
       </div>
 
       {/* Version — fixed center column, aligned across all rows */}
-      <p className="hidden shrink-0 text-center text-[13px] leading-[19.5px] text-[#6a7282] lg:block lg:justify-self-center">
+      <p className="hidden shrink-0 text-center text-[13px] leading-[19.5px] text-body-3 lg:block lg:justify-self-center">
         {policy.version}
       </p>
 
@@ -112,7 +112,7 @@ function PolicyRow({ policy }: { policy: PolicyInput }) {
         download={!pending}
         onClick={pending ? (e) => e.preventDefault() : undefined}
         aria-disabled={pending}
-        className="inline-flex shrink-0 items-center gap-2 rounded-full border-[1.18px] border-[#005761] px-5 py-[9px] text-[14px] font-medium text-[#005761] transition-colors hover:bg-[#f0f7f8] lg:justify-self-end"
+        className="inline-flex shrink-0 items-center gap-2 rounded-full border-[1.18px] border-btn-2-stroke px-5 py-[9px] text-[14px] font-medium text-btn-2-text transition-colors hover:bg-icon-box lg:justify-self-end"
       >
         <span>تحميل الملف</span>
         <Image
@@ -148,8 +148,8 @@ export function PoliciesList({ items }: { items?: PolicyInput[] }) {
               aria-pressed={isActive}
               className={`rounded-full border-[1.18px] px-6 py-[10px] text-[14px] font-medium transition-colors ${
                 isActive
-                  ? "border-[#005761] bg-[#005761] text-white"
-                  : "border-[#e5e7eb] bg-white text-[#005761] hover:bg-[#f0f7f8]"
+                  ? "border-btn-primary bg-btn-primary text-btn-primary-text"
+                  : "border-panel-border bg-panel text-btn-2-text hover:bg-icon-box"
               }`}
             >
               {category.label}
@@ -159,7 +159,7 @@ export function PoliciesList({ items }: { items?: PolicyInput[] }) {
       </div>
 
       {/* Policy list */}
-      <div className="mt-8 divide-y divide-[#f3f4f6] overflow-hidden rounded-[16px] border border-[#eef0f2] bg-white">
+      <div className="mt-8 divide-y divide-panel-border overflow-hidden rounded-[16px] border border-panel-border bg-panel">
         {visible.map((policy, i) => (
           <FadeInUp key={policy.id} delay={i * 90} duration={500}>
             <PolicyRow policy={policy} />

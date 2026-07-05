@@ -80,7 +80,7 @@ export function StrategicAlignment({ data }: { data?: StrategicAlignmentData }) 
         </div>
 
         {/* Tabs — fill when few, horizontal scroll when many */}
-        <div className="mx-auto mt-8 w-full max-w-[768px] overflow-x-auto rounded-[20px] bg-[#f3f4f6] p-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="mx-auto mt-8 w-full max-w-[768px] overflow-x-auto rounded-[20px] bg-icon-box p-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <div className="flex gap-2">
             {tabs.map((tb, i) => {
               const on = i === active;
@@ -91,7 +91,7 @@ export function StrategicAlignment({ data }: { data?: StrategicAlignmentData }) 
                   onClick={() => setActive(i)}
                   aria-pressed={on}
                   className={`flex-1 basis-0 min-w-[140px] truncate rounded-[16px] px-4 py-3 text-[14px] font-bold transition-colors sm:text-[16px] ${
-                    on ? "bg-[#005761] text-white" : "text-[#374151] hover:bg-white/60"
+                    on ? "bg-btn-primary text-btn-primary-text" : "text-body-2 hover:bg-white/60"
                   }`}
                   title={tb.label?.[locale] || tb.label?.ar}
                 >
@@ -103,7 +103,7 @@ export function StrategicAlignment({ data }: { data?: StrategicAlignmentData }) 
         </div>
 
         {/* Content card — two images split by a divider */}
-        <div className="mx-auto mt-8 w-full max-w-[1200px] rounded-[20px] bg-white p-6 shadow-[0_20px_50px_rgba(0,0,0,0.12)] md:mt-10 md:p-10">
+        <div className="mx-auto mt-8 w-full max-w-[1200px] rounded-[20px] bg-panel p-6 shadow-[0_20px_50px_rgba(0,0,0,0.12)] md:mt-10 md:p-10">
           <div className="flex flex-col items-stretch gap-8 md:flex-row md:items-center md:gap-0">
             {/* Right column (RTL start) — SDG goals */}
             <div className="flex flex-1 items-center justify-center px-2 md:px-8">
@@ -122,7 +122,7 @@ export function StrategicAlignment({ data }: { data?: StrategicAlignmentData }) 
             </div>
 
             {/* Divider */}
-            <div aria-hidden className="hidden w-px self-stretch bg-[#f6f5f5] md:block" />
+            <div aria-hidden className="hidden w-px self-stretch bg-panel-border md:block" />
 
             {/* Left column — Vision 2030 + programs */}
             <div className="flex flex-1 items-center justify-center px-2 md:px-8">

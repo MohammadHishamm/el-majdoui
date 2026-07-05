@@ -21,14 +21,14 @@ export function PagePlaceholder({
     <>
       <PageHeader title={title} description={description} eyebrow={eyebrow} />
       <Container as="main" className="py-12">
-        <div className="rounded-xl border border-dashed border-light-blue/40 bg-bg-alt p-8 text-center">
-          <p className="text-text-muted">
+        <div className="rounded-xl border border-dashed border-light-blue/40 bg-surface-alt p-8 text-center">
+          <p className="text-body-3">
             سيتم تنفيذ تصميم هذه الصفحة بعد ربط Figma.
           </p>
           {backHref && (
             <Link
               href={backHref}
-              className="mt-6 inline-block text-sm font-medium text-primary hover:text-accent"
+              className="mt-6 inline-block text-sm font-medium text-heading hover:text-icon"
             >
               {backLabel}
             </Link>

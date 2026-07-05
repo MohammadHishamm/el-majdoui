@@ -16,7 +16,7 @@ const ICON = {
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="text-right text-[24px] font-bold leading-[36px] text-[#005761]">
+    <h2 className="text-right text-[24px] font-bold leading-[36px] text-heading">
       {children}
     </h2>
   );
@@ -25,10 +25,10 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 function CheckItem({ text }: { text: string }) {
   return (
     <div className="flex items-center justify-start gap-3 text-right">
-      <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-[#e8f1f2]">
+      <span className="grid size-7 shrink-0 place-items-center rounded-lg bg-icon-box">
         <Image src={ICON.check} alt="" width={16} height={16} aria-hidden />
       </span>
-      <span className="text-[16px] leading-[24px] text-[#1e2939]">{text}</span>
+      <span className="text-[16px] leading-[24px] text-body-1">{text}</span>
     </div>
   );
 }
@@ -36,11 +36,11 @@ function CheckItem({ text }: { text: string }) {
 function InfoRow({ icon, label, value }: { icon: string; label: string; value: string }) {
   return (
     <li className="flex items-center justify-between gap-4">
-      <span className="flex items-center gap-2 text-[14px] leading-[21px] text-[#6a7282]">
+      <span className="flex items-center gap-2 text-[14px] leading-[21px] text-body-3">
         <Image src={icon} alt="" width={16} height={16} aria-hidden />
         {label}
       </span>
-      <span className="text-[14px] font-bold leading-[21px] text-[#005761]">{value}</span>
+      <span className="text-[14px] font-bold leading-[21px] text-heading">{value}</span>
     </li>
   );
 }
@@ -53,14 +53,14 @@ export default function ProgramDetails({
   related?: Program[];
 }) {
   return (
-    <main dir="rtl" className="bg-white" data-nav-surface="light">
+    <main dir="rtl" className="bg-surface" data-nav-surface="light">
       {/* ── Hero ── */}
-      <section className="-mt-28 bg-white pt-36 md:pt-40">
+      <section className="-mt-28 bg-surface pt-36 md:pt-40">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <FadeInUp>
             <Link
               href="/programs"
-              className="mb-8 inline-flex items-center gap-2 text-[14px] text-text-muted transition-colors hover:text-[#005761]"
+              className="mb-8 inline-flex items-center gap-2 text-[14px] text-body-3 transition-colors hover:text-heading"
             >
               <ArrowLeft className="size-4" />
               العودة إلى البرامج والمبادرات
@@ -69,13 +69,13 @@ export default function ProgramDetails({
             <div className="flex flex-col gap-8 lg:flex-row lg:items-center">
               {/* Text — physical right in RTL */}
               <div className="flex flex-1 flex-col">
-                <span className="inline-block self-start rounded-full bg-[#005761] px-4 py-1.5 text-[12px] font-bold text-white">
+                <span className="inline-block self-start rounded-full bg-btn-primary px-4 py-1.5 text-[12px] font-bold text-white">
                   {getCategoryLabel(program.category)}
                 </span>
-                <h1 className="mt-5 w-full text-right text-[34px] font-black leading-[1.15] text-[#005761] md:text-[44px]">
+                <h1 className="mt-5 w-full text-right text-[34px] font-black leading-[1.15] text-heading md:text-[44px]">
                   {program.title}
                 </h1>
-                <p className="mt-5 w-full max-w-[640px] self-start text-right text-[18px] leading-[32.4px] text-text-light">
+                <p className="mt-5 w-full max-w-[640px] self-start text-right text-[18px] leading-[32.4px] text-body-4">
                   {program.heroDesc}
                 </p>
                 <div className="mt-6 w-full self-start">
@@ -100,13 +100,13 @@ export default function ProgramDetails({
       </section>
 
       {/* ── Body: content + sidebar ── */}
-      <section className="bg-white py-14 md:py-20">
+      <section className="bg-surface py-14 md:py-20">
         <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_346px] lg:gap-10 lg:px-8">
           {/* Main content (right in RTL) */}
           <div className="order-2 lg:order-1">
             <FadeInUp>
               <SectionHeading>عن المبادرة</SectionHeading>
-              <p className="mt-4 text-right text-[17px] leading-[32.3px] text-[#364153]">
+              <p className="mt-4 text-right text-[17px] leading-[32.3px] text-body-2">
                 {program.about}
               </p>
             </FadeInUp>
@@ -129,16 +129,16 @@ export default function ProgramDetails({
                   {program.stages.map((stage, i) => (
                     <li
                       key={stage.title}
-                      className="flex items-start gap-5 rounded-[16px] border-[1.18px] border-[#f3f4f6] bg-white p-5"
+                      className="flex items-start gap-5 rounded-[16px] border-[1.18px] border-panel-border bg-panel p-5"
                     >
-                      <span className="grid size-11 shrink-0 place-items-center rounded-[12px] bg-[#005761] text-[16px] font-black text-white">
+                      <span className="grid size-11 shrink-0 place-items-center rounded-[12px] bg-btn-primary text-[16px] font-black text-white">
                         {i + 1}
                       </span>
                       <div className="flex-1 text-right">
-                        <h3 className="text-[17px] font-bold leading-[25.5px] text-[#005761]">
+                        <h3 className="text-[17px] font-bold leading-[25.5px] text-heading">
                           {stage.title}
                         </h3>
-                        <p className="mt-1.5 text-[15px] leading-[27px] text-text-light">
+                        <p className="mt-1.5 text-[15px] leading-[27px] text-body-4">
                           {stage.desc}
                         </p>
                       </div>
@@ -160,9 +160,9 @@ export default function ProgramDetails({
             </FadeInUp>
 
             <FadeInUp>
-              <blockquote className="mt-12 rounded-[16px] border-r-[3.5px] border-[#00b5c2] bg-[#f8fbfb] py-6 pr-7 pl-6 text-right">
-                <p className="text-[17px] leading-[32.3px] text-[#1e2939]">{program.quote.text}</p>
-                <footer className="mt-3 text-[13px] leading-[24.7px] text-[#6a7282]">
+              <blockquote className="mt-12 rounded-[16px] border-r-[3.5px] border-[#00b5c2] bg-icon-box py-6 pr-7 pl-6 text-right">
+                <p className="text-[17px] leading-[32.3px] text-body-1">{program.quote.text}</p>
+                <footer className="mt-3 text-[13px] leading-[24.7px] text-body-3">
                   {program.quote.author}
                 </footer>
               </blockquote>
@@ -175,10 +175,10 @@ export default function ProgramDetails({
                   {program.partners.map((p) => (
                     <div
                       key={p}
-                      className="flex flex-col items-center gap-3 rounded-[12px] border border-[#e5e7eb] bg-white px-4 py-6"
+                      className="flex flex-col items-center gap-3 rounded-[12px] border border-panel-border bg-panel px-4 py-6"
                     >
                       <Image src={ICON.building} alt="" width={28} height={28} aria-hidden />
-                      <span className="text-[14px] text-text-light">{p}</span>
+                      <span className="text-[14px] text-body-4">{p}</span>
                     </div>
                   ))}
                 </div>
@@ -188,8 +188,8 @@ export default function ProgramDetails({
 
           {/* Sidebar (left in RTL) */}
           <aside className="order-1 flex flex-col gap-5 lg:order-2">
-            <div className="rounded-[16px] bg-[#e8f1f2] p-6">
-              <h3 className="text-right text-[16px] font-bold leading-[24px] text-[#005761]">
+            <div className="rounded-[16px] bg-icon-box p-6">
+              <h3 className="text-right text-[16px] font-bold leading-[24px] text-heading">
                 معلومات أساسية
               </h3>
               <ul className="mt-4 space-y-3">
@@ -200,16 +200,16 @@ export default function ProgramDetails({
               </ul>
             </div>
 
-            <div className="rounded-[16px] border-[1.18px] border-[#f3f4f6] bg-white p-6">
-              <h3 className="text-right text-[16px] font-bold leading-[24px] text-[#005761]">
+            <div className="rounded-[16px] border-[1.18px] border-panel-border bg-panel p-6">
+              <h3 className="text-right text-[16px] font-bold leading-[24px] text-heading">
                 هل ترغب بدعم المبادرة؟
               </h3>
-              <p className="mt-3 text-right text-[14px] leading-[23.8px] text-text-light">
+              <p className="mt-3 text-right text-[14px] leading-[23.8px] text-body-4">
                 تواصل مع فريق الشراكات لمعرفة آلية الدعم والمساهمة في تعظيم الأثر.
               </p>
               <Link
                 href="/contact"
-                className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-[#005761] px-5 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#00444c]"
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-btn-primary px-5 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#00444c]"
               >
                 <ArrowLeft className="size-4" />
                 تواصل معنا
@@ -221,12 +221,12 @@ export default function ProgramDetails({
 
       {/* ── Related ── */}
       {related.length > 0 && (
-        <section className="bg-white pb-20 md:pb-28" aria-labelledby="related-heading">
+        <section className="bg-surface pb-20 md:pb-28" aria-labelledby="related-heading">
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
             <FadeInUp>
               <h2
                 id="related-heading"
-                className="mb-8 text-right text-[24px] font-bold leading-[36px] text-[#005761]"
+                className="mb-8 text-right text-[24px] font-bold leading-[36px] text-heading"
               >
                 مبادرات ذات صلة
               </h2>
@@ -235,7 +235,7 @@ export default function ProgramDetails({
                   <Link
                     key={p.slug}
                     href={`/programs/${p.slug}`}
-                    className="group flex flex-col overflow-hidden rounded-[20px] border border-[#f3f4f6] bg-white shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_12px_24px_rgba(0,87,97,0.08)]"
+                    className="group flex flex-col overflow-hidden rounded-[20px] border border-panel-border bg-panel shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_12px_24px_rgba(0,87,97,0.08)]"
                   >
                     <div className="relative h-[200px] w-full overflow-hidden">
                       <Image
@@ -247,11 +247,11 @@ export default function ProgramDetails({
                       />
                     </div>
                     <div className="p-6 text-right">
-                      <span className="text-[14px] text-[#005761]">{getCategoryLabel(p.category)}</span>
-                      <h3 className="mt-2 text-[18px] font-bold leading-[24px] text-[#005761]">
+                      <span className="text-[14px] text-heading">{getCategoryLabel(p.category)}</span>
+                      <h3 className="mt-2 text-[18px] font-bold leading-[24px] text-heading">
                         {p.title}
                       </h3>
-                      <span className="mt-4 inline-flex items-center gap-2 text-[14px] font-medium text-[#005761]">
+                      <span className="mt-4 inline-flex items-center gap-2 text-[14px] font-medium text-heading">
                         اعرف أكثر
                         <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
                       </span>

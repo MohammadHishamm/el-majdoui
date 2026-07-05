@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import { FadeInUp } from "@/components/ui/fade-in-up";
+import { T } from "@/components/ui/T";
 import { AlbumViewer } from "@/components/gallery/AlbumViewer";
 import { VideoViewer } from "@/components/gallery/VideoViewer";
 import { isEmbedUrl } from "@/lib/gallery";
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-function DetailRow({ label, value }: { label: string; value: string }) {
+function DetailRow({ label, value }: { label: React.ReactNode; value: React.ReactNode }) {
   return (
     <div className="flex w-full items-start justify-between gap-4">
       <span className="shrink-0 text-[14px] leading-[21px] text-body-3">{label}</span>
@@ -60,12 +61,16 @@ export default async function GalleryAlbumPage({ params }: Props) {
 
   const imageCount = album.type === "album" ? albumImages.length : 0;
   const meta = [
-    album.date && { key: "date", label: "التاريخ", value: album.date },
-    imageCount > 0 && { key: "count", label: "عدد الصور", value: `${imageCount} صورة` },
-    album.location && { key: "location", label: "الموقع", value: album.location },
-    album.photographer && { key: "photographer", label: "المصور", value: album.photographer },
-    album.section && { key: "section", label: "القسم", value: album.section },
-  ].filter(Boolean) as { key: string; label: string; value: string }[];
+    album.date && { key: "date", label: <T ar="التاريخ" en="Date" />, value: album.date },
+    imageCount > 0 && {
+      key: "count",
+      label: <T ar="عدد الصور" en="Photos" />,
+      value: <T ar={`${imageCount} صورة`} en={`${imageCount} photos`} />,
+    },
+    album.location && { key: "location", label: <T ar="الموقع" en="Location" />, value: album.location },
+    album.photographer && { key: "photographer", label: <T ar="المصور" en="Photographer" />, value: album.photographer },
+    album.section && { key: "section", label: <T ar="القسم" en="Section" />, value: album.section },
+  ].filter(Boolean) as { key: string; label: React.ReactNode; value: React.ReactNode }[];
 
   const breadcrumb = breadcrumbJsonLd([
     { name: "الرئيسية", path: "/" },
@@ -94,7 +99,7 @@ export default async function GalleryAlbumPage({ params }: Props) {
           <FadeInUp>
             <nav className="flex flex-wrap items-center gap-2 text-[13px] text-body-3" aria-label="مسار التنقل">
               <Link href="/gallery" className="transition-colors hover:text-heading">
-                معرض الصور والفيديو
+                <T ar="معرض الصور والفيديو" en="Photo & video gallery" />
               </Link>
               <span aria-hidden>/</span>
               <span className="text-body-2">{album.title}</span>
@@ -126,7 +131,7 @@ export default async function GalleryAlbumPage({ params }: Props) {
               {album.about && (
                 <FadeInUp>
                   <div className="w-full">
-                    <h2 className="text-right text-[22px] font-bold leading-[33px] text-heading">عن الألبوم</h2>
+                    <h2 className="text-right text-[22px] font-bold leading-[33px] text-heading"><T ar="عن الألبوم" en="About the album" /></h2>
                     <p className="mt-4 whitespace-pre-line text-right text-[16px] leading-[2.25] text-body-2 lg:leading-[30.4px]">
                       {album.about}
                     </p>
@@ -137,7 +142,7 @@ export default async function GalleryAlbumPage({ params }: Props) {
               {meta.length > 0 && (
                 <FadeInUp>
                   <div className="w-full rounded-[16px] bg-icon-box p-6">
-                    <h2 className="text-right text-[16px] font-bold leading-[24px] text-heading">معلومات الألبوم</h2>
+                    <h2 className="text-right text-[16px] font-bold leading-[24px] text-heading"><T ar="معلومات الألبوم" en="Album info" /></h2>
                     <div className="mt-4 flex w-full flex-col gap-3">
                       {meta.map((m) => (
                         <DetailRow key={m.key} label={m.label} value={m.value} />
@@ -157,7 +162,7 @@ export default async function GalleryAlbumPage({ params }: Props) {
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
             <FadeInUp>
               <h2 className="mb-8 text-right text-[24px] font-medium text-heading md:text-[28px]">
-                محتوى ذو صلة
+                <T ar="محتوى ذو صلة" en="Related content" />
               </h2>
             </FadeInUp>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { FadeInUp } from "@/components/ui/fade-in-up";
+import { T } from "@/components/ui/T";
 import { getTeam, getPageContent } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
@@ -132,10 +133,10 @@ export default async function BoardPage() {
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <FadeInUp>
             <p className="text-right text-[14px] font-medium leading-none text-body-3">
-              عن المؤسسة
+              <T ar="عن المؤسسة" en="About the foundation" />
             </p>
             <h1 className="mt-4 text-right text-[36px] font-medium leading-[40px] text-heading">
-              مجلس الأمناء والقيادات
+              <T ar="مجلس الأمناء والقيادات" en="Board of Trustees & Leadership" />
             </h1>
             <div className="mt-8 h-px w-full bg-panel-border" />
           </FadeInUp>
@@ -200,7 +201,7 @@ export default async function BoardPage() {
               id="board-members-heading"
               className="mb-10 text-right text-[32px] font-bold leading-[36px] text-heading"
             >
-              أعضاء مجلس الأمناء
+              <T ar="أعضاء مجلس الأمناء" en="Board of Trustees" />
             </h2>
             <div className="grid grid-cols-1 justify-items-center gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
               {BOARD_MEMBERS.map((member, index) => (
@@ -223,7 +224,7 @@ export default async function BoardPage() {
               id="leadership-heading"
               className="mb-10 text-right text-[32px] font-bold leading-[36px] text-heading"
             >
-              القيادة التنفيذية
+              <T ar="القيادة التنفيذية" en="Executive Leadership" />
             </h2>
             <div className="grid grid-cols-2 justify-items-center gap-5 lg:grid-cols-4 lg:gap-6">
               {LEADERSHIP.map((leader, index) => (

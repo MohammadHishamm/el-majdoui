@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLocale } from "@/lib/i18n/context";
 import { translations } from "@/lib/i18n/translations";
+import { brandPanelBg } from "@/lib/brand-colors";
 
 type BilingualText = { ar: string; en: string };
 
@@ -102,7 +103,7 @@ export function FocusAreaTiles({ areas }: { areas?: AreaTile[] }) {
               key={area.slug}
               dir="rtl"
               className={`relative flex h-[377px] w-full max-w-[390px] flex-col overflow-hidden rounded-tr-[60px] border border-white/25 p-6 text-white ${textAlign}`}
-              style={{ backgroundColor: area.bg, borderWidth: "1.18px" }}
+              style={{ backgroundColor: brandPanelBg(area.bg), borderWidth: "1.18px" }}
             >
               {/* Icon row: badge (physical right) + watermark (physical left) */}
               <div className="relative z-10 flex shrink-0 items-center justify-between gap-3">

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { FadeInUp } from "@/components/ui/fade-in-up";
+import { T } from "@/components/ui/T";
 import { ProgramActions } from "@/components/programs/ProgramActions";
 import { getCategoryLabel, type Program } from "@/lib/programs";
 
@@ -33,7 +34,7 @@ function CheckItem({ text }: { text: string }) {
   );
 }
 
-function InfoRow({ icon, label, value }: { icon: string; label: string; value: string }) {
+function InfoRow({ icon, label, value }: { icon: string; label: React.ReactNode; value: string }) {
   return (
     <li className="flex items-center justify-between gap-4">
       <span className="flex items-center gap-2 text-[14px] leading-[21px] text-body-3">
@@ -63,7 +64,7 @@ export default function ProgramDetails({
               className="mb-8 inline-flex items-center gap-2 text-[14px] text-body-3 transition-colors hover:text-heading"
             >
               <ArrowLeft className="size-4" />
-              العودة إلى البرامج والمبادرات
+              <T ar="العودة إلى البرامج والمبادرات" en="Back to programs & initiatives" />
             </Link>
 
             <div className="flex flex-col gap-8 lg:flex-row lg:items-center">
@@ -105,7 +106,7 @@ export default function ProgramDetails({
           {/* Main content (right in RTL) */}
           <div className="order-2 lg:order-1">
             <FadeInUp>
-              <SectionHeading>عن المبادرة</SectionHeading>
+              <SectionHeading><T ar="عن المبادرة" en="About the initiative" /></SectionHeading>
               <p className="mt-4 text-right text-[17px] leading-[32.3px] text-body-2">
                 {program.about}
               </p>
@@ -113,7 +114,7 @@ export default function ProgramDetails({
 
             <FadeInUp>
               <div className="mt-12">
-                <SectionHeading>أهداف المبادرة</SectionHeading>
+                <SectionHeading><T ar="أهداف المبادرة" en="Initiative objectives" /></SectionHeading>
                 <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2">
                   {program.objectives.map((o) => (
                     <CheckItem key={o} text={o} />
@@ -124,7 +125,7 @@ export default function ProgramDetails({
 
             <FadeInUp>
               <div className="mt-12">
-                <SectionHeading>مراحل تنفيذ المبادرة</SectionHeading>
+                <SectionHeading><T ar="مراحل تنفيذ المبادرة" en="Implementation stages" /></SectionHeading>
                 <ol className="mt-6 space-y-4">
                   {program.stages.map((stage, i) => (
                     <li
@@ -150,7 +151,7 @@ export default function ProgramDetails({
 
             <FadeInUp>
               <div className="mt-12">
-                <SectionHeading>الفئات المستهدفة</SectionHeading>
+                <SectionHeading><T ar="الفئات المستهدفة" en="Target groups" /></SectionHeading>
                 <div className="mt-6 flex flex-col items-start gap-4">
                   {program.targetGroups.map((t) => (
                     <CheckItem key={t} text={t} />
@@ -170,7 +171,7 @@ export default function ProgramDetails({
 
             <FadeInUp>
               <div className="mt-12">
-                <SectionHeading>شركاء تنفيذ المبادرة</SectionHeading>
+                <SectionHeading><T ar="شركاء تنفيذ المبادرة" en="Implementation partners" /></SectionHeading>
                 <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
                   {program.partners.map((p) => (
                     <div
@@ -190,29 +191,32 @@ export default function ProgramDetails({
           <aside className="order-1 flex flex-col gap-5 lg:order-2">
             <div className="rounded-[16px] bg-icon-box p-6">
               <h3 className="text-right text-[16px] font-bold leading-[24px] text-heading">
-                معلومات أساسية
+                <T ar="معلومات أساسية" en="Key information" />
               </h3>
               <ul className="mt-4 space-y-3">
-                <InfoRow icon={ICON.calendar} label="تاريخ الإطلاق" value={program.info.launchYear} />
-                <InfoRow icon={ICON.location} label="نطاق العمل" value={program.info.scope} />
-                <InfoRow icon={ICON.people} label="المستفيدون" value={program.info.beneficiaries} />
-                <InfoRow icon={ICON.target} label="القطاع" value={program.info.sector} />
+                <InfoRow icon={ICON.calendar} label={<T ar="تاريخ الإطلاق" en="Launch date" />} value={program.info.launchYear} />
+                <InfoRow icon={ICON.location} label={<T ar="نطاق العمل" en="Scope" />} value={program.info.scope} />
+                <InfoRow icon={ICON.people} label={<T ar="المستفيدون" en="Beneficiaries" />} value={program.info.beneficiaries} />
+                <InfoRow icon={ICON.target} label={<T ar="القطاع" en="Sector" />} value={program.info.sector} />
               </ul>
             </div>
 
             <div className="rounded-[16px] border-[1.18px] border-panel-border bg-panel p-6">
               <h3 className="text-right text-[16px] font-bold leading-[24px] text-heading">
-                هل ترغب بدعم المبادرة؟
+                <T ar="هل ترغب بدعم المبادرة؟" en="Want to support this initiative?" />
               </h3>
               <p className="mt-3 text-right text-[14px] leading-[23.8px] text-body-4">
-                تواصل مع فريق الشراكات لمعرفة آلية الدعم والمساهمة في تعظيم الأثر.
+                <T
+                  ar="تواصل مع فريق الشراكات لمعرفة آلية الدعم والمساهمة في تعظيم الأثر."
+                  en="Contact the partnerships team to learn how to support and help maximize impact."
+                />
               </p>
               <Link
                 href="/contact"
                 className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-btn-primary px-5 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#00444c]"
               >
                 <ArrowLeft className="size-4" />
-                تواصل معنا
+                <T ar="تواصل معنا" en="Contact us" />
               </Link>
             </div>
           </aside>
@@ -228,7 +232,7 @@ export default function ProgramDetails({
                 id="related-heading"
                 className="mb-8 text-right text-[24px] font-bold leading-[36px] text-heading"
               >
-                مبادرات ذات صلة
+                <T ar="مبادرات ذات صلة" en="Related initiatives" />
               </h2>
               <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
                 {related.map((p) => (
@@ -252,7 +256,7 @@ export default function ProgramDetails({
                         {p.title}
                       </h3>
                       <span className="mt-4 inline-flex items-center gap-2 text-[14px] font-medium text-heading">
-                        اعرف أكثر
+                        <T ar="اعرف أكثر" en="Learn more" />
                         <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
                       </span>
                     </div>

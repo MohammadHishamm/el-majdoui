@@ -59,6 +59,17 @@ export default function AlMajdouieLoader() {
           visibility: hidden;
           pointer-events: none;
         }
+        /* Dark mode — the no-flash script sets .dark on <html> before this paints.
+           Dark splash matching the site surface; wordmark lightens, badge brightens. */
+        :is(.dark) .am-loader {
+          background: #0c1117;
+        }
+        :is(.dark) .am-wordmark {
+          fill: #e6eef0;
+        }
+        :is(.dark) .am-badge {
+          fill: #2d9896;
+        }
         .am-logo {
           position: relative;
           width: 90%;

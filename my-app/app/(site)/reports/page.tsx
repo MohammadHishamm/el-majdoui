@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FadeInUp } from "@/components/ui/fade-in-up";
+import { T } from "@/components/ui/T";
 import { ReportsList } from "@/components/reports/ReportsList";
 import { getReports } from "@/lib/cms/fetchers";
 
@@ -20,10 +21,10 @@ export default async function ReportsPage() {
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <FadeInUp>
             <p className="text-right text-[14px] font-medium leading-none text-body-3">
-              المركز الإعلامي
+              <T ar="المركز الإعلامي" en="Media Center" />
             </p>
             <h1 className="mt-4 text-right text-[36px] font-medium leading-[40px] text-heading md:text-[44px]">
-              التقارير والوثائق
+              <T ar="التقارير والوثائق" en="Reports & Documents" />
             </h1>
             <div className="mt-8 h-px w-full bg-panel-border" />
           </FadeInUp>

@@ -1,7 +1,7 @@
 type PageHeaderProps = {
-  title: string;
-  description?: string;
-  eyebrow?: string;
+  title: React.ReactNode;
+  description?: React.ReactNode;
+  eyebrow?: React.ReactNode;
 };
 
 export function PageHeader({ title, description, eyebrow }: PageHeaderProps) {

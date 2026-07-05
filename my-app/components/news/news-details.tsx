@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, CalendarDays, User } from "lucide-react";
 import { FadeInUp } from "@/components/ui/fade-in-up";
+import { T } from "@/components/ui/T";
 import { NewsActions } from "@/components/news/NewsActions";
 import { NewsCard } from "@/components/news/NewsCard";
 import { newsCategoryLabel, type NewsItem } from "@/lib/news";
@@ -37,7 +38,7 @@ export default function NewsDetails({
               className="inline-flex items-center gap-2 text-[14px] text-body-3 transition-colors hover:text-heading"
             >
               <ArrowLeft className="size-4" />
-              العودة إلى الأخبار والإعلانات
+              <T ar="العودة إلى الأخبار والإعلانات" en="Back to news & announcements" />
             </Link>
 
             <div className="mt-8 flex w-full flex-wrap items-center justify-start gap-x-5 gap-y-2">
@@ -150,18 +151,18 @@ export default function NewsDetails({
           <aside className="order-1 flex flex-col gap-5 lg:order-2">
             <div className="rounded-[16px] bg-icon-box p-6">
               <h3 className="text-right text-[16px] font-bold leading-[24px] text-heading">
-                معلومات الخبر
+                <T ar="معلومات الخبر" en="Article info" />
               </h3>
               <ul className="mt-4 space-y-3">
                 {[
-                  ["القسم", newsCategoryLabel(item.category)],
-                  ["تاريخ النشر", item.date],
-                  ["المصدر", item.source],
-                  ["مدة القراءة", item.readTime],
-                ].map(([label, value]) => (
-                  <li key={label} className="flex items-center justify-between gap-3">
-                    <span className="text-[14px] text-body-3">{label}</span>
-                    <span className="text-[14px] font-bold text-heading">{value}</span>
+                  { ar: "القسم", en: "Section", value: newsCategoryLabel(item.category) },
+                  { ar: "تاريخ النشر", en: "Published", value: item.date },
+                  { ar: "المصدر", en: "Source", value: item.source },
+                  { ar: "مدة القراءة", en: "Read time", value: item.readTime },
+                ].map((row) => (
+                  <li key={row.ar} className="flex items-center justify-between gap-3">
+                    <span className="text-[14px] text-body-3"><T ar={row.ar} en={row.en} /></span>
+                    <span className="text-[14px] font-bold text-heading">{row.value}</span>
                   </li>
                 ))}
               </ul>
@@ -169,7 +170,7 @@ export default function NewsDetails({
 
             <div className="rounded-[16px] border-[1.18px] border-panel-border bg-panel p-6">
               <h3 className="text-right text-[16px] font-bold leading-[24px] text-heading">
-                الأكثر قراءة
+                <T ar="الأكثر قراءة" en="Most read" />
               </h3>
               <ol className="mt-4 space-y-4">
                 {mostRead.map((n, i) => (
@@ -199,7 +200,7 @@ export default function NewsDetails({
           <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
             <FadeInUp>
               <h2 id="related-news" className="mb-8 text-right text-[24px] font-bold leading-[36px] text-heading">
-                أخبار ذات صلة
+                <T ar="أخبار ذات صلة" en="Related news" />
               </h2>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                 {related.map((n) => (

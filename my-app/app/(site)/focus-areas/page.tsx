@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Container } from "@/components/ui/Container";
+import { T } from "@/components/ui/T";
 import { getFocusAreas } from "@/lib/cms/fetchers";
 import { focusAreas as FALLBACK } from "@/lib/site/config";
 
@@ -22,8 +23,13 @@ export default async function FocusAreasPage() {
   return (
     <>
       <PageHeader
-        title="مجالات التركيز"
-        description="تعمل المؤسسة في ثلاثة مجالات رئيسية لتحقيق أثر تنموي مستدام."
+        title={<T ar="مجالات التركيز" en="Focus Areas" />}
+        description={
+          <T
+            ar="تعمل المؤسسة في ثلاثة مجالات رئيسية لتحقيق أثر تنموي مستدام."
+            en="The foundation works across three main areas to achieve sustainable developmental impact."
+          />
+        }
       />
       <Container as="main" className="py-12">
         <div className="grid gap-6 md:grid-cols-3">
@@ -37,7 +43,7 @@ export default async function FocusAreasPage() {
               <h2 className="line-clamp-2 break-words text-xl font-bold text-body-1">{area.name}</h2>
               <p className="mt-2 line-clamp-3 break-words text-body-2">{area.shortDesc}</p>
               <span className="mt-4 inline-block text-sm font-medium text-heading">
-                استعرض المبادرات ←
+                <T ar="استعرض المبادرات ←" en="Explore initiatives ←" />
               </span>
             </Link>
           ))}

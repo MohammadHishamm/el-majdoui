@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Container } from "@/components/ui/Container";
+import { T } from "@/components/ui/T";
 
 export const metadata: Metadata = {
   title: "عن المؤسسة",
@@ -8,12 +9,12 @@ export const metadata: Metadata = {
 };
 
 const ABOUT_LINKS = [
-  { label: "من نحن", href: "/about/who-we-are" },
-  { label: "الرؤية والرسالة والقيم", href: "/about/vision-mission" },
-  { label: "الاستراتيجية", href: "/about/strategy" },
-  { label: "مجلس الأمناء", href: "/about/board" },
-  { label: "القيادات التنفيذية", href: "/about/leadership" },
-  { label: "السياسات واللوائح", href: "/about/policies" },
+  { label: "من نحن", labelEn: "Who We Are", href: "/about/who-we-are" },
+  { label: "الرؤية والرسالة والقيم", labelEn: "Vision, Mission & Values", href: "/about/vision-mission" },
+  { label: "الاستراتيجية", labelEn: "Strategy", href: "/about/strategy" },
+  { label: "مجلس الأمناء", labelEn: "Board of Trustees", href: "/about/board" },
+  { label: "القيادات التنفيذية", labelEn: "Executive Leadership", href: "/about/leadership" },
+  { label: "السياسات واللوائح", labelEn: "Policies & Regulations", href: "/about/policies" },
 ];
 
 export default function AboutHubPage() {
@@ -25,7 +26,7 @@ export default function AboutHubPage() {
       >
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <h1 className="text-right text-[36px] font-medium leading-[1.15] text-white md:text-[44px]">
-            عن المؤسسة
+            <T ar="عن المؤسسة" en="About the Foundation" />
           </h1>
         </div>
       </section>
@@ -38,7 +39,7 @@ export default function AboutHubPage() {
                 href={link.href}
                 className="block rounded-xl border border-panel-border bg-panel p-5 font-medium text-body-1 hover:border-heading hover:text-heading"
               >
-                {link.label}
+                <T ar={link.label} en={link.labelEn} />
               </Link>
             </li>
           ))}

@@ -28,6 +28,11 @@
   --btn-2-stroke: #005761;   /* Secondary Stroke      */
   --btn-2-text: #005761;     /* Secondary Text        */
 
+  /* Brand panel fills (focus-area / program tiles) — darken in dark mode */
+  --brand-blue: #80a5e0;
+  --brand-cyan: #00b5c2;
+  --brand-teal: #005761;
+
   /* Almajdouie Figma design tokens */
   --primary: oklch(0.205 0 0);
   --accent: oklch(0.97 0 0);
@@ -315,6 +320,11 @@ p {
   --btn-2-bg: #18252d;
   --btn-2-stroke: #2d9896;
   --btn-2-text: #2d9896;
+
+  /* Brand panel fills — darkened, hue-preserving so tiles stay distinguishable */
+  --brand-blue: #33425e;
+  --brand-cyan: #0e5259;
+  --brand-teal: #0a2d33;
 
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);

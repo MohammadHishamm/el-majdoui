@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FadeInUp } from "@/components/ui/fade-in-up";
+import { T } from "@/components/ui/T";
 import { ProgramsList } from "@/components/programs/ProgramsList";
 import { getAllPrograms } from "@/lib/cms/fetchers";
 
@@ -21,11 +22,13 @@ export default async function ProgramsPage() {
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <FadeInUp>
             <h1 className="text-right text-[36px] font-medium leading-[1.15] text-heading md:text-[44px]">
-              البرامج والمبادرات
+              <T ar="البرامج والمبادرات" en="Programs & Initiatives" />
             </h1>
             <p className="mt-4 max-w-3xl text-right text-[18px] leading-[32px] text-body-2">
-              استكشف برامجنا ومبادراتنا التنموية، وتعرف على سياقات العمل وأهداف الأثر
-              المستدام لكل مبادرة.
+              <T
+                ar="استكشف برامجنا ومبادراتنا التنموية، وتعرف على سياقات العمل وأهداف الأثر المستدام لكل مبادرة."
+                en="Explore our development programs and initiatives, and learn about the context and sustainable-impact goals of each."
+              />
             </p>
           </FadeInUp>
         </div>

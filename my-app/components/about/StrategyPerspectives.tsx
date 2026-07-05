@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { FadeInUp } from "@/components/ui/fade-in-up";
+import { brandPanelBg } from "@/lib/brand-colors";
 
 export type Perspective = {
   id: string;
@@ -80,7 +81,7 @@ function PerspectiveCard({
   return (
     <div
       className="relative flex w-full max-w-[300px] flex-col rounded-tr-[20px] px-5 pb-5 pt-8 text-white sm:px-6 sm:pb-6 sm:pt-12 lg:max-w-[300px] lg:rounded-tr-[120px] lg:px-7 lg:pb-8 lg:pt-[78px]"
-      style={{ backgroundColor: perspective.bg }}
+      style={{ backgroundColor: brandPanelBg(perspective.bg) }}
     >
       <h3 className="text-right text-[20px] font-medium leading-[1.35] lg:text-[24px] lg:leading-[40px]">
         {perspective.title}

@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ExpandFade } from "@/components/ui/expand-fade";
 import { useLocale } from "@/lib/i18n/context";
 import { translations } from "@/lib/i18n/translations";
+import { brandPanelBg } from "@/lib/brand-colors";
 import "./programs-panel.css";
 
 type BilingualText = { ar: string; en: string };
@@ -406,7 +407,7 @@ function MobilePanelContent({
   return (
     <div
       className="flex flex-col p-6 text-white"
-      style={{ backgroundColor: panel.bg }}
+      style={{ backgroundColor: brandPanelBg(panel.bg) }}
       dir={isArabic ? "rtl" : "ltr"}
     >
       <div className={isArabic ? "text-right" : "text-left"}>
@@ -709,7 +710,7 @@ export function ProgramsExplorer({ panels }: { panels?: Panel[] } = {}) {
                   onClick={() => handlePanelChange(panel.id)}
                   className="min-w-0 flex-1 truncate px-2 py-3 text-center text-xs font-bold text-white transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/60"
                   style={{
-                    backgroundColor: panel.bg,
+                    backgroundColor: brandPanelBg(panel.bg),
                     opacity: isActive ? 1 : 0.55,
                     borderBottom: isActive ? "3px solid rgba(255,255,255,0.7)" : "3px solid transparent",
                   }}
@@ -751,7 +752,7 @@ export function ProgramsExplorer({ panels }: { panels?: Panel[] } = {}) {
                 <div
                   key={panel.id}
                   className={`program-panel text-white${isActive ? " is-active" : ""}`}
-                  style={{ backgroundColor: panel.bg, height: CONTAINER_HEIGHT }}
+                  style={{ backgroundColor: brandPanelBg(panel.bg), height: CONTAINER_HEIGHT }}
                 >
                   <CollapsedPanelFace
                     panel={panel}
@@ -763,7 +764,7 @@ export function ProgramsExplorer({ panels }: { panels?: Panel[] } = {}) {
 
                   <div
                     className={`program-panel-expanded-view p-8 md:p-10${isActive ? " is-visible" : ""}`}
-                    style={{ backgroundColor: panel.bg }}
+                    style={{ backgroundColor: brandPanelBg(panel.bg) }}
                     dir={isArabic ? "rtl" : "ltr"}
                     aria-hidden={!isActive}
                   >

@@ -216,6 +216,49 @@ body {
   color: var(--foreground);
 }
 
+/* Dark mode: render icon images as full white (#fff).
+   Small fixed-size decorative images (width attr from next/image) + common icon paths.
+   Photos, logos, and full-bleed (fill) images are excluded. Admin has its own theme. */
+:is(.dark) :not(.admin-theme) img[aria-hidden]:where(
+  [width="12"],
+  [width="14"],
+  [width="16"],
+  [width="18"],
+  [width="20"],
+  [width="24"],
+  [width="28"],
+  [width="32"],
+  [width="48"],
+  [src*="-icon"],
+  [src*="Icon-"],
+  [src*="Icon.svg"],
+  [src*="arrow"],
+  [src*="Arrow"],
+  [src*="program-cards"],
+  [src*="policies/"],
+  [src*="taqareer/"],
+  [src*="tawzeef/"],
+  [src*="news-and-announces/"],
+  [src*="Galley-of-images/details-page"],
+  [src*="identity/"],
+  [src*="economic/Icon"],
+  [src*="search-icon"],
+  [src*="localize-icon"],
+  [src*="moon-logo"],
+  [src*="youtube-icon"],
+  [src*="play-icon"],
+  [src*="featured/"],
+  [src*="who-we-are/"],
+  [src*="vision/Icon"]
+):not([src*="logo"]):not([src*="Logo"]):not([src*="stats-"]):not([src*="horizontal-art"]) {
+  filter: brightness(0) invert(1);
+}
+
+/* Inline SVG icons (currentColor) — full white in dark mode. Loader SVG layers excluded. */
+:is(.dark) :not(.admin-theme) svg[aria-hidden]:not(.am-layer) {
+  color: #ffffff;
+}
+
 /* Smooth light↔dark transition for surfaces, text and borders.
    Guarded so it never animates the very first paint (no-flash script sets .dark synchronously). */
 .theme-ready :where(section, header, footer, main, aside, article, div, a, button, p, h1, h2, h3, h4, span, li, svg, input, textarea) {
@@ -309,12 +352,13 @@ p {
   --panel: #10171e;
   --panel-border: #2d9896;
   --icon-box: #18252d;
-  --icon: #2d9896;
-  --heading: #2d9896;
-  --body-1: #898b8a;
-  --body-2: #707579;
-  --body-3: #707579;
-  --body-4: #707579;
+  --icon: #ffffff;
+  /* Dark mode: all body + heading text is a single readable light grey (#B6B6B6). */
+  --heading: #b6b6b6;
+  --body-1: #b6b6b6;
+  --body-2: #b6b6b6;
+  --body-3: #b6b6b6;
+  --body-4: #b6b6b6;
   --btn-primary: #005761;
   --btn-primary-text: #ffffff;
   --btn-2-bg: #18252d;

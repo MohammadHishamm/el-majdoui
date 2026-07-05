@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLocale } from "@/lib/i18n/context";
 import { translations } from "@/lib/i18n/translations";
-import { brandPanelBg } from "@/lib/brand-colors";
 
 type BilingualText = { ar: string; en: string };
 
@@ -102,13 +101,13 @@ export function FocusAreaTiles({ areas }: { areas?: AreaTile[] }) {
             <div
               key={area.slug}
               dir="rtl"
-              className={`relative flex h-[377px] w-full max-w-[390px] flex-col overflow-hidden rounded-tr-[60px] border border-white/25 p-6 text-white ${textAlign}`}
-              style={{ backgroundColor: brandPanelBg(area.bg), borderWidth: "1.18px" }}
+              className={`relative flex h-[377px] w-full max-w-[390px] flex-col overflow-hidden rounded-tr-[60px] border border-white/25 bg-[var(--tile-bg)] p-6 text-white dark:border-[#2d9896]/25 dark:bg-[#10171e] ${textAlign}`}
+              style={{ "--tile-bg": area.bg, borderWidth: "1.18px" } as React.CSSProperties}
             >
               {/* Icon row: badge (physical right) + watermark (physical left) */}
               <div className="relative z-10 flex shrink-0 items-center justify-between gap-3">
                 <div
-                  className="flex shrink-0 items-center justify-center bg-white shadow-sm"
+                  className="flex shrink-0 items-center justify-center bg-white shadow-sm dark:bg-white/[0.04] dark:shadow-none dark:ring-1 dark:ring-inset dark:ring-[#2d9896]/40"
                   style={{
                     width: BADGE_SIZE,
                     height: BADGE_SIZE,
@@ -123,7 +122,7 @@ export function FocusAreaTiles({ areas }: { areas?: AreaTile[] }) {
                     alt=""
                     width={48}
                     height={48}
-                    className="h-10 w-10 object-contain sm:h-12 sm:w-12"
+                    className="h-10 w-10 object-contain sm:h-12 sm:w-12 dark:[filter:brightness(0)_invert(1)]"
                     aria-hidden
                   />
                 </div>
@@ -145,20 +144,20 @@ export function FocusAreaTiles({ areas }: { areas?: AreaTile[] }) {
 
               {/* Title + text below icons */}
               <div className={`relative z-10 mt-6 flex min-h-0 flex-1 flex-col ${textAlign}`}>
-                <h3 className="line-clamp-2 shrink-0 break-words text-[28px] font-medium leading-tight md:text-[34px]">
+                <h3 className="line-clamp-2 shrink-0 break-words text-[28px] font-medium leading-tight text-white dark:text-[#2d9896] md:text-[34px]">
                   {area.name[locale]}
                 </h3>
                 <p
                   dir={isArabic ? "rtl" : "ltr"}
-                  className="mt-3 line-clamp-2 min-h-0 text-[16px] font-medium leading-[26px] text-white"
+                  className="mt-3 line-clamp-2 min-h-0 text-[16px] font-medium leading-[26px] text-white dark:text-white/65"
                 >
                   {area.desc[locale]}
                 </p>
 
                 <Link
                   href={`/focus-areas/${area.slug}`}
-                  className="mt-auto flex w-full shrink-0 items-center justify-center rounded-full bg-white py-2.5 text-[14px] font-bold leading-none transition-opacity hover:opacity-90"
-                  style={{ color: area.btnText }}
+                  className="mt-auto flex w-full shrink-0 items-center justify-center rounded-full border border-transparent bg-white py-2.5 text-[14px] font-bold leading-none text-[var(--btn-text)] transition-opacity hover:opacity-90 dark:border-[#2d9896] dark:bg-transparent dark:text-[#2d9896] dark:hover:bg-[#2d9896]/10 dark:hover:opacity-100"
+                  style={{ "--btn-text": area.btnText } as React.CSSProperties}
                 >
                   {t.exploreCTA}
                 </Link>

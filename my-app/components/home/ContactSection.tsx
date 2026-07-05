@@ -130,7 +130,7 @@ export function ContactSection() {
           </form>
 
           {/* Info card — left in RTL */}
-          <div className="relative flex min-h-[420px] items-center overflow-hidden rounded-2xl bg-footer-bg py-10 pe-10 ps-8 text-white md:rounded-none md:rounded-tr-[100px] md:py-14 md:pe-14 md:ps-10">
+          <div className="relative flex min-h-0 items-center overflow-hidden rounded-2xl bg-footer-bg px-6 py-12 text-white md:min-h-[420px] md:rounded-none md:rounded-tr-[100px] md:py-14 md:pe-14 md:ps-10">
             {/* Logo — right in RTL; hidden on mobile */}
             <div className="relative me-2 hidden shrink-0 self-center md:me-4 md:block">
               <Image
@@ -138,7 +138,7 @@ export function ContactSection() {
                 alt=""
                 width={112}
                 height={280}
-                className="h-[250px] w-auto object-contain md:h-[260px]"
+                className="h-[250px] w-auto object-contain mix-blend-lighten md:h-[260px]"
                 aria-hidden
               />
             </div>
@@ -147,22 +147,27 @@ export function ContactSection() {
             <div className={`flex-1 ${textAlign}`} dir={isArabic ? "rtl" : "ltr"}>
               <h2
                 id="contact-heading"
-                className="text-[28px] font-bold leading-snug text-white md:text-[36px]"
+                className="text-[26px] font-bold leading-snug text-white md:text-[36px]"
               >
                 {t.heading}
               </h2>
 
-              <div className={`mt-10 ${textAlign}`}>
+              <div className="mt-8 flex flex-col gap-7 md:mt-10 md:gap-0">
                 {contactRows.map((row) => (
-                  <p
+                  <div
                     key={row.label}
-                    className="text-sm font-medium leading-[40px] tracking-normal text-white"
+                    className="flex items-baseline justify-start gap-2.5 overflow-x-auto text-[12px] font-medium leading-[20px] text-white scrollbar-none md:gap-3 md:overflow-visible md:text-sm md:leading-[40px]"
                   >
-                    <span className="text-accent underline decoration-accent/60 underline-offset-4">
+                    <span className="shrink-0 text-accent underline decoration-accent/60 underline-offset-4">
                       {row.label}:
-                    </span>{" "}
-                    <span dir={row.ltr ? "ltr" : undefined}>{row.value}</span>
-                  </p>
+                    </span>
+                    <span
+                      className="shrink-0 whitespace-nowrap md:shrink md:whitespace-normal"
+                      dir={row.ltr ? "ltr" : undefined}
+                    >
+                      {row.value}
+                    </span>
+                  </div>
                 ))}
               </div>
             </div>

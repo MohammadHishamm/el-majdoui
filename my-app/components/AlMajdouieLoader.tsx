@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Brand logo markup, lifted verbatim from public/images/main-logos/AlMajdouie_Logo_RGB.SVG.
 // Rendered as one <svg>; the .am-wordmark <g> and .am-badge <path> are animated in place.
@@ -13,6 +13,31 @@ const LOGO_INNER = "<defs><clipPath id=\"am-wordmark-clip\"><rect x=\"0\" y=\"0\
  */
 export default function AlMajdouieLoader() {
   const [isDone, setIsDone] = useState(false);
+  const svgRef = useRef<SVGSVGElement>(null);
+
+  // Mobile WebKit/Chrome mis-resolve percentage transforms + transform-box:fill-box
+  // on inner SVG nodes (the animation "snaps" to its end state). Convert the two
+  // fill-box-relative values to exact px (SVG user units) measured from the real
+  // geometry — same distances/origins, so desktop is pixel-identical.
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg) return;
+    try {
+      const wordmark = svg.querySelector<SVGGraphicsElement>(".am-wordmark");
+      const badge = svg.querySelector<SVGGraphicsElement>(".am-badge");
+      if (wordmark) {
+        const wb = wordmark.getBBox();
+        svg.style.setProperty("--am-wm-shift", `${(wb.width * 1.25).toFixed(2)}px`);
+      }
+      if (badge) {
+        const bb = badge.getBBox();
+        svg.style.setProperty("--am-badge-cx", `${(bb.x + bb.width / 2).toFixed(2)}px`);
+        svg.style.setProperty("--am-badge-cy", `${(bb.y + bb.height / 2).toFixed(2)}px`);
+      }
+    } catch {
+      // keep the CSS fallback values
+    }
+  }, []);
 
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
@@ -64,9 +89,13 @@ export default function AlMajdouieLoader() {
           max-width: 520px;
           height: auto;
         }
+        /* px-in-user-units transforms (not % + fill-box) so mobile WebKit/Chrome
+           animate them; the fallbacks match the real geometry, JS refines them.
+           Badge center fallback is exact (computed from its path: x 272.19–304.46,
+           y 78.57–157). Wordmark shift fallback ≈ 125% of its bbox width. */
         .am-badge {
-          transform-box: fill-box;
-          transform-origin: center;
+          transform-box: view-box;
+          transform-origin: var(--am-badge-cx, 288.33px) var(--am-badge-cy, 117.79px);
           opacity: 0;
           transform: scale(0.9);
           animation:
@@ -74,9 +103,8 @@ export default function AlMajdouieLoader() {
             am-breathe 4s ease-in-out 2.8s infinite;
         }
         .am-wordmark {
-          transform-box: fill-box;
-          transform-origin: center;
-          transform: translateX(125%);
+          transform-box: view-box;
+          transform: translateX(var(--am-wm-shift, 280px));
           animation: am-wordmark-slide 1.15s cubic-bezier(0.25, 1, 0.32, 1) 0.7s forwards;
         }
         @keyframes am-badge-in {

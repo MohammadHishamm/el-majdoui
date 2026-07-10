@@ -107,7 +107,10 @@ const NAV: NavGroup[] = [
     key: "sitePages",
     icon: FileText,
     roles: ["super_admin", "content_editor"],
-    items: [{ key: "pgBrand", url: "/admin/dashboard/pages/brand-identity" }],
+    items: [
+      { key: "pgBrand", url: "/admin/dashboard/pages/brand-identity" },
+      { key: "pgPrivacy", url: "/admin/dashboard/pages/privacy-policy" },
+    ],
   },
   {
     key: "settings",

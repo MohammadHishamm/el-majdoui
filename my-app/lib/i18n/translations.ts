@@ -16,9 +16,10 @@ export const translations = {
       focusAreas: "مجالات العمل",
       contactUs: "تواصل معنا",
       allRights: "جميع الحقوق محفوظة",
+      privacyPolicy: "سياسة الخصوصية",
       siteDescription:
         "مؤسسة مانحة تُسهم في تحسين جودة الحياة الاقتصادية للمحتاج والعناية بمساجد المجدوعي.",
-      quickLinkLabels: ["عن المؤسسة", "البرامج والمبادرات", "المركز الإعلامي", "التوظيف"],
+      quickLinkLabels: ["عن المؤسسة", "البرامج والمبادرات", "المركز الإعلامي", "التوظيف", "سياسة الخصوصية"],
     },
     hero: {
       sectionLabel: "أبرز الأخبار والمبادرات",
@@ -102,9 +103,10 @@ export const translations = {
       focusAreas: "Focus Areas",
       contactUs: "Contact Us",
       allRights: "All rights reserved",
+      privacyPolicy: "Privacy Policy",
       siteDescription:
         "A philanthropic foundation contributing to improving economic quality of life for those in need and caring for Almajdouie Mosques.",
-      quickLinkLabels: ["About the Foundation", "Programs & Initiatives", "Media Center", "Careers"],
+      quickLinkLabels: ["About the Foundation", "Programs & Initiatives", "Media Center", "Careers", "Privacy Policy"],
     },
     hero: {
       sectionLabel: "Featured News & Initiatives",

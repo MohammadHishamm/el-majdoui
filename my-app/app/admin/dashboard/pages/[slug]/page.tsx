@@ -6,8 +6,9 @@ import { VisionMissionForm } from "@/components/admin/pages/VisionMissionForm";
 import { WhoWeAreForm } from "@/components/admin/pages/WhoWeAreForm";
 import { StrategyForm } from "@/components/admin/pages/StrategyForm";
 import { BrandIdentityForm } from "@/components/admin/pages/BrandIdentityForm";
+import { PrivacyPolicyForm } from "@/components/admin/pages/PrivacyPolicyForm";
 
-const VALID = new Set(["vision-mission", "who-we-are", "strategy", "brand-identity"]);
+const VALID = new Set(["vision-mission", "who-we-are", "strategy", "brand-identity", "privacy-policy"]);
 
 export default async function EditPagePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -24,6 +25,7 @@ export default async function EditPagePage({ params }: { params: Promise<{ slug:
     "who-we-are": t.nav.pgWho,
     strategy: t.nav.pgStrategy,
     "brand-identity": t.nav.pgBrand,
+    "privacy-policy": t.nav.pgPrivacy,
   };
 
   return (
@@ -33,6 +35,7 @@ export default async function EditPagePage({ params }: { params: Promise<{ slug:
       {slug === "who-we-are" && <WhoWeAreForm action={action} defaults={content} submitLabel={t.common.save} />}
       {slug === "strategy" && <StrategyForm action={action} defaults={content} submitLabel={t.common.save} />}
       {slug === "brand-identity" && <BrandIdentityForm action={action} defaults={content} submitLabel={t.common.save} />}
+      {slug === "privacy-policy" && <PrivacyPolicyForm action={action} defaults={content} submitLabel={t.common.save} />}
     </div>
   );
 }

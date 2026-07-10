@@ -100,7 +100,7 @@ const SOCIAL = [
   },
 ];
 
-const QUICK_LINK_HREFS = ["/about", "/programs", "/news", "/careers"];
+const QUICK_LINK_HREFS = ["/about", "/programs", "/news", "/careers", "/privacy-policy"];
 
 export function Footer({
   contact,
@@ -214,7 +214,14 @@ export function Footer({
           </div>
 
           <p className="text-sm text-white/60 dark:text-[#b6b6b6]">
-            © {year} {siteConfig.fullName}. {t.allRights}.
+            © {year} {siteConfig.fullName}. {t.allRights}.{" "}
+            <span aria-hidden>|</span>{" "}
+            <Link
+              href="/privacy-policy"
+              className="font-bold text-white/80 underline underline-offset-4 transition-colors hover:text-accent dark:text-[#b6b6b6] dark:hover:text-white"
+            >
+              {t.privacyPolicy}
+            </Link>
           </p>
         </div>
       </div>

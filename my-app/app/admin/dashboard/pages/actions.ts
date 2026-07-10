@@ -9,6 +9,7 @@ const PUBLIC_PATH: Record<string, string> = {
   "who-we-are": "/about/who-we-are",
   strategy: "/about/strategy",
   "brand-identity": "/brand-identity",
+  "privacy-policy": "/privacy-policy",
 };
 
 export async function updatePageContent(slug: string, form: FormData) {

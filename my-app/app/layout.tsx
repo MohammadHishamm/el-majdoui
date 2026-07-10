@@ -71,7 +71,14 @@ export const metadata: Metadata = {
     description: siteConfig.description,
     images: [DEFAULT_OG_IMAGE],
   },
-  icons: { icon: "/favicon.ico" },
+  icons: {
+    icon: [
+      { url: "/images/home/updated-svgs/header-footer-logo.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/images/favicon.png", type: "image/png", sizes: "256x256" },
+    ],
+    apple: { url: "/images/favicon.png", type: "image/png" },
+  },
 };
 
 export default function RootLayout({

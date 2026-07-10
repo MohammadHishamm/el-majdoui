@@ -72,8 +72,8 @@ export function Header() {
   const navItemClass = (active = false) =>
     `relative z-10 flex items-center gap-1 px-3 py-2 text-[16px] font-medium transition-colors ${
       active
-        ? "text-accent dark:text-[#2D9896]"
-        : "text-white/95 hover:text-accent dark:hover:text-[#2D9896]"
+        ? "text-accent dark:text-[#00B5C2]"
+        : "text-white/95 hover:text-accent dark:hover:text-[#00B5C2]"
     }`;
 
   const openSearch = () => {
@@ -235,7 +235,7 @@ export function Header() {
                                   key={child.href}
                                   href={child.href}
                                   onClick={() => setOpenMenu(null)}
-                                  className={`block py-[9px] text-[15px] text-white/80 transition-colors hover:text-accent dark:hover:text-[#2D9896] ${dropdownTextAlign}`}
+                                  className={`block py-[9px] text-[15px] text-white/80 transition-colors hover:text-accent dark:hover:text-[#00B5C2] ${dropdownTextAlign}`}
                                 >
                                   {locale === "en" ? (child.labelEn ?? child.label) : child.label}
                                 </Link>

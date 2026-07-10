@@ -12,7 +12,7 @@ const initialContactState: ContactState = { ok: false, error: null };
 const fieldClass =
   "w-full rounded-2xl border border-panel-border bg-btn-2-bg px-4 py-3 text-base text-body-1 outline-none transition-colors placeholder:text-body-3/50 focus:border-icon";
 
-const labelClass = "mb-2 block text-right text-base font-medium text-body-1";
+const labelClass = "mb-2 block text-right text-base font-medium text-body-1 dark:text-heading";
 
 export function ContactSection() {
   const { locale } = useLocale();
@@ -158,7 +158,7 @@ export function ContactSection() {
                     key={row.label}
                     className="flex items-baseline justify-start gap-2.5 overflow-x-auto text-[12px] font-medium leading-[20px] text-white scrollbar-none md:gap-3 md:overflow-visible md:text-sm md:leading-[40px]"
                   >
-                    <span className="shrink-0 text-accent underline decoration-accent/60 underline-offset-4">
+                    <span className="shrink-0 text-[#00B5C2] underline decoration-[#00B5C2]/60 underline-offset-4">
                       {row.label}:
                     </span>
                     <span

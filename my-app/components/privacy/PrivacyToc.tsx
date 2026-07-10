@@ -54,7 +54,7 @@ export function PrivacyToc({ items }: { items: TocItem[] }) {
               aria-hidden
             />
             <span
-              className={`flex-1 text-right text-sm transition-colors ${
+              className={`flex-1 text-start text-sm transition-colors ${
                 isActive ? "font-bold text-heading" : "font-medium text-body-3 hover:text-heading"
               }`}
             >

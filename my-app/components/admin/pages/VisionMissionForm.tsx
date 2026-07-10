@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { Box, Txt, Area, AddBtn, DelBtn, SubmitButton } from "@/components/admin/pages/kit";
 import { InlineUpload } from "@/components/admin/inline-upload";
+import { useL } from "@/components/admin/i18n";
 
 type Value = { title: string; description: string; icon: string };
 type Content = Record<string, unknown> & { values?: Value[] };
 
 export function VisionMissionForm({ action, defaults, submitLabel }: { action: (f: FormData) => void; defaults: Content; submitLabel: string }) {
+  const l = useL();
   const [c, setC] = useState<Content>(defaults ?? {});
   const set = (k: string, v: unknown) => setC((p) => ({ ...p, [k]: v }));
   const str = (k: string) => (c[k] as string) ?? "";
@@ -18,24 +20,24 @@ export function VisionMissionForm({ action, defaults, submitLabel }: { action: (
     <form action={action} className="grid max-w-3xl gap-6">
       <input type="hidden" name="content" value={JSON.stringify(c)} />
 
-      <Box title="Hero & headings">
-        <InlineUpload value={str("hero_image")} onChange={(u) => set("hero_image", u)} folder="pages" label="Hero image" />
-        <Txt label="Title" value={str("title")} onChange={(v) => set("title", v)} />
+      <Box title={l("Hero & headings", "الترويسة والعناوين")}>
+        <InlineUpload value={str("hero_image")} onChange={(u) => set("hero_image", u)} folder="pages" label={l("Hero image", "صورة الترويسة")} />
+        <Txt label={l("Title", "العنوان")} value={str("title")} onChange={(v) => set("title", v)} />
       </Box>
 
-      <Box title="Vision & Mission">
+      <Box title={l("Vision & Mission", "الرؤية والرسالة")}>
         <div className="grid gap-3 sm:grid-cols-2">
-          <Txt label="Vision heading" value={str("vision_heading")} onChange={(v) => set("vision_heading", v)} />
-          <Txt label="Mission heading" value={str("mission_heading")} onChange={(v) => set("mission_heading", v)} />
+          <Txt label={l("Vision heading", "عنوان الرؤية")} value={str("vision_heading")} onChange={(v) => set("vision_heading", v)} />
+          <Txt label={l("Mission heading", "عنوان الرسالة")} value={str("mission_heading")} onChange={(v) => set("mission_heading", v)} />
         </div>
-        <Area label="Vision text" value={str("vision_text")} onChange={(v) => set("vision_text", v)} />
-        <Area label="Mission text" value={str("mission_text")} onChange={(v) => set("mission_text", v)} />
-        <InlineUpload value={str("vision_image")} onChange={(u) => set("vision_image", u)} folder="pages" label="Vision image" />
+        <Area label={l("Vision text", "نص الرؤية")} value={str("vision_text")} onChange={(v) => set("vision_text", v)} />
+        <Area label={l("Mission text", "نص الرسالة")} value={str("mission_text")} onChange={(v) => set("mission_text", v)} />
+        <InlineUpload value={str("vision_image")} onChange={(u) => set("vision_image", u)} folder="pages" label={l("Vision image", "صورة الرؤية")} />
       </Box>
 
-      <Box title="Institutional values">
-        <InlineUpload value={str("values_bg_image")} onChange={(u) => set("values_bg_image", u)} folder="pages" label="Values background image" />
-        <Txt label="Values heading" value={str("values_heading")} onChange={(v) => set("values_heading", v)} />
+      <Box title={l("Institutional values", "القيم المؤسسية")}>
+        <InlineUpload value={str("values_bg_image")} onChange={(u) => set("values_bg_image", u)} folder="pages" label={l("Values background image", "صورة خلفية القيم")} />
+        <Txt label={l("Values heading", "عنوان القيم")} value={str("values_heading")} onChange={(v) => set("values_heading", v)} />
         <div className="flex flex-col gap-3">
           {values.map((v, i) => (
             <div key={i} className="rounded-lg border bg-muted/30 p-3">
@@ -43,12 +45,12 @@ export function VisionMissionForm({ action, defaults, submitLabel }: { action: (
                 <span className="text-xs font-semibold text-muted-foreground">#{i + 1}</span>
                 <DelBtn onClick={() => editV((x) => x.splice(i, 1))} />
               </div>
-              <Txt label="Title" value={v.title} onChange={(val) => editV((x) => { x[i].title = val; })} />
-              <Area label="Description" value={v.description} onChange={(val) => editV((x) => { x[i].description = val; })} rows={2} />
-              <div className="mt-2"><InlineUpload value={v.icon} onChange={(u) => editV((x) => { x[i].icon = u; })} folder="pages" label="Icon" /></div>
+              <Txt label={l("Title", "العنوان")} value={v.title} onChange={(val) => editV((x) => { x[i].title = val; })} />
+              <Area label={l("Description", "الوصف")} value={v.description} onChange={(val) => editV((x) => { x[i].description = val; })} rows={2} />
+              <div className="mt-2"><InlineUpload value={v.icon} onChange={(u) => editV((x) => { x[i].icon = u; })} folder="pages" label={l("Icon", "الأيقونة")} /></div>
             </div>
           ))}
-          <AddBtn onClick={() => set("values", [...values, { title: "", description: "", icon: "" }])}>Add value</AddBtn>
+          <AddBtn onClick={() => set("values", [...values, { title: "", description: "", icon: "" }])}>{l("Add value", "إضافة قيمة")}</AddBtn>
         </div>
       </Box>
 

@@ -3,12 +3,14 @@
 import { useState } from "react";
 import { Box, Txt, Area, AddBtn, DelBtn, SubmitButton, inp } from "@/components/admin/pages/kit";
 import { InlineUpload } from "@/components/admin/inline-upload";
+import { useL } from "@/components/admin/i18n";
 
 type Info = { label: string; value: string; icon?: string };
 type Advantage = { title: string; description: string; icon: string };
 type Content = Record<string, unknown>;
 
 export function WhoWeAreForm({ action, defaults, submitLabel }: { action: (f: FormData) => void; defaults: Content; submitLabel: string }) {
+  const l = useL();
   const [c, setC] = useState<Content>(defaults ?? {});
   const set = (k: string, v: unknown) => setC((p) => ({ ...p, [k]: v }));
   const str = (k: string) => (c[k] as string) ?? "";
@@ -23,55 +25,55 @@ export function WhoWeAreForm({ action, defaults, submitLabel }: { action: (f: Fo
     <form action={action} className="grid max-w-3xl gap-6">
       <input type="hidden" name="content" value={JSON.stringify(c)} />
 
-      <Box title="Hero">
-        <InlineUpload value={str("hero_image")} onChange={(u) => set("hero_image", u)} folder="pages" label="Hero image" />
-        <Txt label="Title" value={str("title")} onChange={(v) => set("title", v)} />
-        <Txt label="Subtitle" value={str("subtitle")} onChange={(v) => set("subtitle", v)} />
+      <Box title={l("Hero", "الترويسة")}>
+        <InlineUpload value={str("hero_image")} onChange={(u) => set("hero_image", u)} folder="pages" label={l("Hero image", "صورة الترويسة")} />
+        <Txt label={l("Title", "العنوان")} value={str("title")} onChange={(v) => set("title", v)} />
+        <Txt label={l("Subtitle", "العنوان الفرعي")} value={str("subtitle")} onChange={(v) => set("subtitle", v)} />
       </Box>
 
-      <Box title="Intro paragraphs">
+      <Box title={l("Intro paragraphs", "فقرات المقدمة")}>
         {paragraphs.map((p, i) => (
           <div key={i} className="flex items-start gap-2">
             <textarea className={`${inp} resize-y`} dir="rtl" rows={3} value={p} onChange={(e) => editP((x) => { x[i] = e.target.value; })} />
             <DelBtn onClick={() => editP((x) => x.splice(i, 1))} />
           </div>
         ))}
-        <AddBtn onClick={() => set("paragraphs", [...paragraphs, ""])}>Add paragraph</AddBtn>
+        <AddBtn onClick={() => set("paragraphs", [...paragraphs, ""])}>{l("Add paragraph", "إضافة فقرة")}</AddBtn>
       </Box>
 
-      <Box title="Info card rows">
+      <Box title={l("Info card rows", "صفوف بطاقة المعلومات")}>
         {info.map((row, i) => (
           <div key={i} className="rounded-lg border bg-muted/30 p-3">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-xs font-semibold text-muted-foreground">#{i + 1}</span>
               <DelBtn onClick={() => editI((x) => x.splice(i, 1))} />
             </div>
-            <Txt label="Label" value={row.label} onChange={(v) => editI((x) => { x[i].label = v; })} />
-            <Txt label="Value" value={row.value} onChange={(v) => editI((x) => { x[i].value = v; })} />
-            <div className="mt-2"><InlineUpload value={row.icon ?? ""} onChange={(u) => editI((x) => { x[i].icon = u; })} folder="pages" label="Icon (optional)" /></div>
+            <Txt label={l("Label", "التسمية")} value={row.label} onChange={(v) => editI((x) => { x[i].label = v; })} />
+            <Txt label={l("Value", "القيمة")} value={row.value} onChange={(v) => editI((x) => { x[i].value = v; })} />
+            <div className="mt-2"><InlineUpload value={row.icon ?? ""} onChange={(u) => editI((x) => { x[i].icon = u; })} folder="pages" label={l("Icon (optional)", "الأيقونة (اختياري)")} /></div>
           </div>
         ))}
-        <AddBtn onClick={() => set("info", [...info, { label: "", value: "", icon: "" }])}>Add row</AddBtn>
+        <AddBtn onClick={() => set("info", [...info, { label: "", value: "", icon: "" }])}>{l("Add row", "إضافة صف")}</AddBtn>
       </Box>
 
-      <Box title="Competitive advantages">
-        <Txt label="Heading" value={str("advantages_heading")} onChange={(v) => set("advantages_heading", v)} />
+      <Box title={l("Competitive advantages", "المزايا التنافسية")}>
+        <Txt label={l("Heading", "العنوان")} value={str("advantages_heading")} onChange={(v) => set("advantages_heading", v)} />
         {advantages.map((a, i) => (
           <div key={i} className="rounded-lg border bg-muted/30 p-3">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-xs font-semibold text-muted-foreground">#{i + 1}</span>
               <DelBtn onClick={() => editA((x) => x.splice(i, 1))} />
             </div>
-            <Txt label="Title" value={a.title} onChange={(v) => editA((x) => { x[i].title = v; })} />
-            <Area label="Description" value={a.description} onChange={(v) => editA((x) => { x[i].description = v; })} rows={2} />
-            <div className="mt-2"><InlineUpload value={a.icon} onChange={(u) => editA((x) => { x[i].icon = u; })} folder="pages" label="Icon" /></div>
+            <Txt label={l("Title", "العنوان")} value={a.title} onChange={(v) => editA((x) => { x[i].title = v; })} />
+            <Area label={l("Description", "الوصف")} value={a.description} onChange={(v) => editA((x) => { x[i].description = v; })} rows={2} />
+            <div className="mt-2"><InlineUpload value={a.icon} onChange={(u) => editA((x) => { x[i].icon = u; })} folder="pages" label={l("Icon", "الأيقونة")} /></div>
           </div>
         ))}
-        <AddBtn onClick={() => set("advantages", [...advantages, { title: "", description: "", icon: "" }])}>Add advantage</AddBtn>
+        <AddBtn onClick={() => set("advantages", [...advantages, { title: "", description: "", icon: "" }])}>{l("Add advantage", "إضافة ميزة")}</AddBtn>
       </Box>
 
-      <Box title="Quote banner">
-        <Area label="Quote" value={str("quote")} onChange={(v) => set("quote", v)} rows={2} />
+      <Box title={l("Quote banner", "شريط الاقتباس")}>
+        <Area label={l("Quote", "الاقتباس")} value={str("quote")} onChange={(v) => set("quote", v)} rows={2} />
       </Box>
 
       <div><SubmitButton label={submitLabel} /></div>

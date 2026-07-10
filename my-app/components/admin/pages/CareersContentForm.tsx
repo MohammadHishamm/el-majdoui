@@ -3,11 +3,13 @@
 import { useState } from "react";
 import { Box, Txt, Area, AddBtn, DelBtn, SubmitButton, inp } from "@/components/admin/pages/kit";
 import { InlineUpload } from "@/components/admin/inline-upload";
+import { useL } from "@/components/admin/i18n";
 
 type Reason = { title: string; desc: string; image: string; color: string };
 type Content = Record<string, unknown>;
 
 export function CareersContentForm({ action, defaults, submitLabel }: { action: (f: FormData) => void; defaults: Content; submitLabel: string }) {
+  const l = useL();
   const [c, setC] = useState<Content>(defaults ?? {});
   const set = (k: string, v: unknown) => setC((p) => ({ ...p, [k]: v }));
   const str = (k: string) => (c[k] as string) ?? "";
@@ -18,31 +20,31 @@ export function CareersContentForm({ action, defaults, submitLabel }: { action: 
     <form action={action} className="grid gap-6">
       <input type="hidden" name="content" value={JSON.stringify(c)} />
 
-      <Box title="رأس الصفحة">
-        <Txt label="Intro title" value={str("intro_title")} onChange={(v) => set("intro_title", v)} />
-        <Area label="Intro body" value={str("intro_body")} onChange={(v) => set("intro_body", v)} rows={3} />
+      <Box title={l("Page head", "رأس الصفحة")}>
+        <Txt label={l("Intro title", "عنوان المقدمة")} value={str("intro_title")} onChange={(v) => set("intro_title", v)} />
+        <Area label={l("Intro body", "نص المقدمة")} value={str("intro_body")} onChange={(v) => set("intro_body", v)} rows={3} />
       </Box>
 
-      <Box title="لماذا تعمل معنا؟">
-        <Txt label="Heading" value={str("reasons_heading")} onChange={(v) => set("reasons_heading", v)} />
+      <Box title={l("Why work with us?", "لماذا تعمل معنا؟")}>
+        <Txt label={l("Heading", "العنوان")} value={str("reasons_heading")} onChange={(v) => set("reasons_heading", v)} />
         {reasons.map((r, i) => (
           <div key={i} className="rounded-lg border bg-muted/30 p-3">
             <div className="mb-2 flex items-center justify-between">
               <span className="text-xs font-semibold text-muted-foreground">#{i + 1}</span>
               <DelBtn onClick={() => editR((x) => x.splice(i, 1))} />
             </div>
-            <Txt label="Title" value={r.title} onChange={(v) => editR((x) => { x[i].title = v; })} />
-            <Area label="Description" value={r.desc} onChange={(v) => editR((x) => { x[i].desc = v; })} rows={2} />
+            <Txt label={l("Title", "العنوان")} value={r.title} onChange={(v) => editR((x) => { x[i].title = v; })} />
+            <Area label={l("Description", "الوصف")} value={r.desc} onChange={(v) => editR((x) => { x[i].desc = v; })} rows={2} />
             <div className="mt-2 flex items-end gap-3">
               <span className="size-9 shrink-0 rounded border" style={{ backgroundColor: r.color }} />
-              <label className="flex w-40 flex-col gap-1"><span className="text-[11px] text-muted-foreground">Color (hex)</span>
+              <label className="flex w-40 flex-col gap-1"><span className="text-[11px] text-muted-foreground">{l("Color (hex)", "اللون (hex)")}</span>
                 <input className={inp} dir="ltr" value={r.color} onChange={(e) => editR((x) => { x[i].color = e.target.value; })} />
               </label>
             </div>
-            <div className="mt-2"><InlineUpload value={r.image} onChange={(u) => editR((x) => { x[i].image = u; })} folder="careers" label="Card image" recommendedSize="720 × 720 px (square)" hint="Background photo of the benefit card; a coloured panel sits over its lower part." /></div>
+            <div className="mt-2"><InlineUpload value={r.image} onChange={(u) => editR((x) => { x[i].image = u; })} folder="careers" label={l("Card image", "صورة البطاقة")} recommendedSize="720 × 720 px (square)" hint={l("Background photo of the benefit card; a coloured panel sits over its lower part.", "صورة خلفية بطاقة الميزة؛ تغطي لوحة ملونة جزءها السفلي.")} /></div>
           </div>
         ))}
-        <AddBtn onClick={() => set("reasons", [...reasons, { title: "", desc: "", image: "", color: "#005761" }])}>Add card</AddBtn>
+        <AddBtn onClick={() => set("reasons", [...reasons, { title: "", desc: "", image: "", color: "#005761" }])}>{l("Add card", "إضافة بطاقة")}</AddBtn>
       </Box>
 
       <div><SubmitButton label={submitLabel} /></div>

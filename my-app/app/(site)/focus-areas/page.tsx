@@ -40,7 +40,7 @@ export default async function FocusAreasPage() {
               className="rounded-xl border border-panel-border bg-panel p-6 transition-shadow hover:shadow-md"
               style={{ borderTopColor: area.color, borderTopWidth: 4 }}
             >
-              <h2 className="line-clamp-2 break-words text-xl font-bold text-body-1">{area.name}</h2>
+              <h2 className="line-clamp-2 break-words text-xl font-bold text-body-1 dark:text-heading">{area.name}</h2>
               <p className="mt-2 line-clamp-3 break-words text-body-2">{area.shortDesc}</p>
               <span className="mt-4 inline-block text-sm font-medium text-heading">
                 <T ar="استعرض المبادرات ←" en="Explore initiatives ←" />

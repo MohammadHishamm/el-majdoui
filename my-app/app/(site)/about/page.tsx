@@ -37,7 +37,7 @@ export default function AboutHubPage() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className="block rounded-xl border border-panel-border bg-panel p-5 font-medium text-body-1 hover:border-heading hover:text-heading"
+                className="block rounded-xl border border-panel-border bg-panel p-5 font-medium text-body-1 dark:text-heading hover:border-heading hover:text-heading"
               >
                 <T ar={link.label} en={link.labelEn} />
               </Link>

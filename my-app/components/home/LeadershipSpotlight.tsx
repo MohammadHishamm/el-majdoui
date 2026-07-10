@@ -98,7 +98,7 @@ export function LeadershipSpotlight({
                 minHeight: ATTRIBUTION_HEIGHT,
               }}
             >
-              <p className="line-clamp-2 break-words text-right font-medium leading-10 text-body-1" style={{ fontSize: 36 }}>
+              <p className="line-clamp-2 break-words text-right font-medium leading-10 text-body-1 dark:text-heading" style={{ fontSize: 36 }}>
                 {name}
               </p>
               <p className="mt-2 line-clamp-2 break-words text-right font-medium leading-10 text-body-3" style={{ fontSize: 24 }}>

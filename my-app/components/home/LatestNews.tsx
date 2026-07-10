@@ -84,7 +84,7 @@ function NewsCard({ item, locale }: { item: NewsItem; locale: "ar" | "en" }) {
           </svg>
           {item.date[locale]}
         </div>
-        <h3 className="line-clamp-2 text-base font-bold leading-6 text-body-1 transition-colors group-hover:text-heading">
+        <h3 className="line-clamp-2 text-base font-bold leading-6 text-body-1 transition-colors group-hover:text-heading dark:text-heading">
           {item.title[locale]}
         </h3>
         <p className="mt-2 line-clamp-2 text-sm leading-6 text-body-4">{item.excerpt[locale]}</p>
@@ -121,7 +121,7 @@ export function LatestNews({ items }: { items?: NewsItem[] }) {
       <div className="mx-auto w-full max-w-[1280px] px-6">
         <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div className="text-right">
-            <h2 id="news-heading" className="text-3xl font-bold text-body-1 md:text-4xl">
+            <h2 id="news-heading" className="text-3xl font-bold text-body-1 dark:text-heading md:text-4xl">
               {t.heading}
             </h2>
             <p className="mt-2 text-base text-body-4">{t.subheading}</p>

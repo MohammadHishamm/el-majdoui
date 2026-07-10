@@ -29,6 +29,12 @@ export function useAdminT() {
   return useContext(AdminI18nContext);
 }
 
+/** Inline label localizer for form labels not worth a dict key: l("English", "العربية"). */
+export function useL() {
+  const { locale } = useAdminT();
+  return (en: string, ar: string) => (locale === "ar" ? ar : en);
+}
+
 /** Toggles EN/AR via cookie + refresh (server components re-read the cookie). */
 export function LanguageToggle({ className }: { className?: string }) {
   const { locale, t } = useAdminT();

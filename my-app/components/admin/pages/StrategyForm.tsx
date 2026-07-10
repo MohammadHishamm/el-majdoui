@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { Box, Txt, Area, AddBtn, DelBtn, SubmitButton, inp } from "@/components/admin/pages/kit";
+import { useL } from "@/components/admin/i18n";
 
 type Perspective = { id?: string; title: string; description: string; bg: string; objectives: string[]; invertedNumberBadge?: boolean };
 type Content = Record<string, unknown>;
 
 export function StrategyForm({ action, defaults, submitLabel }: { action: (f: FormData) => void; defaults: Content; submitLabel: string }) {
+  const l = useL();
   const [c, setC] = useState<Content>(defaults ?? {});
   const set = (k: string, v: unknown) => setC((p) => ({ ...p, [k]: v }));
   const str = (k: string) => (c[k] as string) ?? "";
@@ -17,13 +19,13 @@ export function StrategyForm({ action, defaults, submitLabel }: { action: (f: Fo
     <form action={action} className="grid max-w-3xl gap-6">
       <input type="hidden" name="content" value={JSON.stringify(c)} />
 
-      <Box title="Header">
-        <Txt label="Eyebrow" value={str("eyebrow")} onChange={(v) => set("eyebrow", v)} />
-        <Txt label="Title" value={str("title")} onChange={(v) => set("title", v)} />
-        <Area label="Intro" value={str("intro")} onChange={(v) => set("intro", v)} rows={3} />
+      <Box title={l("Header", "الترويسة")}>
+        <Txt label={l("Eyebrow", "السطر التمهيدي")} value={str("eyebrow")} onChange={(v) => set("eyebrow", v)} />
+        <Txt label={l("Title", "العنوان")} value={str("title")} onChange={(v) => set("title", v)} />
+        <Area label={l("Intro", "المقدمة")} value={str("intro")} onChange={(v) => set("intro", v)} rows={3} />
       </Box>
 
-      <Box title="BSC perspectives (4 cards)">
+      <Box title={l("BSC perspectives (4 cards)", "منظورات بطاقة الأداء (4 بطاقات)")}>
         {persp.map((p, i) => (
           <div key={i} className="rounded-lg border bg-muted/30 p-3">
             <div className="mb-2 flex items-center justify-between">
@@ -31,23 +33,23 @@ export function StrategyForm({ action, defaults, submitLabel }: { action: (f: Fo
               <DelBtn onClick={() => editX((x) => x.splice(i, 1))} />
             </div>
             <div className="grid gap-3 sm:grid-cols-2">
-              <Txt label="Title" value={p.title} onChange={(v) => editX((x) => { x[i].title = v; })} />
-              <Txt label="Background color" value={p.bg} onChange={(v) => editX((x) => { x[i].bg = v; })} dir="ltr" />
+              <Txt label={l("Title", "العنوان")} value={p.title} onChange={(v) => editX((x) => { x[i].title = v; })} />
+              <Txt label={l("Background color", "لون الخلفية")} value={p.bg} onChange={(v) => editX((x) => { x[i].bg = v; })} dir="ltr" />
             </div>
-            <Area label="Description" value={p.description} onChange={(v) => editX((x) => { x[i].description = v; })} rows={2} />
+            <Area label={l("Description", "الوصف")} value={p.description} onChange={(v) => editX((x) => { x[i].description = v; })} rows={2} />
             <div className="mt-2 flex flex-col gap-2 border-s-2 ps-3">
-              <span className="text-[11px] text-muted-foreground">Objectives</span>
+              <span className="text-[11px] text-muted-foreground">{l("Objectives", "الأهداف")}</span>
               {(p.objectives ?? []).map((o, j) => (
                 <div key={j} className="flex items-center gap-2">
                   <input className={inp} dir="rtl" value={o} onChange={(e) => editX((x) => { x[i].objectives[j] = e.target.value; })} />
                   <DelBtn onClick={() => editX((x) => x[i].objectives.splice(j, 1))} />
                 </div>
               ))}
-              <AddBtn onClick={() => editX((x) => { x[i].objectives = [...(x[i].objectives ?? []), ""]; })}>Add objective</AddBtn>
+              <AddBtn onClick={() => editX((x) => { x[i].objectives = [...(x[i].objectives ?? []), ""]; })}>{l("Add objective", "إضافة هدف")}</AddBtn>
             </div>
           </div>
         ))}
-        <AddBtn onClick={() => set("perspectives", [...persp, { title: "", description: "", bg: "#005761", objectives: [] }])}>Add perspective</AddBtn>
+        <AddBtn onClick={() => set("perspectives", [...persp, { title: "", description: "", bg: "#005761", objectives: [] }])}>{l("Add perspective", "إضافة منظور")}</AddBtn>
       </Box>
 
       <div><SubmitButton label={submitLabel} /></div>

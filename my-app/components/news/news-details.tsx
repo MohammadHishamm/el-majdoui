@@ -180,7 +180,7 @@ export default function NewsDetails({
                         {i + 1}
                       </span>
                       <div className="min-w-0 flex-1">
-                        <p className="line-clamp-2 text-[14px] font-medium leading-[21px] text-body-1 transition-colors group-hover:text-heading">
+                        <p className="line-clamp-2 text-[14px] font-medium leading-[21px] text-body-1 transition-colors group-hover:text-heading dark:text-heading">
                           {n.title}
                         </p>
                         <p className="mt-1 text-[12px] text-body-3">{n.date}</p>

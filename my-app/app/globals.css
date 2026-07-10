@@ -254,8 +254,9 @@ body {
   filter: brightness(0) invert(1);
 }
 
-/* Inline SVG icons (currentColor) — full white in dark mode. Loader SVG layers excluded. */
-:is(.dark) :not(.admin-theme) svg[aria-hidden]:not(.am-layer) {
+/* Inline SVG icons (currentColor) — full white in dark mode.
+   Loader layers and icons on light surfaces (.icon-on-light) are excluded. */
+:is(.dark) :not(.admin-theme) svg[aria-hidden]:not(.am-layer):not(.icon-on-light) {
   color: #ffffff;
 }
 
@@ -353,8 +354,8 @@ p {
   --panel-border: #2d9896;
   --icon-box: #18252d;
   --icon: #ffffff;
-  /* Dark mode: all body + heading text is a single readable light grey (#B6B6B6). */
-  --heading: #b6b6b6;
+  /* Dark mode: titles/labels = brand cyan, body text = readable light grey. */
+  --heading: #00b5c2;
   --body-1: #b6b6b6;
   --body-2: #b6b6b6;
   --body-3: #b6b6b6;

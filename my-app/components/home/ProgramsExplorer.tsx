@@ -454,7 +454,7 @@ function MobilePanelContent({
                           style={{ backgroundColor: panel.bg }}
                           aria-hidden
                         />
-                        <h4 className="line-clamp-2 break-words font-bold text-sm">{path.title[locale]}</h4>
+                        <h4 className="line-clamp-2 break-words font-bold text-sm dark:text-heading">{path.title[locale]}</h4>
                       </div>
                       <p className="mt-2 flex-1 text-sm leading-7 text-body-4">
                         {path.desc[locale]}
@@ -686,7 +686,7 @@ export function ProgramsExplorer({ panels }: { panels?: Panel[] } = {}) {
         <div className={`mb-10 ${isArabic ? "text-right" : "text-left"}`}>
           <h2
             id="programs-explorer-heading"
-            className="text-3xl font-bold text-body-1 md:text-4xl"
+            className="text-3xl font-bold text-body-1 dark:text-heading md:text-4xl"
           >
             {t.heading}
           </h2>

@@ -33,8 +33,8 @@ function NavLink({
 
   const className = `block rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
     isActive
-      ? "text-accent dark:text-[#2D9896]"
-      : "text-white/90 hover:bg-white/5 hover:text-accent dark:hover:text-[#2D9896]"
+      ? "text-accent dark:text-[#00B5C2]"
+      : "text-white/90 hover:bg-white/5 hover:text-accent dark:hover:text-[#00B5C2]"
   }`;
 
   if (item.external) {

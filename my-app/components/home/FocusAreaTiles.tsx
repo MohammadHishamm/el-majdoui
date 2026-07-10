@@ -86,7 +86,7 @@ export function FocusAreaTiles({ areas }: { areas?: AreaTile[] }) {
         <div className="mb-12 text-center">
           <h2
             id="focus-heading"
-            className="text-[28px] font-medium text-body-1 md:text-[36px]"
+            className="text-[28px] font-medium text-body-1 dark:text-heading md:text-[36px]"
           >
             {t.heading}
           </h2>
@@ -144,7 +144,7 @@ export function FocusAreaTiles({ areas }: { areas?: AreaTile[] }) {
 
               {/* Title + text below icons */}
               <div className={`relative z-10 mt-6 flex min-h-0 flex-1 flex-col ${textAlign}`}>
-                <h3 className="line-clamp-2 shrink-0 break-words text-[28px] font-medium leading-tight text-white dark:text-[#b6b6b6] md:text-[34px]">
+                <h3 className="line-clamp-2 shrink-0 break-words text-[28px] font-medium leading-tight text-white dark:text-heading md:text-[34px]">
                   {area.name[locale]}
                 </h3>
                 <p

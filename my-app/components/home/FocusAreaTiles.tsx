@@ -165,7 +165,7 @@ function FocusAreaCarousel({
   locale: "ar" | "en";
   textAlign: string;
   isArabic: boolean;
-  t: (typeof translations)["ar"]["focusAreas"];
+  t: (typeof translations)[keyof typeof translations]["focusAreas"];
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [pages, setPages] = useState(1);

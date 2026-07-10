@@ -164,7 +164,11 @@ export function MobileNav() {
             aria-label={openLabel}
             onClick={closeMenu}
           />
-          <div className="absolute start-0 top-0 flex h-[100dvh] w-full max-w-sm flex-col bg-header-bg shadow-xl">
+          <div
+            className={`absolute start-0 top-0 flex h-[100dvh] flex-col bg-header-bg shadow-xl transition-[width] duration-300 ${
+              searchMode ? "w-[90%] max-w-md" : "w-[70%] max-w-sm"
+            }`}
+          >
             <div className="flex shrink-0 items-center justify-between gap-2 border-b border-white/10 px-4 py-4">
               <div className="flex min-w-0 flex-1 items-center justify-start gap-0.5" dir="ltr">
                 <button

@@ -83,8 +83,8 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
               <button
                 type="button"
                 onClick={() => selectLocale(item.code)}
-                className={`flex w-full items-center justify-between gap-3 px-4 py-2.5 text-[14px] transition-colors hover:bg-white/5 hover:text-accent ${
-                  locale === item.code ? "text-accent" : "text-white/85"
+                className={`flex w-full items-center justify-between gap-3 px-4 py-2.5 text-[14px] transition-colors hover:bg-white/5 hover:text-accent dark:hover:text-[#00B5C2] ${
+                  locale === item.code ? "text-accent dark:text-[#00B5C2]" : "text-white/85"
                 }`}
               >
                 <span>{item.label}</span>

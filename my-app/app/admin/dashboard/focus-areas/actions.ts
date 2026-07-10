@@ -9,6 +9,14 @@ function str(v: FormDataEntryValue | null): string {
   return String(v ?? "").trim();
 }
 
+/** Map a Supabase/Postgres error to a stable code the UI can localize. */
+function errorCode(error: { code?: string; message?: string }): string {
+  if (error.code === "23505" || /duplicate key value/i.test(error.message ?? "")) {
+    return "slug_taken";
+  }
+  return "save_failed";
+}
+
 function rowFromForm(form: FormData) {
   return {
     slug: str(form.get("slug")),
@@ -27,7 +35,43 @@ function rowFromForm(form: FormData) {
 export async function createFocusArea(form: FormData) {
   const supabase = await createClient();
   const { error } = await supabase.from("focus_areas").insert({ ...rowFromForm(form), sort_order: await nextSortOrder("focus_areas") });
-  if (error) redirect(`/admin/dashboard/focus-areas/new?error=${encodeURIComponent(error.message)}`);
+  if (error) redirect(`/admin/dashboard/focus-areas/new?error=${errorCode(error)}`);
+  revalidatePath("/admin/dashboard/focus-areas");
+  revalidatePath("/");
+  redirect("/admin/dashboard/focus-areas");
+}
+
+/** Detail-page columns (carousel/stats/programs) parsed from the form. */
+function detailFromForm(form: FormData) {
+  return {
+    detail_title_ar: str(form.get("detail_title_ar")),
+    detail_title_en: str(form.get("detail_title_en")),
+    detail_intro_ar: str(form.get("detail_intro_ar")),
+    detail_intro_en: str(form.get("detail_intro_en")),
+    carousel: {
+      heading: { ar: str(form.get("carousel_heading_ar")), en: str(form.get("carousel_heading_en")) },
+      slides: parseJson(form.get("slides"), [] as unknown[]),
+    },
+    stats: {
+      image: str(form.get("stats_image")),
+      items: parseJson(form.get("stats_items"), [] as unknown[]),
+    },
+    detail_programs: {
+      heading: { ar: str(form.get("programs_heading_ar")), en: str(form.get("programs_heading_en")) },
+      items: parseJson(form.get("program_items"), [] as unknown[]),
+    },
+  };
+}
+
+/** Create a focus area together with its full detail page in one step. */
+export async function createFocusAreaFull(form: FormData) {
+  const supabase = await createClient();
+  const { error } = await supabase.from("focus_areas").insert({
+    ...rowFromForm(form),
+    ...detailFromForm(form),
+    sort_order: await nextSortOrder("focus_areas"),
+  });
+  if (error) redirect(`/admin/dashboard/focus-areas/new?error=${errorCode(error)}`);
   revalidatePath("/admin/dashboard/focus-areas");
   revalidatePath("/");
   redirect("/admin/dashboard/focus-areas");
@@ -36,7 +80,7 @@ export async function createFocusArea(form: FormData) {
 export async function updateFocusArea(id: string, form: FormData) {
   const supabase = await createClient();
   const { error } = await supabase.from("focus_areas").update(rowFromForm(form)).eq("id", id);
-  if (error) redirect(`/admin/dashboard/focus-areas/${id}?error=${encodeURIComponent(error.message)}`);
+  if (error) redirect(`/admin/dashboard/focus-areas/${id}?error=${errorCode(error)}`);
   revalidatePath("/admin/dashboard/focus-areas");
   revalidatePath("/");
   redirect("/admin/dashboard/focus-areas");
@@ -60,25 +104,7 @@ function parseJson<T>(v: FormDataEntryValue | null, fallback: T): T {
 
 export async function updateFocusAreaDetail(id: string, slug: string, form: FormData) {
   const supabase = await createClient();
-  const row = {
-    detail_title_ar: str(form.get("detail_title_ar")),
-    detail_title_en: str(form.get("detail_title_en")),
-    detail_intro_ar: str(form.get("detail_intro_ar")),
-    detail_intro_en: str(form.get("detail_intro_en")),
-    carousel: {
-      heading: { ar: str(form.get("carousel_heading_ar")), en: str(form.get("carousel_heading_en")) },
-      slides: parseJson(form.get("slides"), [] as unknown[]),
-    },
-    stats: {
-      image: str(form.get("stats_image")),
-      items: parseJson(form.get("stats_items"), [] as unknown[]),
-    },
-    detail_programs: {
-      heading: { ar: str(form.get("programs_heading_ar")), en: str(form.get("programs_heading_en")) },
-      items: parseJson(form.get("program_items"), [] as unknown[]),
-    },
-  };
-  const { error } = await supabase.from("focus_areas").update(row).eq("id", id);
+  const { error } = await supabase.from("focus_areas").update(detailFromForm(form)).eq("id", id);
   if (error) redirect(`/admin/dashboard/focus-areas/${id}/detail?error=${encodeURIComponent(error.message)}`);
   revalidatePath("/admin/dashboard/focus-areas");
   revalidatePath(`/focus-areas/${slug}`);

@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { Pencil, Plus, Trash2, Users } from "lucide-react";
+import { Pencil, Plus, Users } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
 import { deleteMember, updateChairman } from "./actions";
 import { BoardForm } from "@/components/admin/pages/BoardForm";
 import { ReorderButtons } from "@/components/admin/reorder-buttons";
+import { DeleteButton } from "@/components/admin/delete-button";
 
 type Row = { id: string; type: string; name_ar: string; role_ar: string; image: string | null; published: boolean };
 
@@ -64,9 +65,7 @@ export default async function TeamListPage() {
               </div>
               <div className="flex items-center gap-2">
                 <Link href={`/admin/dashboard/team/${m.id}`} className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent"><Pencil className="size-3.5" /> {t.common.edit}</Link>
-                <form action={deleteMember.bind(null, m.id)}>
-                  <button className="inline-flex items-center gap-1 rounded-md border border-destructive/40 px-2 py-1 text-xs text-destructive hover:bg-destructive/5"><Trash2 className="size-3.5" /> {t.common.delete}</button>
-                </form>
+                <DeleteButton action={deleteMember.bind(null, m.id)} />
               </div>
             </div>
           ))

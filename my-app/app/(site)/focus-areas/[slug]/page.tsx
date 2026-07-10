@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PagePlaceholder } from "@/components/ui/PagePlaceholder";
-import { focusAreas } from "@/lib/site/config";
-import { getFocusAreaDetail } from "@/lib/cms/fetchers";
+import { getFocusAreas, getFocusAreaDetail } from "@/lib/cms/fetchers";
 import IntroSection from "@/components/focus-area/detail/IntroSection";
 import CarouselSection from "@/components/focus-area/detail/CarouselSection";
 import StatsSection from "@/components/focus-area/detail/StatsSection";
@@ -10,21 +9,21 @@ import ProgramsSection from "@/components/focus-area/detail/ProgramsSection";
 
 type Props = { params: Promise<{ slug: string }> };
 
-const DETAIL_SLUGS = new Set(["empowerment", "mosques", "partners-development"]);
-
 export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
-  return focusAreas.map((area) => ({ slug: area.slug }));
+  const areas = await getFocusAreas();
+  return areas.map((area) => ({ slug: area.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const area = focusAreas.find((a) => a.slug === slug);
+  const areas = await getFocusAreas();
+  const area = areas.find((a) => a.slug === slug);
   if (!area) return { title: "مجال غير موجود", robots: { index: false, follow: true } };
-  const detail = DETAIL_SLUGS.has(slug) ? await getFocusAreaDetail(slug) : null;
-  const title = detail?.title || area.name;
-  const description = detail?.intro || area.shortDesc;
+  const detail = await getFocusAreaDetail(slug);
+  const title = detail?.title || area.name.ar;
+  const description = detail?.intro || area.desc.ar;
   const url = `/focus-areas/${slug}`;
   return {
     title,
@@ -36,27 +35,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function FocusAreaDetailPage({ params }: Props) {
   const { slug } = await params;
-  const area = focusAreas.find((a) => a.slug === slug);
+  const areas = await getFocusAreas();
+  const area = areas.find((a) => a.slug === slug);
   if (!area) notFound();
 
-  if (DETAIL_SLUGS.has(slug)) {
-    const d = await getFocusAreaDetail(slug);
-    if (d) {
-      return (
-        <main dir="rtl" data-nav-surface="light">
-          <IntroSection title={d.title} intro={d.intro} />
+  const d = await getFocusAreaDetail(slug);
+  const hasDetail =
+    !!d &&
+    (!!d.intro ||
+      d.carousel.slides.length > 0 ||
+      d.stats.items.length > 0 ||
+      d.programs.cards.length > 0);
+
+  if (d && hasDetail) {
+    return (
+      <main dir="rtl" data-nav-surface="light">
+        <IntroSection title={d.title} intro={d.intro} />
+        {d.carousel.slides.length > 0 && (
           <CarouselSection heading={d.carousel.heading} slides={d.carousel.slides} />
+        )}
+        {d.stats.items.length > 0 && (
           <StatsSection items={d.stats.items} image={d.stats.image} />
+        )}
+        {d.programs.cards.length > 0 && (
           <ProgramsSection heading={d.programs.heading} cards={d.programs.cards} />
-        </main>
-      );
-    }
+        )}
+      </main>
+    );
   }
 
   return (
     <PagePlaceholder
-      title={area.name}
-      description={area.shortDesc}
+      title={area.name.ar}
+      description={area.desc.ar}
       eyebrow="مجال التركيز"
       backHref="/focus-areas"
       backLabel="جميع المجالات"

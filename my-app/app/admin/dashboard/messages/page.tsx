@@ -1,6 +1,7 @@
-import { Mail, MailOpen, Phone, Trash2 } from "lucide-react";
+import { Mail, MailOpen, Phone } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
+import { DeleteButton } from "@/components/admin/delete-button";
 import { deleteMessage, setMessageRead } from "./actions";
 
 type Row = {
@@ -70,11 +71,7 @@ export default async function MessagesPage() {
                       {m.is_read ? t.messages.markUnread : t.messages.markRead}
                     </button>
                   </form>
-                  <form action={deleteMessage.bind(null, m.id)}>
-                    <button className="inline-flex items-center gap-1 rounded-md border border-destructive/40 px-2 py-1 text-xs text-destructive hover:bg-destructive/5">
-                      <Trash2 className="size-3.5" /> {t.common.delete}
-                    </button>
-                  </form>
+                  <DeleteButton action={deleteMessage.bind(null, m.id)} />
                 </div>
               </div>
               <p className="mt-3 whitespace-pre-wrap text-sm text-foreground/90" dir="auto">{m.message}</p>

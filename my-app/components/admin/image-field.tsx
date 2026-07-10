@@ -14,11 +14,13 @@ export function ImageField({
   label,
   defaultValue = "",
   folder = "uploads",
+  required = false,
 }: {
   name: string;
   label: string;
   defaultValue?: string;
   folder?: string;
+  required?: boolean;
 }) {
   const [url, setUrl] = useState(defaultValue);
   const [busy, setBusy] = useState(false);
@@ -48,7 +50,10 @@ export function ImageField({
 
   return (
     <div className="flex flex-col gap-2">
-      <span className="text-sm font-medium">{label}</span>
+      <span className="text-sm font-medium">
+        {label}
+        {required && <span className="text-destructive"> *</span>}
+      </span>
       <input type="hidden" name={name} value={url} readOnly />
 
       <div className="flex items-start gap-3">
@@ -90,6 +95,8 @@ export function ImageField({
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="or paste an image URL / path"
+            required={required}
+            aria-label={label}
             className="w-72 rounded-md border px-2 py-1 text-xs"
           />
           {error && <span className="text-xs text-destructive">{error}</span>}

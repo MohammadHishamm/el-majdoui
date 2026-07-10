@@ -43,15 +43,38 @@ function CloseIcon({ className = "h-3.5 w-3.5 shrink-0" }: { className?: string 
 
 const HEADER_H = 112;
 
-const dropdownOpenClasses = [
-  "visible opacity-100",
-  "[clip-path:inset(0_0_0%_0)]",
-].join(" ");
+// Friendly easeOutExpo-ish curve for a soft, settling slide-down.
+const DROPDOWN_EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
+const DROPDOWN_MS = 320;
 
-const dropdownClosedClasses = [
-  "invisible opacity-0",
-  "[clip-path:inset(0_0_100%_0)]",
-].join(" ");
+/** Inline animation styles for the full-width slide-down panels (nav + search). */
+function panelStyle(isOpen: boolean): React.CSSProperties {
+  return {
+    backgroundColor: HEADER_SOLID_BG,
+    opacity: isOpen ? 1 : 0,
+    transform: isOpen ? "translateY(0)" : "translateY(-8px)",
+    clipPath: isOpen ? "inset(0 0 0% 0)" : "inset(0 0 100% 0)",
+    visibility: isOpen ? "visible" : "hidden",
+    transition: [
+      `opacity ${DROPDOWN_MS}ms ${DROPDOWN_EASE}`,
+      `transform ${DROPDOWN_MS}ms ${DROPDOWN_EASE}`,
+      `clip-path ${DROPDOWN_MS}ms ${DROPDOWN_EASE}`,
+      // Keep it visible through the whole close animation, then hide.
+      `visibility 0s linear ${isOpen ? "0s" : `${DROPDOWN_MS}ms`}`,
+    ].join(", "),
+    willChange: "opacity, transform",
+  };
+}
+
+/** Inline animation styles for the staggered inner items. */
+function itemStyle(isOpen: boolean, delayMs: number): React.CSSProperties {
+  return {
+    opacity: isOpen ? 1 : 0,
+    transform: isOpen ? "translateY(0)" : "translateY(10px)",
+    transition: `opacity 300ms ${DROPDOWN_EASE}, transform 300ms ${DROPDOWN_EASE}, color 200ms ease-out`,
+    transitionDelay: isOpen ? `${delayMs}ms` : "0ms",
+  };
+}
 
 export function Header() {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
@@ -214,28 +237,28 @@ export function Header() {
 
                   {item.children && (
                     <div
-                      className={[
-                        "absolute left-0 right-0 top-0 z-1",
-                        "transition-all duration-200 ease-out",
-                        isOpen ? dropdownOpenClasses : dropdownClosedClasses,
-                      ].join(" ")}
-                      style={{ backgroundColor: HEADER_SOLID_BG }}
+                      className="absolute left-0 right-0 top-0 z-1"
+                      style={panelStyle(isOpen)}
                       aria-hidden={!isOpen}
                     >
                       <div style={{ paddingTop: HEADER_H }}>
                         <div className="mx-auto max-w-[1280px] px-6 pt-5 pb-7">
-                          <p className={`${dropdownTextAlign} text-[18px] font-bold text-white`}>
+                          <p
+                            className={`${dropdownTextAlign} text-[18px] font-bold text-white`}
+                            style={itemStyle(isOpen, 70)}
+                          >
                             {locale === "en" ? (item.labelEn ?? item.label) : item.label}
                           </p>
                           <div className="my-4 h-px w-full bg-white/20" />
                           <div className="flex justify-start">
                             <div className={`min-w-[240px] ${dropdownTextAlign}`}>
-                              {item.children.map((child) => (
+                              {item.children.map((child, childIndex) => (
                                 <Link
                                   key={child.href}
                                   href={child.href}
                                   onClick={() => setOpenMenu(null)}
-                                  className={`block py-[9px] text-[15px] text-white/80 transition-colors hover:text-accent dark:hover:text-[#00B5C2] ${dropdownTextAlign}`}
+                                  className={`block py-[9px] text-[15px] text-white/80 transition-colors hover:text-[#00B5C2] ${dropdownTextAlign}`}
+                                  style={itemStyle(isOpen, 110 + childIndex * 45)}
                                 >
                                   {locale === "en" ? (child.labelEn ?? child.label) : child.label}
                                 </Link>
@@ -281,12 +304,8 @@ export function Header() {
         {/* Search dropdown — same slide-down panel as nav menus */}
         <div
           id="header-search-panel"
-          className={[
-            "absolute left-0 right-0 top-0 z-1",
-            "transition-all duration-200 ease-out",
-            searchOpen ? dropdownOpenClasses : dropdownClosedClasses,
-          ].join(" ")}
-          style={{ backgroundColor: HEADER_SOLID_BG }}
+          className="absolute left-0 right-0 top-0 z-1"
+          style={panelStyle(searchOpen)}
           aria-hidden={!searchOpen}
         >
           <div style={{ paddingTop: HEADER_H }}>

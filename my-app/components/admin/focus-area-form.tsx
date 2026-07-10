@@ -43,8 +43,8 @@ export function FocusAreaForm({
         <TextField name="bg_color" label={f.bgColor} defaultValue={d.bg_color ?? "#005761"} dir="ltr" />
         <TextField name="btn_text_color" label={f.btnTextColor} defaultValue={d.btn_text_color ?? "#005761"} dir="ltr" />
       </div>
-      <ImageField name="icon" label={f.icon} defaultValue={d.icon ?? ""} folder="focus-areas" />
-      <ImageField name="watermark" label={f.watermark} defaultValue={d.watermark ?? ""} folder="focus-areas" />
+      <ImageField name="icon" label={f.icon} defaultValue={d.icon ?? ""} folder="focus-areas" required />
+      <ImageField name="watermark" label={f.watermark} defaultValue={d.watermark ?? ""} folder="focus-areas" required />
       <Toggle name="published" label={f.published} defaultChecked={d.published ?? true} />
       <div>
         <SubmitButton label={submitLabel} />

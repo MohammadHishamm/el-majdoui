@@ -44,6 +44,9 @@ export const translations = {
       heading: "مجالات التركيز",
       subheading: "نعمل في ثلاثة مجالات رئيسية لتحقيق أثر مستدام",
       exploreCTA: "استعرض المبادرات",
+      prev: "السابق",
+      next: "التالي",
+      goTo: "الانتقال إلى المجموعة",
     },
     programs: {
       heading: "المجالات والمبادرات",
@@ -131,6 +134,9 @@ export const translations = {
       heading: "Focus Areas",
       subheading: "We work in three main areas to achieve sustainable impact",
       exploreCTA: "Explore Initiatives",
+      prev: "Previous",
+      next: "Next",
+      goTo: "Go to group",
     },
     programs: {
       heading: "Areas & Initiatives",

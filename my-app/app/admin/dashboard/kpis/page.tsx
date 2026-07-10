@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { BarChart3, Pencil, Plus, Trash2 } from "lucide-react";
+import { BarChart3, Pencil, Plus } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
 import { ReorderButtons } from "@/components/admin/reorder-buttons";
+import { DeleteButton } from "@/components/admin/delete-button";
 import { deleteKpi } from "./actions";
 
 type Row = { id: string; value: number; suffix: string; label_ar: string; published: boolean };
@@ -42,9 +43,7 @@ export default async function KpisListPage() {
               </div>
               <div className="flex items-center gap-2">
                 <Link href={`/admin/dashboard/kpis/${k.id}`} className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent"><Pencil className="size-3.5" /> {t.common.edit}</Link>
-                <form action={deleteKpi.bind(null, k.id)}>
-                  <button className="inline-flex items-center gap-1 rounded-md border border-destructive/40 px-2 py-1 text-xs text-destructive hover:bg-destructive/5"><Trash2 className="size-3.5" /> {t.common.delete}</button>
-                </form>
+                <DeleteButton action={deleteKpi.bind(null, k.id)} />
               </div>
             </div>
           ))

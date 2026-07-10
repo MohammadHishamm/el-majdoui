@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { Pencil, Plus, Trash2 } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
+import { DeleteButton } from "@/components/admin/delete-button";
 import { deleteNews, togglePublishNews } from "./actions";
 
 type Row = {
@@ -98,14 +99,7 @@ export default async function NewsListPage() {
                       >
                         <Pencil className="size-3.5" /> {t.common.edit}
                       </Link>
-                      <form action={deleteNews.bind(null, n.id)}>
-                        <button
-                          type="submit"
-                          className="inline-flex items-center gap-1 rounded-md border border-destructive/40 px-2 py-1 text-xs text-destructive hover:bg-destructive/5"
-                        >
-                          <Trash2 className="size-3.5" /> {t.common.delete}
-                        </button>
-                      </form>
+                      <DeleteButton action={deleteNews.bind(null, n.id)} />
                     </div>
                   </td>
                 </tr>

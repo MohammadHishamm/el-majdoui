@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { FileText, Pencil, Plus, Trash2 } from "lucide-react";
+import { FileText, Pencil, Plus } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
 import { ReorderButtons } from "@/components/admin/reorder-buttons";
+import { DeleteButton } from "@/components/admin/delete-button";
 import { deletePolicy } from "./actions";
 
 type Row = { id: string; title_ar: string; category: string; version: string | null; published: boolean };
@@ -47,9 +48,7 @@ export default async function PoliciesListPage() {
               </div>
               <div className="flex items-center gap-2">
                 <Link href={`/admin/dashboard/policies/${p.id}`} className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent"><Pencil className="size-3.5" /> {t.common.edit}</Link>
-                <form action={deletePolicy.bind(null, p.id)}>
-                  <button className="inline-flex items-center gap-1 rounded-md border border-destructive/40 px-2 py-1 text-xs text-destructive hover:bg-destructive/5"><Trash2 className="size-3.5" /> {t.common.delete}</button>
-                </form>
+                <DeleteButton action={deletePolicy.bind(null, p.id)} />
               </div>
             </div>
           ))

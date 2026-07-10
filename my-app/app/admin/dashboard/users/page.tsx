@@ -1,9 +1,10 @@
 import { redirect } from "next/navigation";
-import { Trash2, UserPlus } from "lucide-react";
+import { UserPlus } from "lucide-react";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { getCurrentProfile, ROLE_LABELS, type AppRole } from "@/lib/auth";
 import { getAdminT } from "@/lib/admin-locale";
 import { TextField, SelectField, SubmitButton } from "@/components/admin/fields";
+import { DeleteButton } from "@/components/admin/delete-button";
 import { createUser, deleteUser, updateUserRole } from "./actions";
 
 type ProfileRow = {
@@ -84,11 +85,7 @@ export default async function UsersPage() {
                       {u.id === me.id ? (
                         <span className="text-xs text-muted-foreground">{ROLE_LABELS[u.role]} ({t.common.you})</span>
                       ) : (
-                        <form action={deleteUser.bind(null, u.id)}>
-                          <button className="inline-flex items-center gap-1 rounded-md border border-destructive/40 px-2 py-1 text-xs text-destructive hover:bg-destructive/5">
-                            <Trash2 className="size-3.5" /> {t.common.delete}
-                          </button>
-                        </form>
+                        <DeleteButton action={deleteUser.bind(null, u.id)} />
                       )}
                     </div>
                   </td>

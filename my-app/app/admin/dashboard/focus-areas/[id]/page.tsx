@@ -8,12 +8,16 @@ import { FocusAreaForm, type FocusAreaValues } from "@/components/admin/focus-ar
 
 export default async function EditFocusAreaPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ error?: string }>;
 }) {
   const { id } = await params;
+  const { error } = await searchParams;
   const supabase = await createClient();
   const { t } = await getAdminT();
+  const errorMsg = error === "slug_taken" ? t.common.slugTaken : error ? t.common.saveError : null;
   const { data } = await supabase.from("focus_areas").select("*").eq("id", id).single();
   if (!data) notFound();
 
@@ -25,6 +29,11 @@ export default async function EditFocusAreaPage({
         </Link>
         <h1 className="mt-2 text-xl font-semibold">{t.focus.editArea}</h1>
       </div>
+      {errorMsg && (
+        <p className="rounded-md border border-destructive/40 bg-destructive/5 p-3 text-sm text-destructive">
+          {errorMsg}
+        </p>
+      )}
       <FocusAreaForm action={updateFocusArea.bind(null, id)} defaults={data as FocusAreaValues} submitLabel={t.common.save} />
     </div>
   );

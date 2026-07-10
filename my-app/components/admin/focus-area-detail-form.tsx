@@ -33,16 +33,19 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-export function FocusAreaDetailForm({
-  action,
+/**
+ * The editable "detail page" sections (intro, carousel, stats, program cards)
+ * as a set of fields + hidden inputs, without an enclosing <form>. Reused by
+ * the standalone detail editor and the combined "new focus area" form so the
+ * detail page is always authored together with the card. All image inputs are
+ * required.
+ */
+export function FocusAreaDetailFields({
   defaults = {},
   programOptions = [],
-  submitLabel = "Save",
 }: {
-  action: (formData: FormData) => void;
   defaults?: DetailValues;
   programOptions?: ProgramOption[];
-  submitLabel?: string;
 }) {
   const d = defaults;
   const { t } = useAdminT();
@@ -58,7 +61,7 @@ export function FocusAreaDetailForm({
   const editI = (fn: (x: ProgramItem[]) => void) => setItems((p) => { const n = structuredClone(p); fn(n); return n; });
 
   return (
-    <form action={action} className="grid max-w-3xl gap-6">
+    <>
       <input type="hidden" name="slides" value={JSON.stringify(slides)} />
       <input type="hidden" name="stats_items" value={JSON.stringify(stats)} />
       <input type="hidden" name="stats_image" value={statsImage} />
@@ -86,8 +89,8 @@ export function FocusAreaDetailForm({
               </div>
               <input className={inp} dir="rtl" placeholder={f.slideLabel} value={s.label_ar} onChange={(e) => editS((x) => { x[i].label_ar = e.target.value; })} />
               <div className="mt-2 flex flex-wrap gap-4">
-                <InlineUpload value={s.image_right} onChange={(u) => editS((x) => { x[i].image_right = u; })} folder="focus-detail" label={f.imageRight} />
-                <InlineUpload value={s.image_left} onChange={(u) => editS((x) => { x[i].image_left = u; })} folder="focus-detail" label={f.imageLeft} />
+                <InlineUpload value={s.image_right} onChange={(u) => editS((x) => { x[i].image_right = u; })} folder="focus-detail" label={f.imageRight} required />
+                <InlineUpload value={s.image_left} onChange={(u) => editS((x) => { x[i].image_left = u; })} folder="focus-detail" label={f.imageLeft} required />
               </div>
             </div>
           ))}
@@ -98,7 +101,7 @@ export function FocusAreaDetailForm({
       </Section>
 
       <Section title={f.secStats}>
-        <InlineUpload value={statsImage} onChange={setStatsImage} folder="focus-detail" label={f.statsImage} />
+        <InlineUpload value={statsImage} onChange={setStatsImage} folder="focus-detail" label={f.statsImage} required />
         <div className="flex flex-col gap-3">
           {stats.map((s, i) => (
             <div key={i} className="flex flex-wrap items-end gap-3 rounded-lg border bg-muted/30 p-3">
@@ -150,7 +153,24 @@ export function FocusAreaDetailForm({
           </button>
         </div>
       </Section>
+    </>
+  );
+}
 
+export function FocusAreaDetailForm({
+  action,
+  defaults = {},
+  programOptions = [],
+  submitLabel = "Save",
+}: {
+  action: (formData: FormData) => void;
+  defaults?: DetailValues;
+  programOptions?: ProgramOption[];
+  submitLabel?: string;
+}) {
+  return (
+    <form action={action} className="grid max-w-3xl gap-6">
+      <FocusAreaDetailFields defaults={defaults} programOptions={programOptions} />
       <div><SubmitButton label={submitLabel} /></div>
     </form>
   );

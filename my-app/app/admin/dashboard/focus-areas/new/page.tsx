@@ -1,11 +1,26 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { createFocusArea } from "../actions";
-import { FocusAreaForm } from "@/components/admin/focus-area-form";
+import { createClient } from "@/lib/supabase/server";
+import { createFocusAreaFull } from "../actions";
+import { FocusAreaCreateForm } from "@/components/admin/focus-area-create-form";
 import { getAdminT } from "@/lib/admin-locale";
 
-export default async function NewFocusAreaPage() {
+export default async function NewFocusAreaPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
   const { t } = await getAdminT();
+  const { error } = await searchParams;
+  const errorMsg = error === "slug_taken" ? t.common.slugTaken : error ? t.common.saveError : null;
+
+  const supabase = await createClient();
+  const { data: progs } = await supabase
+    .from("programs")
+    .select("slug, title_ar")
+    .order("sort_order");
+  const programOptions = (progs ?? []).map((p) => ({ slug: p.slug as string, title: p.title_ar as string }));
+
   return (
     <div className="flex flex-col gap-6">
       <div>
@@ -14,7 +29,12 @@ export default async function NewFocusAreaPage() {
         </Link>
         <h1 className="mt-2 text-xl font-semibold">{t.focus.newArea}</h1>
       </div>
-      <FocusAreaForm action={createFocusArea} submitLabel={t.focus.create} />
+      {errorMsg && (
+        <p className="rounded-md border border-destructive/40 bg-destructive/5 p-3 text-sm text-destructive">
+          {errorMsg}
+        </p>
+      )}
+      <FocusAreaCreateForm action={createFocusAreaFull} programOptions={programOptions} submitLabel={t.focus.create} />
     </div>
   );
 }

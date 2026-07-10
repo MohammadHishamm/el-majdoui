@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { Pencil, Plus, Trash2, Video, Images } from "lucide-react";
+import { Pencil, Plus, Video, Images } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
 import { ReorderButtons } from "@/components/admin/reorder-buttons";
+import { DeleteButton } from "@/components/admin/delete-button";
 import { deleteGalleryItem } from "./actions";
 
 type Row = {
@@ -71,11 +72,7 @@ export default async function GalleryListPage() {
                 >
                   <Pencil className="size-3.5" /> {t.common.edit}
                 </Link>
-                <form action={deleteGalleryItem.bind(null, g.id)}>
-                  <button className="inline-flex items-center gap-1 rounded-md border border-destructive/40 px-2 py-1 text-xs text-destructive hover:bg-destructive/5">
-                    <Trash2 className="size-3.5" /> {t.common.delete}
-                  </button>
-                </form>
+                <DeleteButton action={deleteGalleryItem.bind(null, g.id)} />
               </div>
             </div>
           ))

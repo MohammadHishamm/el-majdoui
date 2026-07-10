@@ -35,6 +35,7 @@ export function InlineUpload({
   accept = "image/*",
   recommendedSize,
   hint,
+  required = false,
   maxBytes = 3 * 1024 * 1024,
   maxDimension = 3000,
 }: {
@@ -43,6 +44,8 @@ export function InlineUpload({
   folder?: string;
   label?: string;
   accept?: string;
+  /** When true, the form can't be submitted until an image is provided. */
+  required?: boolean;
   /** Target size shown to the admin, e.g. "480 × 271 px". */
   recommendedSize?: string;
   /** Extra guidance line (what this image is / where it appears). */
@@ -108,12 +111,17 @@ export function InlineUpload({
           )}
         </span>
         <div className="flex flex-col gap-1">
-          {label && <span className="text-[11px] text-muted-foreground">{label}</span>}
+          {label && (
+            <span className="text-[11px] text-muted-foreground">
+              {label}
+              {required && <span className="text-destructive"> *</span>}
+            </span>
+          )}
           <div className="flex gap-1">
             <button type="button" onClick={() => ref.current?.click()} disabled={busy} className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent disabled:opacity-50">
               <Upload className="size-3.5" /> Upload
             </button>
-            <input value={value} onChange={(e) => onChange(e.target.value)} placeholder="or URL" className="w-40 rounded-md border px-2 py-1 text-[11px]" dir="ltr" />
+            <input value={value} onChange={(e) => onChange(e.target.value)} placeholder="or URL" required={required} aria-label={label} className="w-40 rounded-md border px-2 py-1 text-[11px]" dir="ltr" />
           </div>
         </div>
         <input ref={ref} type="file" accept={accept} className="hidden" onChange={(e) => { const file = e.target.files?.[0]; if (file) onPick(file); }} />

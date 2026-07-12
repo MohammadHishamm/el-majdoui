@@ -1,6 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
+
+// One-time flag set by the login form; consumed here so the splash plays a
+// single time after signing in, then never again on admin pages.
+export const ADMIN_SPLASH_FLAG = "am-admin-splash";
 
 // Brand logo markup, lifted verbatim from public/images/main-logos/AlMajdouie_Logo_RGB.SVG.
 // Rendered as one <svg>; the .am-wordmark <g> and .am-badge <path> are animated in place.
@@ -10,8 +15,32 @@ const LOGO_INNER = "<defs><clipPath id=\"am-wordmark-clip\"><rect x=\"0\" y=\"0\
  * Full-screen brand intro loader: the badge fades/scales in, the wordmark
  * slides into place and breathes, then the overlay fades out 2s after load.
  * Mounted once at the app root (app/layout.tsx).
+ *
+ * On /admin routes the splash is suppressed, except for one play right after
+ * login (signalled via sessionStorage by the login form).
  */
 export default function AlMajdouieLoader() {
+  const pathname = usePathname();
+  const isAdmin = pathname?.startsWith("/admin") ?? false;
+  const [adminSplash, setAdminSplash] = useState(false);
+
+  useEffect(() => {
+    if (!isAdmin) return;
+    try {
+      if (sessionStorage.getItem(ADMIN_SPLASH_FLAG)) {
+        sessionStorage.removeItem(ADMIN_SPLASH_FLAG);
+        setAdminSplash(true);
+      }
+    } catch {
+      // sessionStorage unavailable — leave the splash off
+    }
+  }, [isAdmin, pathname]);
+
+  if (isAdmin && !adminSplash) return null;
+  return <Splash />;
+}
+
+function Splash() {
   const [isDone, setIsDone] = useState(false);
   const svgRef = useRef<SVGSVGElement>(null);
 

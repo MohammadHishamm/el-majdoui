@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { Loader2, Lock, Mail } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -16,12 +16,29 @@ import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { login, type LoginState } from "@/app/admin/actions";
 import { useAdminT } from "@/components/admin/i18n";
+import { ADMIN_SPLASH_FLAG } from "@/components/AlMajdouieLoader";
 
 const initialState: LoginState = { error: null };
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const [state, formAction, pending] = useActionState(login, initialState);
   const { t } = useAdminT();
+
+  // Arm the one-time post-login splash; on success the action redirects to
+  // the dashboard where the loader consumes the flag. Disarm on failure.
+  const armedFormAction = (formData: FormData) => {
+    try {
+      sessionStorage.setItem(ADMIN_SPLASH_FLAG, "1");
+    } catch {}
+    formAction(formData);
+  };
+
+  useEffect(() => {
+    if (!state.error) return;
+    try {
+      sessionStorage.removeItem(ADMIN_SPLASH_FLAG);
+    } catch {}
+  }, [state.error]);
 
   return (
     <div className={cn("w-full", className)} {...props}>
@@ -33,7 +50,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
           </CardDescription>
         </CardHeader>
         <CardContent className="px-8 py-10 sm:px-10 sm:py-12 lg:px-12 lg:py-14">
-          <form action={formAction}>
+          <form action={armedFormAction}>
             <FieldGroup className="gap-8">
               <Field className="gap-2.5">
                 <FieldLabel htmlFor="email" className="text-base font-medium text-[#0a1f2d] dark:text-foreground">

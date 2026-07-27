@@ -6,10 +6,23 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from '../economic/TargetGroupsSection.module.css';
 
-const LEFT_ARROW = '/images/economic/LeftArrow.svg';
-const RIGHT_ARROW = '/images/economic/RightArrow.svg';
 const AUTOPLAY_MS = 5000;
 const SLIDE_OFFSET = 72;
+
+/* Inlined so the button plate follows the section accent (currentColor)
+   instead of the #005761 baked into the .svg files. */
+function ArrowIcon({ direction, className }) {
+  const flip = direction === 'right';
+  return (
+    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" className={className} aria-hidden="true">
+      <rect width="50" height="50" rx="10" fill="currentColor" />
+      <g transform={flip ? 'matrix(-1 0 0 1 50 0)' : undefined} stroke="white" strokeWidth="1.66587" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M24.9993 39.5827L10.416 24.9993L24.9993 10.416" />
+        <path d="M39.5827 25H10.416" />
+      </g>
+    </svg>
+  );
+}
 
 function getSlideLayer(container, index) {
   return container?.querySelector(`[data-slide-index="${index}"]`) ?? null;
@@ -110,8 +123,8 @@ export default function CarouselSection({ heading = '', slides = /** @type {any[
 
           <div className={styles.centerCard}>
             <button className={styles.arrowButton} onClick={handlePrev} aria-label="السابق">
-              <Image className={styles.arrowDesktop} src={LEFT_ARROW} alt="" width={50} height={50} />
-              <Image className={styles.arrowMobile} src={RIGHT_ARROW} alt="" width={50} height={50} />
+              <ArrowIcon direction="left" className={styles.arrowDesktop} />
+              <ArrowIcon direction="right" className={styles.arrowMobile} />
             </button>
 
             <div className={styles.centerContent} ref={centerTextRef}>
@@ -124,8 +137,8 @@ export default function CarouselSection({ heading = '', slides = /** @type {any[
             </div>
 
             <button className={styles.arrowButton} onClick={handleNext} aria-label="التالي">
-              <Image className={styles.arrowDesktop} src={RIGHT_ARROW} alt="" width={50} height={50} />
-              <Image className={styles.arrowMobile} src={LEFT_ARROW} alt="" width={50} height={50} />
+              <ArrowIcon direction="right" className={styles.arrowDesktop} />
+              <ArrowIcon direction="left" className={styles.arrowMobile} />
             </button>
           </div>
 

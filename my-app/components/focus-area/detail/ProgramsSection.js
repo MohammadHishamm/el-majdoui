@@ -7,8 +7,20 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from '../economic/ProgramsSection.module.css';
 
-const LINK_ARROW = '/images/economic/Icon.svg';
 const badgeStyle = { backgroundColor: 'rgba(255, 255, 255, 0.95)', color: '#005761' };
+
+/* Inlined so the arrow tracks the link color (currentColor) instead of the
+   #005761 baked into Icon.svg. */
+function LinkArrowIcon({ className }) {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className={className} aria-hidden="true">
+      <g stroke="currentColor" strokeWidth="1.33291" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M7.99721 12.6624L3.33203 7.99721L7.99721 3.33203" />
+        <path d="M12.6624 7.99756H3.33203" />
+      </g>
+    </svg>
+  );
+}
 
 export default function ProgramsSection({ heading = '', cards = /** @type {any[]} */ ([]) }) {
   const containerRef = useRef(null);
@@ -76,7 +88,7 @@ export default function ProgramsSection({ heading = '', cards = /** @type {any[]
                   </p>
                   <span className={styles.link}>
                     <span>اعرف أكثر عن المبادرة</span>
-                    <Image src={LINK_ARROW} alt="" width={16} height={16} className={styles.linkIcon} />
+                    <LinkArrowIcon className={styles.linkIcon} />
                   </span>
                 </div>
               </Link>

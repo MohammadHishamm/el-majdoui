@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PagePlaceholder } from "@/components/ui/PagePlaceholder";
@@ -8,6 +9,12 @@ import StatsSection from "@/components/focus-area/detail/StatsSection";
 import ProgramsSection from "@/components/focus-area/detail/ProgramsSection";
 
 type Props = { params: Promise<{ slug: string }> };
+
+/* Per-slug accent for section titles, stat numbers, carousel controls and
+   the "اعرف أكثر" link. Slugs absent here keep the default palette. */
+const ACCENT_BY_SLUG: Record<string, { base: string; hover: string }> = {
+  mosques: { base: "#00B5C2", hover: "#008E99" },
+};
 
 export const dynamic = "force-dynamic";
 
@@ -47,9 +54,17 @@ export default async function FocusAreaDetailPage({ params }: Props) {
       d.stats.items.length > 0 ||
       d.programs.cards.length > 0);
 
+  const accent = ACCENT_BY_SLUG[slug];
+  const accentStyle = accent
+    ? ({
+        "--focus-accent": accent.base,
+        "--focus-accent-hover": accent.hover,
+      } as CSSProperties)
+    : undefined;
+
   if (d && hasDetail) {
     return (
-      <main dir="rtl" data-nav-surface="light">
+      <main dir="rtl" data-nav-surface="light" style={accentStyle}>
         <IntroSection title={d.title} intro={d.intro} />
         {d.carousel.slides.length > 0 && (
           <CarouselSection heading={d.carousel.heading} slides={d.carousel.slides} />

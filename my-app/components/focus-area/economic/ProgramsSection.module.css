@@ -16,7 +16,7 @@
   font-weight: 900;
   font-size: 40px;
   line-height: 40px;
-  color: var(--heading);
+  color: var(--focus-accent, var(--heading));
   text-align: right;
   margin-bottom: 48px;
 }
@@ -106,7 +106,7 @@
   font-weight: 700;
   font-size: 20px;
   line-height: 28px;
-  color: var(--heading);
+  color: var(--focus-accent, var(--heading));
   margin-bottom: 12px;
 }
 
@@ -132,7 +132,7 @@
   font-weight: 700;
   font-size: 15px;
   line-height: 21px;
-  color: var(--heading);
+  color: var(--focus-accent, var(--heading));
   text-decoration: none;
   width: fit-content;
   transition: color 0.2s ease;
@@ -145,7 +145,7 @@
 
 /* Hover effects for link */
 .link:hover {
-  color: #00363D;
+  color: var(--focus-accent-hover, #00363d);
 }
 
 .link:hover .linkIcon {

@@ -143,10 +143,15 @@
 }
 
 /* ---- Arrow Buttons ---- */
+/* Rounded plate behind the arrow glyph. Uses fill (not currentColor) so the
+   dark-mode inline-SVG color override in globals.css can't flatten it. */
+.arrowPlate {
+  fill: var(--focus-accent, #005761);
+}
+
 .arrowButton {
   background: none;
   border: none;
-  color: var(--focus-accent, #005761); /* drives the inline arrow SVG plate */
   padding: 0;
   cursor: pointer;
   transition: opacity 0.2s ease;

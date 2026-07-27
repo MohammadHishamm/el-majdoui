@@ -9,14 +9,16 @@ import styles from '../economic/TargetGroupsSection.module.css';
 const AUTOPLAY_MS = 5000;
 const SLIDE_OFFSET = 72;
 
-/* Inlined so the button plate follows the section accent (currentColor)
-   instead of the #005761 baked into the .svg files. */
+/* Inlined so the button plate follows the section accent instead of the
+   #005761 baked into the .svg files. The plate is filled via .arrowPlate
+   rather than currentColor: globals.css forces color:#fff on aria-hidden
+   inline SVGs in dark mode, which would wash the plate out. */
 function ArrowIcon({ direction, className }) {
   const flip = direction === 'right';
   return (
     <svg width="50" height="50" viewBox="0 0 50 50" fill="none" className={className} aria-hidden="true">
-      <rect width="50" height="50" rx="10" fill="currentColor" />
-      <g transform={flip ? 'matrix(-1 0 0 1 50 0)' : undefined} stroke="white" strokeWidth="1.66587" strokeLinecap="round" strokeLinejoin="round">
+      <rect className={styles.arrowPlate} width="50" height="50" rx="10" />
+      <g transform={flip ? 'matrix(-1 0 0 1 50 0)' : undefined} stroke="#FFFFFF" strokeWidth="1.66587" strokeLinecap="round" strokeLinejoin="round">
         <path d="M24.9993 39.5827L10.416 24.9993L24.9993 10.416" />
         <path d="M39.5827 25H10.416" />
       </g>

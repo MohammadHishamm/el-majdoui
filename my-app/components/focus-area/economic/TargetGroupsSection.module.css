@@ -171,7 +171,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: var(--panel-border);
+  background-color: var(--focus-carousel-dot, var(--panel-border));
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -179,7 +179,7 @@
 }
 
 .dotActive {
-  background-color: var(--focus-accent, var(--heading));
+  background-color: var(--focus-carousel-dot-active, var(--focus-accent, var(--heading)));
   transform: scale(1.3);
 }
 

@@ -124,7 +124,7 @@ export default function CarouselSection({ heading = '', slides = /** @type {any[
           </div>
 
           <div className={styles.centerCard}>
-            <button className={styles.arrowButton} onClick={handlePrev} aria-label="السابق">
+            <button className={styles.arrowButton} onClick={handleNext} aria-label="التالي">
               <ArrowIcon direction="left" className={styles.arrowDesktop} />
               <ArrowIcon direction="right" className={styles.arrowMobile} />
             </button>
@@ -138,7 +138,7 @@ export default function CarouselSection({ heading = '', slides = /** @type {any[
               </div>
             </div>
 
-            <button className={styles.arrowButton} onClick={handleNext} aria-label="التالي">
+            <button className={styles.arrowButton} onClick={handlePrev} aria-label="السابق">
               <ArrowIcon direction="right" className={styles.arrowDesktop} />
               <ArrowIcon direction="left" className={styles.arrowMobile} />
             </button>

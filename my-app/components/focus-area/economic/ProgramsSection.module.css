@@ -37,7 +37,7 @@
   max-width: 355px;
   min-width: 280px;
   background-color: var(--panel);
-  border: 1.09px solid var(--panel-border);
+  border: 1.09px solid var(--focus-accent, var(--panel-border));
   border-radius: 20px;
   overflow: hidden;
   display: flex;
@@ -57,7 +57,7 @@
   height: 200px;
   position: relative;
   overflow: hidden;
-  border-bottom: 1.09px solid var(--panel-border);
+  border-bottom: 1.09px solid var(--focus-accent, var(--panel-border));
 }
 
 /* ---- Badge Tags ---- */
@@ -73,6 +73,8 @@
   line-height: 18px;
   text-align: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+  background-color: rgba(255, 255, 255, 0.95);
+  color: var(--focus-accent, #005761);
 }
 
 /* Tag Color Configurations */

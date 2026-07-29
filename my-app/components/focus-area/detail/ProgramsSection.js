@@ -7,8 +7,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from '../economic/ProgramsSection.module.css';
 
-const badgeStyle = { backgroundColor: 'rgba(255, 255, 255, 0.95)', color: '#005761' };
-
 /* Inlined so the arrow tracks the link color (currentColor) instead of the
    #005761 baked into Icon.svg. */
 function LinkArrowIcon({ className }) {
@@ -66,7 +64,7 @@ export default function ProgramsSection({ heading = '', cards = /** @type {any[]
                     <Image src={card.image} alt={card.title || ''} fill sizes="(max-width: 1120px) 100vw, 355px" style={{ objectFit: 'cover' }} />
                   )}
                   {card.tag && (
-                    <span className={styles.badge} style={badgeStyle}>{card.tag}</span>
+                    <span className={styles.badge}>{card.tag}</span>
                   )}
                 </div>
                 <div className={styles.cardBody}>

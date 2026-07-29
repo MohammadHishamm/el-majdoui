@@ -44,7 +44,7 @@
 .statCard {
   background-color: var(--panel);
   border-radius: 20px;
-  border: 1.09px solid var(--panel-border);
+  border: 1.09px solid var(--focus-accent, var(--panel-border));
   padding: 28px;
   display: flex;
   flex-direction: column;

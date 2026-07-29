@@ -36,6 +36,10 @@
   /* مساجد المجدوعي sub-brand — headings/labels on the brand-identity page */
   --mosque-accent: #883c4e;
 
+  /* Focus area detail: مساجد المجدوعي accent (titles, stats, carousel, links) */
+  --focus-mosques-accent: #883c4e;
+  --focus-mosques-accent-hover: #6e2f3e;
+
   /* Almajdouie Figma design tokens */
   --primary: oklch(0.205 0 0);
   --accent: oklch(0.97 0 0);
@@ -264,6 +268,12 @@ body {
   color: #ffffff;
 }
 
+/* Focus area detail — per-slug accent overrides (see focus-areas/[slug]/page.tsx) */
+main[data-focus-accent="mosques"] {
+  --focus-accent: var(--focus-mosques-accent);
+  --focus-accent-hover: var(--focus-mosques-accent-hover);
+}
+
 /* Smooth light↔dark transition for surfaces, text and borders.
    Guarded so it never animates the very first paint (no-flash script sets .dark synchronously). */
 .theme-ready :where(section, header, footer, main, aside, article, div, a, button, p, h1, h2, h3, h4, span, li, svg, input, textarea) {
@@ -377,6 +387,9 @@ p {
 
   /* Lightened so the maroon sub-brand stays readable on dark surfaces */
   --mosque-accent: #d79aa8;
+
+  --focus-mosques-accent: #aa946f;
+  --focus-mosques-accent-hover: #c4ab82;
 
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);

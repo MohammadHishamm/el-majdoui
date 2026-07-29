@@ -8,6 +8,7 @@ import styles from '../economic/TargetGroupsSection.module.css';
 
 const AUTOPLAY_MS = 5000;
 const SLIDE_OFFSET = 72;
+const TITLE_BANNER = '/images/identity/banner-beside-title.png';
 
 /* Inlined so the button plate follows the section accent instead of the
    #005761 baked into the .svg files. The plate is filled via .arrowPlate
@@ -103,14 +104,19 @@ export default function CarouselSection({ heading = '', slides = /** @type {any[
   return (
     <section ref={sectionRef} className={styles.section} data-nav-surface="light">
       <div className={styles.stickyViewport}>
-        <h2 className={styles.heading}>
-          {headingWords.map((word, idx) => (
-            <span key={idx} className="animate-heading-word-s2" style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
-              {word}
-              {idx < headingWords.length - 1 ? ' ' : ''}
-            </span>
-          ))}
-        </h2>
+        <div className={styles.headingRow}>
+          <h2 className={styles.heading}>
+            {headingWords.map((word, idx) => (
+              <span key={idx} className="animate-heading-word-s2" style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+                {word}
+                {idx < headingWords.length - 1 ? ' ' : ''}
+              </span>
+            ))}
+          </h2>
+          <div className={styles.titleBanner}>
+            <Image src={TITLE_BANNER} alt="" width={387} height={58} className={styles.titleBannerImg} aria-hidden />
+          </div>
+        </div>
 
         <div className={`${styles.carousel} animate-carousel-s2`} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
           <div ref={rightImgRef} className={styles.sideImage}>

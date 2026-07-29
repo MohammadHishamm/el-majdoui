@@ -1,11 +1,17 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from '../economic/EconomicEmpowermentSection.module.css';
 
-export default function IntroSection({ title = '', intro = '' }) {
+const MOSQUES_LOGO = {
+  light: '/images/identity/masaged-majdoui-icon-light.svg',
+  dark: '/images/identity/masaged-majdoui-icon-dark.svg',
+};
+
+export default function IntroSection({ title = '', intro = '', slug = '' }) {
   const containerRef = useRef(null);
   const words = (intro || '').split(' ');
 
@@ -29,11 +35,32 @@ export default function IntroSection({ title = '', intro = '' }) {
   }, [intro]);
 
   return (
-    <section ref={containerRef} className="-mt-28 bg-surface pt-28" data-nav-surface="light">
-      <div className={styles.section}>
+    <section ref={containerRef} className={`-mt-28 bg-surface ${slug === 'mosques' ? 'pt-24' : 'pt-28'}`} data-nav-surface="light">
+      <div className={`${styles.section} ${slug === 'mosques' ? styles.sectionMosques : ''}`}>
         <div className="animate-section-content" style={{ width: '100%' }}>
           <p className={`${styles.label} animate-title`}>مجالات التركيز</p>
-          <h2 className={`${styles.heading} animate-title`}>{title}</h2>
+          {slug === 'mosques' ? (
+            <div className={`${styles.mosquesLogo} animate-title`}>
+              <Image
+                src={MOSQUES_LOGO.light}
+                alt={title}
+                width={380}
+                height={222}
+                priority
+                className={`${styles.mosquesLogoImg} block dark:hidden`}
+              />
+              <Image
+                src={MOSQUES_LOGO.dark}
+                alt={title}
+                width={380}
+                height={222}
+                priority
+                className={`${styles.mosquesLogoImg} hidden dark:block`}
+              />
+            </div>
+          ) : (
+            <h2 className={`${styles.heading} animate-title`}>{title}</h2>
+          )}
           <hr className={styles.divider} />
           <p className={styles.description}>
             {words.map((word, idx) => (

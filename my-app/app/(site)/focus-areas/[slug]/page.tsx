@@ -57,7 +57,7 @@ export default async function FocusAreaDetailPage({ params }: Props) {
   if (d && hasDetail) {
     return (
       <main dir="rtl" data-nav-surface="light" data-focus-accent={accentSlug}>
-        <IntroSection title={d.title} intro={d.intro} />
+        <IntroSection title={d.title} intro={d.intro} slug={slug} />
         {d.carousel.slides.length > 0 && (
           <CarouselSection heading={d.carousel.heading} slides={d.carousel.slides} />
         )}

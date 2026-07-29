@@ -23,7 +23,18 @@
   padding: 80px 0;
 }
 
-/* ---- Section heading ---- */
+/* ---- Section heading + beside banner ---- */
+.headingRow {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 24px;
+  margin-bottom: 48px;
+}
+
 .heading {
   font-family: var(--font-itf-rayat), sans-serif;
   font-weight: 900;
@@ -32,10 +43,24 @@
   letter-spacing: 0px;
   color: var(--focus-accent, var(--heading));
   text-align: right;
-  margin-bottom: 48px;
+  margin: 0;
+}
+
+.titleBanner {
+  display: flex;
+  width: 386.668px;
+  height: 58px;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 20 / 3;
+  flex-shrink: 0;
+  transform: translateY(1px);
+}
+
+.titleBannerImg {
   width: 100%;
-  max-width: 1200px;
-  padding: 0 24px;
+  height: 100%;
+  object-fit: contain;
 }
 
 /* ---- Carousel row: rightImg | centerCard | leftImg ---- */
@@ -197,6 +222,15 @@
     overflow: hidden;
   }
 
+  .headingRow {
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+    padding: 0 20px;
+  }
+
   .heading {
     display: flex;
     flex-wrap: wrap;
@@ -204,8 +238,12 @@
     gap: 12px 0.35em;
     font-size: 26px;
     line-height: 1.45;
-    margin-bottom: 28px;
-    padding: 0 20px;
+  }
+
+  .titleBanner {
+    width: min(100%, 386.668px);
+    height: auto;
+    transform: translateY(10px);
   }
 
   .carousel {

@@ -7,6 +7,8 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from '../economic/ProgramsSection.module.css';
 
+const TITLE_BANNER = '/images/identity/banner-beside-title.png';
+
 /* Inlined so the arrow tracks the link color (currentColor) instead of the
    #005761 baked into Icon.svg. */
 function LinkArrowIcon({ className }) {
@@ -44,14 +46,19 @@ export default function ProgramsSection({ heading = '', cards = /** @type {any[]
   return (
     <section ref={containerRef} className={styles.section}>
       <div className="animate-section-content-s4" style={{ width: '100%' }}>
-        <h2 className={styles.heading}>
-          {headingWords.map((word, idx) => (
-            <span key={idx} className="animate-heading-word-s4" style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
-              {word}
-              {idx < headingWords.length - 1 ? ' ' : ''}
-            </span>
-          ))}
-        </h2>
+        <div className={styles.headingRow}>
+          <h2 className={styles.heading}>
+            {headingWords.map((word, idx) => (
+              <span key={idx} className="animate-heading-word-s4" style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
+                {word}
+                {idx < headingWords.length - 1 ? ' ' : ''}
+              </span>
+            ))}
+          </h2>
+          <div className={styles.titleBanner}>
+            <Image src={TITLE_BANNER} alt="" width={387} height={58} className={styles.titleBannerImg} aria-hidden />
+          </div>
+        </div>
 
         <div className={styles.grid}>
           {cards.map((card, ci) => {

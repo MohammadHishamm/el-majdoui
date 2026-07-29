@@ -42,6 +42,39 @@
   margin: 0 0 32px 0;
 }
 
+/* Mosques focus area — compact intro with logo lockup */
+.sectionMosques {
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+
+.mosquesLogo {
+  position: relative;
+  width: 244px;
+  max-width: 100%;
+  aspect-ratio: 244 / 95;
+  overflow: hidden;
+  margin: 0 0 20px;
+  margin-left: auto;
+}
+
+.mosquesLogoImg {
+  position: absolute;
+  top: 0;
+  left: -27.869%;
+  width: 155.737%;
+  max-width: none;
+  height: auto;
+  aspect-ratio: 190 / 111;
+  transform: translateY(-31.081%);
+}
+
+@media (max-width: 768px) {
+  .sectionMosques {
+    padding-top: 48px;
+  }
+}
+
 /* ---- Description paragraph (full width, spreads across the line) ---- */
 .description {
   font-family: var(--font-itf-rayat), sans-serif;

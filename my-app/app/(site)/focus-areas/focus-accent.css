@@ -4,9 +4,13 @@ main[data-focus-accent="mosques"] {
   --focus-accent-hover: #6e2f3e;
   --focus-carousel-dot: #aa946f;
   --focus-carousel-dot-active: #883c4e;
+  --focus-badge-bg: #883c4e;
+  --focus-badge-text: #ffffff;
 }
 
 :is(.dark) main[data-focus-accent="mosques"] {
   --focus-accent: #aa946f;
   --focus-accent-hover: #c4ab82;
+  --focus-badge-bg: #aa946f;
+  --focus-badge-text: #883c4e;
 }

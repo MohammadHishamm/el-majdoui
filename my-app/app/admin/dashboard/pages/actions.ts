@@ -24,7 +24,8 @@ export async function updatePageContent(slug: string, form: FormData) {
     .from("page_content")
     .upsert({ slug, content }, { onConflict: "slug" });
   if (error) redirect(`/admin/dashboard/pages/${slug}?error=${encodeURIComponent(error.message)}`);
-  revalidatePath("/admin/dashboard/pages");
+  revalidatePath(`/admin/dashboard/pages/${slug}`);
   if (PUBLIC_PATH[slug]) revalidatePath(PUBLIC_PATH[slug]);
-  redirect("/admin/dashboard/pages");
+  /* There is no /admin/dashboard/pages index route — stay on the editor. */
+  redirect(`/admin/dashboard/pages/${slug}`);
 }

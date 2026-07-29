@@ -12,7 +12,10 @@ const DEFAULT_COLORS: Color[] = [
   { name: "الرمادي الناعم", hex: "#E5E7EB" },
 ];
 
-export function ColorSwatches({ colors }: { colors?: Color[] } = {}) {
+export function ColorSwatches({
+  colors,
+  hexClassName = "text-heading",
+}: { colors?: Color[]; hexClassName?: string } = {}) {
   const COLORS = colors && colors.length ? colors : DEFAULT_COLORS;
   const [copied, setCopied] = useState<string | null>(null);
 
@@ -37,7 +40,7 @@ export function ColorSwatches({ colors }: { colors?: Color[] } = {}) {
           <div className="flex flex-col gap-2 p-4">
             <p className="text-right text-[12px] leading-[18px] text-body-3">{color.name}</p>
             <div className="flex items-center justify-between">
-              <span className="text-[15px] font-bold leading-[22.5px] text-heading">
+              <span className={`text-[15px] font-bold leading-[22.5px] ${hexClassName}`}>
                 {color.hex}
               </span>
               <button

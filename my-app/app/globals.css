@@ -33,6 +33,9 @@
   --brand-cyan: #00b5c2;
   --brand-teal: #005761;
 
+  /* مساجد المجدوعي sub-brand — headings/labels on the brand-identity page */
+  --mosque-accent: #883c4e;
+
   /* Almajdouie Figma design tokens */
   --primary: oklch(0.205 0 0);
   --accent: oklch(0.97 0 0);
@@ -150,6 +153,7 @@
   --color-btn-2-bg: var(--btn-2-bg);
   --color-btn-2-stroke: var(--btn-2-stroke);
   --color-btn-2-text: var(--btn-2-text);
+  --color-mosque-accent: var(--mosque-accent);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -250,7 +254,7 @@ body {
   [src*="featured/"],
   [src*="who-we-are/"],
   [src*="vision/Icon"]
-):not([src*="logo"]):not([src*="Logo"]):not([src*="stats-"]):not([src*="horizontal-art"]) {
+):not([src*="logo"]):not([src*="Logo"]):not([src*="stats-"]):not([src*="horizontal-art"]):not(.icon-on-light) {
   filter: brightness(0) invert(1);
 }
 
@@ -370,6 +374,9 @@ p {
   --brand-blue: #33425e;
   --brand-cyan: #0e5259;
   --brand-teal: #0a2d33;
+
+  /* Lightened so the maroon sub-brand stays readable on dark surfaces */
+  --mosque-accent: #d79aa8;
 
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);

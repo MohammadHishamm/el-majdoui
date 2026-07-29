@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { FadeInUp } from "@/components/ui/fade-in-up";
-import { ColorSwatches } from "@/components/brand/ColorSwatches";
+import { BrandGuideTabs, type BrandGuide, type Color, type LogoCard } from "@/components/brand/BrandGuideTabs";
 import { getPageContent } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
@@ -12,16 +11,14 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-const DOWNLOAD_ICON = "/images/identity/download-icon.svg";
-
-type LogoLink = { text: string; href: string };
-type LogoCard = { image: string; label: string; variant: "light" | "dark"; links: LogoLink[] };
-type Color = { name: string; hex: string };
-
 const FALLBACK = {
   eyebrow: "المركز الإعلامي",
   title: "الهوية البصرية",
   intro: "دليلك الشامل لاستخدام عناصر الهوية البصرية لمؤسسة المجدوعي الخيرية، وتطبيقاتها المعتمدة في التغطيات الإعلامية.",
+  tabs_heading: "دليل الهوية",
+
+  /* مؤسسة المجدوعي الخيرية */
+  tab_label: "مؤسسة المجدوعي الخيرية",
   pdf_title: "تحميل دليل الهوية البصرية كاملاً (إصدار V2)",
   pdf_subtitle: "ملف PDF يحتوي على معايير الاستخدام الخطية والبصرية.",
   pdf_file: "/brand/almajdouie-visual-identity-v2.pdf",
@@ -31,17 +28,57 @@ const FALLBACK = {
     { image: "/images/identity/right-card.png", label: "الإصدار الأساسي · للخلفيات الفاتحة", variant: "light", links: [{ text: "تحميل SVG (للطباعة)", href: "/images/identity/logo-primary.svg" }, { text: "تحميل PNG (للمواقع والـ UI)", href: "/images/identity/right-card.png" }] },
     { image: "/images/identity/left-card.png", label: "الإصدار المعكوس · للخلفيات الداكنة", variant: "dark", links: [{ text: "تحميل SVG المعكوس", href: "/images/identity/logo-reversed.svg" }, { text: "تحميل PNG المعكوس", href: "/images/identity/left-card.png" }] },
   ] as LogoCard[],
-};
 
-function SectionHeading({ children }: { children: React.ReactNode }) {
-  return <h2 className="mb-8 text-right text-[24px] font-bold leading-[33px] text-heading">{children}</h2>;
-}
+  /* مساجد المجدوعي */
+  mosques_tab_label: "مساجد المجدوعي",
+  mosques_pdf_title: "تحميل دليل الهوية البصرية كاملاً (إصدار V2)",
+  mosques_pdf_subtitle: "ملف PDF يحتوي على معايير الاستخدام الخطية والبصرية.",
+  mosques_pdf_file: "/brand/almajdouie-mosques-visual-identity-v2.pdf",
+  mosques_logos_heading: "الشعار الرسمي واستخداماته",
+  mosques_colors_heading: "الألوان المعتمدة",
+  /* أي رابط بدون href لا يظهر في الصفحة */
+  mosques_logos: [
+    { image: "/images/identity/mosques-logo-primary.png", label: "الإصدار الأساسي · للخلفيات الفاتحة", variant: "light", links: [{ text: "تحميل SVG (للمطابع)", href: "/images/identity/primary-svg-mosque.svg" }, { text: "تحميل PNG (للمواقع والـ UI)", href: "/images/identity/mosques-logo-primary.png" }] },
+    { image: "/images/identity/mosques-logo-reversed.png", label: "الإصدار المعكوس · للخلفيات الداكنة", variant: "dark", links: [{ text: "تحميل SVG المعكوس", href: "/images/identity/reveres-svg-mosque.svg" }, { text: "تحميل PNG المعكوس", href: "/images/identity/mosques-logo-reversed.png" }] },
+  ] as LogoCard[],
+  mosques_colors: [
+    { name: "اللون الأساسي للمؤسسة", hex: "#883C4E" },
+    { name: "اللون الثانوي", hex: "#AA946F" },
+    { name: "اللون المساند", hex: "#BC6851" },
+    { name: "الرمادي الناعم", hex: "#000000" },
+  ] as Color[],
+};
 
 export default async function BrandIdentityPage() {
   const raw = await getPageContent("brand-identity");
   const s = (k: keyof typeof FALLBACK) => (typeof raw[k] === "string" && raw[k] ? (raw[k] as string) : (FALLBACK[k] as string));
-  const logos = Array.isArray(raw.logos) && raw.logos.length ? (raw.logos as LogoCard[]) : FALLBACK.logos;
-  const colors = Array.isArray(raw.colors) ? (raw.colors as Color[]) : undefined;
+  const list = <T,>(k: string, fallback?: T[]) =>
+    (Array.isArray(raw[k]) && (raw[k] as T[]).length ? (raw[k] as T[]) : fallback);
+
+  const guides: BrandGuide[] = [
+    {
+      key: "foundation",
+      tab_label: s("tab_label"),
+      pdf_title: s("pdf_title"),
+      pdf_subtitle: s("pdf_subtitle"),
+      pdf_file: s("pdf_file"),
+      logos_heading: s("logos_heading"),
+      colors_heading: s("colors_heading"),
+      logos: list<LogoCard>("logos", FALLBACK.logos)!,
+      colors: list<Color>("colors"),
+    },
+    {
+      key: "mosques",
+      tab_label: s("mosques_tab_label"),
+      pdf_title: s("mosques_pdf_title"),
+      pdf_subtitle: s("mosques_pdf_subtitle"),
+      pdf_file: s("mosques_pdf_file"),
+      logos_heading: s("mosques_logos_heading"),
+      colors_heading: s("mosques_colors_heading"),
+      logos: list<LogoCard>("mosques_logos", FALLBACK.mosques_logos)!,
+      colors: list<Color>("mosques_colors", FALLBACK.mosques_colors),
+    },
+  ];
 
   return (
     <main dir="rtl" className="bg-surface" data-nav-surface="light">
@@ -57,62 +94,7 @@ export default async function BrandIdentityPage() {
         </div>
       </section>
 
-      {/* PDF guide banner */}
-      <section className="bg-surface pt-10">
-        <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <FadeInUp>
-            <div className="flex flex-col items-stretch gap-6 rounded-[12px] bg-[#005761] px-6 py-7 text-right md:flex-row-reverse md:items-center md:justify-between md:px-9 md:py-8">
-              <div>
-                <h3 className="text-[18px] font-bold leading-[27px] text-white">{s("pdf_title")}</h3>
-                <p className="mt-1 text-[14px] leading-[21px] text-white/90">{s("pdf_subtitle")}</p>
-              </div>
-              <a href={s("pdf_file")} download className="inline-flex shrink-0 items-center justify-center gap-2 self-start rounded-[20px] bg-white px-6 py-3 text-[15px] font-bold text-[#005761] transition-colors hover:bg-white/90 md:self-auto">
-                <Image src={DOWNLOAD_ICON} alt="" width={20} height={20} aria-hidden />
-                تحميل الدليل كاملاً PDF
-              </a>
-            </div>
-          </FadeInUp>
-        </div>
-      </section>
-
-      {/* Official logo & usages */}
-      <section className="bg-surface pt-16" aria-labelledby="logos-heading">
-        <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <FadeInUp>
-            <SectionHeading><span id="logos-heading">{s("logos_heading")}</span></SectionHeading>
-            <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-              {logos.map((card, ci) => (
-                <div key={ci} className="flex flex-col">
-                  <div className={`flex h-[279.995px] shrink-0 items-center justify-center self-stretch rounded-[0_120px_0_0] ${card.variant === "dark" ? "bg-[#0A1F2D]" : "bg-[#F9FAFB]"}`}>
-                    {card.image && <Image src={card.image} alt={card.label} width={400} height={160} sizes="(max-width: 1024px) 80vw, 400px" className="max-h-[180px] w-auto object-contain" />}
-                  </div>
-                  <div className="flex flex-col gap-3 px-5 pb-5 pt-5">
-                    <p className="text-right text-[14px] font-bold leading-[21px] text-heading">{card.label}</p>
-                    <div className="flex flex-wrap justify-start gap-2">
-                      {(card.links ?? []).map((link, li) => (
-                        <a key={li} href={link.href} download className="inline-flex items-center gap-1.5 rounded-full border-[1.18px] border-panel-border px-3 py-[9px] text-[12px] font-bold text-btn-2-text transition-colors hover:bg-icon-box">
-                          <Image src={DOWNLOAD_ICON} alt="" width={14} height={14} aria-hidden />
-                          {link.text}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </FadeInUp>
-        </div>
-      </section>
-
-      {/* Approved colors */}
-      <section className="bg-surface py-16 md:py-20" aria-labelledby="colors-heading">
-        <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <FadeInUp>
-            <SectionHeading><span id="colors-heading">{s("colors_heading")}</span></SectionHeading>
-            <ColorSwatches colors={colors} />
-          </FadeInUp>
-        </div>
-      </section>
+      <BrandGuideTabs guides={guides} heading={s("tabs_heading")} />
     </main>
   );
 }

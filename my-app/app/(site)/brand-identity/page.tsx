@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { FadeInUp } from "@/components/ui/fade-in-up";
-import { BrandGuideTabs, type BrandGuide, type Color, type LogoCard } from "@/components/brand/BrandGuideTabs";
+import { BrandIdentityView } from "@/components/brand/BrandIdentityView";
+import type { BrandGuide, Color, LogoCard } from "@/components/brand/BrandGuideTabs";
 import { getPageContent } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
@@ -82,19 +82,13 @@ export default async function BrandIdentityPage() {
 
   return (
     <main dir="rtl" className="bg-surface" data-nav-surface="light">
-      {/* Header */}
-      <section className="-mt-28 bg-surface pt-40 md:pt-44">
-        <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <FadeInUp>
-            <p className="text-right text-[14px] font-medium leading-none text-body-3">{s("eyebrow")}</p>
-            <h1 className="mt-4 text-right text-[36px] font-medium leading-[40px] text-heading md:text-[40px]">{s("title")}</h1>
-            <p className="mt-5 max-w-3xl text-right text-[16px] leading-[29px] text-body-2">{s("intro")}</p>
-            <div className="mt-8 h-px w-full bg-panel-border" />
-          </FadeInUp>
-        </div>
-      </section>
-
-      <BrandGuideTabs guides={guides} heading={s("tabs_heading")} />
+      <BrandIdentityView
+        eyebrow={s("eyebrow")}
+        title={s("title")}
+        intro={s("intro")}
+        tabsHeading={s("tabs_heading")}
+        guides={guides}
+      />
     </main>
   );
 }

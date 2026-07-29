@@ -32,6 +32,8 @@ const THEME = {
     heading: "text-heading",
     label: "text-heading",
     linkText: "text-btn-2-text",
+    border: "border-panel-border",
+    divider: "bg-panel-border",
     darkCard: "bg-[#0A1F2D]",
     tabActive: "bg-[#005761] text-white",
     tabInactive: "bg-surface-alt text-heading hover:bg-icon-box",
@@ -39,17 +41,36 @@ const THEME = {
   mosques: {
     banner: "bg-[#883C4E]",
     bannerButton: "bg-[#AA946F] text-white hover:bg-[#AA946F]/90",
-    heading: "text-mosque-accent",
-    label: "text-mosque-accent",
-    linkText: "text-mosque-accent",
+    heading: "text-[#883C4E]",
+    label: "text-[#883C4E]",
+    linkText: "text-[#883C4E]",
+    border: "border-[#883C4E]",
+    divider: "bg-[#883C4E]",
     darkCard: "bg-[#010F19]",
     tabActive: "bg-[#883C4E] text-white",
-    tabInactive: "bg-surface-alt text-[#005761] hover:bg-icon-box",
+    tabInactive: "bg-surface-alt text-[#005761] dark:text-mosque-accent hover:bg-icon-box",
   },
 } as const;
 
-export function BrandGuideTabs({ guides, heading }: { guides: BrandGuide[]; heading: string }) {
-  const [activeKey, setActiveKey] = useState(guides[0]?.key);
+export const brandGuideTheme = THEME;
+
+export function BrandGuideTabs({
+  guides,
+  heading,
+  activeKey: controlledKey,
+  onActiveKeyChange,
+}: {
+  guides: BrandGuide[];
+  heading: string;
+  activeKey?: BrandGuide["key"];
+  onActiveKeyChange?: (key: BrandGuide["key"]) => void;
+}) {
+  const [internalKey, setInternalKey] = useState(guides[0]?.key);
+  const activeKey = controlledKey ?? internalKey;
+  const setActiveKey = (key: BrandGuide["key"]) => {
+    onActiveKeyChange?.(key);
+    if (controlledKey === undefined) setInternalKey(key);
+  };
   const active = guides.find((g) => g.key === activeKey) ?? guides[0];
   const baseId = useId();
 
@@ -79,7 +100,7 @@ export function BrandGuideTabs({ guides, heading }: { guides: BrandGuide[]; head
                       aria-selected={isActive}
                       aria-controls={`${baseId}-panel-${guide.key}`}
                       onClick={() => setActiveKey(guide.key)}
-                      className={`rounded-full border border-panel-border px-5 py-3 text-[15px] font-bold leading-[22.5px] transition-colors ${isActive ? gt.tabActive : gt.tabInactive}`}
+                      className={`rounded-full border px-5 py-3 text-[15px] font-bold leading-[22.5px] transition-colors ${t.border} ${isActive ? gt.tabActive : gt.tabInactive}`}
                     >
                       {guide.tab_label}
                     </button>
@@ -160,7 +181,7 @@ export function BrandGuideTabs({ guides, heading }: { guides: BrandGuide[]; head
                             key={li}
                             href={link.href}
                             download
-                            className={`inline-flex items-center gap-1.5 rounded-full border-[1.18px] border-panel-border px-3 py-[9px] text-[12px] font-bold transition-colors hover:bg-icon-box ${t.linkText}`}
+                            className={`inline-flex items-center gap-1.5 rounded-full border-[1.18px] px-3 py-[9px] text-[12px] font-bold transition-colors hover:bg-icon-box ${t.border} ${t.linkText}`}
                           >
                             <DownloadIcon size={14} />
                             {link.text}
@@ -185,7 +206,7 @@ export function BrandGuideTabs({ guides, heading }: { guides: BrandGuide[]; head
               >
                 {active.colors_heading}
               </h2>
-              <ColorSwatches colors={active.colors} hexClassName={t.heading} />
+              <ColorSwatches colors={active.colors} hexClassName={t.heading} borderClassName={t.border} />
             </FadeInUp>
           </div>
         </section>

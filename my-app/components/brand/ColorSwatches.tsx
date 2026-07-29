@@ -15,7 +15,8 @@ const DEFAULT_COLORS: Color[] = [
 export function ColorSwatches({
   colors,
   hexClassName = "text-heading",
-}: { colors?: Color[]; hexClassName?: string } = {}) {
+  borderClassName = "border-panel-border",
+}: { colors?: Color[]; hexClassName?: string; borderClassName?: string } = {}) {
   const COLORS = colors && colors.length ? colors : DEFAULT_COLORS;
   const [copied, setCopied] = useState<string | null>(null);
 
@@ -34,7 +35,7 @@ export function ColorSwatches({
       {COLORS.map((color) => (
         <div
           key={color.hex}
-          className="overflow-hidden rounded-[16px] border-[1.18px] border-panel-border bg-panel"
+          className={`overflow-hidden rounded-[16px] border-[1.18px] bg-panel ${borderClassName}`}
         >
           <div className="h-[140px] w-full" style={{ backgroundColor: color.hex }} />
           <div className="flex flex-col gap-2 p-4">

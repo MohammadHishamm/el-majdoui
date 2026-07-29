@@ -55,12 +55,16 @@ export function useHeaderOverLight(headerRef: RefObject<HTMLElement | null>) {
 
       const section = behind.closest("section, main") as HTMLElement | null;
       if (section) {
-        const next = isLightBackground(getComputedStyle(section).backgroundColor);
+        const isDarkTheme = document.documentElement.classList.contains("dark");
+        const next =
+          isDarkTheme || isLightBackground(getComputedStyle(section).backgroundColor);
         setOverLight((prev) => (prev === next ? prev : next));
         return;
       }
 
-      const next = isLightBackground(getComputedStyle(document.body).backgroundColor);
+      const isDarkTheme = document.documentElement.classList.contains("dark");
+      const next =
+        isDarkTheme || isLightBackground(getComputedStyle(document.body).backgroundColor);
       setOverLight((prev) => (prev === next ? prev : next));
     };
 

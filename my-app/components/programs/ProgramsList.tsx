@@ -35,7 +35,7 @@ export function ProgramsList({ items }: { items: Program[] }) {
   return (
     <div>
       {/* Search + category filters */}
-      <div className="flex flex-col gap-4 lg:flex-row-reverse lg:items-center lg:justify-between">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex flex-wrap justify-start gap-3">
           {programFilters.map((f) => {
             const isActive = active === f.id;
@@ -77,13 +77,22 @@ export function ProgramsList({ items }: { items: Program[] }) {
         </p>
       ) : (
         <div className="mt-10 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((p, i) => (
+          {visible.map((p, i) => {
+            const isMosques = p.category === "mosques";
+            const accent = isMosques ? "text-[#883C4E]" : "text-heading";
+            return (
             <FadeInUp key={p.slug} delay={i * 80}>
               <Link
                 href={`/programs/${p.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-[20px] border border-panel-border bg-panel shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_12px_24px_rgba(0,87,97,0.08)]"
+                className={`group flex h-full flex-col overflow-hidden rounded-[20px] border border-panel-border bg-panel shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] transition-shadow hover:shadow-[0_12px_24px_rgba(0,87,97,0.08)] ${
+                  isMosques ? "dark:border-[#883C4E]" : ""
+                }`}
               >
-                <div className="relative h-[200px] w-full overflow-hidden border-b border-panel-border">
+                <div
+                  className={`relative h-[200px] w-full overflow-hidden border-b border-panel-border ${
+                    isMosques ? "dark:border-[#883C4E]" : ""
+                  }`}
+                >
                   <Image
                     src={p.image}
                     alt={p.title}
@@ -91,26 +100,31 @@ export function ProgramsList({ items }: { items: Program[] }) {
                     sizes="(max-width: 1024px) 100vw, 355px"
                     className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                   />
-                  <span className="absolute right-6 top-4 rounded-full bg-[#005761] px-3 py-1 text-[13px] font-bold text-white shadow-sm">
+                  <span
+                    className={`absolute right-6 top-4 rounded-full px-3 py-1 text-[13px] font-bold text-white shadow-sm ${
+                      isMosques ? "bg-[#883C4E]" : "bg-[#005761]"
+                    }`}
+                  >
                     {getCategoryLabel(p.category)}
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col p-6 text-right">
-                  <h3 className="line-clamp-2 break-words text-[20px] font-bold leading-[28px] text-heading">
+                  <h3 className={`line-clamp-2 break-words text-[20px] font-bold leading-[28px] ${accent}`}>
                     {p.title}
                   </h3>
                   <p className="mt-3 line-clamp-3 flex-1 break-words text-[15px] leading-[25.5px] text-body-4">
                     {p.shortDesc}
                   </p>
 
-                  <span className="mt-6 inline-flex items-center gap-2 text-[15px] font-bold text-heading">
+                  <span className={`mt-6 inline-flex items-center gap-2 text-[15px] font-bold ${accent}`}>
                     اعرف أكثر عن المبادرة
                     <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
                   </span>
                 </div>
               </Link>
             </FadeInUp>
-          ))}
+            );
+          })}
         </div>
       )}
 

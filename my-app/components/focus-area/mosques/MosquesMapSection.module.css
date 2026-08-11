@@ -366,12 +366,14 @@
   text-align: right;
 }
 
+/* Wrapper for a next/image with `fill`, so it needs a positioned, sized box. */
 .popupImage {
+  position: relative;
+  display: block;
   width: 100%;
   height: 110px;
-  object-fit: cover;
+  overflow: hidden;
   background: var(--surface-alt);
-  display: block;
 }
 
 .popupContent {

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { Map as MapLibreMap, Marker, Popup } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -290,8 +291,13 @@ export default function MosquesMapSection({ heading, intro, mosques }: Props) {
                       on the right, as in the design. */}
                   {mosque.image && (
                     <span className={styles.thumb}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={mosque.image} alt="" loading="lazy" />
+                      <Image
+                        src={mosque.image}
+                        alt=""
+                        fill
+                        sizes="72px"
+                        style={{ objectFit: "cover" }}
+                      />
                     </span>
                   )}
                   <span className={styles.cardBody}>
@@ -368,8 +374,9 @@ export default function MosquesMapSection({ heading, intro, mosques }: Props) {
         createPortal(
           <div className={styles.popup}>
             {active.image && (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img className={styles.popupImage} src={active.image} alt="" />
+              <span className={styles.popupImage}>
+                <Image src={active.image} alt="" fill sizes="260px" style={{ objectFit: "cover" }} />
+              </span>
             )}
             <div className={styles.popupContent}>
               <div className={styles.popupHeader}>

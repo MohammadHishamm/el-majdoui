@@ -146,10 +146,10 @@ export function MosqueForm({
           onChange={setImage}
           folder="mosques"
           label={l("Mosque photo", "صورة المسجد")}
-          recommendedSize="520 × 220 px"
+          recommendedSize="900 × 900 px (square)"
           hint={l(
-            "Used as the 72 × 72 thumbnail in the list and as the banner on the map popup.",
-            "تُستخدم كصورة مصغّرة 72 × 72 في القائمة وكصورة علوية في نافذة الخريطة.",
+            "Upload a large square photo — it is shown small in the list (72 × 72) but wide in the map popup (260 × 110), and is resized automatically for each. Anything under ~600 px looks pixelated in the popup.",
+            "ارفع صورة مربعة كبيرة — تظهر صغيرة في القائمة (72 × 72) وعريضة في نافذة الخريطة (260 × 110)، ويتم تصغيرها تلقائياً لكل موضع. أي صورة أصغر من 600 بكسل تقريباً ستبدو مبكسلة في النافذة.",
           )}
         />
       </Section>

@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import "../focus-accent.css";
 import { PagePlaceholder } from "@/components/ui/PagePlaceholder";
-import { getFocusAreas, getFocusAreaDetail } from "@/lib/cms/fetchers";
+import { getFocusAreas, getFocusAreaDetail, getMosquesMapContent } from "@/lib/cms/fetchers";
 import IntroSection from "@/components/focus-area/detail/IntroSection";
 import CarouselSection from "@/components/focus-area/detail/CarouselSection";
 import StatsSection from "@/components/focus-area/detail/StatsSection";
 import ProgramsSection from "@/components/focus-area/detail/ProgramsSection";
+import MosquesMapSection from "@/components/focus-area/mosques/MosquesMapSection";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -45,6 +46,8 @@ export default async function FocusAreaDetailPage({ params }: Props) {
   if (!area) notFound();
 
   const d = await getFocusAreaDetail(slug);
+  // The mosque map is specific to this focus area; skip the query elsewhere.
+  const mapContent = slug === "mosques" ? await getMosquesMapContent() : null;
   const hasDetail =
     !!d &&
     (!!d.intro ||
@@ -63,6 +66,13 @@ export default async function FocusAreaDetailPage({ params }: Props) {
         )}
         {d.stats.items.length > 0 && (
           <StatsSection items={d.stats.items} image={d.stats.image} />
+        )}
+        {mapContent && mapContent.mosques.length > 0 && (
+          <MosquesMapSection
+            heading={mapContent.heading}
+            intro={mapContent.intro}
+            mosques={mapContent.mosques}
+          />
         )}
         {d.programs.cards.length > 0 && (
           <ProgramsSection heading={d.programs.heading} cards={d.programs.cards} />

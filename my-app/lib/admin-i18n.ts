@@ -58,6 +58,7 @@ export const adminDict = {
       newArticle: "New Article",
       galleryVideos: "Gallery & Videos",
       manageAreas: "Manage Areas",
+      mosqueMap: "Mosque Map",
       programs: "Programs",
       allPrograms: "All Programs",
       newProgram: "New Program",
@@ -206,6 +207,12 @@ export const adminDict = {
     kpis: {
       heading: "Impact KPIs", newKpi: "New KPI", editKpi: "Edit KPI", backTo: "Back to KPIs", create: "Create KPI",
     },
+    mosques: {
+      heading: "Mosque Map", newMosque: "New mosque", editMosque: "Edit mosque",
+      backTo: "Back to mosques", create: "Create mosque",
+      pageContentHeading: "Map section heading & intro",
+      unverified: "Coordinates unverified",
+    },
     policies: {
       heading: "Policies & Regulations", newPolicy: "New policy", editPolicy: "Edit policy",
       backTo: "Back to policies", create: "Create policy",
@@ -270,6 +277,7 @@ export const adminDict = {
       newArticle: "خبر جديد",
       galleryVideos: "الصور والفيديو",
       manageAreas: "إدارة المجالات",
+      mosqueMap: "خريطة المساجد",
       programs: "البرامج",
       allPrograms: "كل البرامج",
       newProgram: "مبادرة جديدة",
@@ -417,6 +425,12 @@ export const adminDict = {
     },
     kpis: {
       heading: "مؤشرات الأثر", newKpi: "مؤشر جديد", editKpi: "تعديل المؤشر", backTo: "العودة إلى المؤشرات", create: "إنشاء المؤشر",
+    },
+    mosques: {
+      heading: "خريطة المساجد", newMosque: "مسجد جديد", editMosque: "تعديل المسجد",
+      backTo: "العودة إلى المساجد", create: "إنشاء المسجد",
+      pageContentHeading: "عنوان قسم الخريطة ونصه",
+      unverified: "إحداثيات غير مؤكدة",
     },
     policies: {
       heading: "السياسات واللوائح", newPolicy: "سياسة جديدة", editPolicy: "تعديل السياسة",

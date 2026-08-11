@@ -71,7 +71,10 @@ const NAV: NavGroup[] = [
     key: "focusAreas",
     icon: Target,
     roles: ["super_admin", "content_editor"],
-    items: [{ key: "manageAreas", url: "/admin/dashboard/focus-areas" }],
+    items: [
+      { key: "manageAreas", url: "/admin/dashboard/focus-areas" },
+      { key: "mosqueMap", url: "/admin/dashboard/mosques" },
+    ],
   },
   {
     key: "programs",

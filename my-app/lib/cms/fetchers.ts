@@ -611,3 +611,65 @@ export async function getHeroSlides(): Promise<HeroSlideData[]> {
     return [];
   }
 }
+
+/** A mosque pin on the /focus-areas/mosques map. `lat`/`lng` are required to
+    render, so rows without coordinates are dropped rather than pinned at 0,0. */
+export type MosqueData = {
+  id: string;
+  slug: string;
+  name: string;
+  district: string;
+  region: string;
+  lat: number;
+  lng: number;
+  capacity: number | null;
+  image: string;
+  mapsUrl: string;
+};
+
+export async function getMosques(): Promise<MosqueData[]> {
+  try {
+    const { data } = await supabaseAnon
+      .from("mosques")
+      .select("*")
+      .eq("published", true)
+      .order("sort_order");
+    return (data ?? [])
+      .filter((m) => typeof m.lat === "number" && typeof m.lng === "number")
+      .map((m) => ({
+        id: m.id as string,
+        slug: (m.slug as string) ?? "",
+        name: (m.name_ar as string) ?? "",
+        district: (m.district_ar as string) ?? "",
+        region: (m.region_ar as string) ?? "",
+        lat: m.lat as number,
+        lng: m.lng as number,
+        capacity: (m.capacity as number) ?? null,
+        image: (m.image as string) ?? "",
+        // Fall back to a name search so the "فتح في الخرائط" button always works.
+        mapsUrl:
+          (m.maps_url as string) ||
+          `https://www.google.com/maps/search/?api=1&query=${m.lat},${m.lng}`,
+      }));
+  } catch {
+    return [];
+  }
+}
+
+/** Heading + intro for the mosque map, paired with its pins. Copy lives in
+    page_content so staff can edit it alongside the mosque list in the admin. */
+export async function getMosquesMapContent(): Promise<{
+  heading: string;
+  intro: string;
+  mosques: MosqueData[];
+}> {
+  const [content, mosques] = await Promise.all([
+    getPageContent("mosques-map"),
+    getMosques(),
+  ]);
+  return {
+    heading: (content.heading_ar as string) || "خريطة جوامع ومساجد المجدوعي",
+    intro: (content.intro_ar as string) || "",
+    mosques,
+  };
+}

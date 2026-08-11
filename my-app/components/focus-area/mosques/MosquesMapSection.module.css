@@ -1,0 +1,484 @@
+/* ===================================================
+   MosquesMapSection — خريطة جوامع ومساجد المجدوعي
+   Sits under the stats section on /focus-areas/mosques.
+   Figma: node 376:718 (map 610×500 + list panel 480).
+   =================================================== */
+
+.section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 80px 24px; /* matches StatsSection so the columns line up */
+  direction: rtl;
+}
+
+/* Mobile: map on top, list below. Desktop reverses the visual order via
+   `order` so that in RTL the map still lands on the left, as designed. */
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.mapCol {
+  order: 1;
+  position: relative;
+  width: 100%;
+  height: 360px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface-alt);
+}
+
+.listCol {
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  min-height: 0;
+}
+
+@media (min-width: 1024px) {
+  .row {
+    flex-direction: row;
+    /* The list drives the height (a page of three cards plus its controls) and
+       the map stretches to match — MapLibre observes its container, so it
+       re-renders at the new size on its own. */
+    align-items: stretch;
+    gap: 32px;
+  }
+  .mapCol {
+    order: 2;
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 500px;
+  }
+  .listCol {
+    order: 1;
+    flex: 0 0 480px;
+    width: 480px;
+  }
+}
+
+/* ---- Header ---- */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: right;
+  width: 100%;
+}
+
+.title {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 1.25;
+  color: var(--focus-accent, var(--heading));
+  margin: 0;
+}
+
+.intro {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--body-2);
+  margin: 0;
+}
+
+/* ---- Region filter pills ---- */
+.filterRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.pill {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.2;
+  padding: 8px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--panel-border);
+  background: var(--panel);
+  color: var(--body-1);
+  cursor: pointer;
+  transition: background-color 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+}
+
+.pill:hover {
+  border-color: var(--focus-accent);
+}
+
+.pillActive,
+.pillActive:hover {
+  background: var(--focus-badge-bg, var(--focus-accent));
+  border-color: var(--focus-badge-bg, var(--focus-accent));
+  color: var(--focus-badge-text, #ffffff);
+}
+
+/* ---- Scrollable card list ---- */
+/* Mobile: the column has no fixed height, so the list must size to its content.
+   `flex: 1 1 0` here would resolve against an auto-height parent and collapse
+   the list to zero. Scrolling is added back only in the fixed-height desktop
+   layout below. */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* Room for the focus ring and the active card's shadow. */
+  padding: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--panel-border) transparent;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  /* Thumbnail (72) + padding keeps rows even, including mosques with no photo
+     yet, so pages don't change height as the admin fills images in. */
+  min-height: 104px;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--panel-border);
+  background: var(--panel);
+  text-align: right;
+  cursor: pointer;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.card:hover {
+  border-color: var(--focus-accent);
+}
+
+.cardActive,
+.cardActive:hover {
+  border: 1.5px solid var(--focus-accent);
+  box-shadow: 0 4px 6px rgba(136, 60, 78, 0.08);
+}
+
+.cardBody {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+}
+
+.cardTitle {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1.35;
+  color: var(--body-1);
+  margin: 0;
+}
+
+.cardDistrict {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--body-3);
+  margin: 0;
+}
+
+.thumb {
+  position: relative;
+  flex: 0 0 72px;
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface-alt);
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Pagination — prev/next labels either side of numbered pages ---- */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Shared box for prev/next, numbers and the ellipsis. */
+.pageBtn,
+.pageNum,
+.pageGap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 6px;
+  border: 1px solid var(--panel-border);
+  background: var(--panel);
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--body-1);
+}
+
+.pageBtn {
+  gap: 4px;
+  padding: 0 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.18s ease, color 0.18s ease;
+}
+
+.pageNum {
+  min-width: 40px;
+  padding: 0 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-variant-numeric: tabular-nums;
+  transition: border-color 0.18s ease, background-color 0.18s ease, color 0.18s ease;
+}
+
+.pageGap {
+  min-width: 40px;
+  color: var(--body-3);
+  /* Purely a gap marker — not focusable, not clickable. */
+  cursor: default;
+}
+
+.pageBtn:hover:not(:disabled),
+.pageNum:hover:not(.pageNumActive) {
+  border-color: var(--focus-accent);
+  color: var(--focus-accent);
+}
+
+.pageBtn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.pageNumActive,
+.pageNumActive:hover {
+  background: var(--focus-badge-bg, var(--focus-accent));
+  border-color: var(--focus-badge-bg, var(--focus-accent));
+  color: var(--focus-badge-text, #ffffff);
+}
+
+.pageIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.empty {
+  padding: 24px;
+  text-align: center;
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-size: 14px;
+  color: var(--body-3);
+}
+
+/* ---- Map pins ---- */
+/* Marker root is anchored at its bottom tip, so the tail sits on the coords. */
+.pin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  background: none;
+}
+
+.pinHead {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 2px solid #883c4e;
+  color: #883c4e;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.15));
+  transition: width 0.18s ease, height 0.18s ease, background-color 0.18s ease;
+}
+
+.pinIcon {
+  width: 14px;
+  height: 14px;
+  background-color: currentColor;
+  -webkit-mask: url("/images/focus-area/mosques-map/pin-icon-mosque.svg") no-repeat center / contain;
+  mask: url("/images/focus-area/mosques-map/pin-icon-mosque.svg") no-repeat center / contain;
+  /* The exported asset is stored vertically mirrored — the Figma frame undoes
+     it with a -scale-y-100 wrapper, so the same flip is applied here. */
+  transform: scaleY(-1);
+  transition: width 0.18s ease, height 0.18s ease;
+}
+
+/* Tail: a plain triangle, coloured to match whichever head sits above it. */
+.pinTail {
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 8px solid #883c4e;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.15));
+}
+
+.pinActive .pinHead {
+  width: 36px;
+  height: 36px;
+  background: #883c4e;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.pinActive .pinIcon {
+  width: 20px;
+  height: 20px;
+}
+
+/* ---- Popup card ---- */
+/* MapLibre injects its own wrapper, so the visual card is styled here and the
+   library's default chrome (padding, tip, close button) is stripped in the
+   :global block at the bottom of this file. */
+.popup {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  background: var(--panel);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  text-align: right;
+}
+
+.popupImage {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  background: var(--surface-alt);
+  display: block;
+}
+
+.popupContent {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+}
+
+.popupHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.popupTitle {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.3;
+  color: var(--focus-accent);
+  margin: 0;
+}
+
+.popupDistrict {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--body-2);
+  margin: 0;
+}
+
+.popupSpecs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.popupCapacity {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  line-height: 1.2;
+  color: var(--focus-carousel-dot, #aa946f);
+  white-space: nowrap;
+}
+
+.mapsLink {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 18px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: var(--focus-badge-bg, var(--focus-accent));
+  color: var(--focus-badge-text, #ffffff);
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.mapsLink:hover {
+  background: var(--focus-accent-hover, #6e2f3e);
+}
+
+/* ---- Fallback when the tile key is missing ---- */
+.mapFallback {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 24px;
+  text-align: center;
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--body-3);
+}
+
+/* ---- MapLibre chrome overrides ---- */
+.mapCol :global(.maplibregl-popup-content) {
+  padding: 0;
+  background: none;
+  border-radius: 16px;
+  box-shadow: none;
+}
+
+.mapCol :global(.maplibregl-popup-tip) {
+  display: none;
+}
+
+.mapCol :global(.maplibregl-ctrl-attrib) {
+  font-size: 10px;
+  border-radius: 8px 0 0 0;
+}
+
+.mapCol :global(.maplibregl-ctrl-group) {
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pin,
+  .pinHead,
+  .pinIcon,
+  .card,
+  .pill {
+    transition: none;
+  }
+}

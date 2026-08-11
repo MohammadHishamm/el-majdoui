@@ -228,14 +228,27 @@ export default function MosquesMapSection({ heading, intro, mosques }: Props) {
     });
   }, []);
 
-  /** Clicking a cluster frames its members, which is what pulls them apart. */
+  /**
+   * Clicking a cluster frames its members, which is what pulls them apart.
+   *
+   * It also moves the selection into the cluster: without this the previously
+   * selected mosque stays selected, and since the camera has just flown
+   * somewhere else, its card sits off-screen and the click looks like it did
+   * nothing. A selection already inside the cluster is kept as-is.
+   */
   const expandCluster = useCallback((items: MosqueData[]) => {
     const map = mapRef.current;
     const mgl = maplibreRef.current;
     if (!map || !mgl) return;
+
     const bounds = new mgl.LngLatBounds();
     items.forEach((m) => bounds.extend([m.lng, m.lat]));
     map.fitBounds(bounds, { padding: 90, maxZoom: MAX_ZOOM, duration: 700 });
+
+    setActiveId((currentId) =>
+      items.some((m) => m.id === currentId) ? currentId : items[0].id,
+    );
+    setPopupClosed(false);
   }, []);
 
   /* ---- Frame the filtered set. Kept apart from pin building: this moves the
@@ -300,18 +313,23 @@ export default function MosquesMapSection({ heading, intro, mosques }: Props) {
     };
   }, [filtered, popupNode, viewVersion, active, expandCluster, zoomToMosque]);
 
-  /* ---- Keep the popup anchored to the active mosque ---- */
+  /* ---- Keep the popup anchored to the active mosque ----
+     `popupNode` is in the deps because the map and its popup are built
+     asynchronously: on mount this effect runs while popupRef is still null and
+     bails out. popupNode flipping to non-null is the signal that they exist, so
+     without it the initial card never opens and only *changing* the selection
+     would bring one up. */
   useEffect(() => {
     const map = mapRef.current;
     const popup = popupRef.current;
-    if (!map || !popup) return;
+    if (!map || !popup || !popupNode) return;
 
     if (!active || popupClosed) {
       popup.remove();
       return;
     }
     popup.setLngLat([active.lng, active.lat]).addTo(map);
-  }, [active, popupClosed]);
+  }, [active, popupClosed, popupNode]);
 
   /** Selecting from the list also recentres the map on that mosque. */
   const selectMosque = useCallback(

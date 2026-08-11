@@ -105,7 +105,7 @@
   line-height: 1.2;
   padding: 8px 14px;
   border-radius: 20px;
-  border: 1px solid var(--panel-border);
+  border: 1px solid var(--focus-border-default, var(--panel-border));
   background: var(--panel);
   color: var(--body-1);
   cursor: pointer;
@@ -113,13 +113,13 @@
 }
 
 .pill:hover {
-  border-color: var(--focus-accent);
+  border-color: var(--focus-border-selected, var(--focus-accent));
 }
 
 .pillActive,
 .pillActive:hover {
   background: var(--focus-badge-bg, var(--focus-accent));
-  border-color: var(--focus-badge-bg, var(--focus-accent));
+  border-color: var(--focus-border-selected, #883c4e);
   color: var(--focus-badge-text, #ffffff);
 }
 
@@ -148,7 +148,7 @@
   min-height: 104px;
   padding: 16px;
   border-radius: 12px;
-  border: 1px solid var(--panel-border);
+  border: 1px solid var(--focus-border-default, var(--panel-border));
   background: var(--panel);
   text-align: right;
   cursor: pointer;
@@ -156,12 +156,12 @@
 }
 
 .card:hover {
-  border-color: var(--focus-accent);
+  border-color: var(--focus-border-selected, var(--focus-accent));
 }
 
 .cardActive,
 .cardActive:hover {
-  border: 1.5px solid var(--focus-accent);
+  border: 1.5px solid var(--focus-border-selected, #883c4e);
   box-shadow: 0 4px 6px rgba(136, 60, 78, 0.08);
 }
 
@@ -227,7 +227,7 @@
   justify-content: center;
   height: 40px;
   border-radius: 6px;
-  border: 1px solid var(--panel-border);
+  border: 1px solid var(--focus-border-default, var(--panel-border));
   background: var(--panel);
   font-family: var(--font-itf-rayat), sans-serif;
   font-size: 14px;
@@ -261,8 +261,8 @@
 
 .pageBtn:hover:not(:disabled),
 .pageNum:hover:not(.pageNumActive) {
-  border-color: var(--focus-accent);
-  color: var(--focus-accent);
+  border-color: var(--focus-border-selected, var(--focus-accent));
+  color: var(--focus-border-selected, var(--focus-accent));
 }
 
 .pageBtn:disabled {
@@ -273,7 +273,7 @@
 .pageNumActive,
 .pageNumActive:hover {
   background: var(--focus-badge-bg, var(--focus-accent));
-  border-color: var(--focus-badge-bg, var(--focus-accent));
+  border-color: var(--focus-border-selected, #883c4e);
   color: var(--focus-badge-text, #ffffff);
 }
 

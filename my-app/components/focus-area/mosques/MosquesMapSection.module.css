@@ -351,11 +351,33 @@
   height: 20px;
 }
 
+/* Cluster: one pin standing in for several overlapping mosques. Filled like
+   the active pin so it reads as "more here", with the count in place of the
+   mosque glyph. */
+.pinCluster .pinHead {
+  width: 36px;
+  height: 36px;
+  background: #883c4e;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.pinCount {
+  font-family: var(--font-itf-rayat), sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 1;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+  transform: translateY(2px);
+}
+
 /* ---- Popup card ---- */
 /* MapLibre injects its own wrapper, so the visual card is styled here and the
    library's default chrome (padding, tip, close button) is stripped in the
    :global block at the bottom of this file. */
 .popup {
+  position: relative;
   width: 260px;
   display: flex;
   flex-direction: column;
@@ -364,6 +386,41 @@
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   text-align: right;
+}
+
+/* Sits over the photo, so it carries its own scrim rather than relying on
+   whatever happens to be in the top-right corner of the image. */
+.popupClose {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.45);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background-color 0.18s ease;
+}
+
+.popupClose:hover {
+  background: rgba(0, 0, 0, 0.68);
+}
+
+.popupCloseIcon {
+  width: 16px;
+  height: 16px;
+}
+
+/* With no photo the button overlays the title instead, so the text is inset
+   clear of it — in RTL the title starts at the right edge. */
+.popupNoImage .popupHeader {
+  padding-right: 30px;
 }
 
 /* Wrapper for a next/image with `fill`, so it needs a positioned, sized box. */

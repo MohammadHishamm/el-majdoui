@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { Map as MapLibreMap, Marker, Popup } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import type { MosqueData } from "@/lib/cms/fetchers";
@@ -17,6 +17,48 @@ const MAPTILER_KEY = process.env.NEXT_PUBLIC_MAPTILER_KEY;
 
 /** Roughly centres the Kingdom until the first fitBounds lands. */
 const FALLBACK_CENTER: [number, number] = [45.0, 24.0];
+
+/** Pins closer than this on screen are merged — slightly wider than a 36px
+    pin, so a cluster forms just before two pins would visibly touch. */
+const CLUSTER_PX = 46;
+/** Street level: far enough in that grouped mosques always come apart. */
+const MAX_ZOOM = 15;
+/** Floor when focusing a single mosque from the list or a pin. */
+const MOSQUE_ZOOM = 12;
+
+type PinGroup = { x: number; y: number; lng: number; lat: number; items: MosqueData[] };
+
+/**
+ * Groups mosques that land within CLUSTER_PX of each other on screen.
+ *
+ * Screen space rather than geographic distance, because what the user needs to
+ * be told is "these pins are drawn on top of each other" — which depends
+ * entirely on the current zoom. Recomputed on every moveend.
+ */
+function groupByProximity(map: MapLibreMap, items: MosqueData[]): PinGroup[] {
+  const groups: PinGroup[] = [];
+
+  for (const mosque of items) {
+    const p = map.project([mosque.lng, mosque.lat]);
+    const hit = groups.find((g) => Math.hypot(g.x - p.x, g.y - p.y) < CLUSTER_PX);
+
+    if (!hit) {
+      groups.push({ x: p.x, y: p.y, lng: mosque.lng, lat: mosque.lat, items: [mosque] });
+      continue;
+    }
+
+    // Re-anchor to the members' centroid so the cluster pin sits among them
+    // rather than on whichever mosque happened to be first.
+    hit.items.push(mosque);
+    hit.lng = hit.items.reduce((sum, m) => sum + m.lng, 0) / hit.items.length;
+    hit.lat = hit.items.reduce((sum, m) => sum + m.lat, 0) / hit.items.length;
+    const centre = map.project([hit.lng, hit.lat]);
+    hit.x = centre.x;
+    hit.y = centre.y;
+  }
+
+  return groups;
+}
 
 const arabicNumber = (n: number) => n.toLocaleString("ar-EG");
 
@@ -47,13 +89,20 @@ export default function MosquesMapSection({ heading, intro, mosques }: Props) {
   const [page, setPage] = useState(1);
   const [activeId, setActiveId] = useState<string | null>(mosques[0]?.id ?? null);
   const [popupNode, setPopupNode] = useState<HTMLDivElement | null>(null);
+  // Dismissing the card only hides it — the mosque stays selected, so its pin
+  // and list row keep their highlight until something else is picked.
+  const [popupClosed, setPopupClosed] = useState(false);
+
+  // Bumped on every moveend so pins regroup for the new zoom level.
+  const [viewVersion, setViewVersion] = useState(0);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const popupRef = useRef<Popup | null>(null);
-  // Markers live in state, not a ref: building them is async, so the effect
-  // that styles the active pin has to wait for them to actually exist.
-  const [markers, setMarkers] = useState<{ id: string; marker: Marker }[]>([]);
+  const markersRef = useRef<{ ids: string[]; marker: Marker }[]>([]);
+  // The module is cached after init so pin rebuilds are synchronous — an await
+  // between removing and re-adding markers can let a frame paint without them.
+  const maplibreRef = useRef<typeof import("maplibre-gl") | null>(null);
 
   /** Distinct regions in sort order — the filter pills are content-driven. */
   const regions = useMemo(() => {
@@ -127,9 +176,17 @@ export default function MosquesMapSection({ heading, intro, mosques }: Props) {
         attributionControl: { compact: true },
       });
       mapRef.current = map;
+      maplibreRef.current = maplibregl;
 
       map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-left");
       map.scrollZoom.disable(); // page scroll must not be hijacked by the map
+
+      // Grouping is done in screen space, so it has to be recomputed whenever
+      // the camera settles. Marker positions themselves track their own
+      // coordinates, so mid-gesture staleness is invisible.
+      map.on("moveend", () => {
+        if (!cancelled) setViewVersion((v) => v + 1);
+      });
 
       const node = document.createElement("div");
       popupRef.current = new maplibregl.Popup({
@@ -160,79 +217,111 @@ export default function MosquesMapSection({ heading, intro, mosques }: Props) {
     };
   }, []);
 
-  /* ---- Rebuild pins whenever the visible set changes ---- */
+  /** Centre on a mosque and move closer, never pulling back out. */
+  const zoomToMosque = useCallback((mosque: MosqueData) => {
+    const map = mapRef.current;
+    if (!map) return;
+    map.flyTo({
+      center: [mosque.lng, mosque.lat],
+      zoom: Math.min(Math.max(map.getZoom() + 2, MOSQUE_ZOOM), MAX_ZOOM),
+      duration: 800,
+    });
+  }, []);
+
+  /** Clicking a cluster frames its members, which is what pulls them apart. */
+  const expandCluster = useCallback((items: MosqueData[]) => {
+    const map = mapRef.current;
+    const mgl = maplibreRef.current;
+    if (!map || !mgl) return;
+    const bounds = new mgl.LngLatBounds();
+    items.forEach((m) => bounds.extend([m.lng, m.lat]));
+    map.fitBounds(bounds, { padding: 90, maxZoom: MAX_ZOOM, duration: 700 });
+  }, []);
+
+  /* ---- Frame the filtered set. Kept apart from pin building: this moves the
+         camera, and a camera move feeds back into the pin effect below. ---- */
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !popupNode) return;
-    let cancelled = false;
-    // Each run owns the markers it created and tears them down on cleanup,
-    // so the state updater below stays free of side effects.
-    let created: { id: string; marker: Marker }[] = [];
-
-    (async () => {
-      const maplibregl = await import("maplibre-gl");
-      if (cancelled || !mapRef.current) return;
-
-      const next = filtered.map((mosque) => {
-        const el = document.createElement("button");
-        el.type = "button";
-        el.className = styles.pin;
-        el.setAttribute("aria-label", mosque.name);
-        el.innerHTML = `<span class="${styles.pinHead}"><span class="${styles.pinIcon}"></span></span><span class="${styles.pinTail}"></span>`;
-        el.addEventListener("click", (e) => {
-          e.stopPropagation();
-          setActiveId(mosque.id);
-        });
-
-        const marker = new maplibregl.Marker({ element: el, anchor: "bottom" })
-          .setLngLat([mosque.lng, mosque.lat])
-          .addTo(map);
-        return { id: mosque.id, marker };
-      });
-      created = next;
-      setMarkers(next);
-
-      // Frame the filtered set. A single result still needs a real box, so we
-      // let fitBounds collapse and cap it with maxZoom.
-      if (filtered.length) {
-        const bounds = new maplibregl.LngLatBounds();
-        filtered.forEach((m) => bounds.extend([m.lng, m.lat]));
-        map.fitBounds(bounds, {
-          padding: { top: 70, bottom: 70, left: 70, right: 70 },
-          maxZoom: 11,
-          duration: 700,
-        });
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-      created.forEach(({ marker }) => marker.remove());
-    };
+    const mgl = maplibreRef.current;
+    if (!map || !mgl || !popupNode || !filtered.length) return;
+    const bounds = new mgl.LngLatBounds();
+    filtered.forEach((m) => bounds.extend([m.lng, m.lat]));
+    map.fitBounds(bounds, {
+      padding: { top: 70, bottom: 70, left: 70, right: 70 },
+      maxZoom: 11,
+      duration: 700,
+    });
   }, [filtered, popupNode]);
 
-  /* ---- Reflect the active mosque onto the pins and the popup ---- */
+  /* ---- Build pins, collapsing overlapping ones into a counted cluster ---- */
   useEffect(() => {
-    markers.forEach(({ id, marker }) => {
-      marker.getElement().classList.toggle(styles.pinActive, id === active?.id);
+    const map = mapRef.current;
+    const mgl = maplibreRef.current;
+    if (!map || !mgl || !popupNode) return;
+
+    markersRef.current = groupByProximity(map, filtered).map((group) => {
+      const count = group.items.length;
+      const el = document.createElement("button");
+      el.type = "button";
+      el.className = styles.pin;
+
+      if (count > 1) {
+        el.classList.add(styles.pinCluster);
+        el.setAttribute("aria-label", `${count} جوامع في هذا الموقع — اضغط للتكبير`);
+        el.innerHTML = `<span class="${styles.pinHead}"><span class="${styles.pinCount}">${count}</span></span><span class="${styles.pinTail}"></span>`;
+      } else {
+        el.setAttribute("aria-label", group.items[0].name);
+        el.innerHTML = `<span class="${styles.pinHead}"><span class="${styles.pinIcon}"></span></span><span class="${styles.pinTail}"></span>`;
+        if (group.items[0].id === active?.id) el.classList.add(styles.pinActive);
+      }
+
+      el.addEventListener("click", (e) => {
+        e.stopPropagation();
+        if (count > 1) {
+          expandCluster(group.items);
+        } else {
+          setActiveId(group.items[0].id);
+          setPopupClosed(false);
+          zoomToMosque(group.items[0]);
+        }
+      });
+
+      return {
+        ids: group.items.map((m) => m.id),
+        marker: new mgl.Marker({ element: el, anchor: "bottom" })
+          .setLngLat([group.lng, group.lat])
+          .addTo(map),
+      };
     });
 
+    return () => {
+      markersRef.current.forEach(({ marker }) => marker.remove());
+      markersRef.current = [];
+    };
+  }, [filtered, popupNode, viewVersion, active, expandCluster, zoomToMosque]);
+
+  /* ---- Keep the popup anchored to the active mosque ---- */
+  useEffect(() => {
     const map = mapRef.current;
     const popup = popupRef.current;
     if (!map || !popup) return;
 
-    if (!active) {
+    if (!active || popupClosed) {
       popup.remove();
       return;
     }
     popup.setLngLat([active.lng, active.lat]).addTo(map);
-  }, [active, markers]);
+  }, [active, popupClosed]);
 
   /** Selecting from the list also recentres the map on that mosque. */
-  const selectMosque = useCallback((mosque: MosqueData) => {
-    setActiveId(mosque.id);
-    mapRef.current?.flyTo({ center: [mosque.lng, mosque.lat], zoom: 12, duration: 900 });
-  }, []);
+  const selectMosque = useCallback(
+    (mosque: MosqueData) => {
+      setActiveId(mosque.id);
+      setPopupClosed(false);
+      zoomToMosque(mosque);
+    },
+    [zoomToMosque],
+  );
 
   return (
     <section className={styles.section} aria-labelledby="mosques-map-heading">
@@ -252,6 +341,7 @@ export default function MosquesMapSection({ heading, intro, mosques }: Props) {
                 onClick={() => {
                   setRegion(ALL);
                   setPage(1);
+                  setPopupClosed(false);
                 }}
                 aria-pressed={region === ALL}
                 className={`${styles.pill} ${region === ALL ? styles.pillActive : ""}`}
@@ -265,6 +355,7 @@ export default function MosquesMapSection({ heading, intro, mosques }: Props) {
                   onClick={() => {
                     setRegion(r);
                     setPage(1);
+                    setPopupClosed(false);
                   }}
                   aria-pressed={region === r}
                   className={`${styles.pill} ${region === r ? styles.pillActive : ""}`}
@@ -371,8 +462,17 @@ export default function MosquesMapSection({ heading, intro, mosques }: Props) {
       {/* The popup card lives inside MapLibre's DOM, portalled so it stays JSX. */}
       {popupNode &&
         active &&
+        !popupClosed &&
         createPortal(
-          <div className={styles.popup}>
+          <div className={`${styles.popup} ${active.image ? "" : styles.popupNoImage}`}>
+            <button
+              type="button"
+              className={styles.popupClose}
+              onClick={() => setPopupClosed(true)}
+              aria-label="إغلاق"
+            >
+              <X className={styles.popupCloseIcon} aria-hidden />
+            </button>
             {active.image && (
               <span className={styles.popupImage}>
                 <Image src={active.image} alt="" fill sizes="260px" style={{ objectFit: "cover" }} />

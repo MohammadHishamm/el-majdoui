@@ -16,6 +16,7 @@ const TABLES: Record<string, TableCfg> = {
   gallery_items: { revalidate: ["/admin/dashboard/gallery", "/gallery"] },
   jobs: { revalidate: ["/admin/dashboard/careers", "/careers"] },
   kpis: { revalidate: ["/admin/dashboard/kpis", "/"] },
+  mosques: { revalidate: ["/admin/dashboard/mosques", "/focus-areas/mosques"] },
   policies: { revalidate: ["/admin/dashboard/policies", "/about/policies"] },
   programs: { revalidate: ["/admin/dashboard/programs", "/programs"] },
   reports: { revalidate: ["/admin/dashboard/reports", "/reports"] },
@@ -42,6 +43,20 @@ export async function moveRow(table: string, id: string, dir: "up" | "down") {
   [rows[idx], rows[swap]] = [rows[swap], rows[idx]];
 
   await Promise.all(rows.map((r, i) => supabase.from(table).update({ sort_order: i + 1 }).eq("id", r.id)));
+  cfg.revalidate.forEach((p) => revalidatePath(p));
+}
+
+/**
+ * Flip a row's `published` flag straight from its list, without opening the
+ * editor. Shares TABLES with moveRow so a table gets both controls — and the
+ * right set of paths busted — from one entry.
+ */
+export async function setPublished(table: string, id: string, published: boolean) {
+  const cfg = TABLES[table];
+  if (!cfg) return;
+  const supabase = await createClient();
+  const { error } = await supabase.from(table).update({ published }).eq("id", id);
+  if (error) return;
   cfg.revalidate.forEach((p) => revalidatePath(p));
 }
 

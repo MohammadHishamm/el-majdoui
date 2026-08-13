@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { getAdminT } from "@/lib/admin-locale";
 import { ReorderButtons } from "@/components/admin/reorder-buttons";
 import { DeleteButton } from "@/components/admin/delete-button";
+import { PublishCheckbox } from "@/components/admin/publish-checkbox";
 import { deleteMosque, updateMosquesMapContent } from "./actions";
 import { MosquesMapContentForm } from "@/components/admin/pages/MosquesMapContentForm";
 
@@ -86,18 +87,19 @@ export default async function MosquesListPage() {
                       {[m.district_ar, m.region_ar].filter(Boolean).join(" · ")}
                     </div>
                   </div>
-                  {/* Seeded rows carry approximate coordinates — surface that until
-                      someone confirms them, since a wrong pin looks authoritative. */}
+                  {/* Flags rows added by hand without confirmed coordinates —
+                      a wrong pin looks just as authoritative as a right one.
+                      The roster imported from the register is all verified. */}
                   {(missingCoords || !m.coords_verified) && (
                     <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-[11px] text-amber-900 dark:bg-amber-950 dark:text-amber-200">
                       <TriangleAlert className="size-3" /> {t.mosques.unverified}
                     </span>
                   )}
-                  {!m.published && (
-                    <span className="rounded-full bg-muted px-2 py-0.5 text-[11px]">{t.common.draft}</span>
-                  )}
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
+                  {/* Inline, because curating 36 facilities one editor at a
+                      time is the whole reason this control exists. */}
+                  <PublishCheckbox table="mosques" id={m.id} published={m.published} />
                   <Link
                     href={`/admin/dashboard/mosques/${m.id}`}
                     className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent"

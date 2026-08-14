@@ -5,6 +5,11 @@ import type { Program, ProgramCategoryId } from "@/lib/programs";
 import type { Report } from "@/lib/reports";
 import type { Job } from "@/lib/careers";
 import { normalizePeople, type OrgLevel } from "@/lib/site/org-levels";
+import {
+  normalizeDuties,
+  normalizeMembers,
+  type BoardCommittee,
+} from "@/lib/site/board-committees";
 
 function rowToJob(r: Record<string, unknown>): Job {
   return {
@@ -652,6 +657,24 @@ export async function getMosques(): Promise<MosqueData[]> {
           (m.maps_url as string) ||
           `https://www.google.com/maps/search/?api=1&query=${m.lat},${m.lng}`,
       }));
+  } catch {
+    return [];
+  }
+}
+
+/** The committee sections on /about/board, in display order. */
+export async function getBoardCommittees(): Promise<BoardCommittee[]> {
+  try {
+    const { data } = await supabaseAnon
+      .from("board_committees")
+      .select("*")
+      .eq("published", true)
+      .order("sort_order");
+    return (data ?? []).map((c) => ({
+      ...(c as BoardCommittee),
+      members: normalizeMembers(c.members),
+      duties: normalizeDuties(c.duties),
+    }));
   } catch {
     return [];
   }

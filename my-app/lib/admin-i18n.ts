@@ -228,6 +228,10 @@ export const adminDict = {
     messages: {
       heading: "Contact Messages", unread: "Unread", markRead: "Mark read", markUnread: "Mark unread",
     },
+    committees: {
+      heading: "Board committees", newCommittee: "New committee", editCommittee: "Edit committee",
+      create: "Create committee", ceoOffice: "Executive Director's office", membersCount: "members", dutiesCount: "duties",
+    },
     org: {
       heading: "Organizational Structure", newLevel: "New level", editLevel: "Edit level",
       backTo: "Back to levels", create: "Create level", peopleCount: "people",
@@ -463,6 +467,10 @@ export const adminDict = {
     },
     messages: {
       heading: "رسائل التواصل", unread: "غير مقروءة", markRead: "تحديد كمقروءة", markUnread: "تحديد كغير مقروءة",
+    },
+    committees: {
+      heading: "لجان المجلس", newCommittee: "لجنة جديدة", editCommittee: "تعديل اللجنة",
+      create: "إنشاء اللجنة", ceoOffice: "مكتب المدير التنفيذي", membersCount: "عضو", dutiesCount: "مهمة",
     },
     org: {
       heading: "الهيكل التنظيمي", newLevel: "مستوى جديد", editLevel: "تعديل المستوى",

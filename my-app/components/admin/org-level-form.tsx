@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { TextField, TextArea, Toggle, SubmitButton } from "@/components/admin/fields";
 import { useL } from "@/components/admin/i18n";
+import { ArrayReorder, moveInArray } from "@/components/admin/array-reorder";
 import {
   ORG_COLOR_PRESETS,
   ORG_ICON_NAMES,
@@ -92,8 +93,12 @@ function PeopleEditor({
         <div className="flex flex-col gap-3">
           {value.map((p, i) => (
             <div key={i} className="rounded-lg border bg-muted/30 p-3">
-              <div className="mb-2 flex items-center justify-between">
-                <span className="text-xs font-semibold text-muted-foreground">#{i + 1}</span>
+              <div className="mb-2 flex flex-wrap items-center justify-between gap-2">
+                <ArrayReorder
+                  index={i}
+                  total={value.length}
+                  onMove={(from, to) => onChange(moveInArray(value, from, to))}
+                />
                 <button
                   type="button"
                   onClick={() => edit((d) => void d.splice(i, 1))}

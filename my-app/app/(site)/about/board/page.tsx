@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { FadeInUp } from "@/components/ui/fade-in-up";
 import { T } from "@/components/ui/T";
-import { getTeam, getPageContent } from "@/lib/cms/fetchers";
+import { getTeam, getPageContent, getBoardCommittees } from "@/lib/cms/fetchers";
+import { BoardCommittees } from "@/components/about/BoardCommittees";
+import { CeoOffice } from "@/components/about/CeoOffice";
 
 export const metadata: Metadata = {
   title: "مجلس الأمناء والقيادات | مؤسسة المجدوعي الخيرية",
@@ -116,7 +118,12 @@ function LeadershipCard({
 export const dynamic = "force-dynamic";
 
 export default async function BoardPage() {
-  const [team, boardContent] = await Promise.all([getTeam(), getPageContent("board")]);
+  const [team, boardContent, committees, ceoOffice] = await Promise.all([
+    getTeam(),
+    getPageContent("board"),
+    getBoardCommittees(),
+    getPageContent("ceo-office"),
+  ]);
   const BOARD_MEMBERS = team.board.length ? team.board : FALLBACK_BOARD;
   const LEADERSHIP = team.leadership.length ? team.leadership : FALLBACK_LEADERSHIP;
   const chairman = {
@@ -239,6 +246,15 @@ export default async function BoardPage() {
             </div>
           </div>
         </section>
+      </FadeInUp>
+
+      {/* Committees, then the executive director's office — appended below the
+          existing board and leadership sections. */}
+      <FadeInUp>
+        <BoardCommittees committees={committees} />
+      </FadeInUp>
+      <FadeInUp>
+        <CeoOffice content={ceoOffice} />
       </FadeInUp>
     </main>
   );

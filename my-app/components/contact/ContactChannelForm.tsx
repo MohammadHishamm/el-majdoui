@@ -179,6 +179,17 @@ export function ContactChannelForm() {
     initialContactRequestState,
   );
 
+  /* On success the tall form is replaced by a short confirmation card, which
+     leaves the page shorter than the current scroll offset — the reader is
+     left staring at the footer with no idea the request went through. Send
+     them back to the top so the confirmation and its ticket number are what
+     they actually see. */
+  useEffect(() => {
+    if (!state.ok) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+  }, [state.ok]);
+
   const cfg = CONTACT_TYPE_CONFIG[type];
   const L = (b: { ar: string; en: string }) => (ar ? b.ar : b.en);
   const consentMessage = ar
@@ -226,18 +237,17 @@ export function ContactChannelForm() {
 
   if (state.ok) {
     return (
-      <div className="box-border w-full shrink-0 rounded-2xl bg-white p-10 text-center shadow-[0_4px_24px_rgba(0,0,0,0.03)] dark:bg-panel">
+      <div
+        role="status"
+        aria-live="polite"
+        className="box-border w-full shrink-0 rounded-2xl bg-white p-10 text-center shadow-[0_4px_24px_rgba(0,0,0,0.03)] dark:bg-panel"
+      >
         <span className="mx-auto grid size-12 place-items-center rounded-full bg-icon-box text-icon">
           <Check className="size-6" aria-hidden />
         </span>
         <h2 className="mt-5 text-xl font-bold text-body-1 dark:text-heading">
           {ar ? "تم استلام طلبك بنجاح" : "Your request has been received"}
         </h2>
-        <p className="mt-3 text-sm leading-6 text-body-3">
-          {ar
-            ? "سيصلك رقم التتبع عبر الرسائل النصية والبريد الإلكتروني لمتابعة حالة الطلب."
-            : "Your tracking number will be sent by SMS and email so you can follow the request."}
-        </p>
         <p className="mt-5 inline-flex flex-col gap-1 rounded-xl bg-icon-box px-6 py-4">
           <span className="text-[13px] text-body-3">
             {ar ? "رقم التتبع (Ticket ID)" : "Tracking number (Ticket ID)"}

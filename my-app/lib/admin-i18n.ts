@@ -71,6 +71,7 @@ export const adminDict = {
       impactKpis: "Impact KPIs",
       aboutGroup: "About",
       boardLeadership: "Board & Leadership",
+      orgStructure: "Organizational Structure",
       boardChairman: "Board: Chairman spotlight",
       policies: "Policies",
       homePrograms: "Home: Programs panel",
@@ -227,6 +228,10 @@ export const adminDict = {
     messages: {
       heading: "Contact Messages", unread: "Unread", markRead: "Mark read", markUnread: "Mark unread",
     },
+    org: {
+      heading: "Organizational Structure", newLevel: "New level", editLevel: "Edit level",
+      backTo: "Back to levels", create: "Create level", peopleCount: "people",
+    },
     complaints: {
       heading: "Complaints & Suggestions", ticket: "Ticket", reference: "Reference",
       addressedTo: "Addressed to", attachments: "Attachments", filterAll: "All",
@@ -302,6 +307,7 @@ export const adminDict = {
       impactKpis: "مؤشرات الأثر",
       aboutGroup: "عن المؤسسة",
       boardLeadership: "المجلس والقيادة",
+      orgStructure: "الهيكل التنظيمي",
       boardChairman: "المجلس: رئيس مجلس الأمناء",
       policies: "السياسات واللوائح",
       homePrograms: "المجالات والمبادرات",
@@ -457,6 +463,10 @@ export const adminDict = {
     },
     messages: {
       heading: "رسائل التواصل", unread: "غير مقروءة", markRead: "تحديد كمقروءة", markUnread: "تحديد كغير مقروءة",
+    },
+    org: {
+      heading: "الهيكل التنظيمي", newLevel: "مستوى جديد", editLevel: "تعديل المستوى",
+      backTo: "العودة إلى المستويات", create: "إنشاء المستوى", peopleCount: "شخص",
     },
     complaints: {
       heading: "الشكاوى والمقترحات", ticket: "رقم التتبع", reference: "رقم المرجعية",

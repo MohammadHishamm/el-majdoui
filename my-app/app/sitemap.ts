@@ -20,6 +20,7 @@ const staticRoutes = [
   "/about/strategy",
   "/about/board",
   "/about/leadership",
+  "/about/org-structure",
   "/about/policies",
   "/careers",
   "/contact",

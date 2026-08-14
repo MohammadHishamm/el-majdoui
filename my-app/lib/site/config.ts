@@ -51,6 +51,11 @@ export const mainNavigation: NavItem[] = [
         labelEn: "Board of Trustees & Leadership",
         href: "/about/board",
       },
+      {
+        label: "الهيكل التنظيمي والمستويات الإدارية",
+        labelEn: "Organizational Structure",
+        href: "/about/org-structure",
+      },
       { label: "السياسات واللوائح", labelEn: "Policies & Regulations", href: "/about/policies" },
     ],
   },

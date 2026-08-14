@@ -4,6 +4,7 @@ import type { GalleryAlbum, GalleryItem, GalleryType } from "@/lib/gallery";
 import type { Program, ProgramCategoryId } from "@/lib/programs";
 import type { Report } from "@/lib/reports";
 import type { Job } from "@/lib/careers";
+import { normalizePeople, type OrgLevel } from "@/lib/site/org-levels";
 
 function rowToJob(r: Record<string, unknown>): Job {
   return {
@@ -651,6 +652,24 @@ export async function getMosques(): Promise<MosqueData[]> {
           (m.maps_url as string) ||
           `https://www.google.com/maps/search/?api=1&query=${m.lat},${m.lng}`,
       }));
+  } catch {
+    return [];
+  }
+}
+
+/** The administrative levels behind /about/org-structure, in level order. */
+export async function getOrgLevels(): Promise<OrgLevel[]> {
+  try {
+    const { data } = await supabaseAnon
+      .from("org_levels")
+      .select("*")
+      .eq("published", true)
+      .order("level_no");
+    return (data ?? []).map((l) => ({
+      ...(l as OrgLevel),
+      leaders: normalizePeople(l.leaders),
+      members: normalizePeople(l.members),
+    }));
   } catch {
     return [];
   }

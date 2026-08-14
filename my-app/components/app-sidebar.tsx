@@ -104,6 +104,7 @@ const NAV: NavGroup[] = [
       { key: "pgWho", url: "/admin/dashboard/pages/who-we-are" },
       { key: "pgStrategy", url: "/admin/dashboard/pages/strategy" },
       { key: "boardLeadership", url: "/admin/dashboard/team" },
+      { key: "orgStructure", url: "/admin/dashboard/org-structure" },
       { key: "policies", url: "/admin/dashboard/policies" },
     ],
   },

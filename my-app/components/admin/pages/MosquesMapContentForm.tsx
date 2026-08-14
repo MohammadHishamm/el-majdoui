@@ -33,6 +33,10 @@ export function MosquesMapContentForm({
         defaultValue={str("intro_ar")}
         dir="rtl"
         rows={3}
+        hint={l(
+          "Write {count} anywhere in the text and it is replaced by the live number of published mosques, so the figure never goes stale.",
+          "اكتب ‏{count}‏ في أي موضع من النص ليُستبدل تلقائياً بعدد المساجد المنشورة، حتى لا يصبح الرقم قديماً.",
+        )}
       />
       <div>
         <SubmitButton label={submitLabel} />

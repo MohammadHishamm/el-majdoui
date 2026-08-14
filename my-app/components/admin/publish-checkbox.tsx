@@ -3,6 +3,7 @@
 import { useOptimistic, useTransition } from "react";
 import { setPublished } from "@/app/admin/dashboard/_actions/reorder";
 import { useAdminT } from "@/components/admin/i18n";
+import { useToast } from "@/components/admin/toast";
 
 /**
  * Per-row publish checkbox for an admin list, so a long roster can be curated
@@ -26,6 +27,7 @@ export function PublishCheckbox({
   label?: string;
 }) {
   const { t } = useAdminT();
+  const toast = useToast();
   const [pending, start] = useTransition();
   const [shown, setShown] = useOptimistic(published);
 
@@ -47,7 +49,11 @@ export function PublishCheckbox({
           const next = e.target.checked;
           start(async () => {
             setShown(next);
-            await setPublished(table, id, next);
+            const { ok } = await setPublished(table, id, next);
+            // Confirm only what actually happened; a failed write reverts to
+            // the server value on the next render, so say so rather than
+            // leaving the user thinking it stuck.
+            toast(ok ? t.common.saved : t.common.saveError, ok ? "success" : "error");
           });
         }}
         className="size-4 accent-primary"

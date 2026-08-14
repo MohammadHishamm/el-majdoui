@@ -51,13 +51,20 @@ export async function moveRow(table: string, id: string, dir: "up" | "down") {
  * editor. Shares TABLES with moveRow so a table gets both controls — and the
  * right set of paths busted — from one entry.
  */
-export async function setPublished(table: string, id: string, published: boolean) {
+export async function setPublished(
+  table: string,
+  id: string,
+  published: boolean,
+): Promise<{ ok: boolean }> {
   const cfg = TABLES[table];
-  if (!cfg) return;
+  if (!cfg) return { ok: false };
   const supabase = await createClient();
   const { error } = await supabase.from(table).update({ published }).eq("id", id);
-  if (error) return;
+  // Reported back so the caller's confirmation can be truthful — a toast that
+  // says "saved" after a failed write is worse than no toast at all.
+  if (error) return { ok: false };
   cfg.revalidate.forEach((p) => revalidatePath(p));
+  return { ok: true };
 }
 
 /** Next sort_order for a new row (append to the end), optionally within a group. */

@@ -698,6 +698,32 @@ export async function getOrgLevels(): Promise<OrgLevel[]> {
   }
 }
 
+/**
+ * Placeholder staff can put in the map intro to have the live roster size
+ * substituted in — a token rather than us rewriting whatever digits happen to
+ * be in the sentence, so the copy stays theirs to reword.
+ */
+export const MOSQUE_COUNT_TOKEN = "{count}";
+
+/**
+ * Published mosques, including any without coordinates.
+ *
+ * Deliberately not `getMosques().length`: that drops rows with no lat/lng
+ * because they can't be pinned, but a facility the foundation supports still
+ * counts whether or not someone has entered its coordinates yet.
+ */
+async function getMosqueCount(): Promise<number> {
+  try {
+    const { count } = await supabaseAnon
+      .from("mosques")
+      .select("id", { count: "exact", head: true })
+      .eq("published", true);
+    return count ?? 0;
+  } catch {
+    return 0;
+  }
+}
+
 /** Heading + intro for the mosque map, paired with its pins. Copy lives in
     page_content so staff can edit it alongside the mosque list in the admin. */
 export async function getMosquesMapContent(): Promise<{
@@ -705,13 +731,17 @@ export async function getMosquesMapContent(): Promise<{
   intro: string;
   mosques: MosqueData[];
 }> {
-  const [content, mosques] = await Promise.all([
+  const [content, mosques, total] = await Promise.all([
     getPageContent("mosques-map"),
     getMosques(),
+    getMosqueCount(),
   ]);
   return {
     heading: (content.heading_ar as string) || "خريطة جوامع ومساجد المجدوعي",
-    intro: (content.intro_ar as string) || "",
+    intro: ((content.intro_ar as string) || "").replaceAll(
+      MOSQUE_COUNT_TOKEN,
+      String(total),
+    ),
     mosques,
   };
 }

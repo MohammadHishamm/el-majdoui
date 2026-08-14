@@ -85,7 +85,9 @@ export const mainNavigation: NavItem[] = [
     ],
   },
   { label: "التوظيف", labelEn: "Careers", href: "/careers" },
-  { label: "اتصل بنا", labelEn: "Contact Us", href: "/#contact" },
+  // The dedicated قناة الشكاوى والمقترحات page, not the short form on the
+  // landing page — that one stays reachable at /#contact.
+  { label: "اتصل بنا", labelEn: "Contact Us", href: "/contact" },
 ];
 
 export const footerNavigation = {

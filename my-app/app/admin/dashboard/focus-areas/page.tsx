@@ -50,15 +50,15 @@ export default async function FocusAreasListPage() {
           <p className="rounded-xl border p-6 text-center text-muted-foreground">{t.common.noItems}</p>
         ) : (
           rows.map((a, i) => (
-            <div key={a.id} className="flex items-center justify-between rounded-xl border p-4">
-              <div className="flex items-center gap-3">
+            <div key={a.id} className="flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex min-w-0 flex-1 flex-wrap items-center gap-3">
                 <ReorderButtons table="focus_areas" id={a.id} canUp={i > 0} canDown={i < rows.length - 1} index={i + 1} />
                 <span className="size-6 rounded" style={{ backgroundColor: a.bg_color }} />
                 <span className="font-medium" dir="rtl">{a.name_ar}</span>
                 <span className="text-xs text-muted-foreground">/{a.slug}</span>
                 {!a.published && <span className="rounded-full bg-muted px-2 py-0.5 text-[11px]">{t.common.draft}</span>}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex shrink-0 flex-wrap items-center gap-2">
                 <Link
                   href={`/admin/dashboard/focus-areas/${a.id}/detail`}
                   className="inline-flex items-center gap-1 rounded-md border border-primary/40 px-2 py-1 text-xs text-primary hover:bg-primary/5"

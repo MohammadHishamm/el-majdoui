@@ -23,15 +23,17 @@ export default async function PanelsListPage() {
           <p className="rounded-xl border p-6 text-center text-muted-foreground">{t.common.noItems}</p>
         ) : (
           rows.map((p) => (
-            <div key={p.id} className="flex items-center justify-between rounded-xl border p-4">
-              <div className="flex items-center gap-3" dir="rtl">
+            <div key={p.id} className="flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex min-w-0 flex-1 flex-wrap items-center gap-3" dir="rtl">
                 <span className="size-6 rounded" style={{ backgroundColor: p.bg_color }} />
                 <span className="font-medium">{p.name_ar}</span>
                 <span className="text-xs text-muted-foreground">
                   {Array.isArray(p.initiatives) ? p.initiatives.length : 0} {t.panels.initiatives}
                 </span>
               </div>
-              <Link href={`/admin/dashboard/panels/${p.id}`} className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent">
+              {/* self-start so the stacked mobile layout doesn't stretch this
+                  lone button to the full width of the card. */}
+              <Link href={`/admin/dashboard/panels/${p.id}`} className="inline-flex shrink-0 self-start items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent sm:self-auto">
                 <Pencil className="size-3.5" /> {t.common.edit}
               </Link>
             </div>

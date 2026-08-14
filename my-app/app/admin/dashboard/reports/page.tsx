@@ -46,8 +46,8 @@ export default async function ReportsListPage() {
           <p className="rounded-xl border p-6 text-center text-muted-foreground">{t.common.noItems}</p>
         ) : (
           rows.map((r, i) => (
-            <div key={r.id} className="flex items-center justify-between rounded-xl border p-4">
-              <div className="flex items-center gap-3" dir="rtl">
+            <div key={r.id} className="flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex min-w-0 flex-1 flex-wrap items-center gap-3" dir="rtl">
                 <ReorderButtons table="reports" id={r.id} canUp={i > 0} canDown={i < rows.length - 1} index={i + 1} />
                 <span className="grid size-8 place-items-center rounded bg-muted text-muted-foreground">
                   <FileText className="size-4" />
@@ -58,7 +58,7 @@ export default async function ReportsListPage() {
                 </div>
                 {!r.published && <span className="rounded-full bg-muted px-2 py-0.5 text-[11px]">{t.common.draft}</span>}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex shrink-0 flex-wrap items-center gap-2">
                 <Link
                   href={`/admin/dashboard/reports/${r.id}`}
                   className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent"

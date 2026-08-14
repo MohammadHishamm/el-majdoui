@@ -9,6 +9,7 @@ import {
   Home,
   Landmark,
   LayoutDashboard,
+  MessageSquareWarning,
   Newspaper,
   Settings2,
   Target,
@@ -114,6 +115,12 @@ const NAV: NavGroup[] = [
       { key: "pgBrand", url: "/admin/dashboard/pages/brand-identity" },
       { key: "pgPrivacy", url: "/admin/dashboard/pages/privacy-policy" },
     ],
+  },
+  {
+    key: "complaintsGroup",
+    icon: MessageSquareWarning,
+    roles: ["super_admin", "content_editor"],
+    items: [{ key: "allComplaints", url: "/admin/dashboard/complaints" }],
   },
   {
     key: "settings",

@@ -52,14 +52,14 @@ export default async function ProgramsListPage() {
           <p className="rounded-xl border p-6 text-center text-muted-foreground">{t.common.noItems}</p>
         ) : (
           rows.map((p, i) => (
-            <div key={p.id} className="flex items-center justify-between rounded-xl border p-4">
-              <div className="flex items-center gap-3" dir="rtl">
+            <div key={p.id} className="flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex min-w-0 flex-1 flex-wrap items-center gap-3" dir="rtl">
                 <ReorderButtons table="programs" id={p.id} canUp={i > 0} canDown={i < rows.length - 1} index={i + 1} />
                 <span className="font-medium">{p.title_ar}</span>
                 <span className="text-xs text-muted-foreground">{CAT[p.category] ?? p.category}</span>
                 {!p.published && <span className="rounded-full bg-muted px-2 py-0.5 text-[11px]">{t.common.draft}</span>}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex shrink-0 flex-wrap items-center gap-2">
                 <Link
                   href={`/admin/dashboard/programs/${p.id}`}
                   className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent"

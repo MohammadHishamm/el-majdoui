@@ -46,8 +46,8 @@ export default async function HeroSlidesListPage() {
           <p className="rounded-xl border p-6 text-center text-muted-foreground">{t.common.noItems}</p>
         ) : (
           rows.map((sld, i) => (
-            <div key={sld.id} className="flex items-center justify-between rounded-xl border p-3">
-              <div className="flex items-center gap-3">
+            <div key={sld.id} className="flex flex-col gap-3 rounded-xl border p-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex min-w-0 flex-1 flex-wrap items-center gap-3">
                 <ReorderButtons table="hero_slides" id={sld.id} canUp={i > 0} canDown={i < rows.length - 1} index={i + 1} />
                 <span className="relative h-12 w-20 overflow-hidden rounded bg-muted">
                   {sld.image && (
@@ -58,7 +58,7 @@ export default async function HeroSlidesListPage() {
                 <span className="font-medium" dir="rtl">{sld.title_ar}</span>
                 {!sld.published && <span className="rounded-full bg-muted px-2 py-0.5 text-[11px]">{t.common.draft}</span>}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex shrink-0 flex-wrap items-center gap-2">
                 <Link
                   href={`/admin/dashboard/hero-slides/${sld.id}`}
                   className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent"

@@ -42,8 +42,8 @@ export default async function TeamListPage() {
           <p className="rounded-xl border p-6 text-center text-muted-foreground">{t.common.noItems}</p>
         ) : (
           rows.map((m, i) => (
-            <div key={m.id} className="flex items-center justify-between rounded-xl border p-3">
-              <div className="flex items-center gap-3" dir="rtl">
+            <div key={m.id} className="flex flex-col gap-3 rounded-xl border p-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex min-w-0 flex-1 flex-wrap items-center gap-3" dir="rtl">
                 <ReorderButtons
                   table="team_members"
                   id={m.id}
@@ -63,7 +63,7 @@ export default async function TeamListPage() {
                 </div>
                 {!m.published && <span className="rounded-full bg-muted px-2 py-0.5 text-[11px]">{t.common.draft}</span>}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex shrink-0 flex-wrap items-center gap-2">
                 <Link href={`/admin/dashboard/team/${m.id}`} className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent"><Pencil className="size-3.5" /> {t.common.edit}</Link>
                 <DeleteButton action={deleteMember.bind(null, m.id)} />
               </div>

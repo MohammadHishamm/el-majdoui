@@ -42,7 +42,7 @@ export default async function MessagesPage() {
               key={m.id}
               className={`rounded-xl border p-4 ${m.is_read ? "" : "border-primary/30 bg-primary/5"}`}
             >
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="font-semibold">{m.name}</span>
@@ -65,13 +65,18 @@ export default async function MessagesPage() {
                   </div>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">
-                  <form action={setMessageRead.bind(null, m.id, !m.is_read)}>
-                    <button className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent">
-                      {m.is_read ? <Mail className="size-3.5" /> : <MailOpen className="size-3.5" />}
-                      {m.is_read ? t.messages.markUnread : t.messages.markRead}
+                  <form action={setMessageRead.bind(null, m.id, !m.is_read)} className="contents">
+                    <button className="inline-flex h-7 items-center gap-1 rounded-md border px-2 text-xs leading-none hover:bg-accent">
+                      {m.is_read ? <Mail className="size-3.5 shrink-0" /> : <MailOpen className="size-3.5 shrink-0" />}
+                      <span className="translate-y-px">
+                        {m.is_read ? t.messages.markUnread : t.messages.markRead}
+                      </span>
                     </button>
                   </form>
-                  <DeleteButton action={deleteMessage.bind(null, m.id)} />
+                  <DeleteButton
+                    action={deleteMessage.bind(null, m.id)}
+                    className="inline-flex h-7 items-center gap-1 rounded-md border border-destructive/40 px-2 text-xs leading-none text-destructive hover:bg-destructive/5"
+                  />
                 </div>
               </div>
               <p className="mt-3 whitespace-pre-wrap text-sm text-foreground/90" dir="auto">{m.message}</p>

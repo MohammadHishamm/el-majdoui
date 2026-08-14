@@ -31,8 +31,8 @@ export default async function KpisListPage() {
           <p className="rounded-xl border p-6 text-center text-muted-foreground sm:col-span-2">{t.common.noItems}</p>
         ) : (
           rows.map((k, i) => (
-            <div key={k.id} className="flex items-center justify-between rounded-xl border p-4">
-              <div className="flex items-center gap-3" dir="rtl">
+            <div key={k.id} className="flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex min-w-0 flex-1 flex-wrap items-center gap-3" dir="rtl">
                 <ReorderButtons table="kpis" id={k.id} canUp={i > 0} canDown={i < rows.length - 1} index={i + 1} />
                 <span className="grid size-9 place-items-center rounded bg-muted text-muted-foreground"><BarChart3 className="size-4" /></span>
                 <div>
@@ -41,7 +41,7 @@ export default async function KpisListPage() {
                 </div>
                 {!k.published && <span className="rounded-full bg-muted px-2 py-0.5 text-[11px]">{t.common.draft}</span>}
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex shrink-0 flex-wrap items-center gap-2">
                 <Link href={`/admin/dashboard/kpis/${k.id}`} className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent"><Pencil className="size-3.5" /> {t.common.edit}</Link>
                 <DeleteButton action={deleteKpi.bind(null, k.id)} />
               </div>

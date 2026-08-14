@@ -69,8 +69,8 @@ export default async function MosquesListPage() {
           rows.map((m, i) => {
             const missingCoords = m.lat == null || m.lng == null;
             return (
-              <div key={m.id} className="flex items-center justify-between rounded-xl border p-4">
-                <div className="flex items-center gap-3" dir="rtl">
+              <div key={m.id} className="flex flex-col gap-3 rounded-xl border p-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex min-w-0 flex-1 flex-wrap items-center gap-3" dir="rtl">
                   <ReorderButtons
                     table="mosques"
                     id={m.id}
@@ -96,7 +96,7 @@ export default async function MosquesListPage() {
                     </span>
                   )}
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex shrink-0 flex-wrap items-center gap-3">
                   {/* Inline, because curating 36 facilities one editor at a
                       time is the whole reason this control exists. */}
                   <PublishCheckbox table="mosques" id={m.id} published={m.published} />

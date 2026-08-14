@@ -82,6 +82,8 @@ export const adminDict = {
       pgBrand: "Brand Identity",
       pgPrivacy: "Privacy Policy",
       messages: "Messages",
+      complaintsGroup: "Complaints",
+      allComplaints: "All requests",
       settings: "Settings",
       siteContent: "Site Content",
       usersRoles: "Users & Roles",
@@ -225,6 +227,16 @@ export const adminDict = {
     messages: {
       heading: "Contact Messages", unread: "Unread", markRead: "Mark read", markUnread: "Mark unread",
     },
+    complaints: {
+      heading: "Complaints & Suggestions", ticket: "Ticket", reference: "Reference",
+      addressedTo: "Addressed to", attachments: "Attachments", filterAll: "All",
+      typeSuggestion: "Suggestion", typeComplaint: "Complaint", typeInquiry: "General inquiry",
+      submitter: "Submitted by", phone: "Mobile", category: "Entity / category",
+      messageBody: "Message", search: "Search",
+      searchPlaceholder: "Ticket, reference, name, email or mobile…",
+      clearSearch: "Clear", noResults: "No requests match this search.",
+      resultCount: "result(s)", filterByType: "Filter by type",
+    },
     panels: {
       heading: "Home: Programs & Initiatives", editPanel: "Edit panel", backTo: "Back to panels",
       panelText: "Panel text", initiatives: "Initiatives", addInitiative: "Add initiative",
@@ -301,6 +313,8 @@ export const adminDict = {
       pgBrand: "الهوية البصرية",
       pgPrivacy: "سياسة الخصوصية",
       messages: "الرسائل",
+      complaintsGroup: "شكاوى",
+      allComplaints: "جميع الطلبات",
       settings: "الإعدادات",
       siteContent: "محتوى الموقع",
       usersRoles: "المستخدمون والأدوار",
@@ -443,6 +457,16 @@ export const adminDict = {
     },
     messages: {
       heading: "رسائل التواصل", unread: "غير مقروءة", markRead: "تحديد كمقروءة", markUnread: "تحديد كغير مقروءة",
+    },
+    complaints: {
+      heading: "الشكاوى والمقترحات", ticket: "رقم التتبع", reference: "رقم المرجعية",
+      addressedTo: "الموجه إليه", attachments: "المرفقات", filterAll: "الكل",
+      typeSuggestion: "مقترح", typeComplaint: "شكوى", typeInquiry: "استفسار عام",
+      submitter: "مقدّم الطلب", phone: "رقم الجوال", category: "الجهة / التصنيف",
+      messageBody: "نص الرسالة", search: "بحث",
+      searchPlaceholder: "رقم التتبع أو المرجعية أو الاسم أو البريد أو الجوال…",
+      clearSearch: "مسح", noResults: "لا توجد طلبات مطابقة لهذا البحث.",
+      resultCount: "نتيجة", filterByType: "تصفية حسب النوع",
     },
     panels: {
       heading: "الرئيسية: البرامج والمبادرات", editPanel: "تعديل اللوحة", backTo: "العودة إلى اللوحات",

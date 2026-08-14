@@ -42,7 +42,8 @@ export function DeleteButton({
     <>
       <form ref={formRef} action={action} className="contents">
         <button type="button" onClick={() => setOpen(true)} className={btnClass}>
-          <Trash2 className="size-3.5 shrink-0" /> {label ?? t.common.delete}
+          <Trash2 className="size-3.5 shrink-0" />
+          <span className="translate-y-px">{label ?? t.common.delete}</span>
         </button>
       </form>
 

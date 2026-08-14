@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Languages, Moon, Sun } from "lucide-react";
 import { adminDict, type AdminDict, type AdminLocale, type AdminTheme } from "@/lib/admin-i18n";
@@ -18,6 +18,30 @@ export function AdminI18nProvider({
   theme?: AdminTheme;
   children: React.ReactNode;
 }) {
+  /**
+   * Mirror the admin theme onto <body>.
+   *
+   * The admin palette is scoped to `.admin-theme` / `.admin-theme.dark` on a
+   * div inside the layout, but Radix portals (the mobile sidebar Sheet, and
+   * every dialog/dropdown/tooltip) mount at document.body — *outside* that
+   * div. They therefore resolved `--sidebar*`, `--background` and friends from
+   * `:root`, which holds the public site's light palette, and rendered as a
+   * white panel over the dark admin UI.
+   *
+   * Custom properties inherit from the nearest declaring ancestor, so putting
+   * the same classes on body makes portalled content pick up the admin values
+   * without touching the primitives themselves. Removed on unmount so the
+   * public site never inherits them.
+   */
+  useEffect(() => {
+    const { body } = document;
+    const classes = theme === "dark" ? ["admin-theme", "dark"] : ["admin-theme"];
+    body.classList.add(...classes);
+    // Remove exactly what was added — the public site's own dark mode lives on
+    // <html>, and blindly stripping "dark" here would be reaching outside.
+    return () => body.classList.remove(...classes);
+  }, [theme]);
+
   return (
     <AdminI18nContext.Provider value={{ locale, t: adminDict[locale], theme }}>
       {children}

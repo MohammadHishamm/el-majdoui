@@ -53,7 +53,7 @@ export function OrgStructure({ levels }: { levels: OrgLevel[] }) {
               /* Inactive tiles are dimmed rather than recoloured, which is how
                  the design distinguishes them while keeping each level's own
                  colour readable. */
-              className={`flex flex-col items-start p-6 text-start text-white transition-opacity ${
+              className={`flex cursor-pointer flex-col items-start p-6 text-start text-white transition-opacity ${
                 isActive ? "opacity-100" : "opacity-[0.78] hover:opacity-90"
               }`}
               style={{ backgroundColor: l.bg_color }}

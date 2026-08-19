@@ -1,11 +1,19 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useActionState, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Check } from "lucide-react";
 import { FadeInUp } from "@/components/ui/fade-in-up";
 import type { Job } from "@/lib/careers";
+import { submitJobApplication } from "@/app/(site)/careers/actions";
+import {
+  CV_ACCEPT,
+  CV_MAX_BYTES,
+  cvMimeFor,
+  initialJobApplicationState,
+  type JobApplicationState,
+} from "@/lib/site/job-application";
 
 const I = "/images/tawzeef";
 
@@ -15,6 +23,14 @@ const inputClass =
 const formLabelClass =
   "mb-2 block w-full text-right text-[13px] font-medium leading-[19.5px] text-heading";
 const formLabelStyle = { fontFamily: "var(--font-itf-rayat), sans-serif" };
+
+/** Server-side rejections, phrased the same way the inline checks are. */
+const SERVER_ERROR: Record<NonNullable<JobApplicationState["error"]>, string> = {
+  missing: "يرجى تعبئة الحقول الأساسية المطلوبة.",
+  consent: "يرجى الموافقة على سياسة خصوصية البيانات.",
+  file: "تعذر قبول الملف. يرجى إرفاق سيرة ذاتية بصيغة PDF أو DOCX وبحجم أقل من 5MB.",
+  failed: "تعذر إرسال الطلب. يرجى المحاولة مرة أخرى.",
+};
 
 function Field({
   label,
@@ -42,31 +58,41 @@ export function JobApplicationForm({ job }: { job: Job }) {
   const fileRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [agree, setAgree] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [state, formAction, pending] = useActionState(
+    submitJobApplication,
+    initialJobApplicationState,
+  );
 
+  /* The inline checks run before React hands the submit to the action —
+     preventDefault here cancels it — so the applicant sees a missing CV or an
+     unticked consent box immediately instead of after a round trip. The action
+     repeats every one of them regardless. */
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
     const form = e.currentTarget;
-    const required = ["firstName", "lastName", "email", "phone"] as const;
+    const required = ["first_name", "last_name", "email", "phone"] as const;
+    const stop = (message: string) => {
+      e.preventDefault();
+      setError(message);
+    };
+
     for (const name of required) {
       const el = form.elements.namedItem(name) as HTMLInputElement | null;
-      if (!el?.value.trim()) {
-        setError("يرجى تعبئة الحقول الأساسية المطلوبة.");
-        return;
-      }
+      if (!el?.value.trim()) return stop("يرجى تعبئة الحقول الأساسية المطلوبة.");
     }
-    if (!fileName) {
-      setError("يرجى إرفاق السيرة الذاتية.");
-      return;
+
+    const file = fileRef.current?.files?.[0];
+    if (!file) return stop("يرجى إرفاق السيرة الذاتية.");
+    if (file.size > CV_MAX_BYTES) return stop("حجم السيرة الذاتية يتجاوز 5MB.");
+    if (!cvMimeFor(file.name, file.type)) {
+      return stop("صيغة الملف غير مدعومة. يرجى إرفاق ملف PDF أو DOCX.");
     }
-    if (!agree) {
-      setError("يرجى الموافقة على سياسة خصوصية البيانات.");
-      return;
-    }
+    if (!agree) return stop("يرجى الموافقة على سياسة خصوصية البيانات.");
+
     setError(null);
-    setSubmitted(true);
   };
+
+  const message = error ?? (state.error ? SERVER_ERROR[state.error] : null);
 
   return (
     <main dir="rtl" className="bg-surface" data-nav-surface="light">
@@ -108,7 +134,7 @@ export function JobApplicationForm({ job }: { job: Job }) {
         <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_352px] lg:px-8">
           {/* Form (right) */}
           <div className="order-2 rounded-[16px] border-[1.18px] border-panel-border bg-panel p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] sm:p-8 lg:order-1">
-            {submitted ? (
+            {state.ok ? (
               <div className="flex flex-col items-center justify-center gap-4 py-16 text-center">
                 <span className="grid size-16 place-items-center rounded-full bg-icon-box">
                   <Check className="size-8 text-heading" />
@@ -117,12 +143,21 @@ export function JobApplicationForm({ job }: { job: Job }) {
                 <p className="max-w-md text-[15px] leading-[26px] text-body-4">
                   شكراً لتقديمك على وظيفة «{job.title}». سيقوم فريق التوظيف بمراجعة طلبك والتواصل معك قريباً.
                 </p>
+                {state.applicationNo && (
+                  <p className="text-[14px] text-body-3">
+                    رقم الطلب:{" "}
+                    <span dir="ltr" className="inline-block font-bold text-heading">
+                      {state.applicationNo}
+                    </span>
+                  </p>
+                )}
                 <Link href="/careers" className="mt-2 text-[14px] font-bold text-heading hover:underline">
                   العودة إلى التوظيف
                 </Link>
               </div>
             ) : (
-              <form onSubmit={onSubmit} noValidate>
+              <form action={formAction} onSubmit={onSubmit} noValidate>
+                <input type="hidden" name="job_slug" value={job.id} />
                 <h2 className="text-right text-[22px] font-bold text-heading">البيانات الشخصية</h2>
                 <p className="mt-1 text-right text-[14px] text-body-3">
                   نرجو تعبئة الحقول الأساسية ليتسنى لنا التواصل معك.
@@ -130,10 +165,10 @@ export function JobApplicationForm({ job }: { job: Job }) {
 
                 <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2">
                   <Field label="الاسم الأول" icon={`${I}/person-icon.svg`}>
-                    <input name="firstName" type="text" placeholder="مثال: محمد" className={inputClass} required />
+                    <input name="first_name" type="text" placeholder="مثال: محمد" className={inputClass} required />
                   </Field>
                   <Field label="اسم العائلة" icon={`${I}/person-icon.svg`}>
-                    <input name="lastName" type="text" placeholder="مثال: المجدوعي" className={inputClass} required />
+                    <input name="last_name" type="text" placeholder="مثال: المجدوعي" className={inputClass} required />
                   </Field>
                   <Field label="البريد الإلكتروني" icon={`${I}/email-icon.svg`}>
                     <input name="email" type="email" placeholder="example@email.com" className={inputClass} required />
@@ -176,8 +211,9 @@ export function JobApplicationForm({ job }: { job: Job }) {
                   </button>
                   <input
                     ref={fileRef}
+                    name="cv"
                     type="file"
-                    accept=".pdf,.doc,.docx"
+                    accept={CV_ACCEPT}
                     className="hidden"
                     onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
                   />
@@ -188,7 +224,7 @@ export function JobApplicationForm({ job }: { job: Job }) {
                     خطاب التقديم (اختياري)
                   </span>
                   <textarea
-                    name="coverLetter"
+                    name="cover_letter"
                     rows={4}
                     placeholder="اكتب نبذة قصيرة عن خبراتك وأسباب اهتمامك بهذه الوظيفة…"
                     className={`${inputClass} resize-y`}
@@ -205,6 +241,7 @@ export function JobApplicationForm({ job }: { job: Job }) {
                 <label className="mt-6 flex w-full cursor-pointer items-start justify-start gap-3">
                   <input
                     type="checkbox"
+                    name="consent"
                     checked={agree}
                     onChange={(e) => setAgree(e.target.checked)}
                     className="mt-0.5 size-4 shrink-0 accent-heading"
@@ -214,14 +251,15 @@ export function JobApplicationForm({ job }: { job: Job }) {
                   </span>
                 </label>
 
-                {error && <p className="mt-4 text-right text-[14px] text-red-600">{error}</p>}
+                {message && <p className="mt-4 text-right text-[14px] text-red-600">{message}</p>}
 
                 <div className="mt-8 flex items-center justify-start gap-3">
                   <button
                     type="submit"
-                    className="rounded-full bg-btn-primary px-7 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#00444c]"
+                    disabled={pending}
+                    className="rounded-full bg-btn-primary px-7 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#00444c] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    إرسال الطلب
+                    {pending ? "جارٍ الإرسال…" : "إرسال الطلب"}
                   </button>
                   <Link
                     href="/careers"

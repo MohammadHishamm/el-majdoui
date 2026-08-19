@@ -93,6 +93,7 @@ const NAV: NavGroup[] = [
     items: [
       { key: "allJobs", url: "/admin/dashboard/careers" },
       { key: "newJob", url: "/admin/dashboard/careers/new" },
+      { key: "jobApplications", url: "/admin/dashboard/applications" },
     ],
   },
   {

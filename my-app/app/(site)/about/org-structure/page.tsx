@@ -9,6 +9,9 @@ export const metadata: Metadata = {
     "مستويات الحوكمة والتنفيذ في مؤسسة المجدوعي الخيرية، من مجلس الأمناء إلى الإدارات التشغيلية.",
 };
 
+// CMS-driven content is rendered dynamically (cookies/RLS at request time).
+export const dynamic = "force-dynamic";
+
 export default async function OrgStructurePage() {
   const levels = await getOrgLevels();
 

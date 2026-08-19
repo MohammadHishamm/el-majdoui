@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Check } from "lucide-react";
@@ -24,13 +24,18 @@ const formLabelClass =
   "mb-2 block w-full text-right text-[13px] font-medium leading-[19.5px] text-heading";
 const formLabelStyle = { fontFamily: "var(--font-itf-rayat), sans-serif" };
 
+const CONSENT_ERROR = "يرجى الموافقة على سياسة خصوصية البيانات قبل إرسال الطلب.";
+
 /** Server-side rejections, phrased the same way the inline checks are. */
 const SERVER_ERROR: Record<NonNullable<JobApplicationState["error"]>, string> = {
   missing: "يرجى تعبئة الحقول الأساسية المطلوبة.",
-  consent: "يرجى الموافقة على سياسة خصوصية البيانات.",
+  consent: CONSENT_ERROR,
   file: "تعذر قبول الملف. يرجى إرفاق سيرة ذاتية بصيغة PDF أو DOCX وبحجم أقل من 5MB.",
   failed: "تعذر إرسال الطلب. يرجى المحاولة مرة أخرى.",
 };
+
+/** `field` marks the control the message is about, so it can be pointed at. */
+type FormError = { message: string; field?: "consent" };
 
 function Field({
   label,
@@ -56,13 +61,31 @@ function Field({
 
 export function JobApplicationForm({ job }: { job: Job }) {
   const fileRef = useRef<HTMLInputElement>(null);
+  const consentRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState<string | null>(null);
   const [agree, setAgree] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<FormError | null>(null);
   const [state, formAction, pending] = useActionState(
     submitJobApplication,
     initialJobApplicationState,
   );
+
+  /* The confirmation replaces a form the applicant has just scrolled to the
+     bottom of, so without this they land on the footer and see nothing of it.
+     Instant, not smooth, and after a frame: the confirmation is far shorter
+     than the form, so the page shrinks under a smooth scroll and the browser
+     clamps it to the new bottom mid-animation — which is exactly the footer
+     this is meant to avoid. */
+  useEffect(() => {
+    if (!state.ok) return;
+    const top = () => window.scrollTo(0, 0);
+    top();
+    // Re-asserted after layout settles: the confirmation is far shorter than
+    // the form, and the browser re-anchors the scroll position as the page
+    // shrinks, which lands the applicant back on the footer.
+    const t = setTimeout(top, 100);
+    return () => clearTimeout(t);
+  }, [state.ok]);
 
   /* The inline checks run before React hands the submit to the action —
      preventDefault here cancels it — so the applicant sees a missing CV or an
@@ -71,11 +94,13 @@ export function JobApplicationForm({ job }: { job: Job }) {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     const form = e.currentTarget;
     const required = ["first_name", "last_name", "email", "phone"] as const;
-    const stop = (message: string) => {
+    const stop = (message: string, field?: FormError["field"]) => {
       e.preventDefault();
-      setError(message);
+      setError({ message, field });
     };
 
+    // Checked in the order the fields appear, so the message names the first
+    // thing the applicant still has to go back and do.
     for (const name of required) {
       const el = form.elements.namedItem(name) as HTMLInputElement | null;
       if (!el?.value.trim()) return stop("يرجى تعبئة الحقول الأساسية المطلوبة.");
@@ -87,12 +112,21 @@ export function JobApplicationForm({ job }: { job: Job }) {
     if (!cvMimeFor(file.name, file.type)) {
       return stop("صيغة الملف غير مدعومة. يرجى إرفاق ملف PDF أو DOCX.");
     }
-    if (!agree) return stop("يرجى الموافقة على سياسة خصوصية البيانات.");
+    if (!agree) {
+      // The box is the whole reason the button looks unavailable, so send the
+      // applicant straight to it rather than leaving them to find it.
+      consentRef.current?.focus();
+      return stop(CONSENT_ERROR, "consent");
+    }
 
     setError(null);
   };
 
-  const message = error ?? (state.error ? SERVER_ERROR[state.error] : null);
+  const serverError: FormError | null = state.error
+    ? { message: SERVER_ERROR[state.error], field: state.error === "consent" ? "consent" : undefined }
+    : null;
+  const shownError = error ?? serverError;
+  const consentMissing = shownError?.field === "consent";
 
   return (
     <main dir="rtl" className="bg-surface" data-nav-surface="light">
@@ -238,26 +272,59 @@ export function JobApplicationForm({ job }: { job: Job }) {
                   <input name="linkedin" type="url" placeholder="https://linkedin.com/in/..." className={inputClass} />
                 </div>
 
-                <label className="mt-6 flex w-full cursor-pointer items-start justify-start gap-3">
+                {/* Turns red once the applicant has been told to tick it, so
+                    the message and the control it names are read together. */}
+                <label
+                  className={`mt-6 flex w-full cursor-pointer items-start justify-start gap-3 rounded-[10px] transition-colors ${
+                    consentMissing ? "-mx-2 bg-red-50 px-2 py-2 dark:bg-red-950/30" : ""
+                  }`}
+                >
                   <input
+                    ref={consentRef}
                     type="checkbox"
                     name="consent"
                     checked={agree}
-                    onChange={(e) => setAgree(e.target.checked)}
-                    className="mt-0.5 size-4 shrink-0 accent-heading"
+                    onChange={(e) => {
+                      setAgree(e.target.checked);
+                      if (e.target.checked && consentMissing) setError(null);
+                    }}
+                    aria-invalid={consentMissing}
+                    /* A ring, not an outline — the browser draws its own focus
+                       outline on this box the moment it is focused, and the two
+                       would fight over the same property. */
+                    className={`mt-0.5 size-4 shrink-0 accent-heading ${
+                      consentMissing ? "ring-2 ring-red-500 ring-offset-2" : ""
+                    }`}
                   />
-                  <span className="text-right text-[14px] leading-[22px] text-body-4">
+                  <span
+                    className={`text-right text-[14px] leading-[22px] ${
+                      consentMissing ? "font-medium text-red-600" : "text-body-4"
+                    }`}
+                  >
                     أوافق على معالجة بياناتي وفق سياسة خصوصية البيانات المعتمدة في مؤسسة المجدوعي الخيرية.
                   </span>
                 </label>
 
-                {message && <p className="mt-4 text-right text-[14px] text-red-600">{message}</p>}
+                {shownError && (
+                  <p role="alert" className="mt-4 text-right text-[14px] text-red-600">
+                    {shownError.message}
+                  </p>
+                )}
 
                 <div className="mt-8 flex items-center justify-start gap-3">
+                  {/* Reads as unavailable until consent is given, but stays
+                      clickable on purpose: a truly disabled button swallows the
+                      click, and the applicant is left with no idea what is
+                      missing. `aria-disabled` conveys the same state without
+                      taking the click away. */}
                   <button
                     type="submit"
                     disabled={pending}
-                    className="rounded-full bg-btn-primary px-7 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#00444c] disabled:cursor-not-allowed disabled:opacity-60"
+                    aria-disabled={!agree}
+                    title={!agree ? CONSENT_ERROR : undefined}
+                    className={`rounded-full bg-btn-primary px-7 py-3 text-[14px] font-bold text-white transition-colors hover:bg-[#00444c] disabled:cursor-not-allowed disabled:opacity-60 ${
+                      !agree && !pending ? "cursor-not-allowed opacity-60 hover:bg-btn-primary" : ""
+                    }`}
                   >
                     {pending ? "جارٍ الإرسال…" : "إرسال الطلب"}
                   </button>

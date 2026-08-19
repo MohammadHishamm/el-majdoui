@@ -219,6 +219,12 @@ export default async function BoardPage() {
         </section>
       </FadeInUp>
 
+      {/* ── Committees ── sits above the leadership roster: the committees are
+          the board's own structure, so they follow the board members directly. */}
+      <FadeInUp>
+        <BoardCommittees committees={committees} />
+      </FadeInUp>
+
       {/* ── Executive leadership ── */}
       <FadeInUp>
         <section
@@ -248,11 +254,8 @@ export default async function BoardPage() {
         </section>
       </FadeInUp>
 
-      {/* Committees, then the executive director's office — appended below the
-          existing board and leadership sections. */}
-      <FadeInUp>
-        <BoardCommittees committees={committees} />
-      </FadeInUp>
+      {/* The executive director's office closes the page, next to the
+          leadership roster it belongs to. */}
       <FadeInUp>
         <CeoOffice content={ceoOffice} />
       </FadeInUp>

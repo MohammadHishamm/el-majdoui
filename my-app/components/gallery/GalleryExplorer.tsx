@@ -174,7 +174,7 @@ export function GalleryExplorer({ data }: { data: GalleryItem[] }) {
           ))}
         </div>
         {count === 0 && (
-          <p className="py-12 text-center text-body-3">لا يوجد محتوى في هذا التصنيف.</p>
+          <p className="py-12 text-center text-body-3">لا يوجد محتوى منشور في هذا القسم حتى الآن.</p>
         )}
       </div>
     </div>

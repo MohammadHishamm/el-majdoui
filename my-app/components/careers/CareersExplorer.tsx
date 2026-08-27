@@ -112,10 +112,14 @@ export function CareersExplorer({
   jobs,
   reasonsHeading = "لماذا تعمل معنا؟",
   reasons: reasonsProp,
+  emptyTitle = "لا توجد وظائف متاحة حاليًا",
+  emptyBody = "يمكنك متابعة هذه الصفحة أو حساباتنا في وسائل التواصل للاطلاع على الشواغر الجديدة عند الإعلان عنها.",
 }: {
   jobs: Job[];
   reasonsHeading?: string;
   reasons?: ReasonCard[];
+  emptyTitle?: string;
+  emptyBody?: string;
 }) {
   const [query, setQuery] = useState("");
   const cards: ReasonCard[] = reasonsProp?.length ? reasonsProp : reasons;
@@ -166,8 +170,13 @@ export function CareersExplorer({
 
       {/* Job listings */}
       <div className="mt-6 space-y-6">
-        {filtered.length === 0 ? (
-          <p className="py-12 text-center text-body-3">لا توجد وظائف مطابقة لبحثك.</p>
+        {jobs.length === 0 ? (
+          <div className="py-12 text-center">
+            <p className="text-[20px] font-bold text-heading">{emptyTitle}</p>
+            <p className="mx-auto mt-3 max-w-xl text-[16px] leading-[28px] text-body-3">{emptyBody}</p>
+          </div>
+        ) : filtered.length === 0 ? (
+          <p className="py-12 text-center text-body-3">لم نجد نتائج مطابقة. جرّب كلمة أخرى.</p>
         ) : (
           filtered.map((job, i) => <JobItem key={job.id} job={job} defaultOpen={i === 0} />)
         )}

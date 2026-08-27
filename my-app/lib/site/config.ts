@@ -3,15 +3,13 @@ export const siteConfig = {
   fullName: "مؤسسة علي بن إبراهيم المجدوعي وعائلته الخيرية",
   nameEn: "Almajdouie Foundation",
   description: "مؤسسة مانحة تُسهم في تحسين جودة الحياة الاقتصادية للمحتاج والعناية بمساجد المجدوعي.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://almajdouie.org",
-  grantPortalUrl: process.env.NEXT_PUBLIC_GRANT_PORTAL_URL ?? "#",
-  grantPortalLabel: "بوابة المنح",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.almajdouie.org",
   locale: "ar-SA",
   contact: {
-    phone: "+966 234 11 98989",
+    phone: "0138198415",
     fax: "+966 XX XXX XXXX",
     email: "info@almajdouie.org",
-    address: "المملكة العربية السعودية، المنطقة الشرقية، الدمام",
+    address: "المملكة العربية السعودية — المنطقة الشرقية، الدمام",
     addressEn: "Kingdom of Saudi Arabia, Eastern Province, Dammam",
     workingHours: "من الأحد إلى الخميس – من 8:00 ص حتى 4:00 م",
     workingHoursEn: "Sunday to Thursday – 8:00 AM to 4:00 PM",
@@ -85,6 +83,7 @@ export const mainNavigation: NavItem[] = [
         labelEn: "Photo & Video Gallery",
         href: "/gallery",
       },
+      { label: "مكتبة الفيديو", labelEn: "Video Library", href: "/videos" },
       { label: "التقارير والوثائق", labelEn: "Reports & Documents", href: "/reports" },
       { label: "الهوية البصرية", labelEn: "Visual Identity", href: "/brand-identity" },
     ],
@@ -97,13 +96,14 @@ export const mainNavigation: NavItem[] = [
 
 export const footerNavigation = {
   focus: [
-    { label: "المحتاج", labelEn: "The Needy", href: "/focus-areas/empowerment" },
+    { label: "تمكين المحتاج", labelEn: "Empowering the Needy", href: "/focus-areas/empowerment" },
     { label: "مساجد المجدوعي", labelEn: "Almajdouie Mosques", href: "/focus-areas/mosques" },
     { label: "شركاء التنفيذ", labelEn: "Implementation Partners", href: "/focus-areas/partners-development" },
   ],
   media: [
     { label: "الأخبار", labelEn: "News", href: "/news" },
     { label: "معرض الصور", labelEn: "Photo Gallery", href: "/gallery" },
+    { label: "مكتبة الفيديو", labelEn: "Video Library", href: "/videos" },
     { label: "التقارير", labelEn: "Reports", href: "/reports" },
   ],
   about: [
@@ -119,7 +119,7 @@ export const footerNavigation = {
 
 export const focusAreas = [
   {
-    name: "المحتاج",
+    name: "تمكين المحتاج",
     slug: "empowerment",
     color: "#005761",
     shortDesc: "تمكين اقتصادي وتفريج كربات",
@@ -137,3 +137,8 @@ export const focusAreas = [
     shortDesc: "بناء قدرات لإحداث الأثر",
   },
 ] as const;
+
+// English is available again by explicit decision, overriding the content
+// guide (§0, rule 5), which had deferred it. Untranslated CMS fields fall back
+// to Arabic — see bi() in lib/cms/fetchers.ts.
+export const ENABLE_LANGUAGE_SWITCHER = true;

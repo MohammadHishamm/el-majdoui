@@ -86,9 +86,13 @@ function PerspectiveCard({
       <h3 className="text-right text-[20px] font-medium leading-[1.35] lg:text-[24px] lg:leading-[40px]">
         {perspective.title}
       </h3>
-      <p className="mt-3 min-h-0 text-right text-[15px] font-normal leading-[26px] text-white/90 lg:mt-[15px] lg:min-h-[120px] lg:leading-[30px]">
-        {perspective.description}
-      </p>
+      {/* The guide gives the five directions by name only — no blurb — so the
+          reserved 120px would otherwise sit empty under every card. */}
+      {perspective.description && (
+        <p className="mt-3 min-h-0 text-right text-[15px] font-normal leading-[26px] text-white/90 lg:mt-[15px] lg:min-h-[120px] lg:leading-[30px]">
+          {perspective.description}
+        </p>
+      )}
 
       <button
         type="button"

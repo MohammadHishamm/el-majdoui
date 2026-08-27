@@ -6,9 +6,9 @@ import { getAllPrograms } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/programs" },
-  title: "البرامج والمبادرات | مؤسسة المجدوعي الخيرية",
+  title: "البرامج والمبادرات",
   description:
-    "استكشف برامج ومبادرات مؤسسة المجدوعي الخيرية التنموية وأهداف الأثر المستدام لكل مبادرة.",
+    "أربع عشرة مبادرة معتمدة بين استراتيجية وتمكينية، كل عمل فيها موثّق ومقاس ومرتبط بالخطة الاستراتيجية.",
 };
 
 export const dynamic = "force-dynamic";

@@ -4,9 +4,10 @@ import type { BrandGuide, Color, LogoCard } from "@/components/brand/BrandGuideT
 import { getPageContent } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
-  title: "الهوية البصرية | مؤسسة المجدوعي الخيرية",
+  alternates: { canonical: "/brand-identity" },
+  title: "الهوية البصرية",
   description:
-    "دليلك الشامل لاستخدام عناصر الهوية البصرية لمؤسسة المجدوعي الخيرية وتطبيقاتها المعتمدة.",
+    "الشعار ودليل الهوية البصرية لمؤسسة المجدوعي الخيرية وإرشادات استخدامها.",
 };
 
 export const dynamic = "force-dynamic";
@@ -14,7 +15,11 @@ export const dynamic = "force-dynamic";
 const FALLBACK = {
   eyebrow: "المركز الإعلامي",
   title: "الهوية البصرية",
-  intro: "دليلك الشامل لاستخدام عناصر الهوية البصرية لمؤسسة المجدوعي الخيرية، وتطبيقاتها المعتمدة في التغطيات الإعلامية.",
+  intro: "تحافظ المؤسسة على وحدة هويتها البصرية في جميع تطبيقاتها. وتتيح هذه الصفحة للشركاء والجهات الإعلامية تحميل الشعار ودليل الهوية للاستخدام وفق الإرشادات المعتمدة.",
+  guidelines_heading: "إرشادات الاستخدام",
+  guidelines:
+    "يُستخدم الشعار بنسبه الأصلية دون تشويه أو إعادة تلوين أو إضافة تأثيرات. ويُلتزم بالحد الأدنى للمسافات المحيطة به وبالحد الأدنى لحجمه كما وردا في دليل الهوية. وأي استخدام تجاري أو تحريف للشعار غير مسموح.",
+  guidelines_contact: "لأي استفسار حول استخدام الهوية: info@almajdouie.org",
   tabs_heading: "دليل الهوية",
 
   /* مؤسسة المجدوعي الخيرية */
@@ -89,6 +94,23 @@ export default async function BrandIdentityPage() {
         tabsHeading={s("tabs_heading")}
         guides={guides}
       />
+
+      {/* §7.5 requires the usage rules on this page, not only inside the PDF. */}
+      {s("guidelines") && (
+        <section className="bg-surface pb-20 md:pb-28" aria-labelledby="brand-guidelines">
+          <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
+            <h2 id="brand-guidelines" className="text-right text-[28px] font-medium leading-[40px] text-heading md:text-[32px]">
+              {s("guidelines_heading")}
+            </h2>
+            <p className="mt-5 max-w-4xl text-right text-[17px] leading-[32px] text-body-2">
+              {s("guidelines")}
+            </p>
+            <p className="mt-4 text-right text-[16px] leading-[28px] text-body-3">
+              {s("guidelines_contact")}
+            </p>
+          </div>
+        </section>
+      )}
     </main>
   );
 }

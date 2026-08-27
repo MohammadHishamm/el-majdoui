@@ -15,9 +15,12 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: siteConfig.name,
-  description: siteConfig.description,
   alternates: { canonical: "/" },
+  // absolute: the layout template would otherwise append the short name to the
+  // full one, giving "المجدوعي الخيرية | المجدوعي الخيرية".
+  title: { absolute: siteConfig.fullName },
+  description:
+    "مؤسسة مانحة تعمل على تحسين جودة الحياة الاقتصادية للمحتاج، والعناية بمساجد المجدوعي لتكون نموذجية ومنارة للعلم، بالشراكة مع جهات تنفيذية مؤهلة.",
 };
 
 export const dynamic = "force-dynamic";

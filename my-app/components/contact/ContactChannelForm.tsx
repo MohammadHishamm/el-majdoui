@@ -1,8 +1,9 @@
 "use client";
 
 import { useActionState, useEffect, useId, useRef, useState } from "react";
-import { Check, ChevronDown, CloudUpload, X } from "lucide-react";
+import { Check, CloudUpload, X } from "lucide-react";
 import { useLocale } from "@/lib/i18n/context";
+import { CONTACT_FIELD, ContactSelect } from "@/components/contact/ContactSelect";
 import {
   ATTACHMENT_ACCEPT,
   ATTACHMENT_MAX_BYTES,
@@ -13,15 +14,12 @@ import {
   CONTACT_REQUEST_TYPES,
   CONTACT_TYPE_CONFIG,
   initialContactRequestState,
+  isContactRequestType,
   type ContactRequestType,
 } from "@/lib/site/contact-channel";
-import { submitContactRequest } from "@/app/(site)/contact/actions";
+import { submitContactRequest } from "@/app/(site)/contact/complaints/actions";
 
-/* The design's input chrome: 46px tall, 8px radius, #d1ddd9 hairline. The
-   border is the one value with no semantic token — panel-border is nearly
-   invisible at this size — so it's stated here and handed to dark mode. */
-const FIELD =
-  "h-[46px] w-full rounded-lg border border-[#d1ddd9] bg-panel px-4 text-sm text-body-1 outline-none transition-colors placeholder:text-body-3/70 focus:border-icon dark:border-panel-border";
+const FIELD = CONTACT_FIELD;
 
 const LABEL = "mb-2 block w-full text-[13px] font-medium text-body-1 dark:text-heading";
 
@@ -44,120 +42,8 @@ function Required() {
   return <span className="text-red-500"> *</span>;
 }
 
-/** Custom select — native <select> lists can't be styled; this matches field chrome. */
-function Select({
-  name,
-  options,
-  placeholder,
-  required,
-  id,
-  ar,
-}: {
-  name: string;
-  options: { ar: string; en: string }[];
-  placeholder: string;
-  required?: boolean;
-  id: string;
-  ar: boolean;
-}) {
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("");
-  const rootRef = useRef<HTMLDivElement>(null);
-
-  const label = (o: { ar: string; en: string }) => (ar ? o.ar : o.en);
-  const selected = options.find((o) => o.ar === value);
-  const display = selected ? label(selected) : placeholder;
-
-  useEffect(() => {
-    if (!open) return;
-    const onPointerDown = (e: MouseEvent) => {
-      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
-    };
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("mousedown", onPointerDown);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("mousedown", onPointerDown);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [open]);
-
-  const pick = (next: string) => {
-    setValue(next);
-    setOpen(false);
-  };
-
-  return (
-    <div ref={rootRef} className="relative w-full">
-      <input type="hidden" name={name} value={value} required={required} />
-
-      <button
-        type="button"
-        id={id}
-        aria-haspopup="listbox"
-        aria-expanded={open}
-        onClick={() => setOpen((v) => !v)}
-        className={`${FIELD} flex w-full cursor-pointer items-center text-right ${ar ? "pl-10" : "pr-10"} ${open ? "border-icon" : ""} ${value ? "text-body-1" : "text-body-3/70"}`}
-      >
-        <span className="min-w-0 flex-1 truncate">{display}</span>
-      </button>
-
-      <ChevronDown
-        className={`pointer-events-none absolute top-1/2 size-4 -translate-y-1/2 text-body-3 transition-transform ${open ? "rotate-180" : ""} ${ar ? "left-4" : "right-4"}`}
-        aria-hidden
-      />
-
-      {open && (
-        <ul
-          role="listbox"
-          aria-labelledby={id}
-          className="absolute top-[calc(100%+6px)] z-50 max-h-60 w-full overflow-auto rounded-lg border border-[#d1ddd9] bg-panel py-1 shadow-[0_4px_24px_rgba(0,0,0,0.08)] dark:border-panel-border"
-        >
-          {/* The "no selection" row needs its own wording. Using `placeholder`
-              here duplicated the first option verbatim — the design's example
-              placeholder text *is* option one — so the list showed the same
-              label twice and picking the upper one silently cleared the field. */}
-          {!required && (
-            <li role="presentation">
-              <button
-                type="button"
-                role="option"
-                aria-selected={value === ""}
-                onClick={() => pick("")}
-                className={`w-full px-4 py-2.5 text-right text-[13px] transition-colors hover:bg-icon-box ${value === "" ? "bg-icon-box/70 font-medium text-[#005761] dark:text-heading" : "text-body-3"}`}
-              >
-                {ar ? "بدون تحديد" : "No selection"}
-              </button>
-            </li>
-          )}
-          {options.map((o) => {
-            const active = value === o.ar;
-            return (
-              <li key={o.ar} role="presentation">
-                <button
-                  type="button"
-                  role="option"
-                  aria-selected={active}
-                  onClick={() => pick(o.ar)}
-                  className={`flex w-full items-center gap-2 px-4 py-2.5 text-right text-[13px] transition-colors hover:bg-icon-box ${
-                    active
-                      ? "bg-icon-box font-medium text-[#005761] dark:text-heading"
-                      : "text-body-1"
-                  }`}
-                >
-                  <span className="min-w-0 flex-1 truncate">{label(o)}</span>
-                  {active && <Check className="size-3.5 shrink-0 text-[#005761] dark:text-heading" aria-hidden />}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </div>
-  );
-}
+const mapOptions = (options: { ar: string; en: string }[], ar: boolean) =>
+  options.map((o) => ({ value: o.ar, label: ar ? o.ar : o.en || o.ar }));
 
 const formatSize = (bytes: number) => `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 
@@ -173,6 +59,15 @@ export function ContactChannelForm() {
   const [consent, setConsent] = useState(false);
   const [consentHint, setConsentHint] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  // Reading the ?type= deep-link once on mount. Kept as an effect deliberately:
+  // useSearchParams would force this page out of static prerendering, and the
+  // single set here cannot cascade because the dependency list is empty.
+  useEffect(() => {
+    const param = new URLSearchParams(window.location.search).get("type");
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (isContactRequestType(param)) setType(param);
+  }, []);
 
   const [state, formAction, pending] = useActionState(
     submitContactRequest,
@@ -364,7 +259,7 @@ export function ContactChannelForm() {
             </label>
             {/* +966 is fixed chrome sitting outside the input, so the stored
                 value is exactly the local number the user typed. */}
-            <div className="flex h-[46px] items-center gap-2 rounded-lg border border-[#d1ddd9] bg-panel px-4 focus-within:border-icon dark:border-panel-border">
+            <div className="flex h-[46px] items-center gap-2 rounded-lg border-2 border-[#d1ddd9] bg-panel px-4 focus-within:border-icon dark:border-panel-border">
               <span className="shrink-0 text-sm text-body-3" dir="ltr">
                 +966
               </span>
@@ -401,12 +296,12 @@ export function ContactChannelForm() {
               {ar ? "الجهة / التصنيف" : "Entity / category"}
               <Required />
             </label>
-            <Select
+            <ContactSelect
               id={`${uid}-category`}
               name="category"
               required
-              ar={ar}
-              options={CONTACT_CATEGORIES}
+              rtl={ar}
+              options={mapOptions(CONTACT_CATEGORIES, ar)}
               placeholder={ar ? "فرد (مستفيد)" : "Individual (beneficiary)"}
             />
           </div>
@@ -423,12 +318,13 @@ export function ContactChannelForm() {
           <label htmlFor={`${uid}-to`} className={LABEL}>
             {ar ? "الموجه إليه (اختياري)" : "Addressed to (optional)"}
           </label>
-          <Select
+          <ContactSelect
             id={`${uid}-to`}
             name="addressed_to"
-            ar={ar}
-            options={CONTACT_DEPARTMENTS}
+            rtl={ar}
+            options={mapOptions(CONTACT_DEPARTMENTS, ar)}
             placeholder={ar ? "إدارة البرامج والمنح" : "Programs & Grants"}
+            emptyLabel={ar ? "بدون تحديد" : "No selection"}
           />
         </div>
 

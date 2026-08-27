@@ -30,7 +30,7 @@ function rowFromForm(form: FormData) {
 
   return {
     slug: str(form.get("slug")),
-    category: str(form.get("category")) || "institution",
+    category: str(form.get("category")) || "news",
     title_ar: str(form.get("title_ar")),
     title_en: str(form.get("title_en")),
     excerpt_ar: str(form.get("excerpt_ar")),

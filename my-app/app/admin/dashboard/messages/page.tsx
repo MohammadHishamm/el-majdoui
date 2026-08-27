@@ -9,6 +9,7 @@ type Row = {
   name: string;
   email: string;
   phone: string | null;
+  subject: string | null;
   message: string;
   is_read: boolean;
   created_at: string;
@@ -19,7 +20,7 @@ export default async function MessagesPage() {
   const { t } = await getAdminT();
   const { data, error } = await supabase
     .from("contact_messages")
-    .select("id, name, email, phone, message, is_read, created_at")
+    .select("id, name, email, phone, subject, message, is_read, created_at")
     .order("created_at", { ascending: false });
   const rows = (data ?? []) as Row[];
 
@@ -62,6 +63,9 @@ export default async function MessagesPage() {
                       </a>
                     )}
                     <span>{new Date(m.created_at).toLocaleString()}</span>
+                    {/* Only /contact asks for a subject; the short form on the
+                        landing page does not, so its absence marks the source. */}
+                    <span dir="rtl">{m.subject ? m.subject : "النموذج المختصر — الصفحة الرئيسية"}</span>
                   </div>
                 </div>
                 <div className="flex shrink-0 items-center gap-2">

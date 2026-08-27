@@ -25,6 +25,14 @@ export function BoardForm({ action, defaults, submitLabel }: { action: (f: FormD
         <InlineUpload value={str("photo")} onChange={(u) => set("photo", u)} folder="board" label={l("Portrait photo", "الصورة الشخصية")} recommendedSize="650 × 812 px (4:5 portrait)" hint={l("Head-and-shoulders portrait; the top-right corner is rounded on the site.", "صورة شخصية للرأس والكتفين؛ تُعرض بزاوية علوية يمنى دائرية في الموقع.")} />
       </Box>
 
+      <Box title={l("Vice Chairman of the Board", "نائب رئيس مجلس الأمناء")}>
+        <Txt label={l("Eyebrow", "السطر التمهيدي")} value={str("vice_eyebrow")} onChange={(v) => set("vice_eyebrow", v)} />
+        <Txt label={l("Name", "الاسم")} value={str("vice_name")} onChange={(v) => set("vice_name", v)} />
+        <Txt label={l("Position", "المنصب")} value={str("vice_position")} onChange={(v) => set("vice_position", v)} />
+        <Area label={l("Quote", "الاقتباس")} value={str("vice_quote")} onChange={(v) => set("vice_quote", v)} rows={3} />
+        <InlineUpload value={str("vice_photo")} onChange={(u) => set("vice_photo", u)} folder="board" label={l("Portrait photo", "الصورة الشخصية")} recommendedSize="650 × 812 px (4:5 portrait)" hint={l("Head-and-shoulders portrait; the top-right corner is rounded on the site.", "صورة شخصية للرأس والكتفين؛ تُعرض بزاوية علوية يمنى دائرية في الموقع.")} />
+      </Box>
+
       <div><SubmitButton label={submitLabel} /></div>
     </form>
   );

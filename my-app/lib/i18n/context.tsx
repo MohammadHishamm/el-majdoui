@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 
 export type Locale = "ar" | "en";
 
@@ -14,24 +21,56 @@ const LocaleContext = createContext<LocaleContextValue>({
   setLocale: () => {},
 });
 
-export function LocaleProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("ar");
+const STORAGE_KEY = "locale";
 
-  useEffect(() => {
-    const saved = localStorage.getItem("locale") as Locale | null;
-    if (saved === "ar" || saved === "en") {
-      setLocaleState(saved);
-      document.documentElement.lang = saved;
-      document.documentElement.dir = saved === "ar" ? "rtl" : "ltr";
-    }
-  }, []);
+/**
+ * localStorage is an external store, so it is read through
+ * useSyncExternalStore rather than copied into state from an effect. That keeps
+ * the server snapshot ("ar") and the client snapshot in step through hydration
+ * without a cascading re-render.
+ */
+const listeners = new Set<() => void>();
 
-  const setLocale = (next: Locale) => {
-    setLocaleState(next);
-    localStorage.setItem("locale", next);
-    document.documentElement.lang = next;
-    document.documentElement.dir = next === "ar" ? "rtl" : "ltr";
+function subscribe(onChange: () => void) {
+  listeners.add(onChange);
+  // Another tab changing the locale should update this one too.
+  window.addEventListener("storage", onChange);
+  return () => {
+    listeners.delete(onChange);
+    window.removeEventListener("storage", onChange);
   };
+}
+
+function getSnapshot(): Locale {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    return saved === "en" ? "en" : "ar";
+  } catch {
+    // Private mode or blocked storage — fall back to the default.
+    return "ar";
+  }
+}
+
+const getServerSnapshot = (): Locale => "ar";
+
+export function LocaleProvider({ children }: { children: ReactNode }) {
+  const locale = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  // Mirror the locale onto <html>. This writes to an external system and sets
+  // no state, which is what an effect is for.
+  useEffect(() => {
+    document.documentElement.lang = locale;
+    document.documentElement.dir = locale === "ar" ? "rtl" : "ltr";
+  }, [locale]);
+
+  const setLocale = useCallback((next: Locale) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      /* storage unavailable — the change applies for this render only */
+    }
+    listeners.forEach((l) => l());
+  }, []);
 
   return (
     <LocaleContext.Provider value={{ locale, setLocale }}>

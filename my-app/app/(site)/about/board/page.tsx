@@ -7,12 +7,15 @@ import { BoardCommittees } from "@/components/about/BoardCommittees";
 import { CeoOffice } from "@/components/about/CeoOffice";
 
 export const metadata: Metadata = {
-  title: "مجلس الأمناء والقيادات | مؤسسة المجدوعي الخيرية",
+  alternates: { canonical: "/about/board" },
+  title: "مجلس الأمناء والقيادات",
   description:
-    "مجلس أمناء مؤسسة المجدوعي الخيرية وقياداتها التنفيذية برئاسة الشيخ علي بن إبراهيم المجدوعي.",
+    "أعضاء مجلس أمناء مؤسسة المجدوعي الخيرية في دورته الرابعة، واللجنة التنفيذية، والإدارة التنفيذية.",
 };
 
-const CLONE = "/images/leaders-group/clone-sheikh.jpg";
+// A missing portrait renders as the card's plain surface. It must never fall
+// back to another member's photo — the guide's roster is people, not filler.
+const NO_PHOTO = "";
 
 const FALLBACK_CHAIRMAN = {
   eyebrow: "رئيس مجلس الأمناء",
@@ -27,7 +30,7 @@ const FALLBACK_BOARD = Array.from({ length: 6 }, (_, i) => ({
   id: `member-${i + 1}`,
   name: "الأستاذ/ عبدالعزيز بن علي المجدوعي",
   role: "عضو مجلس الأمناء",
-  image: CLONE,
+  image: NO_PHOTO,
 }));
 
 const FALLBACK_LEADERSHIP = [
@@ -126,6 +129,20 @@ export default async function BoardPage() {
   ]);
   const BOARD_MEMBERS = team.board.length ? team.board : FALLBACK_BOARD;
   const LEADERSHIP = team.leadership.length ? team.leadership : FALLBACK_LEADERSHIP;
+  const boardIntro = (boardContent.board_intro as string) || "";
+  const committeeHeading = (boardContent.committee_heading as string) || "اللجنة التنفيذية";
+  const committeeIntro = (boardContent.committee_intro as string) || "";
+  const boardHeading = (boardContent.board_heading as string) || "مجلس الأمناء";
+  const leadershipHeading = (boardContent.leadership_heading as string) || "الإدارة التنفيذية";
+  // The chairman and his deputy each get their own row above the grid, so both
+  // are edited as page content rather than as rows in the trustees list.
+  const vice = {
+    eyebrow: (boardContent.vice_eyebrow as string) || "",
+    name: (boardContent.vice_name as string) || "",
+    position: (boardContent.vice_position as string) || "",
+    quote: (boardContent.vice_quote as string) || "",
+    photo: (boardContent.vice_photo as string) || "",
+  };
   const chairman = {
     eyebrow: (boardContent.eyebrow as string) || FALLBACK_CHAIRMAN.eyebrow,
     name: (boardContent.name as string) || FALLBACK_CHAIRMAN.name,
@@ -145,6 +162,11 @@ export default async function BoardPage() {
             <h1 className="mt-4 text-right text-[36px] font-medium leading-[40px] text-heading">
               <T ar="مجلس الأمناء والقيادات" en="Board of Trustees & Leadership" />
             </h1>
+            {boardIntro && (
+              <p className="mt-6 max-w-4xl text-right text-[17px] leading-[32px] text-body-2">
+                {boardIntro}
+              </p>
+            )}
             <div className="mt-8 h-px w-full bg-panel-border" />
           </FadeInUp>
         </div>
@@ -200,6 +222,67 @@ export default async function BoardPage() {
         </section>
       </FadeInUp>
 
+      {/* ── Vice chairman ── same treatment as the chairman above. Hidden
+          entirely until a name is entered, and the portrait, divider and quote
+          each appear only once they have a value. */}
+      {vice.name && (
+        <FadeInUp>
+          <section className="bg-surface pb-12 md:pb-16" aria-label="نائب رئيس مجلس الأمناء">
+            <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
+              <div className="flex flex-col items-center justify-center gap-8 rounded-[20px] bg-panel p-10 lg:flex-row">
+                {vice.photo && (
+                  <div className="relative aspect-[325/406] w-full max-w-[325px] shrink-0 overflow-hidden rounded-tr-[120px]">
+                    <Image
+                      src={vice.photo}
+                      alt={vice.name}
+                      fill
+                      className="object-cover object-top"
+                      sizes="(max-width: 1024px) 90vw, 325px"
+                    />
+                  </div>
+                )}
+
+                <div className="flex w-full flex-col items-start gap-4 text-right lg:max-w-[683px]">
+                  {vice.eyebrow && (
+                    <p
+                      className="w-full text-right text-heading"
+                      style={{ fontSize: 14, fontWeight: 700, lineHeight: "21px" }}
+                    >
+                      {vice.eyebrow}
+                    </p>
+                  )}
+                  <h2
+                    className="w-full text-right text-heading"
+                    style={{ fontSize: 28, fontWeight: 900, lineHeight: "33.6px" }}
+                  >
+                    {vice.name}
+                  </h2>
+                  {vice.position && (
+                    <div
+                      className="w-full text-right text-body-4"
+                      style={{ fontSize: 18, fontWeight: 400, lineHeight: "27px" }}
+                    >
+                      {vice.position}
+                    </div>
+                  )}
+                  {vice.quote && (
+                    <>
+                      <div className="my-1 h-px w-16 bg-[rgba(0,87,97,0.3)]" />
+                      <div
+                        className="w-full max-w-[673px] text-right text-body-2"
+                        style={{ fontSize: 24, fontWeight: 400, lineHeight: "28.8px" }}
+                      >
+                        &quot;{vice.quote}&quot;
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          </section>
+        </FadeInUp>
+      )}
+
       {/* ── Board members ── */}
       <FadeInUp>
         <section className="bg-surface py-12 md:py-16" aria-labelledby="board-members-heading">
@@ -208,7 +291,7 @@ export default async function BoardPage() {
               id="board-members-heading"
               className="mb-10 text-right text-[32px] font-bold leading-[36px] text-heading"
             >
-              <T ar="أعضاء مجلس الأمناء" en="Board of Trustees" />
+              {boardHeading}
             </h2>
             <div className="grid grid-cols-1 justify-items-center gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
               {BOARD_MEMBERS.map((member, index) => (
@@ -222,6 +305,18 @@ export default async function BoardPage() {
       {/* ── Committees ── sits above the leadership roster: the committees are
           the board's own structure, so they follow the board members directly. */}
       <FadeInUp>
+        {committeeIntro && (
+          <div className="mx-auto mb-10 w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
+            <h2 className="mb-4 text-right text-[32px] font-bold leading-[36px] text-heading">
+              {committeeHeading}
+            </h2>
+            <p className="max-w-4xl text-right text-[17px] leading-[32px] text-body-2">
+              {committeeIntro}
+            </p>
+            {/* The current committee roster is still with Communications; the
+                guide forbids publishing names it has not supplied. */}
+          </div>
+        )}
         <BoardCommittees committees={committees} />
       </FadeInUp>
 
@@ -237,7 +332,7 @@ export default async function BoardPage() {
               id="leadership-heading"
               className="mb-10 text-right text-[32px] font-bold leading-[36px] text-heading"
             >
-              <T ar="القيادة التنفيذية" en="Executive Leadership" />
+              {leadershipHeading}
             </h2>
             <div className="grid grid-cols-2 justify-items-center gap-5 lg:grid-cols-4 lg:gap-6">
               {LEADERSHIP.map((leader, index) => (
@@ -246,7 +341,7 @@ export default async function BoardPage() {
                   index={index}
                   name={leader.name}
                   role={leader.role}
-                  image={leader.image || CLONE}
+                  image={leader.image || NO_PHOTO}
                 />
               ))}
             </div>

@@ -9,7 +9,7 @@ import {
   Home,
   Landmark,
   LayoutDashboard,
-  MessageSquareWarning,
+  Mail,
   Newspaper,
   Settings2,
   Target,
@@ -43,6 +43,11 @@ type NavGroup = {
 
 // Nav organised by site page → its sections. `roles` (omitted = everyone)
 // gates each group/leaf so each role only sees what it can manage.
+// Mirrors the public navbar (lib/site/config.ts → mainNavigation): same groups,
+// same order, so an editor looking for a page finds it where the site puts it.
+// The home page comes first and settings last, since neither appears in the
+// navbar. `roles` (omitted = everyone) gates each group and leaf, so each role
+// still sees only what it may manage.
 const NAV: NavGroup[] = [
   {
     key: "homePage",
@@ -51,21 +56,22 @@ const NAV: NavGroup[] = [
     items: [
       { key: "heroSlides", url: "/admin/dashboard/hero-slides" },
       { key: "aboutLeadership", url: "/admin/dashboard/about-leadership" },
-      { key: "focusAreas", url: "/admin/dashboard/focus-areas" },
       { key: "homePrograms", url: "/admin/dashboard/panels" },
       { key: "impactKpis", url: "/admin/dashboard/kpis" },
       { key: "homeStrategic", url: "/admin/dashboard/strategic-alignment" },
     ],
   },
   {
-    key: "newsMedia",
-    icon: Newspaper,
-    roles: ["super_admin", "news_manager"],
+    key: "aboutGroup",
+    icon: Landmark,
+    roles: ["super_admin", "content_editor"],
     items: [
-      { key: "allArticles", url: "/admin/dashboard/news" },
-      { key: "newArticle", url: "/admin/dashboard/news/new" },
-      { key: "galleryVideos", url: "/admin/dashboard/gallery" },
-      { key: "reports", url: "/admin/dashboard/reports" },
+      { key: "pgWho", url: "/admin/dashboard/pages/who-we-are" },
+      { key: "pgVision", url: "/admin/dashboard/pages/vision-mission" },
+      { key: "pgStrategy", url: "/admin/dashboard/pages/strategy" },
+      { key: "boardLeadership", url: "/admin/dashboard/team" },
+      { key: "orgStructure", url: "/admin/dashboard/org-structure" },
+      { key: "policies", url: "/admin/dashboard/policies" },
     ],
   },
   {
@@ -87,6 +93,20 @@ const NAV: NavGroup[] = [
     ],
   },
   {
+    key: "mediaCenter",
+    icon: Newspaper,
+    roles: ["super_admin", "news_manager", "content_editor"],
+    items: [
+      { key: "allArticles", url: "/admin/dashboard/news", roles: ["super_admin", "news_manager"] },
+      { key: "newArticle", url: "/admin/dashboard/news/new", roles: ["super_admin", "news_manager"] },
+      { key: "galleryVideos", url: "/admin/dashboard/gallery", roles: ["super_admin", "news_manager"] },
+      { key: "reports", url: "/admin/dashboard/reports", roles: ["super_admin", "news_manager"] },
+      // Brand identity sits under the media centre on the site, but stays a
+      // content_editor page — the leaf gate keeps the previous permission.
+      { key: "pgBrand", url: "/admin/dashboard/pages/brand-identity", roles: ["super_admin", "content_editor"] },
+    ],
+  },
+  {
     key: "careers",
     icon: Briefcase,
     roles: ["super_admin", "content_editor"],
@@ -97,39 +117,25 @@ const NAV: NavGroup[] = [
     ],
   },
   {
-    key: "aboutGroup",
-    icon: Landmark,
+    key: "contactGroup",
+    icon: Mail,
     roles: ["super_admin", "content_editor"],
     items: [
-      { key: "pgVision", url: "/admin/dashboard/pages/vision-mission" },
-      { key: "pgWho", url: "/admin/dashboard/pages/who-we-are" },
-      { key: "pgStrategy", url: "/admin/dashboard/pages/strategy" },
-      { key: "boardLeadership", url: "/admin/dashboard/team" },
-      { key: "orgStructure", url: "/admin/dashboard/org-structure" },
-      { key: "policies", url: "/admin/dashboard/policies" },
+      { key: "messages", url: "/admin/dashboard/messages" },
+      { key: "allComplaints", url: "/admin/dashboard/complaints" },
     ],
   },
   {
-    key: "sitePages",
+    key: "supportPages",
     icon: FileText,
     roles: ["super_admin", "content_editor"],
-    items: [
-      { key: "pgBrand", url: "/admin/dashboard/pages/brand-identity" },
-      { key: "pgPrivacy", url: "/admin/dashboard/pages/privacy-policy" },
-    ],
-  },
-  {
-    key: "complaintsGroup",
-    icon: MessageSquareWarning,
-    roles: ["super_admin", "content_editor"],
-    items: [{ key: "allComplaints", url: "/admin/dashboard/complaints" }],
+    items: [{ key: "pgPrivacy", url: "/admin/dashboard/pages/privacy-policy" }],
   },
   {
     key: "settings",
     icon: Settings2,
     items: [
       { key: "siteContent", url: "/admin/dashboard/site-settings", roles: ["super_admin", "content_editor"] },
-      { key: "messages", url: "/admin/dashboard/messages", roles: ["super_admin", "content_editor"] },
       { key: "usersRoles", url: "/admin/dashboard/users", roles: ["super_admin"] },
     ],
   },

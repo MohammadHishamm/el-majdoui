@@ -11,7 +11,7 @@ const MOSQUES_LOGO = {
   dark: '/images/identity/masaged-majdoui-icon-dark.svg',
 };
 
-export default function IntroSection({ title = '', intro = '', slug = '' }) {
+export default function IntroSection({ title = '', intro = '', impact = '', slug = '' }) {
   const containerRef = useRef(null);
   const words = (intro || '').split(' ');
 
@@ -41,6 +41,9 @@ export default function IntroSection({ title = '', intro = '', slug = '' }) {
           <p className={`${styles.label} animate-title`}>مجالات التركيز</p>
           {slug === 'mosques' ? (
             <div className={`${styles.mosquesLogo} animate-title`}>
+              {/* The logo replaces the wordmark here, so the page still needs a
+                  real h1 for the document outline and for screen readers. */}
+              <h1 className="sr-only">{title}</h1>
               <Image
                 src={MOSQUES_LOGO.light}
                 alt={title}
@@ -59,7 +62,7 @@ export default function IntroSection({ title = '', intro = '', slug = '' }) {
               />
             </div>
           ) : (
-            <h2 className={`${styles.heading} animate-title`}>{title}</h2>
+            <h1 className={`${styles.heading} animate-title`}>{title}</h1>
           )}
           <hr className={styles.divider} />
           <p className={styles.description}>
@@ -70,6 +73,12 @@ export default function IntroSection({ title = '', intro = '', slug = '' }) {
               </span>
             ))}
           </p>
+          {/* «الأثر المراد» closes the approved intro block (guide 5.2-5.4). */}
+          {impact ? (
+            <p className={styles.description} style={{ marginTop: 16 }}>
+              <strong>الأثر المراد:</strong> {impact}
+            </p>
+          ) : null}
         </div>
       </div>
     </section>

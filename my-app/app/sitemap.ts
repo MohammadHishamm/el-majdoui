@@ -19,11 +19,11 @@ const staticRoutes = [
   "/about/vision-mission",
   "/about/strategy",
   "/about/board",
-  "/about/leadership",
   "/about/org-structure",
   "/about/policies",
   "/careers",
   "/contact",
+  "/contact/complaints",
   "/privacy-policy",
   "/sitemap",
 ];

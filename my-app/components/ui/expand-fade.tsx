@@ -20,19 +20,20 @@ export function ExpandFade({ open, children, className = "" }: ExpandFadeProps) 
     const el = contentRef.current;
     if (!el) return;
 
-    if (open) {
-      const target = el.scrollHeight;
-      setHeight(0);
-      const frame = requestAnimationFrame(() => {
-        requestAnimationFrame(() => setHeight(target));
-      });
-      return () => cancelAnimationFrame(frame);
-    }
+    // Both the starting and the target height are set inside animation frames.
+    // Setting the start height synchronously here would be a setState in the
+    // effect body, and the browser would coalesce it with the target anyway —
+    // the transition needs the two values in separate frames to run at all.
+    let second = 0;
+    const first = requestAnimationFrame(() => {
+      setHeight(open ? 0 : el.scrollHeight);
+      second = requestAnimationFrame(() => setHeight(open ? el.scrollHeight : 0));
+    });
 
-    const current = el.scrollHeight;
-    setHeight(current);
-    const frame = requestAnimationFrame(() => setHeight(0));
-    return () => cancelAnimationFrame(frame);
+    return () => {
+      cancelAnimationFrame(first);
+      cancelAnimationFrame(second);
+    };
   }, [open]);
 
   useEffect(() => {

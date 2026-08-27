@@ -10,5 +10,6 @@ import { useLocale } from "@/lib/i18n/context";
  */
 export function T({ ar, en }: { ar: string; en: string }) {
   const { locale } = useLocale();
-  return <>{locale === "en" ? en : ar}</>;
+  // Arabic is the fallback when an English label is missing or blank.
+  return <>{locale === "en" ? en.trim() || ar : ar}</>;
 }

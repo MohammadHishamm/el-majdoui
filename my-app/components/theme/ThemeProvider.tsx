@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useSyncExternalStore,
+} from "react";
 
 type Theme = "light" | "dark";
 
@@ -15,18 +21,34 @@ const STORAGE_KEY = "theme";
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 /**
- * Lightweight theme provider (no external dependency).
- * The initial class is set synchronously by the inline script in the root layout,
- * so this only mirrors + persists the user's choice. Defaults to light.
+ * The `dark` class on <html> is the single source of truth: the no-flash script
+ * in the root layout sets it before first paint, and this provider reads it
+ * through useSyncExternalStore instead of copying it into state from an effect.
+ * A MutationObserver on the class attribute keeps every consumer in step, so a
+ * theme change from anywhere — including outside React — propagates.
  */
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("light");
+function subscribe(onChange: () => void) {
+  const observer = new MutationObserver(onChange);
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
+  return () => observer.disconnect();
+}
 
-  // Sync from whatever the no-flash script already applied, then enable transitions.
+const getSnapshot = (): Theme =>
+  document.documentElement.classList.contains("dark") ? "dark" : "light";
+
+// The server cannot know the visitor's choice; the inline script corrects the
+// class before paint and the observer then reports the real value.
+const getServerSnapshot = (): Theme => "light";
+
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+  // Enable transitions only after the first paint, so the initial theme does
+  // not animate in. Touches the DOM, sets no state.
   useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark");
-    setThemeState(isDark ? "dark" : "light");
-    // Defer so the first paint isn't animated.
     const id = requestAnimationFrame(() =>
       document.documentElement.classList.add("theme-ready"),
     );
@@ -34,7 +56,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const apply = useCallback((next: Theme) => {
-    setThemeState(next);
+    // Mutating the class notifies the observer, which re-renders consumers.
     document.documentElement.classList.toggle("dark", next === "dark");
     try {
       localStorage.setItem(STORAGE_KEY, next);

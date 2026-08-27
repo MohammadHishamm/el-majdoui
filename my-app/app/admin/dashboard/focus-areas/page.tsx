@@ -69,7 +69,7 @@ export default async function FocusAreasListPage() {
                   href={`/admin/dashboard/focus-areas/${a.id}`}
                   className="inline-flex items-center gap-1 rounded-md border px-2 py-1 text-xs hover:bg-accent"
                 >
-                  <Pencil className="size-3.5" /> {t.common.edit}
+                  <Pencil className="size-3.5" /> {t.focus.editCard}
                 </Link>
                 <DeleteButton action={deleteFocusArea.bind(null, a.id)} />
               </div>

@@ -456,9 +456,16 @@ function MobilePanelContent({
                         />
                         <h4 className="line-clamp-2 break-words font-bold text-sm dark:text-heading">{path.title[locale]}</h4>
                       </div>
-                      <p className="mt-2 flex-1 text-sm leading-7 text-body-4">
-                        {path.desc[locale]}
-                      </p>
+                      {/* مسارات المبادرة come as names only — the guide gives no
+                          per-track description, so the paragraph is omitted
+                          rather than rendered blank. */}
+                      {path.desc[locale] ? (
+                        <p className="mt-2 flex-1 text-sm leading-7 text-body-4">
+                          {path.desc[locale]}
+                        </p>
+                      ) : (
+                        <div className="flex-1" />
+                      )}
                       <Link
                         href={path.href}
                         className={`mt-4 inline-flex items-center gap-1 text-sm font-semibold leading-none transition-opacity hover:opacity-80 ${
@@ -545,9 +552,16 @@ function DesktopPanelContent({
                         />
                         <h4 className="line-clamp-2 break-words font-bold">{path.title[locale]}</h4>
                       </div>
-                      <p className="mt-2 flex-1 text-sm leading-7 text-body-4">
-                        {path.desc[locale]}
-                      </p>
+                      {/* مسارات المبادرة come as names only — the guide gives no
+                          per-track description, so the paragraph is omitted
+                          rather than rendered blank. */}
+                      {path.desc[locale] ? (
+                        <p className="mt-2 flex-1 text-sm leading-7 text-body-4">
+                          {path.desc[locale]}
+                        </p>
+                      ) : (
+                        <div className="flex-1" />
+                      )}
                       <Link
                         href={path.href}
                         className={`mt-4 inline-flex items-center gap-1 text-sm font-semibold leading-none transition-opacity hover:opacity-80 ${

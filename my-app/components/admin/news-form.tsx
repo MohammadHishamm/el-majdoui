@@ -50,10 +50,12 @@ export function NewsForm({
   const d = defaults;
   const { t } = useAdminT();
   const f = t.form;
+  // The four approved categories (guide §7.1); nothing else may be assigned.
   const CATEGORIES = [
-    { value: "institution", label: t.news.catInstitution },
-    { value: "announcements", label: t.news.catAnnouncements },
-    { value: "partnerships", label: t.news.catPartnerships },
+    { value: "news", label: t.news.catNews },
+    { value: "announcement", label: t.news.catAnnouncement },
+    { value: "report", label: t.news.catReport },
+    { value: "event", label: t.news.catEvent },
   ];
   return (
     <form action={action} className="grid max-w-3xl gap-6">
@@ -69,7 +71,7 @@ export function NewsForm({
       <Section title={f.secMeta}>
         <div className="grid gap-4 sm:grid-cols-2">
           <TextField name="slug" label={f.slug} defaultValue={d.slug ?? ""} dir="ltr" required placeholder="kafalat-al-aytam" />
-          <SelectField name="category" label={t.common.category} defaultValue={d.category ?? "institution"} options={CATEGORIES} />
+          <SelectField name="category" label={t.common.category} defaultValue={d.category ?? "news"} options={CATEGORIES} />
           <TextField name="date" label={f.displayDate} defaultValue={d.date ?? ""} dir="rtl" placeholder="08 يونيو 2026" />
           <TextField name="read_time" label={f.readTime} defaultValue={d.read_time ?? ""} dir="rtl" placeholder="4 دقائق" />
           <TextField name="kicker" label={f.kicker} defaultValue={d.kicker ?? ""} dir="rtl" placeholder="إعلان رسمي" />

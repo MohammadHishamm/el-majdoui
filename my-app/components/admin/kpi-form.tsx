@@ -6,6 +6,7 @@ import { useAdminT } from "@/components/admin/i18n";
 
 export type KpiValues = {
   value?: number;
+  prefix?: string;
   suffix?: string;
   label_ar?: string;
   label_en?: string;
@@ -31,6 +32,7 @@ export function KpiForm({
     <form action={action} className="grid max-w-2xl gap-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <TextField name="value" label={f.value} defaultValue={String(d.value ?? 0)} dir="ltr" type="number" required />
+        <TextField name="prefix" label={f.prefix} defaultValue={d.prefix ?? ""} dir="ltr" placeholder="+" />
         <TextField name="suffix" label={f.suffix} defaultValue={d.suffix ?? ""} dir="ltr" placeholder="%" />
         <TextField name="label_ar" label={f.labelAr} defaultValue={d.label_ar ?? ""} dir="rtl" required />
         <TextField name="label_en" label={f.labelEn} defaultValue={d.label_en ?? ""} dir="ltr" />

@@ -5,35 +5,48 @@ import { FadeInUp } from "@/components/ui/fade-in-up";
 import { getPageContent } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
-  title: "من نحن | مؤسسة المجدوعي الخيرية",
-  description: "مؤسسة أهلية تسعى لتعظيم أثر المنح لتنمية المحتاج بإحسان",
+  alternates: { canonical: "/about/who-we-are" },
+  title: "من نحن",
+  description:
+    "نشأة مؤسسة المجدوعي الخيرية ونطاق عملها ونموذجها كمؤسسة مانحة تعمل بالشراكة مع جهات تنفيذية مؤهلة.",
 };
 
 export const dynamic = "force-dynamic";
 
 type InfoItem = { label: string; value: string; icon?: string };
 type Advantage = { title: string; description: string; icon: string };
+type Section = { heading: string; body: string };
+type TargetGroup = { title: string; description: string };
 
 const FALLBACK = {
   hero_image: "/images/who-we-are/Hero.png",
   title: "من نحن",
-  subtitle: "مؤسسة أهلية تسعى لتعظيم أثر المنح وتنمية المحتاج بإحسان",
-  paragraphs: [
-    "أسست مؤسسة المجدوعي الخيرية انطلاقاً من إيمان المؤسسين بأهمية العطاء المجتمعي وتنمية المحتاج بإحسان. وهي مؤسسة أهلية مصرّح بها من المركز الوطني لتنمية القطاع غير الربحي، تقدم المنح المالي للأفراد والمنظمات غير الهادفة للربح.",
-    "تسعى المؤسسة لتعظيم أثر المنح ابتغاءً للأجر عبر تنمية المحتاج بإحسان، وتعمل على رفع القدرات الاقتصادية للمحتاجين، وتقديم الدعم المباشر والميسّر للأفراد، وتطوير منظومة العمل بمساجد المجدوعي، وبناء شراكات فاعلة مع مختلف القطاعات.",
-  ],
+  subtitle: "مؤسسة مانحة، لا منفِّذة",
+  // The guide (§4.2) gives four headed blocks. The first carries no heading —
+  // the hero subtitle above it is its heading.
+  sections: [
+    { heading: "", body: "مؤسسة علي بن إبراهيم المجدوعي وعائلته الخيرية مؤسسة مانحة تعمل على تحسين جودة الحياة الاقتصادية للمحتاج، والعناية بمساجد المجدوعي لتكون معمّرة ونموذجية ومنارة للعلم، بالشراكة مع جهات تنفيذية مؤهلة، وبحلول مبتكرة تسهّل تقديم المنح وتزيد أثرها." },
+    { heading: "النشأة", body: "بدأ عطاء الشيخ علي بن إبراهيم بن صالح المجدوعي فرديًا قبل عقود، حرصًا على نمائه واستدامته، ثم تأسست المؤسسة عام 1435هـ بترخيص من وزارة الموارد البشرية والتنمية الاجتماعية برقم (143)، لتكون مؤسسة مانحة تدعم البرامج والمشاريع الخيرية النوعية الأكثر أثرًا والأعمّ نفعًا، مع العناية بعمارة بيوت الله وخدمة قاصديها." },
+    { heading: "كيف نعمل", body: "المؤسسة جهة مانحة تعمل منصةً تنسيقية: تستقطب الموارد والخبرات وتوجّهها نحو المشاريع ذات الأثر الأعمق، وتصمّم الأطر التنفيذية، وتربط بين الشركاء والممولين والمستفيدين في مسار واحد. ولا يقتصر دورها على تقديم المنح، بل تؤهّل شركاء التنفيذ وترفع جاهزيتهم، وتقيس الأثر بمؤشرات محدّدة تُحدَّث دوريًا." },
+    { heading: "الذراع التنظيمي لأوقاف أسرة المجدوعي", body: "تضطلع المؤسسة بدور تنظيمي لأوقاف أسرة المجدوعي: تستقبل الأوقاف، وتصنّفها وفق مصارفها الشرعية المعتمدة، وتتولى التنسيق والمتابعة والحوكمة لضمان أن كل وقف يصل إلى مصرفه الصحيح، وأن كل مشروع يُنفّذ بالجودة والشفافية المطلوبة. وتتوزع هذه المصارف على مسارات تشمل خدمة المحتاجين، ومشاريع الواقفين الخاصة ودعم الكيانات الشرعية، والحج والعمرة، والأضاحي والمشاريع الموسمية." },
+  ] as Section[],
+  target_groups_heading: "الفئات المستهدفة",
+  target_groups: [
+    { title: "المحتاج", description: "الفرد أو الأسرة الذين لا يجدون كفايتهم لحاجاتهم الأساسية — من سكن وغذاء ودواء — ولا يمتلكون حياة كريمة." },
+    { title: "مساجد المجدوعي", description: "الجوامع والمساجد والمصليات والمدارس القرآنية التي بناها المؤسسون وأفراد أسرتهم." },
+    { title: "شركاء التنفيذ", description: "الجمعيات الخيرية التي تسعى لتمكين المحتاج اقتصاديًا." },
+  ] as TargetGroup[],
   info: [
     { label: "الاسم الرسمي للمؤسسة", value: "مؤسسة علي بن إبراهيم المجدوعي وعائلته الخيرية", icon: "" },
-    { label: "الترخيص", value: "رقم الترخيص الرسمي: 143", icon: "/images/who-we-are/document.svg" },
-    { label: "الجهة المشرفة", value: "تحت إشراف: المركز الوطني لتنمية القطاع غير الربحي", icon: "" },
-    { label: "النطاق الجغرافي", value: "المنطقة الشرقية / منطقة الباحة", icon: "/images/who-we-are/location.svg" },
+    { label: "سنة التأسيس", value: "1435هـ", icon: "" },
+    { label: "الترخيص", value: "وزارة الموارد البشرية والتنمية الاجتماعية — رقم (143)", icon: "/images/who-we-are/document.svg" },
+    { label: "النطاق الجغرافي", value: "المنطقة الشرقية · منطقة الباحة", icon: "/images/who-we-are/location.svg" },
   ] as InfoItem[],
-  advantages_heading: "ميزاتنا التنافسية",
-  advantages: [
-    { title: "الخبرة المعرفية", description: "تتميز المؤسسة بخبرتها المعرفية العميقة والممتدة في مجال دعم وتنمية المحتاج وتوجيه المنح بفاعلية.", icon: "/images/who-we-are/book.svg" },
-    { title: "شخصية المؤسس", description: "ارتباط المؤسسة الوثيق بشخصية مؤسسها وعطائه المستمر وتواضعه وقربه من الفئات المستهدفة.", icon: "/images/who-we-are/heart.svg" },
-  ] as Advantage[],
-  quote: "تعظيم أثر المنح ابتغاءً للأجر عبر تنمية المحتاج بإحسان",
+  // «ميزاتنا التنافسية» and the closing quote were never in the guide, so both
+  // sections are empty and render nothing until Communications supplies copy.
+  advantages_heading: "",
+  advantages: [] as Advantage[],
+  quote: "",
 };
 
 function InfoRow({ label, value, icon }: InfoItem) {
@@ -63,9 +76,10 @@ function AdvantageCard({ icon, title, description }: { icon: string; title: stri
 export default async function WhoWeArePage() {
   const raw = await getPageContent("who-we-are");
   const s = (k: keyof typeof FALLBACK) => (typeof raw[k] === "string" && raw[k] ? (raw[k] as string) : (FALLBACK[k] as string));
-  const paragraphs = Array.isArray(raw.paragraphs) && raw.paragraphs.length ? (raw.paragraphs as string[]) : FALLBACK.paragraphs;
+  const sections = Array.isArray(raw.sections) && raw.sections.length ? (raw.sections as Section[]) : FALLBACK.sections;
+  const targetGroups = Array.isArray(raw.target_groups) && raw.target_groups.length ? (raw.target_groups as TargetGroup[]) : FALLBACK.target_groups;
   const info = Array.isArray(raw.info) && raw.info.length ? (raw.info as InfoItem[]) : FALLBACK.info;
-  const advantages = Array.isArray(raw.advantages) && raw.advantages.length ? (raw.advantages as Advantage[]) : FALLBACK.advantages;
+  const advantages = Array.isArray(raw.advantages) ? (raw.advantages as Advantage[]) : FALLBACK.advantages;
 
   return (
     <main dir="rtl">
@@ -88,8 +102,13 @@ export default async function WhoWeArePage() {
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-8 lg:min-h-[332px] lg:flex-row lg:items-start lg:justify-between lg:gap-10">
             <div className="w-full space-y-6 text-right sm:space-y-8 lg:w-[653px]">
-              {paragraphs.map((p, i) => (
-                <div key={i} className="text-[18px] font-normal leading-[32.4px] text-body-2">{p}</div>
+              {sections.map((sec, i) => (
+                <div key={i}>
+                  {sec.heading && (
+                    <h2 className="mb-3 text-[22px] font-bold leading-[34px] text-heading">{sec.heading}</h2>
+                  )}
+                  <p className="text-[18px] font-normal leading-[32.4px] text-body-2">{sec.body}</p>
+                </div>
               ))}
             </div>
             <div className="w-full shrink-0 lg:w-[419px]">
@@ -103,8 +122,28 @@ export default async function WhoWeArePage() {
         </div>
       </section></FadeInUp>
 
-      {/* ── Competitive Advantages ── */}
-      <FadeInUp><section className="bg-surface-alt py-16 md:py-24" aria-labelledby="advantages-heading">
+      {/* ── Target groups ── */}
+      {targetGroups.length > 0 && (
+        <FadeInUp><section className="bg-surface-alt py-14 md:py-20" aria-labelledby="target-groups-heading">
+          <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
+            <h2 id="target-groups-heading" className="mb-8 text-right text-[30px] font-medium leading-[40px] text-heading md:text-[36px]">
+              {s("target_groups_heading")}
+            </h2>
+            <dl className="grid grid-cols-1 gap-5 md:grid-cols-3">
+              {targetGroups.map((g, i) => (
+                <div key={i} className="rounded-[20px] border-[1.18px] border-panel-border bg-panel p-6 text-right">
+                  <dt className="text-[20px] font-bold leading-[30px] text-heading">{g.title}</dt>
+                  <dd className="mt-3 text-[16px] leading-[28px] text-body-4">{g.description}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section></FadeInUp>
+      )}
+
+      {/* ── Competitive Advantages — hidden while unapproved ── */}
+      {advantages.length > 0 && (
+        <FadeInUp><section className="bg-surface py-16 md:py-24" aria-labelledby="advantages-heading">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
           <h2 id="advantages-heading" className="mb-10 text-right text-[36px] font-medium leading-[40px] text-heading lg:mb-[102px]">
             {s("advantages_heading")}
@@ -116,8 +155,10 @@ export default async function WhoWeArePage() {
           </div>
         </div>
       </section></FadeInUp>
+      )}
 
-      {/* ── Quote Banner ── */}
+      {/* ── Quote Banner — hidden while unapproved ── */}
+      {s("quote") && (
       <FadeInUp><section className="relative min-h-[200px] overflow-hidden bg-surface py-14 sm:min-h-[260px] sm:py-16 lg:h-[328px] lg:overflow-visible lg:py-0">
         <span aria-hidden className="pointer-events-none absolute top-5 right-2 select-none text-right font-black leading-none text-[#00B5C226] text-[clamp(80px,22vw,140px)] lg:top-[-30px] lg:right-[170px] lg:w-[152px] lg:text-[220px] lg:leading-[320px]">
           {'"'}
@@ -128,6 +169,7 @@ export default async function WhoWeArePage() {
           </blockquote>
         </div>
       </section></FadeInUp>
+      )}
     </main>
   );
 }

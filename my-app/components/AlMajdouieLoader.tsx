@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "next/navigation";
 
 // One-time flag set by the login form; consumed here so the splash plays a
@@ -19,25 +19,56 @@ const LOGO_INNER = "<defs><clipPath id=\"am-wordmark-clip\"><rect x=\"0\" y=\"0\
  * On /admin routes the splash is suppressed, except for one play right after
  * login (signalled via sessionStorage by the login form).
  */
+// "Have we hydrated yet?" as an external store: no effect, no setState, and so
+// no cascading render. The subscribe callback never fires because the answer
+// never changes after mount.
+const neverChanges = () => () => {};
+const useIsClient = () =>
+  useSyncExternalStore(
+    neverChanges,
+    () => true,
+    () => false,
+  );
+
 export default function AlMajdouieLoader() {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin") ?? false;
-  const [adminSplash, setAdminSplash] = useState(false);
+  const isClient = useIsClient();
 
-  useEffect(() => {
-    if (!isAdmin) return;
+  if (!isAdmin) return <Splash />;
+  // The admin splash depends on a sessionStorage flag, which the server cannot
+  // see. Deferring to the client keeps the server and hydration output
+  // identical (null) and lets the gate read storage during its own first
+  // render instead of from an effect.
+  if (!isClient) return null;
+  return <AdminSplashGate pathname={pathname} />;
+}
+
+/**
+ * Consumes the one-shot flag the login form sets. Reading it during a lazy
+ * initialiser — rather than in an effect — is safe here because this component
+ * only ever mounts on the client, so there is no server render to mismatch.
+ * The key on pathname re-runs the check when the route changes, matching the
+ * previous effect dependency.
+ */
+function AdminSplashGate({ pathname }: { pathname: string | null }) {
+  return <AdminSplashOnce key={pathname ?? ""} />;
+}
+
+function AdminSplashOnce() {
+  const [show] = useState(() => {
     try {
       if (sessionStorage.getItem(ADMIN_SPLASH_FLAG)) {
         sessionStorage.removeItem(ADMIN_SPLASH_FLAG);
-        setAdminSplash(true);
+        return true;
       }
     } catch {
       // sessionStorage unavailable — leave the splash off
     }
-  }, [isAdmin, pathname]);
+    return false;
+  });
 
-  if (isAdmin && !adminSplash) return null;
-  return <Splash />;
+  return show ? <Splash /> : null;
 }
 
 function Splash() {

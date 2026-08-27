@@ -13,7 +13,7 @@ export const translations = {
     },
     footer: {
       quickLinks: "روابط سريعة",
-      focusAreas: "مجالات العمل",
+      focusAreas: "مجالات التركيز",
       contactUs: "تواصل معنا",
       allRights: "جميع الحقوق محفوظة",
       privacyPolicy: "سياسة الخصوصية",
@@ -26,16 +26,16 @@ export const translations = {
       prevSlide: "الشريحة السابقة",
       nextSlide: "الشريحة التالية",
       goToSlide: "الانتقال إلى الشريحة",
-      readMore: "اقرأ المزيد",
+      readMore: "اقرأ الخبر",
     },
     about: {
-      heading: "تمكين لأثر مستدام",
-      body: "المجدوعي الخيرية مؤسسة مانحة تُسهم في تحسين جودة الحياة الاقتصادية للمحتاج والعناية بمساجد المجدوعي، من خلال حلول مبتكرة وشراكات فاعلة ومنح ميسّر.",
+      heading: "مؤسسة مانحة تعمل على تحسين جودة الحياة الاقتصادية للمحتاج",
+      body: "نعمل على تحسين جودة الحياة الاقتصادية للمحتاج، والعناية بمساجد المجدوعي لتكون معمّرة ونموذجية ومنارة للعلم، بالشراكة مع جهات تنفيذية مؤهلة، وبحلول مبتكرة تسهّل تقديم المنح وتزيد أثرها.",
       cta: "المزيد عن المؤسسة",
     },
     leadership: {
       quote:
-        "نؤمن بأن الإحسان الحقيقي هو ذلك الذي يُمكّن المحتاج من الاعتماد على نفسه، ويبني مستقبلاً مستداماً له ولأسرته، ويُعمّر بيوت الله لتكون منارات للعلم والإيمان.",
+        "نؤمن أن العطاء حين يُقاس يصبح أكثر عدلًا وأقرب للاستدامة.",
       name: "الشيخ علي بن إبراهيم المجدوعي",
       role: "رئيس مجلس الأمناء",
       imageAlt: "الشيخ علي بن إبراهيم المجدوعي",
@@ -66,13 +66,16 @@ export const translations = {
       sdgGoalLabel: "هدف التنمية المستدامة",
     },
     kpis: {
-      heading: "أرقام الأثر",
-      subheading: "إنجازاتنا في أرقام تعكس التزامنا بخدمة المجتمع",
+      heading: "أثرنا في عام 2025م",
+      subheading: "أرقام موثّقة من التقرير السنوي 2025م.",
+      source: "المصدر: التقرير السنوي 2025م",
+      reportCTA: "عرض التقرير السنوي",
     },
     news: {
-      heading: "أحدث الأخبار",
-      subheading: "تابع آخر مستجداتنا وفعالياتنا",
-      allNewsCTA: "جميع الأخبار",
+      heading: "آخر الأخبار",
+      // §3.7 gives a heading and a button only, no standfirst.
+      subheading: "",
+      allNewsCTA: "عرض جميع الأخبار",
     },
     contact: {
       heading: "يسعدنا تواصلكم معنا",
@@ -119,13 +122,15 @@ export const translations = {
       readMore: "Read More",
     },
     about: {
-      heading: "Empowerment for Sustainable Impact",
-      body: "Almajdouie Charitable Foundation is a philanthropic foundation contributing to improving the economic quality of life for those in need and caring for Almajdouie Mosques, through innovative solutions, effective partnerships, and accessible grants.",
+      // No approved English yet (§3.3) — show the approved Arabic rather than
+      // a translation of the superseded copy.
+      heading: "مؤسسة مانحة تعمل على تحسين جودة الحياة الاقتصادية للمحتاج",
+      body: "نعمل على تحسين جودة الحياة الاقتصادية للمحتاج، والعناية بمساجد المجدوعي لتكون معمّرة ونموذجية ومنارة للعلم، بالشراكة مع جهات تنفيذية مؤهلة، وبحلول مبتكرة تسهّل تقديم المنح وتزيد أثرها.",
       cta: "More About the Foundation",
     },
     leadership: {
-      quote:
-        "We believe that true benevolence is that which empowers the needy to be self-reliant, builds a sustainable future for them and their families, and restores the houses of God to be beacons of knowledge and faith.",
+      // Same as above: the approved quote (§3.2) has no English rendering yet.
+      quote: "نؤمن أن العطاء حين يُقاس يصبح أكثر عدلًا وأقرب للاستدامة.",
       name: "Sheikh Ali bin Ibrahim Almajdouie",
       role: "Chairman of the Board of Trustees",
       imageAlt: "Sheikh Ali bin Ibrahim Almajdouie",
@@ -159,6 +164,8 @@ export const translations = {
     kpis: {
       heading: "Impact Numbers",
       subheading: "Our achievements in numbers reflecting our commitment to community service",
+      source: "Source: 2025 Annual Report",
+      reportCTA: "View the annual report",
     },
     news: {
       heading: "Latest News",

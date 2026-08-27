@@ -253,6 +253,9 @@ create table if not exists public.focus_areas (
   detail_title_en  text not null default '',
   detail_intro_ar  text not null default '',
   detail_intro_en  text not null default '',
+  -- The «الأثر المراد» line closing each focus-area intro (guide 5.2-5.4).
+  detail_impact_ar text not null default '',
+  detail_impact_en text not null default '',
   carousel         jsonb not null default '{"slides": [], "heading": {"ar": "", "en": ""}}'::jsonb,
   stats            jsonb not null default '{"image": "", "items": []}'::jsonb,
   detail_programs  jsonb not null default '{"cards": [], "heading": {"ar": "", "en": ""}}'::jsonb,
@@ -284,7 +287,13 @@ create table if not exists public.programs (
   id            uuid primary key default gen_random_uuid(),
   slug          text not null unique,
   category      text not null default 'empowerment'
-                check (category in ('empowerment', 'mosques', 'partners')),
+                check (category in ('empowerment', 'mosques', 'partners', 'enabling')),
+  -- strategic = مبادرة استراتيجية (tied to a focus area);
+  -- enabling  = مبادرة تمكينية (internal support, no focus area).
+  type          text not null default 'strategic'
+                check (type in ('strategic', 'enabling')),
+  status        text not null default 'active'
+                check (status in ('active', 'paused', 'closed')),
   title_ar      text not null default '',
   title_en      text not null default '',
   short_desc_ar text not null default '',
@@ -292,6 +301,8 @@ create table if not exists public.programs (
   hero_desc     text,
   image         text not null default '',
   about         text,
+  tracks        text[] not null default '{}',   -- مسارات المبادرة
+  sub_programs  text[] not null default '{}',   -- من برامجها
   objectives    text[] not null default '{}',
   stages        jsonb not null default '[]',   -- [{ title, desc }]
   target_groups text[] not null default '{}',
@@ -312,8 +323,10 @@ create index if not exists programs_category_idx on public.programs (category);
 create table if not exists public.news (
   id            uuid primary key default gen_random_uuid(),
   slug          text not null unique,
-  category      text not null default 'institution'
-                check (category in ('institution', 'announcements', 'partnerships')),
+  -- The four publishable categories, fixed by the content guide (7.1):
+  -- news = خبر, announcement = إعلان, report = تقرير, event = فعالية.
+  category      text not null default 'news'
+                check (category in ('news', 'announcement', 'report', 'event')),
   title_ar      text not null default '',
   title_en      text not null default '',
   excerpt_ar    text not null default '',
@@ -404,6 +417,8 @@ create table if not exists public.policies (
 -- ── kpis — the animated impact counters on the home page.
 create table if not exists public.kpis (
   id         uuid primary key default gen_random_uuid(),
+  -- A leading "+" is part of the figure and cannot live in an int column.
+  prefix     text not null default '',
   value      int not null default 0,
   suffix     text not null default '',
   label_ar   text not null default '',
@@ -713,6 +728,9 @@ create table if not exists public.contact_messages (
   name       text not null default '',
   email      text not null default '',
   phone      text,
+  -- One of the five approved options in the /contact subject dropdown; empty
+  -- for the landing-page short form, which does not ask for one.
+  subject    text not null default '',
   message    text not null default '',
   is_read    boolean not null default false,
   created_at timestamptz not null default now()

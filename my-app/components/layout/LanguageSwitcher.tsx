@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { LocalizeIcon } from "@/components/layout/header-icons";
 import { useLocale, type Locale } from "@/lib/i18n/context";
+import { ENABLE_LANGUAGE_SWITCHER } from "@/lib/site/config";
 import { translations } from "@/lib/i18n/translations";
 
 const LOCALES: { code: Locale; label: string; short: string }[] = [
@@ -48,6 +49,8 @@ export function LanguageSwitcher({ mobile = false }: { mobile?: boolean }) {
   }, [open]);
 
   const current = LOCALES.find((l) => l.code === locale) ?? LOCALES[0];
+
+  if (!ENABLE_LANGUAGE_SWITCHER) return null;
 
   const selectLocale = (code: Locale) => {
     setLocale(code);

@@ -19,9 +19,10 @@ export default async function NewsListPage() {
   const supabase = await createClient();
   const { t } = await getAdminT();
   const CATEGORY_LABEL: Record<string, string> = {
-    institution: t.news.catInstitution,
-    announcements: t.news.catAnnouncements,
-    partnerships: t.news.catPartnerships,
+    news: t.news.catNews,
+    announcement: t.news.catAnnouncement,
+    report: t.news.catReport,
+    event: t.news.catEvent,
   };
   const { data, error } = await supabase
     .from("news")

@@ -53,6 +53,15 @@ export default function ProgramDetails({
   program: Program;
   related?: Program[];
 }) {
+  // The guide supplies no launch date, scope, beneficiary count or sector for
+  // any initiative, so the card only appears once someone fills those in.
+  const hasInfo = Boolean(
+    program.info?.launchYear ||
+      program.info?.scope ||
+      program.info?.beneficiaries ||
+      program.info?.sector,
+  );
+
   return (
     <main dir="rtl" className="bg-surface" data-nav-surface="light">
       {/* ── Hero ── */}
@@ -105,90 +114,141 @@ export default function ProgramDetails({
         <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-12 px-4 sm:px-6 lg:grid-cols-[1fr_346px] lg:gap-10 lg:px-8">
           {/* Main content (right in RTL) */}
           <div className="order-2 lg:order-1">
-            <FadeInUp>
-              <SectionHeading><T ar="عن المبادرة" en="About the initiative" /></SectionHeading>
-              <p className="mt-4 text-right text-[17px] leading-[32.3px] text-body-2">
-                {program.about}
-              </p>
-            </FadeInUp>
+            {/* Every block below is optional. The content guide supplies approved
+                copy for the body, the tracks and the sub-programmes, and nothing
+                at all for objectives, stages, target groups, quotes or partners
+                — so a section with no approved content renders nothing rather
+                than an empty heading. */}
+            {program.about && (
+              <FadeInUp>
+                <SectionHeading><T ar="عن المبادرة" en="About the initiative" /></SectionHeading>
+                <p className="mt-4 text-right text-[17px] leading-[32.3px] text-body-2">
+                  {program.about}
+                </p>
+              </FadeInUp>
+            )}
 
-            <FadeInUp>
-              <div className="mt-12">
-                <SectionHeading><T ar="أهداف المبادرة" en="Initiative objectives" /></SectionHeading>
-                <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2">
-                  {program.objectives.map((o) => (
-                    <CheckItem key={o} text={o} />
-                  ))}
-                </div>
-              </div>
-            </FadeInUp>
-
-            <FadeInUp>
-              <div className="mt-12">
-                <SectionHeading><T ar="مراحل تنفيذ المبادرة" en="Implementation stages" /></SectionHeading>
-                <ol className="mt-6 space-y-4">
-                  {program.stages.map((stage, i) => (
-                    <li
-                      key={stage.title}
-                      className="flex items-start gap-5 rounded-[16px] border-[1.18px] border-panel-border bg-panel p-5"
-                    >
-                      <span className="grid size-11 shrink-0 place-items-center rounded-[12px] bg-btn-primary text-[16px] font-black text-white">
-                        {i + 1}
+            {program.tracks.length > 0 && (
+              <FadeInUp>
+                <div className="mt-12">
+                  <SectionHeading><T ar="مسارات المبادرة" en="Initiative tracks" /></SectionHeading>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    {program.tracks.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full border-[1.18px] border-panel-border bg-panel px-4 py-2 text-[15px] leading-[27px] text-body-2"
+                      >
+                        {t}
                       </span>
-                      <div className="flex-1 text-right">
-                        <h3 className="text-[17px] font-bold leading-[25.5px] text-heading">
-                          {stage.title}
-                        </h3>
-                        <p className="mt-1.5 text-[15px] leading-[27px] text-body-4">
-                          {stage.desc}
-                        </p>
+                    ))}
+                  </div>
+                </div>
+              </FadeInUp>
+            )}
+
+            {program.subPrograms.length > 0 && (
+              <FadeInUp>
+                <div className="mt-12">
+                  <SectionHeading><T ar="من برامجها" en="Programmes" /></SectionHeading>
+                  <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2">
+                    {program.subPrograms.map((p) => (
+                      <CheckItem key={p} text={p} />
+                    ))}
+                  </div>
+                </div>
+              </FadeInUp>
+            )}
+
+            {program.objectives.length > 0 && (
+              <FadeInUp>
+                <div className="mt-12">
+                  <SectionHeading><T ar="أهداف المبادرة" en="Initiative objectives" /></SectionHeading>
+                  <div className="mt-6 grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2">
+                    {program.objectives.map((o) => (
+                      <CheckItem key={o} text={o} />
+                    ))}
+                  </div>
+                </div>
+              </FadeInUp>
+            )}
+
+            {program.stages.length > 0 && (
+              <FadeInUp>
+                <div className="mt-12">
+                  <SectionHeading><T ar="مراحل تنفيذ المبادرة" en="Implementation stages" /></SectionHeading>
+                  <ol className="mt-6 space-y-4">
+                    {program.stages.map((stage, i) => (
+                      <li
+                        key={stage.title}
+                        className="flex items-start gap-5 rounded-[16px] border-[1.18px] border-panel-border bg-panel p-5"
+                      >
+                        <span className="grid size-11 shrink-0 place-items-center rounded-[12px] bg-btn-primary text-[16px] font-black text-white">
+                          {i + 1}
+                        </span>
+                        <div className="flex-1 text-right">
+                          <h3 className="text-[17px] font-bold leading-[25.5px] text-heading">
+                            {stage.title}
+                          </h3>
+                          <p className="mt-1.5 text-[15px] leading-[27px] text-body-4">
+                            {stage.desc}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                </div>
+              </FadeInUp>
+            )}
+
+            {program.targetGroups.length > 0 && (
+              <FadeInUp>
+                <div className="mt-12">
+                  <SectionHeading><T ar="الفئات المستهدفة" en="Target groups" /></SectionHeading>
+                  <div className="mt-6 flex flex-col items-start gap-4">
+                    {program.targetGroups.map((t) => (
+                      <CheckItem key={t} text={t} />
+                    ))}
+                  </div>
+                </div>
+              </FadeInUp>
+            )}
+
+            {program.quote?.text && (
+              <FadeInUp>
+                <blockquote className="mt-12 rounded-[16px] border-r-[3.5px] border-[#00b5c2] bg-icon-box py-6 pr-7 pl-6 text-right">
+                  <p className="text-[17px] leading-[32.3px] text-body-1">{program.quote.text}</p>
+                  {program.quote.author && (
+                    <footer className="mt-3 text-[13px] leading-[24.7px] text-body-3">
+                      {program.quote.author}
+                    </footer>
+                  )}
+                </blockquote>
+              </FadeInUp>
+            )}
+
+            {program.partners.length > 0 && (
+              <FadeInUp>
+                <div className="mt-12">
+                  <SectionHeading><T ar="شركاء تنفيذ المبادرة" en="Implementation partners" /></SectionHeading>
+                  <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
+                    {program.partners.map((p) => (
+                      <div
+                        key={p}
+                        className="flex flex-col items-center gap-3 rounded-[12px] border border-panel-border bg-panel px-4 py-6"
+                      >
+                        <Image src={ICON.building} alt="" width={28} height={28} aria-hidden />
+                        <span className="text-[14px] text-body-4">{p}</span>
                       </div>
-                    </li>
-                  ))}
-                </ol>
-              </div>
-            </FadeInUp>
-
-            <FadeInUp>
-              <div className="mt-12">
-                <SectionHeading><T ar="الفئات المستهدفة" en="Target groups" /></SectionHeading>
-                <div className="mt-6 flex flex-col items-start gap-4">
-                  {program.targetGroups.map((t) => (
-                    <CheckItem key={t} text={t} />
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </FadeInUp>
-
-            <FadeInUp>
-              <blockquote className="mt-12 rounded-[16px] border-r-[3.5px] border-[#00b5c2] bg-icon-box py-6 pr-7 pl-6 text-right">
-                <p className="text-[17px] leading-[32.3px] text-body-1">{program.quote.text}</p>
-                <footer className="mt-3 text-[13px] leading-[24.7px] text-body-3">
-                  {program.quote.author}
-                </footer>
-              </blockquote>
-            </FadeInUp>
-
-            <FadeInUp>
-              <div className="mt-12">
-                <SectionHeading><T ar="شركاء تنفيذ المبادرة" en="Implementation partners" /></SectionHeading>
-                <div className="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-                  {program.partners.map((p) => (
-                    <div
-                      key={p}
-                      className="flex flex-col items-center gap-3 rounded-[12px] border border-panel-border bg-panel px-4 py-6"
-                    >
-                      <Image src={ICON.building} alt="" width={28} height={28} aria-hidden />
-                      <span className="text-[14px] text-body-4">{p}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </FadeInUp>
+              </FadeInUp>
+            )}
           </div>
 
           {/* Sidebar (left in RTL) */}
           <aside className="order-1 flex flex-col gap-5 lg:order-2">
+            {hasInfo && (
             <div className="rounded-[16px] bg-icon-box p-6">
               <h3 className="text-right text-[16px] font-bold leading-[24px] text-heading">
                 <T ar="معلومات أساسية" en="Key information" />
@@ -200,6 +260,7 @@ export default function ProgramDetails({
                 <InfoRow icon={ICON.target} label={<T ar="القطاع" en="Sector" />} value={program.info.sector} />
               </ul>
             </div>
+            )}
 
             <div className="rounded-[16px] border-[1.18px] border-panel-border bg-panel p-6">
               <h3 className="text-right text-[16px] font-bold leading-[24px] text-heading">

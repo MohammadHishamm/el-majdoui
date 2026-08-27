@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useLocale } from "@/lib/i18n/context";
 import { translations } from "@/lib/i18n/translations";
@@ -8,6 +9,8 @@ import { translations } from "@/lib/i18n/translations";
 type BilingualText = { ar: string; en: string };
 
 type KPI = {
+  /** Rendered before the number: "+" is part of the figure (guide §12.3). */
+  prefix: string;
   value: number;
   suffix: string;
   label: BilingualText;
@@ -15,52 +18,18 @@ type KPI = {
   iconSrc: string;
 };
 
-const DEFAULT_KPIS: KPI[] = [
-  {
-    value: 85,
-    suffix: "%",
-    label: { ar: "نسبة الاستدامة", en: "Sustainability Rate" },
-    year: "2024",
-    iconSrc: "/images/figma/sections/stats-sixth-logo.svg",
-  },
-  {
-    value: 3200,
-    suffix: "",
-    label: { ar: "فرصة عمل", en: "Job Opportunities" },
-    year: "2024",
-    iconSrc: "/images/figma/sections/stats-fifth-logo.svg",
-  },
-  {
-    value: 15,
-    suffix: "",
-    label: { ar: "شريك تنفيذي", en: "Executive Partners" },
-    year: "2024",
-    iconSrc: "/images/figma/sections/stats-fourth-logo.svg",
-  },
-  {
-    value: 120,
-    suffix: "",
-    label: { ar: "كربة مفرجة", en: "Hardships Relieved" },
-    year: "2024",
-    iconSrc: "/images/figma/sections/stats-heart-logo.svg",
-  },
-  {
-    value: 2500,
-    suffix: "",
-    label: { ar: "أسرة مُمكّنة", en: "Empowered Families" },
-    year: "2024",
-    iconSrc: "/images/figma/sections/stats-second-logo.png",
-  },
-  {
-    value: 45,
-    suffix: "",
-    label: { ar: "مسجد نموذجي", en: "Model Mosques" },
-    year: "2024",
-    iconSrc: "/images/figma/sections/stats-first-logo.svg",
-  },
-];
+// No hardcoded fallback: the guide bars publishing any number it does not
+// list, so an empty database renders no impact section at all.
 
-function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) {
+function AnimatedNumber({
+  prefix,
+  target,
+  suffix,
+}: {
+  prefix: string;
+  target: number;
+  suffix: string;
+}) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
@@ -91,6 +60,7 @@ function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) 
 
   return (
     <span ref={ref} className="tabular-nums">
+      {prefix}
       {count.toLocaleString("en-US")}
       {suffix}
     </span>
@@ -100,7 +70,9 @@ function AnimatedNumber({ target, suffix }: { target: number; suffix: string }) 
 export function ImpactKPIs({ items }: { items?: KPI[] } = {}) {
   const { locale } = useLocale();
   const t = translations[locale].kpis;
-  const KPIS = items && items.length ? items : DEFAULT_KPIS;
+  const KPIS = items ?? [];
+
+  if (KPIS.length === 0) return null;
 
   return (
     <section
@@ -173,7 +145,7 @@ export function ImpactKPIs({ items }: { items?: KPI[] } = {}) {
                     letterSpacing: 0,
                   }}
                 >
-                  <AnimatedNumber target={kpi.value} suffix={kpi.suffix} />
+                  <AnimatedNumber prefix={kpi.prefix} target={kpi.value} suffix={kpi.suffix} />
                 </p>
               </div>
 
@@ -183,9 +155,21 @@ export function ImpactKPIs({ items }: { items?: KPI[] } = {}) {
               >
                 {kpi.label[locale]}
               </p>
-              <p className="mt-1 text-sm font-normal leading-5 text-white/70">{kpi.year}</p>
             </div>
           ))}
+        </div>
+
+        {/* Mandatory under the grid (guide §3.6): the figures are only publishable
+            with their source stated, and no figure changes without a written
+            notice from Communications. */}
+        <div className="mt-12 flex flex-col items-center gap-5">
+          <p className="text-sm text-white/70">{t.source}</p>
+          <Link
+            href="/reports"
+            className="rounded-full border border-white/30 px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
+          >
+            {t.reportCTA}
+          </Link>
         </div>
       </div>
     </section>

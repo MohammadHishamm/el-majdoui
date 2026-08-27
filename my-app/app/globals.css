@@ -479,3 +479,17 @@ p {
 @media (prefers-reduced-motion: reduce) {
   .admin-toast { animation: none; }
 }
+
+/* scrollbar-none — hides the scrollbar while keeping the element scrollable.
+   Referenced by the horizontal card scrollers (values, focus-area tiles, the
+   contact strip) but never actually defined, so the bar was showing. */
+@utility scrollbar-none {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+}

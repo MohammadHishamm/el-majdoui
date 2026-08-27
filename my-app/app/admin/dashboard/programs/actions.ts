@@ -22,6 +22,9 @@ function rowFromForm(form: FormData) {
   return {
     slug: str(form.get("slug")),
     category: str(form.get("category")) || "empowerment",
+    type: str(form.get("type")) || "strategic",
+    tracks: lines(form.get("tracks")),
+    sub_programs: lines(form.get("sub_programs")),
     title_ar: str(form.get("title_ar")),
     title_en: str(form.get("title_en")),
     short_desc_ar: str(form.get("short_desc_ar")),

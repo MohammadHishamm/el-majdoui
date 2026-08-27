@@ -85,7 +85,7 @@ export function PrivacyView({ content }: { content: PrivacyContent }) {
                 <p className="text-sm text-body-2">{p(content.calloutDesc)}</p>
               </div>
               <Link
-                href="/#contact"
+                href="/contact/complaints?type=inquiry"
                 className="inline-flex w-fit shrink-0 items-center gap-2 rounded-full border border-btn-2-stroke px-4 py-2.5 text-sm font-bold text-btn-2-text transition-colors hover:bg-icon-box"
               >
                 {p(content.calloutButton)}

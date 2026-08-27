@@ -36,9 +36,9 @@ export function NewsHero({ items }: { items: NewsItem[] }) {
 
       <div className="relative z-10 mx-auto flex h-full w-full max-w-[1280px] flex-col justify-center px-4 pt-28 text-right sm:px-6 lg:px-8">
         <div className="max-w-[640px]">
-          <h1 className="text-[32px] font-bold leading-[1.25] text-white md:text-[48px]">
+          <h2 className="text-[32px] font-bold leading-[1.25] text-white md:text-[48px]">
             {item.title}
-          </h1>
+          </h2>
           <Link
             href={`/news/${item.slug}`}
             className="mt-7 inline-flex items-center gap-2 rounded-full bg-[#005761] px-6 py-3 text-[15px] font-bold text-white transition-colors hover:bg-[#00444c]"

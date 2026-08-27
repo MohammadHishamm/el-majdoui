@@ -9,6 +9,7 @@ const str = (v: FormDataEntryValue | null) => String(v ?? "").trim();
 
 function rowFromForm(form: FormData) {
   return {
+    prefix: str(form.get("prefix")),
     value: Number(str(form.get("value")) || "0"),
     suffix: str(form.get("suffix")),
     label_ar: str(form.get("label_ar")),

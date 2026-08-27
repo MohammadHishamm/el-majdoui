@@ -1,55 +1,86 @@
 import type { Metadata } from "next";
-import { T } from "@/components/ui/T";
-import { ContactChannelForm } from "@/components/contact/ContactChannelForm";
-import { ContactGuidelines } from "@/components/contact/ContactGuidelines";
+import Link from "next/link";
+import { ContactForm } from "@/components/contact/ContactForm";
+import { siteConfig } from "@/lib/site/config";
 
 export const metadata: Metadata = {
-  title: "اتصل بنا — قناة الشكاوى والمقترحات",
+  alternates: { canonical: "/contact" },
+  title: "اتصل بنا",
   description:
-    "قناة الشكاوى والمقترحات لمؤسسة المجدوعي الخيرية — أرسل مقترحاً أو شكوى أو استفساراً عاماً.",
+    "بيانات التواصل مع مؤسسة المجدوعي الخيرية ونموذج الاستفسارات العامة والإعلامية والشراكات.",
 };
 
 /**
- * قناة الشكاوى والمقترحات.
+ * The general contact page (content guide §9): five fields, nothing more.
  *
- * Distinct from the short contact form on the landing page, which stays where
- * it is: this one is a three-step intake that changes shape per message type
- * and issues a tracking id. The navbar's "اتصل بنا" points here.
+ * The three-step complaints and suggestions intake — with its tracking numbers
+ * and attachments — lives at /contact/complaints and is linked from here.
+ *
+ * The embedded map the guide asks for is deliberately absent: Communications
+ * still owes the head-office coordinates, and the guide bars an approximate pin.
  */
 export default function ContactPage() {
   return (
     <div className="bg-surface" data-nav-surface="light">
       <div className="mx-auto w-full max-w-[1200px] px-6 py-12 md:py-16">
-        <p className="text-[13px] text-body-3">
-          <T ar="اتصل بنا · قناة الشكاوى والمقترحات" en="Contact us · Complaints & suggestions" />
-        </p>
-        <h1 className="mt-3 text-3xl font-bold text-heading md:text-[40px] md:leading-[1.15]">
-          <T ar="يسعدنا تواصلك ورأيك يهمنا" en="We're glad to hear from you" />
+        <h1 className="text-3xl font-bold text-heading md:text-[40px] md:leading-[1.15]">
+          اتصل بنا
         </h1>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-body-3 md:text-base">
-          <T
-            ar="نرحب بجميع ملاحظاتك، استفساراتك، ومقترحاتك لضمان تقديم أعلى مستويات الجودة والشفافية."
-            en="We welcome your notes, questions and suggestions so we can keep quality and transparency high."
-          />
+          نسعد بتواصلك معنا. للاستفسارات العامة والإعلامية والشراكات، يمكنك مراسلتنا عبر النموذج
+          أدناه أو التواصل مباشرة على بيانات الاتصال المرفقة.
         </p>
 
-        <hr className="mt-8 border-panel-border" />
+        <hr className="mt-8 border-t-2 border-panel-border" />
 
-        {/* Guidelines rail on the right in RTL; form on the left. On mobile, form stays on top. */}
-        <div className="mt-8 flex flex-col items-stretch gap-6 lg:flex-row lg:items-start lg:justify-between">
-          {/* Pinned beside the form: the form is long, and the guidance —
-              response time, confidentiality, the support number — is what the
-              reader may want at any point while filling it in. Sticky only at
-              lg, since below that the rail sits under the form and pinning it
-              would do nothing. top-32 clears the sticky h-28 site header, and
-              the max-height keeps the card's own bottom reachable on short
-              viewports instead of stranding it off-screen. */}
-          <div className="order-2 w-full min-w-0 lg:order-1 lg:sticky lg:top-32 lg:max-h-[calc(100vh-9rem)] lg:w-[370px] lg:shrink-0 lg:overflow-y-auto">
-            <ContactGuidelines />
-          </div>
-          <div className="order-1 w-full min-w-0 lg:order-2 lg:w-[820px] lg:shrink-0">
-            <ContactChannelForm />
-          </div>
+        <div className="mt-8 flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
+          <aside className="order-2 w-full min-w-0 lg:order-1 lg:w-[370px] lg:shrink-0">
+            <div className="rounded-2xl border-2 border-[#d1ddd9] bg-panel p-6 dark:border-panel-border">
+              <h2 className="text-lg font-bold text-heading">بيانات الاتصال</h2>
+              <dl className="mt-5 flex flex-col gap-4 text-sm">
+                <div>
+                  <dt className="font-medium text-body-1 dark:text-heading">البريد الإلكتروني</dt>
+                  <dd className="mt-1 text-body-3" dir="ltr">
+                    <a className="hover:text-icon" href={`mailto:${siteConfig.contact.email}`}>
+                      {siteConfig.contact.email}
+                    </a>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-body-1 dark:text-heading">الهاتف</dt>
+                  <dd className="mt-1 text-body-3" dir="ltr">
+                    <a className="hover:text-icon" href={`tel:${siteConfig.contact.phone}`}>
+                      {siteConfig.contact.phone}
+                    </a>
+                  </dd>
+                </div>
+                <div>
+                  <dt className="font-medium text-body-1 dark:text-heading">العنوان</dt>
+                  <dd className="mt-1 leading-7 text-body-3">{siteConfig.contact.address}</dd>
+                </div>
+              </dl>
+            </div>
+
+            <div className="mt-4 rounded-2xl border-2 border-[#d1ddd9] bg-panel p-6 dark:border-panel-border">
+              <h2 className="text-lg font-bold text-heading">قناة الشكاوى والمقترحات</h2>
+              <p className="mt-2 text-sm leading-7 text-body-3">
+                لتقديم شكوى أو مقترح ومتابعته برقم مرجعي.
+              </p>
+              <Link
+                href="/contact/complaints"
+                className="mt-4 inline-block text-sm font-medium text-heading hover:text-icon"
+              >
+                الانتقال إلى القناة
+              </Link>
+            </div>
+          </aside>
+
+          {/* flex-1 rather than a fixed width: 370 + 720 + gap exceeds the
+              available space between the lg breakpoint and ~1180px, and two
+              shrink-0 columns would overflow the page there. */}
+          <main className="order-1 w-full min-w-0 lg:order-2 lg:flex-1">
+            <ContactForm />
+          </main>
         </div>
       </div>
     </div>

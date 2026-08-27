@@ -1,11 +1,15 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Search } from "lucide-react";
 import { FadeInUp } from "@/components/ui/fade-in-up";
-import { programFilters, getCategoryLabel, type Program } from "@/lib/programs";
+import {
+  programFilters,
+  getCategoryLabel,
+  type Program,
+} from "@/lib/programs";
 
 const PAGE_SIZE = 6;
 
@@ -27,10 +31,26 @@ export function ProgramsList({ items }: { items: Program[] }) {
   const current = Math.min(page, pageCount);
   const visible = filtered.slice((current - 1) * PAGE_SIZE, current * PAGE_SIZE);
 
+  const shouldScrollOnPageChange = useRef(false);
+
   const reset = (fn: () => void) => {
     fn();
     setPage(1);
   };
+
+  const goToPage = (next: number) => {
+    if (next === current) return;
+    shouldScrollOnPageChange.current = true;
+    setPage(next);
+  };
+
+  useEffect(() => {
+    if (!shouldScrollOnPageChange.current) return;
+    shouldScrollOnPageChange.current = false;
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    });
+  }, [current]);
 
   return (
     <div>
@@ -71,9 +91,13 @@ export function ProgramsList({ items }: { items: Program[] }) {
       </div>
 
       {/* Cards grid */}
-      {visible.length === 0 ? (
+      {items.length === 0 ? (
         <p className="mt-16 text-center text-[16px] text-body-3">
-          لا توجد مبادرات مطابقة لبحثك.
+          لا يوجد محتوى منشور في هذا القسم حتى الآن.
+        </p>
+      ) : visible.length === 0 ? (
+        <p className="mt-16 text-center text-[16px] text-body-3">
+          لم نجد نتائج مطابقة. جرّب كلمة أخرى.
         </p>
       ) : (
         <div className="mt-10 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3">
@@ -117,7 +141,7 @@ export function ProgramsList({ items }: { items: Program[] }) {
                   </p>
 
                   <span className={`mt-6 inline-flex items-center gap-2 text-[15px] font-bold ${accent}`}>
-                    اعرف أكثر عن المبادرة
+                    تفاصيل المبادرة
                     <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
                   </span>
                 </div>
@@ -133,18 +157,18 @@ export function ProgramsList({ items }: { items: Program[] }) {
         <div className="mt-12 flex items-center justify-center gap-2" dir="ltr">
           <button
             type="button"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            onClick={() => goToPage(Math.max(1, current - 1))}
             disabled={current === 1}
             aria-label="السابق"
             className="flex size-9 items-center justify-center rounded-full border border-panel-border text-heading transition-colors hover:bg-icon-box disabled:opacity-40"
           >
-            <ArrowLeft className="size-4 rotate-180" />
+            <ArrowLeft className="size-4" />
           </button>
           {Array.from({ length: pageCount }, (_, i) => i + 1).map((n) => (
             <button
               key={n}
               type="button"
-              onClick={() => setPage(n)}
+              onClick={() => goToPage(n)}
               aria-current={n === current}
               className={`size-9 rounded-full text-[14px] font-medium transition-colors ${
                 n === current
@@ -157,12 +181,12 @@ export function ProgramsList({ items }: { items: Program[] }) {
           ))}
           <button
             type="button"
-            onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
+            onClick={() => goToPage(Math.min(pageCount, current + 1))}
             disabled={current === pageCount}
             aria-label="التالي"
             className="flex size-9 items-center justify-center rounded-full border border-panel-border text-heading transition-colors hover:bg-icon-box disabled:opacity-40"
           >
-            <ArrowLeft className="size-4" />
+            <ArrowLeft className="size-4 rotate-180" />
           </button>
         </div>
       )}

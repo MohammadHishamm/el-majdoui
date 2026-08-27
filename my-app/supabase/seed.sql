@@ -20,12 +20,12 @@ select * from json_populate_recordset(null::public.site_settings,
 $seed$[
   {
     "id": true,
-    "about_title_ar": "تمكين لأثر مستدام",
-    "about_title_en": "Empowerment for Sustainable Impact",
-    "about_body_ar": "المجدوعي الخيرية مؤسسة مانحة تُسهم في تحسين جودة الحياة الاقتصادية للمحتاج والعناية بمساجد المجدوعي، من خلال حلول مبتكرة وشراكات فاعلة ومنح ميسّر.",
-    "about_body_en": "Almajdouie Charitable Foundation is a philanthropic foundation contributing to improving the economic quality of life for those in need and caring for Almajdouie Mosques, through innovative solutions, effective partnerships, and accessible grants.",
-    "leadership_quote_ar": "نؤمن بأن الإحسان الحقيقي هو ذلك الذي يُمكّن المحتاج من الاعتماد على نفسه، ويبني مستقبلاً مستداماً له ولأسرته، ويُعمّر بيوت الله لتكون منارات للعلم والإيمان.",
-    "leadership_quote_en": "We believe that true benevolence is that which empowers the needy to be self-reliant, builds a sustainable future for them and their families, and restores the houses of God to be beacons of knowledge and faith.",
+    "about_title_ar": "مؤسسة مانحة تعمل على تحسين جودة الحياة الاقتصادية للمحتاج",
+    "about_title_en": "",
+    "about_body_ar": "نعمل على تحسين جودة الحياة الاقتصادية للمحتاج، والعناية بمساجد المجدوعي لتكون معمّرة ونموذجية ومنارة للعلم، بالشراكة مع جهات تنفيذية مؤهلة، وبحلول مبتكرة تسهّل تقديم المنح وتزيد أثرها.",
+    "about_body_en": "",
+    "leadership_quote_ar": "نؤمن أن العطاء حين يُقاس يصبح أكثر عدلًا وأقرب للاستدامة.",
+    "leadership_quote_en": "",
     "leadership_name_ar": "الشيخ علي بن إبراهيم المجدوعي",
     "leadership_name_en": "Sheikh Ali bin Ibrahim Almajdouie",
     "leadership_position_ar": "رئيس مجلس الأمناء",
@@ -34,21 +34,21 @@ $seed$[
     "founded_year": null,
     "license_no": null,
     "contact_email": "info@almajdouie.org",
-    "contact_phone": "+966 234 11 98989",
-    "contact_address_ar": "المملكة العربية السعودية، المنطقة الشرقية، الدمام",
+    "contact_phone": "0138198415",
+    "contact_address_ar": "المملكة العربية السعودية — المنطقة الشرقية، الدمام",
     "contact_address_en": "Kingdom of Saudi Arabia, Eastern Province, Dammam",
-    "updated_at": "2026-06-28T18:13:24.856593+00:00",
-    "social_linkedin": null,
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "social_linkedin": "https://www.linkedin.com/company/almajdouief/",
     "social_instagram": null,
-    "social_twitter": null,
+    "social_twitter": "https://x.com/AlmajdouieF",
     "social_facebook": null,
     "social_snapchat": null,
-    "social_youtube": null,
+    "social_youtube": "https://www.youtube.com/@AlmajdouieF",
     "social_linkedin_show": true,
-    "social_instagram_show": true,
+    "social_instagram_show": false,
     "social_twitter_show": true,
-    "social_facebook_show": true,
-    "social_snapchat_show": true,
+    "social_facebook_show": false,
+    "social_snapchat_show": false,
     "social_youtube_show": true
   }
 ]$seed$
@@ -60,90 +60,31 @@ insert into public.page_content
 select * from json_populate_recordset(null::public.page_content,
 $seed$[
   {
-    "slug": "vision-mission",
+    "slug": "board",
     "content": {
-      "title": "الرؤية والرسالة والقيم",
-      "values": [
-        {
-          "icon": "/images/vision/Icon-1.svg",
-          "title": "الإحسان",
-          "description": "بذل الوسع في إتقان العمل على أكمل وجه ابتغاء الأجر والتماشياً للكمال في الأنشطة والأعمال."
-        },
-        {
-          "icon": "/images/vision/Icon-2.svg",
-          "title": "الرحمة",
-          "description": "رقة في القلوب تلامسها المواساة والسلوان عند وجود العوز والحاجة."
-        },
-        {
-          "icon": "/images/vision/Icon-3.svg",
-          "title": "الإتقان",
-          "description": "الحرص على أداء العمل بأعلى قدر من الجودة والتحسين المستمر لذلك."
-        }
-      ],
-      "hero_image": "/images/vision/theVision-hero.png",
-      "vision_text": "عطاءٌ بإحسان يُسعد ويُمكّن المحتاج اقتصادياً",
-      "mission_text": "مؤسسة مانحة تُسهم في تحسين جودة الحياة الاقتصادية للمحتاج، والعناية بمساجد المجدوعي؛ بحلول مبتكرة وشراكات فاعلة ومنح مُيسَّر.",
-      "vision_image": "/images/vision/section-1.png",
-      "values_heading": "قيمنا المؤسسية",
-      "vision_heading": "رؤيتنا",
-      "mission_heading": "رسالتنا",
-      "values_bg_image": "/images/vision/section-2.png"
+      "name": "الشيخ علي بن إبراهيم المجدوعي",
+      "photo": "/images/leaders-group/main-sheikh.jpg",
+      "quote": "تؤمن المؤسسة بأن الإحسان الحقيقي هو ذلك الذي يُمكّن المحتاج من الاعتماد على نفسه، ويبني مستقبلاً مستداماً له ولأسرته.",
+      "title": "مجلس الأمناء والقيادات",
+      "eyebrow": "رئيس مجلس الأمناء",
+      "position": "رئيس مجلس الأمناء — مؤسس المؤسسة",
+      "vice_name": "عبدالله بن علي المجدوعي",
+      "vice_photo": "",
+      "vice_quote": "",
+      "board_intro": "يتولى مجلس أمناء المؤسسة في دورته الرابعة الإشراف على أعمالها ورسم توجهاتها، وقد صدر بتشكيله قرار المؤسسين ساريًا من 21/09/1446هـ الموافق 21/03/2025م ولمدة أربع سنوات.",
+      "vice_eyebrow": "نائب رئيس مجلس الأمناء",
+      "board_heading": "مجلس الأمناء",
+      "vice_position": "نائب الرئيس",
+      "committee_intro": "تتابع اللجنة التنفيذية أعمال المؤسسة والتحقق من موافقتها للخطة الاستراتيجية، وتوصي باعتماد اللوائح والأدلة المالية والإدارية، وتدرس الموازنة التنفيذية للمؤسسة.",
+      "committee_heading": "اللجنة التنفيذية",
+      "leadership_heading": "الإدارة التنفيذية"
     },
-    "updated_at": "2026-06-27T17:08:17.949613+00:00"
-  },
-  {
-    "slug": "who-we-are",
-    "content": {
-      "info": [
-        {
-          "icon": "",
-          "label": "الاسم الرسمي للمؤسسة",
-          "value": "مؤسسة علي بن إبراهيم المجدوعي وعائلته الخيرية"
-        },
-        {
-          "icon": "/images/who-we-are/document.svg",
-          "label": "الترخيص",
-          "value": "رقم الترخيص الرسمي: 143"
-        },
-        {
-          "icon": "",
-          "label": "الجهة المشرفة",
-          "value": "تحت إشراف: المركز الوطني لتنمية القطاع غير الربحي"
-        },
-        {
-          "icon": "/images/who-we-are/location.svg",
-          "label": "النطاق الجغرافي",
-          "value": "المنطقة الشرقية / منطقة الباحة"
-        }
-      ],
-      "quote": "تعظيم أثر المنح ابتغاءً للأجر عبر تنمية المحتاج بإحسان",
-      "title": "من نحن",
-      "subtitle": "مؤسسة أهلية تسعى لتعظيم أثر المنح وتنمية المحتاج بإحسان",
-      "advantages": [
-        {
-          "icon": "/images/who-we-are/book.svg",
-          "title": "الخبرة المعرفية",
-          "description": "تتميز المؤسسة بخبرتها المعرفية العميقة والممتدة في مجال دعم وتنمية المحتاج وتوجيه المنح بفاعلية."
-        },
-        {
-          "icon": "/images/who-we-are/heart.svg",
-          "title": "شخصية المؤسس",
-          "description": "ارتباط المؤسسة الوثيق بشخصية مؤسسها وعطائه المستمر وتواضعه وقربه من الفئات المستهدفة."
-        }
-      ],
-      "hero_image": "/images/who-we-are/Hero.png",
-      "paragraphs": [
-        "أسست مؤسسة المجدوعي الخيرية انطلاقاً من إيمان المؤسسين بأهمية العطاء المجتمعي وتنمية المحتاج بإحسان. وهي مؤسسة أهلية مصرّح بها من المركز الوطني لتنمية القطاع غير الربحي، تقدم المنح المالي للأفراد والمنظمات غير الهادفة للربح.",
-        "تسعى المؤسسة لتعظيم أثر المنح ابتغاءً للأجر عبر تنمية المحتاج بإحسان، وتعمل على رفع القدرات الاقتصادية للمحتاجين، وتقديم الدعم المباشر والميسّر للأفراد، وتطوير منظومة العمل بمساجد المجدوعي، وبناء شراكات فاعلة مع مختلف القطاعات."
-      ],
-      "advantages_heading": "ميزاتنا التنافسية"
-    },
-    "updated_at": "2026-06-27T17:08:17.949613+00:00"
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "slug": "brand-identity",
     "content": {
-      "intro": "دليلك الشامل لاستخدام عناصر الهوية البصرية لمؤسسة المجدوعي الخيرية، وتطبيقاتها المعتمدة في التغطيات الإعلامية.",
+      "intro": "تحافظ المؤسسة على وحدة هويتها البصرية في جميع تطبيقاتها. وتتيح هذه الصفحة للشركاء والجهات الإعلامية تحميل الشعار ودليل الهوية للاستخدام وفق الإرشادات المعتمدة.",
       "logos": [
         {
           "image": "/images/identity/right-card.png",
@@ -199,6 +140,7 @@ $seed$[
       "pdf_file": "/brand/almajdouie-visual-identity-v2.pdf",
       "pdf_title": "تحميل دليل الهوية البصرية كاملاً (إصدار V2)",
       "tab_label": "مؤسسة المجدوعي الخيرية",
+      "guidelines": "يُستخدم الشعار بنسبه الأصلية دون تشويه أو إعادة تلوين أو إضافة تأثيرات. ويُلتزم بالحد الأدنى للمسافات المحيطة به وبالحد الأدنى لحجمه كما وردا في دليل الهوية. وأي استخدام تجاري أو تحريف للشعار غير مسموح.",
       "pdf_subtitle": "ملف PDF يحتوي على معايير الاستخدام الخطية والبصرية.",
       "tabs_heading": "دليل الهوية",
       "logos_heading": "الشعار الرسمي واستخداماته",
@@ -256,76 +198,13 @@ $seed$[
       "mosques_pdf_file": "",
       "mosques_pdf_title": "تحميل دليل الهوية البصرية كاملاً (إصدار V2)",
       "mosques_tab_label": "مساجد المجدوعي",
+      "guidelines_contact": "لأي استفسار حول استخدام الهوية: info@almajdouie.org",
+      "guidelines_heading": "إرشادات الاستخدام",
       "mosques_pdf_subtitle": "ملف PDF يحتوي على معايير الاستخدام الخطية والبصرية.",
       "mosques_logos_heading": "الشعار الرسمي واستخداماته",
       "mosques_colors_heading": "الألوان المعتمدة"
     },
-    "updated_at": "2026-07-29T17:50:15.169495+00:00"
-  },
-  {
-    "slug": "strategy",
-    "content": {
-      "intro": "تعتمد المؤسسة منهجية بطاقة الأداء المتوازن (Balanced Scorecard)، فتنتظم أعمالها في أربعة أبعاد كبرى تضم عشرة أهداف استراتيجية، تترجم رؤيتنا ورسالتنا إلى أثرٍ ملموس على الأرض.",
-      "title": "استراتيجية المؤسسة",
-      "eyebrow": "عن المؤسسة",
-      "perspectives": [
-        {
-          "bg": "#80A5E0",
-          "id": "beneficiaries",
-          "title": "بُعد المستفيدين",
-          "objectives": [
-            "رفع القدرات الاقتصادية للمحتاج",
-            "الدعم المباشر والمُيسَّر للأفراد",
-            "تطوير منظومة العمل بالمساجد",
-            "تطوير جاهزية شركاء التنفيذ"
-          ],
-          "description": "يركز على تمكين المستفيدين اقتصادياً، وتطوير المساجد، وبناء قدرات شركاء التنفيذ"
-        },
-        {
-          "bg": "#00B5C2",
-          "id": "stakeholders",
-          "title": "بُعد أصحاب المصلحة",
-          "objectives": [
-            "الإسهام في تحقيق الرؤية الوطنية 2030"
-          ],
-          "description": "يعنى بالمساهمة الفاعلة والمباشرة في تحقيق مستهدفات رؤية المملكة 2030"
-        },
-        {
-          "bg": "#005761",
-          "id": "internal-operations",
-          "title": "بُعد العمليات الداخلية",
-          "objectives": [
-            "نمذجة أعمال المؤسسة",
-            "تطوير حلول مبتكرة",
-            "الإدارة الفاعلة للمنح",
-            "تطوير منظومة اتصال مؤسسي"
-          ],
-          "description": "يركز على حوكمة وتطوير آليات المنح ونمذجة أعمال المؤسسة بكفاءة وابتكار"
-        },
-        {
-          "bg": "#000000",
-          "id": "learning-growth",
-          "title": "بُعد التعلّم والنمو",
-          "objectives": [
-            "تطوير منظومة الموارد البشرية"
-          ],
-          "description": "يركز على استدامة الموارد المالية وتطوير الكوادر البشرية والبيئة الرقمية للمؤسسة",
-          "invertedNumberBadge": true
-        }
-      ]
-    },
-    "updated_at": "2026-06-27T17:23:31.411351+00:00"
-  },
-  {
-    "slug": "board",
-    "content": {
-      "name": "الشيخ علي بن إبراهيم المجدوعي",
-      "photo": "/images/leaders-group/main-sheikh.jpg",
-      "quote": "تؤمن المؤسسة بأن الإحسان الحقيقي هو ذلك الذي يُمكّن المحتاج من الاعتماد على نفسه، ويبني مستقبلاً مستداماً له ولأسرته.",
-      "eyebrow": "رئيس مجلس الأمناء",
-      "position": "رئيس مجلس الأمناء — مؤسس المؤسسة"
-    },
-    "updated_at": "2026-06-27T18:23:46.31034+00:00"
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "slug": "careers",
@@ -350,60 +229,66 @@ $seed$[
           "title": "بيئة عمل محفزة"
         }
       ],
-      "intro_body": "في مؤسسة المجدوعي الخيرية، نؤمن بأن الإنسان هو أساس التنمية. ابدأ رحلتك معنا وساهم في بناء مجتمع حيوي ومستدام.",
-      "intro_title": "انضم إلى فريقنا",
+      "empty_body": "يمكنك متابعة هذه الصفحة أو حساباتنا في وسائل التواصل للاطلاع على الشواغر الجديدة عند الإعلان عنها.",
+      "intro_body": "نبحث عن كفاءات تشاركنا الإيمان بأن العطاء حين يُقاس يصبح أكثر عدلًا وأقرب للاستدامة. وحين تتوفر شواغر، تُنشر في هذه الصفحة بتفاصيلها وطريقة التقديم.",
+      "empty_title": "لا توجد وظائف متاحة حاليًا",
+      "intro_title": "اعمل معنا",
       "reasons_heading": "لماذا تعمل معنا؟"
     },
-    "updated_at": "2026-06-28T06:40:53.642449+00:00"
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "slug": "strategic-alignment",
+    "slug": "ceo-office",
     "content": {
-      "tabs": [
-        {
-          "left": "/images/home/strategicAlignment/left-image.png",
-          "label": {
-            "ar": "تمكين المحتاج",
-            "en": "Empowering the Needy"
-          },
-          "right": "/images/home/strategicAlignment/right-image.png"
-        },
-        {
-          "left": "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/strategic-alignment/1782673169241-05z43nyvpqqw.png",
-          "label": {
-            "ar": "مساجد المجدوعي",
-            "en": "Almajdouie Mosques"
-          },
-          "right": "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/strategic-alignment/1782673160684-8s7ggb6tm4m.png"
-        },
-        {
-          "left": "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/strategic-alignment/1782673178382-9mli8how1ul.png",
-          "label": {
-            "ar": "شركاء التنفيذ",
-            "en": "Implementation Partners"
-          },
-          "right": "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/strategic-alignment/1782673174480-8d7ksdx67gt.png"
-        },
-        {
-          "left": "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/strategic-alignment/1782673188426-86riiw8984f.png",
-          "label": {
-            "ar": "ممكنات داخلية",
-            "en": "Internal Enablers"
-          },
-          "right": "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/strategic-alignment/1782673183565-5z3uavogotm.png"
-        }
-      ],
-      "heading": {
-        "ar": "المواءمة الاستراتيجية للأعمال",
-        "en": "Strategic Business Alignment"
-      },
-      "background": "/images/home/strategicAlignment/main-background.png",
-      "subheading": {
-        "ar": "مواءمة مبادراتنا وممكناتنا الداخلية مع برامج رؤية المملكة 2030 وأهداف التنمية المستدامة العالمية",
-        "en": "Aligning our initiatives and internal enablers with Saudi Vision 2030 programs and the global Sustainable Development Goals"
-      }
+      "photo": "/images/leaders-group/ali-alfowzan-lg.jpg",
+      "bio_ar": "يتولى إدارة الأمانة العامة والإشراف المباشر على الأقسام التشغيلية والبرامج التنموية وعمارة المساجد.",
+      "bio_en": "",
+      "name_ar": "د. علي بن سليمان الفوزان",
+      "name_en": "",
+      "role_ar": "المدير التنفيذي لمؤسسة المجدوعي الخيرية",
+      "role_en": "",
+      "cta_href": "/contact",
+      "heading_ar": "مكتب المدير التنفيذي",
+      "heading_en": "Office of the Executive Director",
+      "email_value": "ceo@almajdouie.org.sa · a.alfowzan@almajdouie.org.sa",
+      "phone_value": "+966 11 234 5678 (تحويلة: 101)",
+      "cta_label_ar": "إرسال رسالة لمكتب المدير التنفيذي",
+      "cta_label_en": "",
+      "email_label_ar": "بريد مكتب المدير التنفيذي",
+      "email_label_en": "",
+      "hours_label_ar": "ساعات استقبال الاستفسارات الإدارية",
+      "hours_label_en": "",
+      "hours_value_ar": "الأحد - الخميس | 8:00 صباحاً - 4:00 مساءً",
+      "hours_value_en": "",
+      "phone_label_ar": "المكتب التنفيذي - الأمانة العامة",
+      "phone_label_en": ""
     },
-    "updated_at": "2026-06-28T18:59:52.43848+00:00"
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "slug": "mosques-map",
+    "content": {
+      "intro_ar": "تشرف المؤسسة على دعم وتطوير {count} مسجداً وجامعاً في مختلف مناطق المملكة العربية السعودية. استكشف أبرز الجوامع المعتمدة ومواقعها الجغرافية.",
+      "heading_ar": "خريطة جوامع ومساجد المجدوعي"
+    },
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "slug": "org-structure",
+    "content": {
+      "intro": "تعمل المؤسسة وفق هيكل تنظيمي معتمد يوزّع المسؤوليات على مستويات إدارية واضحة، ويربط كل إدارة بأهدافها ومؤشراتها في الخطة الاستراتيجية.",
+      "title": "الهيكل التنظيمي والمستويات الإدارية",
+      "chart_image": ""
+    },
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "slug": "policies",
+    "content": {
+      "intro": "تعمل المؤسسة وفق منظومة حوكمة معتمدة من مجلس الأمناء، تنظّم أعمالها المالية والإدارية وعلاقتها بالمستفيدين والشركاء. وتنشر المؤسسة في هذه الصفحة وثائق الحوكمة المتاحة للعموم، حرصًا على الشفافية وتمكين أصحاب المصلحة من الاطلاع على الأطر التي تحكم عملها.",
+      "title": "السياسات واللوائح"
+    },
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "slug": "privacy-policy",
@@ -519,43 +404,316 @@ $seed$[
         "en": "Contact us"
       }
     },
-    "updated_at": "2026-07-10T14:48:15.536066+00:00"
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "slug": "ceo-office",
+    "slug": "privacy-policy-draft",
     "content": {
-      "photo": "/images/leaders-group/ali-alfowzan-lg.jpg",
-      "bio_ar": "يتولى إدارة الأمانة العامة والإشراف المباشر على الأقسام التشغيلية والبرامج التنموية وعمارة المساجد.",
-      "bio_en": "",
-      "name_ar": "د. علي بن سليمان الفوزان",
-      "name_en": "",
-      "role_ar": "المدير التنفيذي لمؤسسة المجدوعي الخيرية",
-      "role_en": "",
-      "cta_href": "/contact",
-      "heading_ar": "مكتب المدير التنفيذي",
-      "heading_en": "Office of the Executive Director",
-      "email_value": "ceo@almajdouie.org.sa · a.alfowzan@almajdouie.org.sa",
-      "phone_value": "+966 11 234 5678 (تحويلة: 101)",
-      "cta_label_ar": "إرسال رسالة لمكتب المدير التنفيذي",
-      "cta_label_en": "",
-      "email_label_ar": "بريد مكتب المدير التنفيذي",
-      "email_label_en": "",
-      "hours_label_ar": "ساعات استقبال الاستفسارات الإدارية",
-      "hours_label_en": "",
-      "hours_value_ar": "الأحد - الخميس | 8:00 صباحاً - 4:00 مساءً",
-      "hours_value_en": "",
-      "phone_label_ar": "المكتب التنفيذي - الأمانة العامة",
-      "phone_label_en": ""
+      "note": "مسودة غير منشورة — لا تُعرض قبل مراجعة قانونية معتمدة من المؤسسة (دليل المحتوى §10.3).",
+      "title": "سياسة الخصوصية",
+      "approved": false,
+      "sections": [
+        {
+          "n": 1,
+          "body": "تشمل هذا الموقع فقط.",
+          "title": "نطاق السياسة"
+        },
+        {
+          "n": 2,
+          "body": "ما يُدخله الزائر طوعًا في نموذج الاتصال (الاسم، البريد، الجوال، الموضوع، الرسالة)، وبيانات الاستخدام التقنية التي تجمعها أدوات التحليل.",
+          "title": "البيانات التي نجمعها"
+        },
+        {
+          "n": 3,
+          "body": "الرد على الاستفسارات وتحسين تجربة الموقع، ولا تُستخدم لغير ذلك.",
+          "title": "الغرض من الجمع"
+        },
+        {
+          "n": 4,
+          "body": "استخدام أدوات قياس الزيارات، وكيف يمكن للزائر تعطيلها من متصفحه.",
+          "title": "ملفات تعريف الارتباط وأدوات التحليل"
+        },
+        {
+          "n": 5,
+          "body": "لا تُشارك مع أي طرف ثالث لأغراض تجارية أو تسويقية.",
+          "title": "مشاركة البيانات"
+        },
+        {
+          "n": 6,
+          "body": "",
+          "title": "مدة الاحتفاظ",
+          "pending": true
+        },
+        {
+          "n": 7,
+          "body": "الاستفسار عن بياناته وطلب حذفها.",
+          "title": "حقوق الزائر"
+        },
+        {
+          "n": 8,
+          "body": "مع تاريخ آخر تحديث ظاهر في أعلى الصفحة.",
+          "title": "التحديثات على السياسة"
+        },
+        {
+          "n": 9,
+          "body": "info@almajdouie.org",
+          "title": "التواصل بشأن الخصوصية"
+        }
+      ]
     },
-    "updated_at": "2026-08-14T16:26:11.706555+00:00"
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "slug": "mosques-map",
+    "slug": "strategic-alignment",
     "content": {
-      "intro_ar": "تشرف المؤسسة على دعم وتطوير {count} مسجداً وجامعاً في مختلف مناطق المملكة العربية السعودية. استكشف أبرز الجوامع المعتمدة ومواقعها الجغرافية.",
-      "heading_ar": "خريطة جوامع ومساجد المجدوعي"
+      "tabs": [
+        {
+          "left": "/images/home/strategicAlignment/left-image.png",
+          "label": {
+            "ar": "تمكين المحتاج",
+            "en": "Empowering the Needy"
+          },
+          "right": "/images/home/strategicAlignment/right-image.png"
+        },
+        {
+          "left": "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/strategic-alignment/1782673169241-05z43nyvpqqw.png",
+          "label": {
+            "ar": "مساجد المجدوعي",
+            "en": "Almajdouie Mosques"
+          },
+          "right": "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/strategic-alignment/1782673160684-8s7ggb6tm4m.png"
+        },
+        {
+          "left": "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/strategic-alignment/1782673178382-9mli8how1ul.png",
+          "label": {
+            "ar": "شركاء التنفيذ",
+            "en": "Implementation Partners"
+          },
+          "right": "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/strategic-alignment/1782673174480-8d7ksdx67gt.png"
+        },
+        {
+          "left": "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/strategic-alignment/1782673188426-86riiw8984f.png",
+          "label": {
+            "ar": "ممكنات داخلية",
+            "en": "Internal Enablers"
+          },
+          "right": "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/strategic-alignment/1782673183565-5z3uavogotm.png"
+        }
+      ],
+      "heading": {
+        "ar": "المواءمة الاستراتيجية للأعمال",
+        "en": "Strategic Business Alignment"
+      },
+      "background": "/images/home/strategicAlignment/main-background.png",
+      "subheading": {
+        "ar": "مواءمة مبادراتنا وممكناتنا الداخلية مع برامج رؤية المملكة 2030 وأهداف التنمية المستدامة العالمية",
+        "en": "Aligning our initiatives and internal enablers with Saudi Vision 2030 programs and the global Sustainable Development Goals"
+      }
     },
-    "updated_at": "2026-08-14T18:16:47.996931+00:00"
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "slug": "strategy",
+    "content": {
+      "intro": "رسمت المؤسسة خطتها الاستراتيجية للأعوام 2024–2027م لتوحيد توجهات الموظفين والشركاء، بما يخدم تطلعات المؤسسين والرؤية الوطنية 2030، وتُترجم الخطة إلى اتجاهات وأهداف ومؤشرات تُقاس دوريًا، بحيث يصبح القرار التشغيلي مبنيًا على بيانات واضحة.",
+      "title": "الخطة الاستراتيجية 2024–2027م",
+      "eyebrow": "عن المؤسسة",
+      "plan_pdf": "",
+      "how_built": [
+        "انطلقت مرحلة البناء من الرؤية الوطنية 2030 وأهداف التنمية المستدامة، ومرّت بثلاث مراحل: التحليل الاستراتيجي، ثم صياغة الاستراتيجية، ثم تحكيمها بعرضها على متخصصين في القطاع غير الربحي وأصحاب المصلحة والشركاء.",
+        "وشملت مدخلات البناء: 22 لقاءً فرديًا مع خبراء ومعنيين · 13 ورشة عمل واجتماعًا مع فريق العمل · ورشة عمل «نماء الأفكار» · 12 أداة ومقياسًا، منها مقياس تقييم بيئة العمل ومقياس العمل المؤسسي والتحليل السداسي."
+      ],
+      "impact_logic": [
+        {
+          "title": "محتاج سعيد ومُمكَّن اقتصاديًا",
+          "description": "تفريج كرب المحتاجين عبر العطاء المباشر، ونقلهم إلى دائرة الإنتاج والتمكين الاقتصادي."
+        },
+        {
+          "title": "مساجد المجدوعي نموذجية ومنارة للعلم",
+          "description": "مساجد مصانة ومهيّأة بشكل مناسب للمصلين، ترتكز على تقديم مبادرات علمية تسهم في نشر الوعي الشرعي والاجتماعي والصحي، وتعليم القرآن الكريم لجميع فئات المجتمع."
+        },
+        {
+          "title": "شركاء تنفيذ يمتلكون القدرات للتغيير واستثمار الفرص",
+          "description": "جمعيات مُمكَّنة ماليًا وتنظيميًا ومؤسسيًا في قضايا التمكين الاقتصادي للمحتاج."
+        }
+      ],
+      "perspectives": [
+        {
+          "bg": "#80A5E0",
+          "id": "beneficiary",
+          "title": "المستفيد",
+          "objectives": [
+            "رفع القدرات الاقتصادية للمحتاج",
+            "الدعم المباشر والميسّر للأفراد",
+            "تطوير منظومة العمل بالمساجد",
+            "تطوير جاهزية شركاء التنفيذ لإحداث الأثر",
+            "دعم قضايا متنوعة ذات أولوية"
+          ],
+          "description": ""
+        },
+        {
+          "bg": "#00B5C2",
+          "id": "stakeholders",
+          "title": "أصحاب المصلحة",
+          "objectives": [
+            "الإسهام الفاعل في تحقيق الرؤية الوطنية 2030"
+          ],
+          "description": ""
+        },
+        {
+          "bg": "#005761",
+          "id": "excellence",
+          "title": "التميز المؤسسي",
+          "objectives": [
+            "الإدارة الفاعلة للمنح",
+            "تطوير حلول مبتكرة",
+            "نمذجة أعمال المؤسسة",
+            "تطوير منظومة اتصال مؤسسي",
+            "بناء شراكات فاعلة",
+            "الإشراك الفاعل لأسرة المجدوعي في مبادرات ولجان المؤسسة"
+          ],
+          "description": ""
+        },
+        {
+          "bg": "#00444C",
+          "id": "learning-growth",
+          "title": "التعلم والنمو",
+          "objectives": [
+            "بناء منظومة عمل جاذبة",
+            "بناء منظومة تقنية متطورة",
+            "بناء فريق مُمكَّن وفاعل",
+            "تعزيز القيم المؤسسية"
+          ],
+          "description": ""
+        },
+        {
+          "bg": "#000000",
+          "id": "resource-sustainability",
+          "title": "استدامة الموارد",
+          "objectives": [
+            "توفير مخصصات مالية كافية ومنتظمة"
+          ],
+          "description": "",
+          "invertedNumberBadge": true
+        }
+      ],
+      "to_execution": "تعمل المؤسسة على مفهوم المبادرات، لتوثيق جميع أعمالها وقياسها وربطها مباشرة بالخطة الاستراتيجية. وتنقسم مبادرات المؤسسة إلى مبادرات استراتيجية تعمل على تحقيق الأثر في الفئات المستهدفة، ومبادرات تمكينية داخلية مساندة لها.",
+      "how_built_heading": "كيف بُنيت الخطة",
+      "impact_logic_heading": "منطق الأثر — ثلاث نتائج نهائية مترابطة",
+      "perspectives_heading": "الاتجاهات الاستراتيجية الخمسة و17 هدفًا",
+      "to_execution_heading": "من الاستراتيجية إلى التنفيذ"
+    },
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "slug": "vision-mission",
+    "content": {
+      "title": "الرؤية والرسالة والقيم",
+      "values": [
+        {
+          "icon": "/images/vision/Icon-1.svg",
+          "title": "الإحسان",
+          "description": "بذل الوسع في إتقان العمل على أكمل وجه، ابتغاء الأجر والتماسًا للكمال في الأنشطة والأعمال."
+        },
+        {
+          "icon": "",
+          "title": "الالتزام",
+          "description": "الحرص على الانضباط بالقواعد واللوائح الرسمية العامة والخاصة، والوفاء بواجبات المؤسسة في حينها تجاه الموظفين والمستفيدين، وتحقيق المستهدفات المعتمدة."
+        },
+        {
+          "icon": "/images/vision/Icon-3.svg",
+          "title": "الإتقان",
+          "description": "الحرص على أداء العمل بأعلى قدر من الجودة، والتحسين المستمر لذلك."
+        },
+        {
+          "icon": "/images/vision/Icon-2.svg",
+          "title": "الرحمة",
+          "description": "رقّة في القلوب تلامسها المواساة والسلوان عند وجود العوز والحاجة."
+        },
+        {
+          "icon": "",
+          "title": "الشراكة",
+          "description": "تقديم قيمة مضافة للشركاء، وتحقيق الأهداف المشتركة من خلال الاستفادة من القدرات والمهارات المتنوعة."
+        }
+      ],
+      "hero_image": "/images/vision/theVision-hero.png",
+      "vision_text": "عطاء بإحسان يُسعد ويُمكّن المحتاج اقتصاديًا.",
+      "mission_text": "مؤسسة مانحة تسهم في تحسين جودة الحياة الاقتصادية للمحتاج، والعناية بمساجد المجدوعي، بحلول مبتكرة، وشراكات فاعلة، ومنح ميسّرة.",
+      "values_intro": "تستحضر المؤسسة هذه القيم في جميع تعاملاتها، ويلتزم بها العاملون فيها على مختلف مستوياتهم — من أمناء وأعضاء لجان وموظفين وشركاء تنفيذ، كلٌّ بحسب عمله.",
+      "vision_image": "/images/vision/section-1.png",
+      "values_heading": "القيم المؤسسية",
+      "vision_heading": "الرؤية",
+      "mission_heading": "الرسالة",
+      "values_bg_image": "/images/vision/section-2.png"
+    },
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "slug": "who-we-are",
+    "content": {
+      "info": [
+        {
+          "icon": "",
+          "label": "الاسم الرسمي للمؤسسة",
+          "value": "مؤسسة علي بن إبراهيم المجدوعي وعائلته الخيرية"
+        },
+        {
+          "icon": "",
+          "label": "سنة التأسيس",
+          "value": "1435هـ"
+        },
+        {
+          "icon": "/images/who-we-are/document.svg",
+          "label": "الترخيص",
+          "value": "وزارة الموارد البشرية والتنمية الاجتماعية — رقم (143)"
+        },
+        {
+          "icon": "/images/who-we-are/location.svg",
+          "label": "النطاق الجغرافي",
+          "value": "المنطقة الشرقية · منطقة الباحة"
+        }
+      ],
+      "quote": "",
+      "title": "من نحن",
+      "sections": [
+        {
+          "body": "مؤسسة علي بن إبراهيم المجدوعي وعائلته الخيرية مؤسسة مانحة تعمل على تحسين جودة الحياة الاقتصادية للمحتاج، والعناية بمساجد المجدوعي لتكون معمّرة ونموذجية ومنارة للعلم، بالشراكة مع جهات تنفيذية مؤهلة، وبحلول مبتكرة تسهّل تقديم المنح وتزيد أثرها.",
+          "heading": ""
+        },
+        {
+          "body": "بدأ عطاء الشيخ علي بن إبراهيم بن صالح المجدوعي فرديًا قبل عقود، حرصًا على نمائه واستدامته، ثم تأسست المؤسسة عام 1435هـ بترخيص من وزارة الموارد البشرية والتنمية الاجتماعية برقم (143)، لتكون مؤسسة مانحة تدعم البرامج والمشاريع الخيرية النوعية الأكثر أثرًا والأعمّ نفعًا، مع العناية بعمارة بيوت الله وخدمة قاصديها.",
+          "heading": "النشأة"
+        },
+        {
+          "body": "المؤسسة جهة مانحة تعمل منصةً تنسيقية: تستقطب الموارد والخبرات وتوجّهها نحو المشاريع ذات الأثر الأعمق، وتصمّم الأطر التنفيذية، وتربط بين الشركاء والممولين والمستفيدين في مسار واحد. ولا يقتصر دورها على تقديم المنح، بل تؤهّل شركاء التنفيذ وترفع جاهزيتهم، وتقيس الأثر بمؤشرات محدّدة تُحدَّث دوريًا.",
+          "heading": "كيف نعمل"
+        },
+        {
+          "body": "تضطلع المؤسسة بدور تنظيمي لأوقاف أسرة المجدوعي: تستقبل الأوقاف، وتصنّفها وفق مصارفها الشرعية المعتمدة، وتتولى التنسيق والمتابعة والحوكمة لضمان أن كل وقف يصل إلى مصرفه الصحيح، وأن كل مشروع يُنفّذ بالجودة والشفافية المطلوبة. وتتوزع هذه المصارف على مسارات تشمل خدمة المحتاجين، ومشاريع الواقفين الخاصة ودعم الكيانات الشرعية، والحج والعمرة، والأضاحي والمشاريع الموسمية.",
+          "heading": "الذراع التنظيمي لأوقاف أسرة المجدوعي"
+        }
+      ],
+      "subtitle": "مؤسسة مانحة، لا منفِّذة",
+      "advantages": [],
+      "hero_image": "/images/who-we-are/Hero.png",
+      "target_groups": [
+        {
+          "title": "المحتاج",
+          "description": "الفرد أو الأسرة الذين لا يجدون كفايتهم لحاجاتهم الأساسية — من سكن وغذاء ودواء — ولا يمتلكون حياة كريمة."
+        },
+        {
+          "title": "مساجد المجدوعي",
+          "description": "الجوامع والمساجد والمصليات والمدارس القرآنية التي بناها المؤسسون وأفراد أسرتهم."
+        },
+        {
+          "title": "شركاء التنفيذ",
+          "description": "الجمعيات الخيرية التي تسعى لتمكين المحتاج اقتصاديًا."
+        }
+      ],
+      "advantages_heading": "",
+      "target_groups_heading": "الفئات المستهدفة"
+    },
+    "updated_at": "2026-08-27T00:00:00+00:00"
   }
 ]$seed$
 ::json)
@@ -607,49 +765,43 @@ insert into public.focus_areas
 select * from json_populate_recordset(null::public.focus_areas,
 $seed$[
   {
-    "id": "a7a449c8-da86-4730-aa9a-f91b7d54a01c",
-    "slug": "partners-development",
-    "name_ar": "شركاء التنفيذ",
-    "name_en": "Implementation Partners",
-    "short_desc_ar": "تطوير جاهزية الجمعيات الشريكة ورفع كفاءتها التنظيمية والمالية لإحداث أثر تنموي مستدام.",
-    "short_desc_en": "Developing the readiness of partner associations and raising their organizational and financial efficiency for sustainable impact.",
-    "bg_color": "#005761",
-    "btn_text_color": "#80A5E0",
-    "icon": "/images/figma/sections/focus-3(2).svg",
-    "watermark": "/images/figma/sections/focus-3.svg",
-    "sort_order": 3,
+    "id": "31ab2c93-ccf8-4b37-86bf-6b11f783d22d",
+    "slug": "empowerment",
+    "name_ar": "تمكين المحتاج",
+    "name_en": "Empowering the Needy",
+    "short_desc_ar": "نقل الدعم من حلٍّ قصير المدى إلى تمكين طويل المدى عبر التوظيف وتحسين الدخل.",
+    "short_desc_en": "",
+    "bg_color": "#80A5E0",
+    "btn_text_color": "#005761",
+    "icon": "/images/figma/sections/focus1(2).svg",
+    "watermark": "/images/figma/sections/focus-1.svg",
+    "sort_order": 1,
     "published": true,
-    "created_at": "2026-06-26T19:46:05.301899+00:00",
-    "updated_at": "2026-07-12T13:43:06.153174+00:00",
-    "detail_title_ar": "شركاء التنفيذ",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "detail_title_ar": "من حلٍّ قصير المدى إلى تمكين طويل المدى",
     "detail_title_en": "",
-    "detail_intro_ar": "تؤمن المؤسسة بأن الأثر التنموي المستدام لا يتحقق إلا من خلال كيانات تنفيذية قوية؛ لذا تلتزم بتمكين وتطوير جاهزية الجمعيات والمنظمات الشريكة، ورفع قدراتها التنظيمية والمالية لضمان تقديم منح ميسر ووصول الدعم لمستحقيه بأعلى كفاءة.",
+    "detail_intro_ar": "نستهدف الفرد أو الأسرة الذين لا يجدون كفايتهم لحاجاتهم الأساسية من سكن وغذاء ودواء. ولا نكتفي بسد الحاجة الآنية، بل نعمل على نقل المستفيد من دائرة الرعاية إلى دائرة الإنتاج، عبر مسارات مرتبطة بالتوظيف وتحسين الدخل، ومنح ميسّرة تخفّف الأعباء المعيشية وتدعم تجاوزها.",
     "detail_intro_en": "",
     "carousel": {
       "slides": [
         {
-          "label_ar": "بناء القدرات المالية والتنظيمية",
+          "label_ar": "الأسر المنتجة",
           "label_en": "",
-          "image_left": "/images/focus-area/partners/corousel-1.1.jpg",
-          "image_right": "/images/focus-area/partners/corousel-1.jpg"
+          "image_left": "/images/economic/Rectangle 3.png",
+          "image_right": "/images/economic/Rectangle 4.png"
         },
         {
-          "label_ar": "تطوير جاهزية الجمعيات الشريكة",
+          "label_ar": "الشباب الباحثون عن التأهيل والتدريب",
           "label_en": "",
-          "image_left": "/images/focus-area/partners/corousel-2.1.jpg",
-          "image_right": "/images/focus-area/partners/corousel-2.jpg"
+          "image_left": "/images/economic/Rectangle 2s.png",
+          "image_right": "/images/economic/Rectangle 1s.png"
         },
         {
-          "label_ar": "حوكمة المنح ووصول الدعم",
+          "label_ar": "الأفراد المتعثرين",
           "label_en": "",
-          "image_left": "/images/focus-area/partners/corousel-3.1.jpg",
-          "image_right": "/images/focus-area/partners/corousel-3.jpg"
-        },
-        {
-          "label_ar": "نمذجة أعمال الشركاء",
-          "label_en": "",
-          "image_left": "/images/focus-area/partners/corousel-4.1.jpg",
-          "image_right": "/images/focus-area/partners/corousel-4.jpg"
+          "image_left": "/images/economic/Rectangle 3s.png",
+          "image_right": "/images/economic/Rectangle 4s.png"
         }
       ],
       "heading": {
@@ -658,18 +810,18 @@ $seed$[
       }
     },
     "stats": {
-      "image": "/images/focus-area/partners/section-2.png",
+      "image": "/images/economic/Rectangle 5.png",
       "items": [
         {
-          "value": 11,
+          "value": 45,
           "suffix": "",
-          "label_ar": "جمعية شريكة تم تمكينها وتطويرها",
+          "label_ar": "مبادرة تمويلية مفعّلة",
           "label_en": ""
         },
         {
-          "value": 3,
+          "value": 2500,
           "suffix": "",
-          "label_ar": "أدلة ونماذج عمل مؤسسية منشورة",
+          "label_ar": "مستفيد تم تمكينه اقتصادياً",
           "label_en": ""
         }
       ]
@@ -677,35 +829,57 @@ $seed$[
     "detail_programs": {
       "items": [
         {
-          "slug": "tatweer",
-          "tag_ar": "تشييد وتطوير",
+          "slug": "tadmin",
+          "tag_ar": "",
+          "tag_en": ""
+        },
+        {
+          "slug": "tafreej-kurba",
+          "tag_ar": "",
+          "tag_en": ""
+        },
+        {
+          "slug": "istijaba",
+          "tag_ar": "",
+          "tag_en": ""
+        },
+        {
+          "slug": "riyada",
+          "tag_ar": "",
+          "tag_en": ""
+        },
+        {
+          "slug": "izdihar",
+          "tag_ar": "",
           "tag_en": ""
         }
       ],
       "heading": {
-        "ar": "البرامج والمبادرات الحالية",
+        "ar": "المبادرات",
         "en": ""
       }
-    }
+    },
+    "detail_impact_ar": "محتاج سعيد ومُمكَّن اقتصاديًا.",
+    "detail_impact_en": ""
   },
   {
     "id": "120ab1bf-9a20-4066-a1e5-c35d5de857fb",
     "slug": "mosques",
     "name_ar": "مساجد المجدوعي",
     "name_en": "Almajdouie Mosques",
-    "short_desc_ar": "عناية وتطوير ومنارة للعلم من خلال بناء وتجهيز مساجد نموذجية تخدم المجتمع.",
-    "short_desc_en": "Care, development, and a beacon of knowledge through building and equipping model mosques that serve the community.",
+    "short_desc_ar": "مساجد معمّرة ومصانة ومهيّأة، ومنارة للعلم بمنظومة برامج تعليمية واجتماعية.",
+    "short_desc_en": "",
     "bg_color": "#00B5C2",
     "btn_text_color": "#00B5C2",
     "icon": "/images/figma/sections/focus-2(2).svg",
     "watermark": "/images/figma/sections/focus-2.svg",
     "sort_order": 2,
     "published": true,
-    "created_at": "2026-06-26T19:46:05.301899+00:00",
-    "updated_at": "2026-07-12T13:43:06.160788+00:00",
-    "detail_title_ar": "مساجد المجدوعي",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "detail_title_ar": "مساجد معمّرة ونموذجية ومنارة للعلم",
     "detail_title_en": "",
-    "detail_intro_ar": "تولي المؤسسة عناية فائقة بمساجد المجدوعي؛ ليس فقط من خلال هندستها المعمارية وصيانتها المستدامة لتهيئتها لقاصديها، بل بتمكينها لتكون منارات علمية، شرعية، واجتماعية تقدم قيمة مضافة للمجتمع المحيط بها.",
+    "detail_intro_ar": "مساجد المجدوعي هي الجوامع والمساجد والمصليات والمدارس القرآنية التي بناها المؤسسون وأفراد أسرتهم. نعتني بها على مستويين لا ينفصلان: العمارة الحسية — من بناء وترميم وتشغيل وصيانة وعناية بخدمات القاصد؛ والعمارة المعنوية — بمنظومة برامج تعليمية واجتماعية وتطويرية تجعل من المسجد منارة للعلم لا مكانًا للصلاة فحسب.",
     "detail_intro_en": "",
     "carousel": {
       "slides": [
@@ -760,64 +934,72 @@ $seed$[
       "items": [
         {
           "slug": "imara",
-          "tag_ar": "تشييد وتطوير",
+          "tag_ar": "",
           "tag_en": ""
         },
         {
           "slug": "manara",
-          "tag_ar": "تميز مؤسسي",
+          "tag_ar": "",
           "tag_en": ""
         },
         {
-          "slug": "sustainable-operation",
-          "tag_ar": "تشييد وتطوير",
+          "slug": "risala",
+          "tag_ar": "",
           "tag_en": ""
         }
       ],
       "heading": {
-        "ar": "البرامج والمبادرات الحالية",
+        "ar": "المبادرات",
         "en": ""
       }
-    }
+    },
+    "detail_impact_ar": "مساجد مصانة ومهيّأة للمصلين، ترتكز على مبادرات علمية تسهم في نشر الوعي الشرعي والاجتماعي والصحي، وتعليم القرآن الكريم لجميع فئات المجتمع.",
+    "detail_impact_en": ""
   },
   {
-    "id": "31ab2c93-ccf8-4b37-86bf-6b11f783d22d",
-    "slug": "empowerment",
-    "name_ar": "المحتاج",
-    "name_en": "The Needy",
-    "short_desc_ar": "تمكين اقتصادي وتفريج كربات من خلال برامج مستدامة تحقق الاكتفاء الذاتي للأسر المحتاجة.",
-    "short_desc_en": "Economic empowerment and relief through sustainable programs that achieve self-sufficiency for needy families.",
-    "bg_color": "#80A5E0",
-    "btn_text_color": "#005761",
-    "icon": "/images/figma/sections/focus1(2).svg",
-    "watermark": "/images/figma/sections/focus-1.svg",
-    "sort_order": 1,
+    "id": "a7a449c8-da86-4730-aa9a-f91b7d54a01c",
+    "slug": "partners-development",
+    "name_ar": "شركاء التنفيذ",
+    "name_en": "Implementation Partners",
+    "short_desc_ar": "تأهيل الشركاء العاملين مع المحتاج ليمتلكوا القدرات لإحداث أثر أعمق.",
+    "short_desc_en": "",
+    "bg_color": "#005761",
+    "btn_text_color": "#80A5E0",
+    "icon": "/images/figma/sections/focus-3(2).svg",
+    "watermark": "/images/figma/sections/focus-3.svg",
+    "sort_order": 3,
     "published": true,
-    "created_at": "2026-06-26T19:46:05.301899+00:00",
-    "updated_at": "2026-07-12T13:43:06.134905+00:00",
-    "detail_title_ar": "التمكين الاقتصادي للمحتاج",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "detail_title_ar": "نُمكّن من يُنفّذ",
     "detail_title_en": "",
-    "detail_intro_ar": "تسعى المؤسسة من خلال قطاع التمكين الاقتصادي إلى نقل الفئات الأشد حاجة من دائرة الاحتياج والدعم المؤقت إلى دائرة الإنتاج والاعتماد على الذات، عبر تقديم حلول تمويلية ميسرة وبرامج تأهيلية نوعية بالتعاون مع الجمعيات الشريكة.",
+    "detail_intro_ar": "المؤسسة جهة مانحة ترفع فعالية التنفيذ عبر شركاء قادرين. لذلك نعمل على تأهيل الجمعيات الخيرية العاملة مع المحتاج ودعمها بما يرفع قدرتها على إحداث أثر قابل للقياس، عبر بناء القدرات المؤسسية والبشرية والمالية، وتفعيل التنسيق والتكامل مع القطاعين الحكومي والخاص.",
     "detail_intro_en": "",
     "carousel": {
       "slides": [
         {
-          "label_ar": "الأسر المنتجة",
+          "label_ar": "بناء القدرات المالية والتنظيمية",
           "label_en": "",
-          "image_left": "/images/economic/Rectangle 3.png",
-          "image_right": "/images/economic/Rectangle 4.png"
+          "image_left": "/images/focus-area/partners/corousel-1.1.jpg",
+          "image_right": "/images/focus-area/partners/corousel-1.jpg"
         },
         {
-          "label_ar": "الشباب الباحثون عن التأهيل والتدريب",
+          "label_ar": "تطوير جاهزية الجمعيات الشريكة",
           "label_en": "",
-          "image_left": "/images/economic/Rectangle 2s.png",
-          "image_right": "/images/economic/Rectangle 1s.png"
+          "image_left": "/images/focus-area/partners/corousel-2.1.jpg",
+          "image_right": "/images/focus-area/partners/corousel-2.jpg"
         },
         {
-          "label_ar": "الأفراد المتعثرين",
+          "label_ar": "حوكمة المنح ووصول الدعم",
           "label_en": "",
-          "image_left": "/images/economic/Rectangle 3s.png",
-          "image_right": "/images/economic/Rectangle 4s.png"
+          "image_left": "/images/focus-area/partners/corousel-3.1.jpg",
+          "image_right": "/images/focus-area/partners/corousel-3.jpg"
+        },
+        {
+          "label_ar": "نمذجة أعمال الشركاء",
+          "label_en": "",
+          "image_left": "/images/focus-area/partners/corousel-4.1.jpg",
+          "image_right": "/images/focus-area/partners/corousel-4.jpg"
         }
       ],
       "heading": {
@@ -826,18 +1008,18 @@ $seed$[
       }
     },
     "stats": {
-      "image": "/images/economic/Rectangle 5.png",
+      "image": "/images/focus-area/partners/section-2.png",
       "items": [
         {
-          "value": 45,
+          "value": 11,
           "suffix": "",
-          "label_ar": "مبادرة تمويلية مفعّلة",
+          "label_ar": "جمعية شريكة تم تمكينها وتطويرها",
           "label_en": ""
         },
         {
-          "value": 2500,
+          "value": 3,
           "suffix": "",
-          "label_ar": "مستفيد تم تمكينه اقتصادياً",
+          "label_ar": "أدلة ونماذج عمل مؤسسية منشورة",
           "label_en": ""
         }
       ]
@@ -845,26 +1027,23 @@ $seed$[
     "detail_programs": {
       "items": [
         {
-          "slug": "imara",
-          "tag_ar": "منح ميسرة",
-          "tag_en": ""
-        },
-        {
-          "slug": "tadmin",
-          "tag_ar": "تأهيل وتدريب",
-          "tag_en": ""
-        },
-        {
           "slug": "tatweer",
+          "tag_ar": "",
+          "tag_en": ""
+        },
+        {
+          "slug": "sharaka",
           "tag_ar": "",
           "tag_en": ""
         }
       ],
       "heading": {
-        "ar": "البرامج والمبادرات الحالية",
+        "ar": "المبادرات",
         "en": ""
       }
-    }
+    },
+    "detail_impact_ar": "جمعيات مُمكَّنة ماليًا وتنظيميًا ومؤسسيًا في قضايا التمكين الاقتصادي للمحتاج.",
+    "detail_impact_en": ""
   }
 ]$seed$
 ::json)
@@ -877,1089 +1056,915 @@ $seed$[
   {
     "id": "640b0fea-fe3a-4538-b95a-ca350b1767e2",
     "slug": "empowerment",
-    "name_ar": "المحتاج",
-    "name_en": "The Needy",
-    "desc_ar": "برامج المحتاج تهدف إلى تمكين الأسر المحتاجة اقتصادياً واجتماعياً عبر التدريب والتأهيل وتوفير فرص العمل المستدامة.",
-    "desc_en": "The Needy programs aim to empower needy families economically and socially through training, rehabilitation, and providing sustainable job opportunities.",
+    "name_ar": "تمكين المحتاج",
+    "name_en": "Empowering the Needy",
+    "desc_ar": "نقل الدعم من حلٍّ قصير المدى إلى تمكين طويل المدى عبر التوظيف وتحسين الدخل.",
+    "desc_en": "",
     "bg_color": "#80A5E0",
     "initiatives": [
       {
-        "id": "tadmeen",
+        "id": "tadmin",
         "desc": {
-          "ar": "توظيف مستفيدي الضمان الاجتماعي والأُسر الأشمل ذات القدرات المهنية القادرة على العمل",
-          "en": "Employment of social security beneficiaries and comprehensive families with professional capabilities able to work"
+          "ar": "دعم وتمكين مستفيدي الضمان الاجتماعي القادرين على العمل بتوفير فرص وظيفية مناسبة، بالشراكة مع الجمعيات الأهلية.",
+          "en": ""
         },
         "paths": [
           {
-            "id": "vocational",
+            "id": "track-1",
             "desc": {
-              "ar": "برامج تدريبية متخصصة تؤهل المستفيدين لسوق العمل.",
-              "en": "Specialized training programs that qualify beneficiaries for the job market."
+              "ar": "",
+              "en": ""
             },
-            "href": "/focus-areas/empowerment",
+            "href": "/programs/tadmin",
             "title": {
-              "ar": "التأهيل المهني",
-              "en": "Vocational Training"
+              "ar": "التأهيل",
+              "en": ""
             }
           },
           {
-            "id": "employment",
+            "id": "track-2",
             "desc": {
-              "ar": "ربط المؤهلين بفرص عمل مستدامة لدى جهات التوظيف.",
-              "en": "Connecting qualified individuals with sustainable job opportunities at employment agencies."
+              "ar": "",
+              "en": ""
             },
-            "href": "/focus-areas/empowerment",
+            "href": "/programs/tadmin",
             "title": {
-              "ar": "التشغيل والتوظيف",
-              "en": "Employment & Job Placement"
+              "ar": "التسهيل",
+              "en": ""
             }
           },
           {
-            "id": "entrepreneurship",
+            "id": "track-3",
             "desc": {
-              "ar": "دعم المستفيدين لإطلاق مشاريعهم الصغيرة والمتوسطة.",
-              "en": "Supporting beneficiaries in launching their small and medium enterprises."
+              "ar": "",
+              "en": ""
             },
-            "href": "/focus-areas/empowerment",
+            "href": "/programs/tadmin",
             "title": {
-              "ar": "ريادة الأعمال",
-              "en": "Entrepreneurship"
+              "ar": "التوظيف",
+              "en": ""
+            }
+          },
+          {
+            "id": "track-4",
+            "desc": {
+              "ar": "",
+              "en": ""
+            },
+            "href": "/programs/tadmin",
+            "title": {
+              "ar": "التطوير",
+              "en": ""
             }
           }
         ],
         "title": {
-          "ar": "مبادرة تضمين",
-          "en": "Tadmeen Initiative"
+          "ar": "تضمين",
+          "en": ""
         }
       },
       {
-        "id": "kafala",
+        "id": "tafreej-kurba",
         "desc": {
-          "ar": "رعاية ودعم الأيتام والأسر المتعففة",
-          "en": "Care and support for orphans and modest families"
+          "ar": "المساهمة في سد الحاجات الأساسية للفئات المستهدفة وتخفيف الأعباء المعيشية عنهم عبر منح ميسّرة ومتنوعة.",
+          "en": ""
         },
         "paths": [
           {
-            "id": "orphans",
+            "id": "track-1",
             "desc": {
-              "ar": "كفالة شهرية مستدامة للأطفال الأيتام في المملكة.",
-              "en": "Sustainable monthly sponsorship for orphaned children in the Kingdom."
+              "ar": "",
+              "en": ""
             },
-            "href": "/focus-areas/empowerment",
+            "href": "/programs/tafreej-kurba",
             "title": {
-              "ar": "كفالة الأيتام",
-              "en": "Orphan Sponsorship"
+              "ar": "عون",
+              "en": ""
             }
           },
           {
-            "id": "families",
+            "id": "track-2",
             "desc": {
-              "ar": "دعم الأسر المتعففة باحتياجاتها الأساسية.",
-              "en": "Supporting modest families with their basic needs."
+              "ar": "",
+              "en": ""
             },
-            "href": "/focus-areas/empowerment",
+            "href": "/programs/tafreej-kurba",
             "title": {
-              "ar": "كفالة الأسر",
-              "en": "Family Sponsorship"
+              "ar": "عطاء",
+              "en": ""
             }
           }
         ],
         "title": {
-          "ar": "برنامج الكفالة",
-          "en": "Kafala Program"
-        }
-      },
-      {
-        "id": "feeding",
-        "desc": {
-          "ar": "توفير الغذاء للمحتاجين عبر برامج مستدامة",
-          "en": "Providing food for those in need through sustainable programs"
-        },
-        "paths": [
-          {
-            "id": "baskets",
-            "desc": {
-              "ar": "توزيع سلال غذائية شهرية للأسر المحتاجة.",
-              "en": "Distributing monthly food baskets to needy families."
-            },
-            "href": "/focus-areas/empowerment",
-            "title": {
-              "ar": "سلال غذائية",
-              "en": "Food Baskets"
-            }
-          },
-          {
-            "id": "meals",
-            "desc": {
-              "ar": "توفير وجبات يومية للمستفيدين في مواقع العمل والتدريب.",
-              "en": "Providing daily meals for beneficiaries at work and training sites."
-            },
-            "href": "/focus-areas/empowerment",
-            "title": {
-              "ar": "وجبات جاهزة",
-              "en": "Ready Meals"
-            }
-          }
-        ],
-        "title": {
-          "ar": "مبادرة الإطعام",
-          "en": "Feeding Initiative"
+          "ar": "تفريج كربة",
+          "en": ""
         }
       }
     ],
     "sort_order": 0,
     "published": true,
-    "created_at": "2026-06-27T15:17:03.47303+00:00",
-    "updated_at": "2026-07-10T15:39:38.00141+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "id": "851c8038-29ea-4085-99e9-03bb3212135f",
     "slug": "mosques",
     "name_ar": "مساجد المجدوعي",
     "name_en": "Almajdouie Mosques",
-    "desc_ar": "تطوير وتجهيز مساجد حديثة لتكون منارات للعبادة والعلم وخدمة المجتمع بأحدث المعايير.",
-    "desc_en": "Developing and equipping modern mosques to be beacons of worship, knowledge, and community service with the latest standards.",
+    "desc_ar": "مساجد معمّرة ومصانة ومهيّأة، ومنارة للعلم بمنظومة برامج تعليمية واجتماعية.",
+    "desc_en": "",
     "bg_color": "#00B5C2",
     "initiatives": [
       {
-        "id": "building",
+        "id": "imara",
         "desc": {
-          "ar": "إنشاء مساجد نموذجية متكاملة المرافق في مختلف مناطق المملكة.",
-          "en": "Building exemplary mosques with integrated facilities across various regions of the Kingdom."
+          "ar": "إنشاء وإدارة وتشغيل وصيانة وتطوير مساجد المجدوعي ومرافقها لضمان تجربة مثالية للمصلين.",
+          "en": ""
         },
         "paths": [
           {
-            "id": "design",
+            "id": "track-1",
             "desc": {
-              "ar": "تصاميم معمارية مستوحاة من الطابع الإسلامي الأصيل.",
-              "en": "Architectural designs inspired by authentic Islamic heritage."
+              "ar": "",
+              "en": ""
             },
-            "href": "/focus-areas/mosques",
+            "href": "/programs/imara",
             "title": {
-              "ar": "التصميم المعماري",
-              "en": "Architectural Design"
+              "ar": "البناء والترميم",
+              "en": ""
             }
           },
           {
-            "id": "construction",
+            "id": "track-2",
             "desc": {
-              "ar": "تنفيذ المشاريع بأعلى معايير الجودة والاستدامة.",
-              "en": "Executing projects with the highest standards of quality and sustainability."
+              "ar": "",
+              "en": ""
             },
-            "href": "/focus-areas/mosques",
+            "href": "/programs/imara",
             "title": {
-              "ar": "التنفيذ والتشييد",
-              "en": "Implementation & Construction"
-            }
-          }
-        ],
-        "title": {
-          "ar": "بناء المساجد",
-          "en": "Mosque Construction"
-        }
-      },
-      {
-        "id": "maintenance",
-        "desc": {
-          "ar": "صيانة وتأهيل المساجد القائمة لضمان استمرارية رسالتها.",
-          "en": "Maintaining and rehabilitating existing mosques to ensure continuity of their mission."
-        },
-        "paths": [
-          {
-            "id": "periodic",
-            "desc": {
-              "ar": "برامج صيانة دورية شاملة للمساجد التابعة.",
-              "en": "Comprehensive periodic maintenance programs for affiliated mosques."
-            },
-            "href": "/focus-areas/mosques",
-            "title": {
-              "ar": "الصيانة الدورية",
-              "en": "Periodic Maintenance"
+              "ar": "التشغيل والصيانة",
+              "en": ""
             }
           },
           {
-            "id": "technical",
+            "id": "track-3",
             "desc": {
-              "ar": "تجهيز المساجد بأحدث الأنظمة الصوتية والإضاءة.",
-              "en": "Equipping mosques with the latest audio and lighting systems."
+              "ar": "",
+              "en": ""
             },
-            "href": "/focus-areas/mosques",
+            "href": "/programs/imara",
             "title": {
-              "ar": "التطوير التقني",
-              "en": "Technical Development"
+              "ar": "العناية والخدمات",
+              "en": ""
+            }
+          },
+          {
+            "id": "track-4",
+            "desc": {
+              "ar": "",
+              "en": ""
+            },
+            "href": "/programs/imara",
+            "title": {
+              "ar": "التحسين والتطوير",
+              "en": ""
             }
           }
         ],
         "title": {
-          "ar": "صيانة وتطوير",
-          "en": "Maintenance & Development"
+          "ar": "عمارة",
+          "en": ""
         }
       },
       {
-        "id": "imams",
+        "id": "manara",
         "desc": {
-          "ar": "تدريب وتأهيل الأئمة والخطباء وفق أحدث المناهج العلمية.",
-          "en": "Training and qualifying imams and preachers according to the latest scientific curricula."
+          "ar": "منظومة من البرامج التعليمية والاجتماعية والتطويرية لقاصدي مساجد المجدوعي ومنسوبيها.",
+          "en": ""
         },
         "paths": [
           {
-            "id": "training",
+            "id": "track-1",
             "desc": {
-              "ar": "برامج متخصصة في علوم القرآن والخطابة.",
-              "en": "Specialized programs in Quranic sciences and oratory."
+              "ar": "",
+              "en": ""
             },
-            "href": "/focus-areas/mosques",
+            "href": "/programs/manara",
             "title": {
-              "ar": "برامج تدريبية",
-              "en": "Training Programs"
+              "ar": "العلمي",
+              "en": ""
+            }
+          },
+          {
+            "id": "track-2",
+            "desc": {
+              "ar": "",
+              "en": ""
+            },
+            "href": "/programs/manara",
+            "title": {
+              "ar": "الاجتماعي",
+              "en": ""
+            }
+          },
+          {
+            "id": "track-3",
+            "desc": {
+              "ar": "",
+              "en": ""
+            },
+            "href": "/programs/manara",
+            "title": {
+              "ar": "الصحي",
+              "en": ""
+            }
+          },
+          {
+            "id": "track-4",
+            "desc": {
+              "ar": "",
+              "en": ""
+            },
+            "href": "/programs/manara",
+            "title": {
+              "ar": "التطويري",
+              "en": ""
+            }
+          },
+          {
+            "id": "track-5",
+            "desc": {
+              "ar": "",
+              "en": ""
+            },
+            "href": "/programs/manara",
+            "title": {
+              "ar": "الإعلامي",
+              "en": ""
             }
           }
         ],
         "title": {
-          "ar": "تأهيل الأئمة",
-          "en": "Imam Training"
+          "ar": "منارة",
+          "en": ""
+        }
+      },
+      {
+        "id": "risala",
+        "desc": {
+          "ar": "تقديم كل ما يلزم للأئمة والمؤذنين والحلقات القرآنية من تدريب ودعم وموارد.",
+          "en": ""
+        },
+        "paths": [
+          {
+            "id": "track-1",
+            "desc": {
+              "ar": "",
+              "en": ""
+            },
+            "href": "/programs/risala",
+            "title": {
+              "ar": "المسار الإيماني",
+              "en": ""
+            }
+          },
+          {
+            "id": "track-2",
+            "desc": {
+              "ar": "",
+              "en": ""
+            },
+            "href": "/programs/risala",
+            "title": {
+              "ar": "الحلقات الرجالية",
+              "en": ""
+            }
+          },
+          {
+            "id": "track-3",
+            "desc": {
+              "ar": "",
+              "en": ""
+            },
+            "href": "/programs/risala",
+            "title": {
+              "ar": "المدارس النسائية",
+              "en": ""
+            }
+          },
+          {
+            "id": "track-4",
+            "desc": {
+              "ar": "",
+              "en": ""
+            },
+            "href": "/programs/risala",
+            "title": {
+              "ar": "رافد",
+              "en": ""
+            }
+          }
+        ],
+        "title": {
+          "ar": "رسالة",
+          "en": ""
         }
       }
     ],
     "sort_order": 1,
     "published": true,
-    "created_at": "2026-06-27T15:17:03.47303+00:00",
-    "updated_at": "2026-07-10T15:39:38.00141+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "id": "00061484-d54c-48e8-9736-c1306a153be7",
     "slug": "partners",
     "name_ar": "شركاء التنفيذ",
     "name_en": "Implementation Partners",
-    "desc_ar": "بناء قدرات الشركاء التنفيذيين وتمكينهم من تقديم حلول مبتكرة تخدم المجتمع.",
-    "desc_en": "Building the capacity of implementation partners and enabling them to provide innovative solutions that serve society.",
+    "desc_ar": "تأهيل الشركاء العاملين مع المحتاج ليمتلكوا القدرات لإحداث أثر أعمق.",
+    "desc_en": "",
     "bg_color": "#005761",
     "initiatives": [
       {
-        "id": "capacity",
+        "id": "tatweer",
         "desc": {
-          "ar": "برامج تدريبية لرفع كفاءة الجمعيات الخيرية والمؤسسات غير الربحية.",
-          "en": "Training programs to enhance the efficiency of charitable associations and non-profit institutions."
+          "ar": "تطوير شركاء المؤسسة من العاملين مع المحتاج ليمتلكوا القدرات للتغيير ويستثمروا الفرص.",
+          "en": ""
         },
         "paths": [
           {
-            "id": "governance",
+            "id": "track-1",
             "desc": {
-              "ar": "تطوير أنظمة الحوكمة والامتثال في الجمعيات.",
-              "en": "Developing governance and compliance systems in associations."
+              "ar": "",
+              "en": ""
             },
-            "href": "/focus-areas/partners-development",
+            "href": "/programs/tatweer",
             "title": {
-              "ar": "الحوكمة المؤسسية",
-              "en": "Institutional Governance"
+              "ar": "بناء القدرات",
+              "en": ""
             }
           },
           {
-            "id": "finance",
+            "id": "track-2",
             "desc": {
-              "ar": "تأهيل الكوادر في الإدارة المالية والاستدامة.",
-              "en": "Qualifying cadres in financial management and sustainability."
+              "ar": "",
+              "en": ""
             },
-            "href": "/focus-areas/partners-development",
+            "href": "/programs/tatweer",
             "title": {
-              "ar": "الإدارة المالية",
-              "en": "Financial Management"
-            }
-          }
-        ],
-        "title": {
-          "ar": "بناء القدرات",
-          "en": "Capacity Building"
-        }
-      },
-      {
-        "id": "grants",
-        "desc": {
-          "ar": "منح تمويلية مخصصة للمشاريع المجتمعية ذات الأثر العالي.",
-          "en": "Dedicated funding grants for high-impact community projects."
-        },
-        "paths": [
-          {
-            "id": "projects",
-            "desc": {
-              "ar": "تمويل المشاريع النوعية وفق معايير الأثر الاجتماعي.",
-              "en": "Funding quality projects according to social impact criteria."
-            },
-            "href": "/focus-areas/partners-development",
-            "title": {
-              "ar": "منح المشاريع",
-              "en": "Project Grants"
+              "ar": "استثمار الفرص",
+              "en": ""
             }
           },
           {
-            "id": "operations",
+            "id": "track-3",
             "desc": {
-              "ar": "دعم التكاليف التشغيلية للجمعيات الناشئة.",
-              "en": "Supporting operational costs for emerging associations."
+              "ar": "",
+              "en": ""
             },
-            "href": "/focus-areas/partners-development",
+            "href": "/programs/tatweer",
             "title": {
-              "ar": "منح التشغيل",
-              "en": "Operational Grants"
+              "ar": "تحقيق الأثر",
+              "en": ""
             }
           }
         ],
         "title": {
-          "ar": "بوابة المنح",
-          "en": "Grants Gateway"
+          "ar": "تطوير",
+          "en": ""
         }
       },
       {
-        "id": "network",
+        "id": "sharaka",
         "desc": {
-          "ar": "منصة تفاعلية لتبادل الخبرات بين الجمعيات والمؤسسات.",
-          "en": "An interactive platform for sharing expertise among associations and institutions."
+          "ar": "بناء شراكات نوعية توسّع نطاق الأثر وتضاعف قدرة المؤسسة على خدمة فئاتها المستهدفة.",
+          "en": ""
         },
-        "paths": [
-          {
-            "id": "forum",
-            "desc": {
-              "ar": "ملتقى سنوي يجمع شركاء التنفيذ لاستعراض الإنجازات.",
-              "en": "An annual forum bringing together implementation partners to showcase achievements."
-            },
-            "href": "/focus-areas/partners-development",
-            "title": {
-              "ar": "الملتقى السنوي",
-              "en": "Annual Forum"
-            }
-          }
-        ],
+        "paths": [],
         "title": {
-          "ar": "شبكة الشركاء",
-          "en": "Partners Network"
+          "ar": "شراكة",
+          "en": ""
         }
       }
     ],
     "sort_order": 2,
     "published": true,
-    "created_at": "2026-06-27T15:17:03.47303+00:00",
-    "updated_at": "2026-07-10T15:39:38.00141+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   }
 ]$seed$
 ::json)
 on conflict do nothing;
 
--- programs — 7 rows
+-- programs — the 14 approved initiatives (guide 6). Ten strategic, four
+--   enabling. riyada and izdihar ship unpublished: the guide marks them
+--   drafts pending confirmation. sharaka has a card but no body, also per
+--   the guide. objectives/stages/target_groups/partners/info stay empty —
+--   the guide supplies no copy for them and rule 2 bars inventing any.
 insert into public.programs
 select * from json_populate_recordset(null::public.programs,
 $seed$[
   {
-    "id": "d81c3c6e-e6b2-4fc8-9098-c751b3e9ee82",
-    "slug": "manara",
-    "category": "mosques",
-    "title_ar": "مبادرة منارة",
+    "id": "a3394742-1d8b-432d-9e3f-87c26eb6d845",
+    "slug": "tadmin",
+    "category": "empowerment",
+    "type": "strategic",
+    "title_ar": "تضمين",
     "title_en": "",
-    "short_desc_ar": "تطوير المساجد لتكون منارات للعلم والإيمان عبر برامج تعليمية ودعوية ومجتمعية متكاملة.",
+    "short_desc_ar": "دعم وتمكين مستفيدي الضمان الاجتماعي القادرين على العمل بتوفير فرص وظيفية مناسبة، بالشراكة مع الجمعيات الأهلية.",
     "short_desc_en": "",
-    "hero_desc": "مبادرة تُحوّل مساجد المجدوعي إلى منارات حيّة للعلم والإيمان، عبر برامج تعليمية ودعوية ومجتمعية تخدم روّاد المسجد من مختلف الأعمار.",
-    "image": "/images/program-cards/program-6.png",
-    "about": "تسعى مبادرة \"منارة\" إلى إحياء رسالة المسجد التنموية، من خلال حلقات علمية وبرامج تحفيظ ودورات تأهيلية وأنشطة مجتمعية، لتجعل من المسجد مركزاً مشعّاً يخدم الحي ويبني الإنسان.",
-    "objectives": [
-      "إقامة حلقات علمية وبرامج تحفيظ.",
-      "تنظيم دورات وأنشطة دعوية ومجتمعية.",
-      "تفعيل دور المسجد في خدمة الحي.",
-      "بناء كوادر إمامة ودعوة مؤهلة."
+    "hero_desc": "دعم وتمكين مستفيدي الضمان الاجتماعي القادرين على العمل بتوفير فرص وظيفية مناسبة، بالشراكة مع الجمعيات الأهلية.",
+    "image": "/images/program-cards/program-3.png",
+    "about": "مبادرة تُعنى بدعم وتمكين مستفيدي الضمان الاجتماعي ومن في حكمهم من القادرين على العمل، بتوفير فرص وظيفية مناسبة بالشراكة مع الجمعيات الخيرية ذات العلاقة. وتعمل على تذليل العقبات التي تواجه توظيف المستفيد، ونقله من الرعوية إلى التنموية لتحقيق الاكتفاء الذاتي، إسهامًا في مستهدفات الرؤية الوطنية 2030 في تخفيض معدل البطالة.",
+    "tracks": [
+      "التأهيل",
+      "التسهيل",
+      "التوظيف",
+      "التطوير"
     ],
-    "stages": [
-      {
-        "desc": "تحديد احتياج الحي وإعداد البرامج العلمية والدعوية المناسبة.",
-        "title": "الإعداد والتخطيط"
-      },
-      {
-        "desc": "إطلاق الحلقات والدورات والأنشطة المجتمعية في المسجد.",
-        "title": "الإطلاق والتفعيل"
-      },
-      {
-        "desc": "قياس أثر البرامج على روّاد المسجد وتطويرها باستمرار.",
-        "title": "القياس والتطوير"
-      }
+    "sub_programs": [
+      "اللغة الإنجليزية",
+      "المهارات الحياتية",
+      "المهارات الإدارية",
+      "المهارات الفنية",
+      "بدل النقل",
+      "الدعم المبتدئ بالتوظيف",
+      "الدعم المنتهي بالتوظيف",
+      "وحدات التوظيف"
     ],
-    "target_groups": [
-      "روّاد المساجد من مختلف الأعمار",
-      "طلاب العلم وحلقات التحفيظ",
-      "أبناء الحي والمجتمع المحيط"
-    ],
-    "quote": {
-      "text": "\"نجعل من كل مسجد منارة تضيء طريق العلم والإيمان في حيّها.\"",
-      "author": "— مدير إدارة المساجد، مؤسسة المجدوعي الخيرية"
-    },
-    "partners": [
-      "الجمعية أ",
-      "الجمعية ب",
-      "الجمعية ج",
-      "الجمعية د"
-    ],
-    "info": {
-      "scope": "المنطقة الشرقية",
-      "sector": "مساجد المجدوعي",
-      "launchYear": "2023",
-      "beneficiaries": "30 مسجداً"
-    },
-    "related": [
-      "imara",
-      "sustainable-operation",
-      "tadmin"
-    ],
-    "sort_order": 6,
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": null,
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 1,
     "published": true,
-    "created_at": "2026-06-26T22:19:34.293037+00:00",
-    "updated_at": "2026-07-19T10:39:30.615317+00:00"
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "id": "65a33a7e-8b4f-4cac-849b-ff9a9c09bffe",
+    "slug": "tafreej-kurba",
+    "category": "empowerment",
+    "type": "strategic",
+    "title_ar": "تفريج كربة",
+    "title_en": "",
+    "short_desc_ar": "المساهمة في سد الحاجات الأساسية للفئات المستهدفة وتخفيف الأعباء المعيشية عنهم عبر منح ميسّرة ومتنوعة.",
+    "short_desc_en": "",
+    "hero_desc": "المساهمة في سد الحاجات الأساسية للفئات المستهدفة وتخفيف الأعباء المعيشية عنهم عبر منح ميسّرة ومتنوعة.",
+    "image": "/images/identity/logo-primary.svg",
+    "about": "مبادرة تُعنى بالمساهمة في سد الحاجات الأساسية للفئات المستهدفة، وتخفيف الأعباء المعيشية عنهم، ودعمهم لتجاوزها، عبر مسارات وبرامج منح ميسّرة ومتنوعة.",
+    "tracks": [
+      "عون",
+      "عطاء"
+    ],
+    "sub_programs": [
+      "سكن",
+      "قوت",
+      "شعلة",
+      "عافية"
+    ],
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": null,
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 2,
+    "published": true,
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "id": "c8abf8bd-939b-4ef4-917e-819fbac540d2",
+    "slug": "istijaba",
+    "category": "empowerment",
+    "type": "strategic",
+    "title_ar": "استجابة",
+    "title_en": "",
+    "short_desc_ar": "تقديم المنح المالية للمشاريع والمنصات الوطنية والأفراد، ودعم القضايا ذات الأولوية وفق توجهات المؤسسة.",
+    "short_desc_en": "",
+    "hero_desc": "تقديم المنح المالية للمشاريع والمنصات الوطنية والأفراد، ودعم القضايا ذات الأولوية وفق توجهات المؤسسة.",
+    "image": "/images/identity/logo-primary.svg",
+    "about": "مبادرة تُعنى بتقديم المنح المالية بناءً على طلبات المؤسس وعائلته وأحفاده وتحقيق تطلعاتهم من خلالها، والعمل على دعم المشاريع والمنصات الوطنية والأفراد، ودعم القضايا ذات الأولوية حسب توجهات المؤسسة.",
+    "tracks": [
+      "سهم",
+      "ترابط"
+    ],
+    "sub_programs": [
+      "دعم الجهات الخيرية",
+      "دعم الأفراد",
+      "الاستقبال العيني"
+    ],
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": null,
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 3,
+    "published": true,
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "id": "9a9b2958-94b2-41ea-a411-8085c9e98c3d",
+    "slug": "riyada",
+    "category": "empowerment",
+    "type": "strategic",
+    "title_ar": "ريادة",
+    "title_en": "",
+    "short_desc_ar": "استقطاب الباعة الجائلين الأكثر تأهيلًا ودعمهم في تطوير مشاريعهم لتحقيق النجاح والاستدامة.",
+    "short_desc_en": "",
+    "hero_desc": "استقطاب الباعة الجائلين الأكثر تأهيلًا ودعمهم في تطوير مشاريعهم لتحقيق النجاح والاستدامة.",
+    "image": "/images/identity/logo-primary.svg",
+    "about": "مبادرة تُعنى باستقطاب الباعة الجائلين الأكثر تأهيلًا للاستفادة من منافذ البيع التنموية، وإدارة العلاقة معهم بكفاءة، ودعمهم في تطوير مشاريعهم الريادية لتحقيق النجاح والاستدامة، بما يحقق دخلًا مستدامًا ويحرّك الاقتصاد المحلي.",
+    "tracks": [],
+    "sub_programs": [],
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": null,
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 4,
+    "published": false,
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "id": "70e3382e-c5fb-420d-baa4-8fdb162c3a4b",
+    "slug": "izdihar",
+    "category": "empowerment",
+    "type": "strategic",
+    "title_ar": "ازدهار",
+    "title_en": "",
+    "short_desc_ar": "تأسيس وتشغيل منافذ البيع التنموية وصيانتها لضمان استدامتها ونموها وفتح مسارات جديدة.",
+    "short_desc_en": "",
+    "hero_desc": "تأسيس وتشغيل منافذ البيع التنموية وصيانتها لضمان استدامتها ونموها وفتح مسارات جديدة.",
+    "image": "/images/identity/logo-primary.svg",
+    "about": "مبادرة تُعنى بتأسيس وتشغيل أصول منافذ البيع التنموية وممتلكاتها، وصيانتها لضمان استدامتها ونموها، وفتح خطوط إنتاج ومسارات جديدة، بما يسهم في مجتمع حيوي وتعزيز جودة الحياة.",
+    "tracks": [],
+    "sub_programs": [],
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": null,
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 5,
+    "published": false,
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "id": "13a1a438-a978-48c9-9f9b-e4a6e3c8d686",
     "slug": "imara",
     "category": "mosques",
-    "title_ar": "مبادرة عمارة",
+    "type": "strategic",
+    "title_ar": "عمارة",
     "title_en": "",
-    "short_desc_ar": "تعنى بالهندسة المعمارية وبناء المساجد وتجهيزها بأحدث التقنيات المستدامة لخدمة المصلين.",
+    "short_desc_ar": "إنشاء وإدارة وتشغيل وصيانة وتطوير مساجد المجدوعي ومرافقها لضمان تجربة مثالية للمصلين.",
     "short_desc_en": "",
-    "hero_desc": "مبادرة متخصصة في تصميم وبناء وعمارة مساجد المجدوعي وفق أعلى المعايير الهندسية والبيئية، لتكون منارات عامرة تخدم المصلين وتدوم لأجيال.",
+    "hero_desc": "إنشاء وإدارة وتشغيل وصيانة وتطوير مساجد المجدوعي ومرافقها لضمان تجربة مثالية للمصلين.",
     "image": "/images/program-cards/program-1.png",
-    "about": "تعنى مبادرة \"عمارة\" بتطوير منظومة بناء وتجهيز المساجد، من خلال حلول معمارية مستدامة توازن بين جمال العمارة الإسلامية وكفاءة الطاقة، بالشراكة مع مكاتب هندسية معتمدة لضمان جودة التنفيذ وديمومة المنشآت.",
-    "objectives": [
-      "تصميم وبناء المساجد وفق معايير الاستدامة.",
-      "تجهيز المساجد بأحدث التقنيات الموفّرة للطاقة.",
-      "رفع جودة بيئة العبادة وراحة المصلين.",
-      "صيانة وتطوير المساجد القائمة."
+    "about": "مبادرة تُعنى بإنشاء، وإدارة، وتشغيل، وصيانة، وتطوير مساجد المجدوعي ومرافقها، لتعزيز البيئة داخل المساجد وضمان توفير تجربة مثالية للمصلين.",
+    "tracks": [
+      "البناء والترميم",
+      "التشغيل والصيانة",
+      "العناية والخدمات",
+      "التحسين والتطوير"
     ],
-    "stages": [
-      {
-        "desc": "دراسة الموقع واحتياج المنطقة وإعداد التصاميم الهندسية المعتمدة.",
-        "title": "الدراسة والتصميم"
-      },
-      {
-        "desc": "بناء المسجد وتجهيزه بالتقنيات الحديثة وفق الجدول الزمني المعتمد.",
-        "title": "التنفيذ والبناء"
-      },
-      {
-        "desc": "تسليم المسجد وضمان صيانته الدورية للحفاظ على جودته.",
-        "title": "التشغيل والصيانة"
-      }
+    "sub_programs": [
+      "البناء",
+      "الترميم",
+      "الصيانة الوقائية",
+      "الصيانة التصحيحية",
+      "النظافة",
+      "التعطير",
+      "سقيا الماء",
+      "تحسين خدمات المساجد ورحلة القاصد",
+      "الجوائز والاعتمادات"
     ],
-    "target_groups": [
-      "المصلون في الأحياء المستهدفة",
-      "المجتمعات حديثة التطوير",
-      "الجهات المشرفة على المساجد"
-    ],
-    "quote": {
-      "text": "\"نبني بيوت الله لتكون منارات عامرة بالعلم والإيمان، تخدم أجيالاً متعاقبة.\"",
-      "author": "— مدير إدارة المساجد، مؤسسة المجدوعي الخيرية"
-    },
-    "partners": [
-      "الجمعية أ",
-      "الجمعية ب",
-      "الجمعية ج",
-      "الجمعية د"
-    ],
-    "info": {
-      "scope": "المنطقة الشرقية",
-      "sector": "مساجد المجدوعي",
-      "launchYear": "2023",
-      "beneficiaries": "45 مسجداً"
-    },
-    "related": [
-      "sustainable-operation",
-      "manara",
-      "tadmin"
-    ],
-    "sort_order": 2,
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": null,
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 6,
     "published": true,
-    "created_at": "2026-06-26T22:19:34.293037+00:00",
-    "updated_at": "2026-07-19T10:39:30.606657+00:00"
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "d1fc2f7e-406b-4fe3-afd4-1877f9a71495",
-    "slug": "sustainable-operation",
+    "id": "d81c3c6e-e6b2-4fc8-9098-c751b3e9ee82",
+    "slug": "manara",
     "category": "mosques",
-    "title_ar": "برنامج التشغيل المستدام",
+    "type": "strategic",
+    "title_ar": "منارة",
     "title_en": "",
-    "short_desc_ar": "الإشراف الدوري والتشغيل الذكي لمنظومة المياه والطاقة والنظافة بجميع مساجد المجدوعي لضمان استدامتها.",
+    "short_desc_ar": "منظومة من البرامج التعليمية والاجتماعية والتطويرية لقاصدي مساجد المجدوعي ومنسوبيها.",
     "short_desc_en": "",
-    "hero_desc": "برنامج لإدارة وتشغيل مساجد المجدوعي بكفاءة، عبر منظومة ذكية تُعنى بالمياه والطاقة والنظافة والصيانة الدورية لضمان بيئة عبادة مثالية ومستدامة.",
-    "image": "/images/program-cards/program-5.png",
-    "about": "يضمن برنامج \"التشغيل المستدام\" جاهزية مساجد المجدوعي على مدار العام، من خلال حلول تشغيلية ذكية تراقب استهلاك الطاقة والمياه وتنظّم أعمال النظافة والصيانة، بما يحافظ على المنشآت ويخفض كلفة التشغيل.",
-    "objectives": [
-      "ضمان جاهزية المساجد على مدار العام.",
-      "ترشيد استهلاك الطاقة والمياه.",
-      "تنظيم أعمال النظافة والصيانة الدورية.",
-      "خفض كلفة التشغيل وإطالة عمر المنشآت."
+    "hero_desc": "منظومة من البرامج التعليمية والاجتماعية والتطويرية لقاصدي مساجد المجدوعي ومنسوبيها.",
+    "image": "/images/program-cards/program-6.png",
+    "about": "مبادرة تُعنى بتقديم منظومة من البرامج التعليمية والاجتماعية والتطويرية لقاصدي مساجد المجدوعي ومنسوبيها.",
+    "tracks": [
+      "العلمي",
+      "الاجتماعي",
+      "الصحي",
+      "التطويري",
+      "الإعلامي"
     ],
-    "stages": [
-      {
-        "desc": "فحص المنشآت وتجهيزها بأنظمة المراقبة الذكية.",
-        "title": "الفحص والتجهيز"
-      },
-      {
-        "desc": "تشغيل المنظومة ومراقبة الاستهلاك والأداء آلياً.",
-        "title": "التشغيل والمراقبة"
-      },
-      {
-        "desc": "تنفيذ صيانة وقائية دورية ومعالجة الأعطال بسرعة.",
-        "title": "الصيانة الوقائية"
-      }
+    "sub_programs": [
+      "الدورات العلمية والتدريبية",
+      "المحاضرات والكلمات والدروس",
+      "الحقائب التربوية",
+      "المعارض التثقيفية",
+      "الأيام المحلية والعالمية",
+      "تفطير الصائمين والاعتكاف",
+      "خدمة حجاج وعُمّار بيت الله الحرام وزوار مسجد رسول الله",
+      "تدريب وتأهيل منسوبي دعاة الجاليات",
+      "التقارير الدورية والمقاطع المرئية"
     ],
-    "target_groups": [
-      "مساجد المجدوعي",
-      "المصلون والزوار",
-      "فرق التشغيل والصيانة"
-    ],
-    "quote": {
-      "text": "\"الاستدامة أمانة؛ نشغّل بيوت الله بكفاءة لتبقى عامرة دون انقطاع.\"",
-      "author": "— مدير إدارة التشغيل، مؤسسة المجدوعي الخيرية"
-    },
-    "partners": [
-      "الجمعية أ",
-      "الجمعية ب",
-      "الجمعية ج",
-      "الجمعية د"
-    ],
-    "info": {
-      "scope": "المنطقة الشرقية",
-      "sector": "مساجد المجدوعي",
-      "launchYear": "2024",
-      "beneficiaries": "45 مسجداً"
-    },
-    "related": [
-      "imara",
-      "manara",
-      "tatweer"
-    ],
-    "sort_order": 5,
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": null,
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 7,
     "published": true,
-    "created_at": "2026-06-26T22:19:34.293037+00:00",
-    "updated_at": "2026-07-19T10:39:30.857995+00:00"
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "id": "a41ef471-b1d1-4c0e-88d4-dae7c94553f4",
+    "slug": "risala",
+    "category": "mosques",
+    "type": "strategic",
+    "title_ar": "رسالة",
+    "title_en": "",
+    "short_desc_ar": "تقديم كل ما يلزم للأئمة والمؤذنين والحلقات القرآنية من تدريب ودعم وموارد.",
+    "short_desc_en": "",
+    "hero_desc": "تقديم كل ما يلزم للأئمة والمؤذنين والحلقات القرآنية من تدريب ودعم وموارد.",
+    "image": "/images/identity/masaged-majdoui-icon-light.svg",
+    "about": "مبادرة تُعنى بتقديم كل ما يلزم للأئمة والمؤذنين والحلقات القرآنية، من خلال توفير التدريب والدعم والموارد اللازمة لهم.",
+    "tracks": [
+      "المسار الإيماني",
+      "الحلقات الرجالية",
+      "المدارس النسائية",
+      "رافد"
+    ],
+    "sub_programs": [
+      "صلوات",
+      "دروس",
+      "تحفيظ",
+      "تلقين",
+      "إقراء",
+      "تعليم",
+      "نور",
+      "شؤون",
+      "الروضات القرآنية",
+      "الدورات الصيفية",
+      "القارئ الصغير",
+      "همة",
+      "تنافس"
+    ],
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": null,
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 8,
+    "published": true,
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "id": "a11e180c-7e3e-4dc0-9cb8-09bf05fb9229",
     "slug": "tatweer",
     "category": "partners",
-    "title_ar": "مبادرة تطوير",
+    "type": "strategic",
+    "title_ar": "تطوير",
     "title_en": "",
-    "short_desc_ar": "مبادرة استراتيجية مخصصة لرفع الكفاءة التشغيلية والمالية للجمعيات الناشئة وتأهيل كوادرها لإدارة مشاريع التمكين الاقتصادية.",
+    "short_desc_ar": "تطوير شركاء المؤسسة من العاملين مع المحتاج ليمتلكوا القدرات للتغيير ويستثمروا الفرص.",
     "short_desc_en": "",
-    "hero_desc": "مبادرة لبناء قدرات شركاء التنفيذ من الجمعيات الناشئة، عبر رفع كفاءتها التشغيلية والمالية وتأهيل كوادرها لإدارة المشاريع التنموية بفاعلية واستدامة.",
+    "hero_desc": "تطوير شركاء المؤسسة من العاملين مع المحتاج ليمتلكوا القدرات للتغيير ويستثمروا الفرص.",
     "image": "/images/program-cards/program-4.png",
-    "about": "تستهدف مبادرة \"تطوير\" تمكين الجمعيات الشريكة مؤسسياً، من خلال برامج بناء قدرات في الحوكمة والإدارة المالية وإدارة المشاريع، لتصبح قادرة على تنفيذ مبادرات التمكين بكفاءة عالية وأثر مستدام.",
-    "objectives": [
-      "رفع الكفاءة التشغيلية للجمعيات الشريكة.",
-      "تطوير الأنظمة المالية والحوكمة.",
-      "تأهيل الكوادر لإدارة المشاريع التنموية.",
-      "بناء شراكات فاعلة طويلة الأمد."
+    "about": "مبادرة تُعنى بتطوير شركاء مؤسسة المجدوعي الخيرية من العاملين مع المحتاج ليمتلكوا القدرات للتغيير، ويستثمروا الفرص، لتحقيق أثر أعمق — عبر تعزيز جودة المنتجات والخدمات المقدمة للمحتاج، وتطوير القدرات المؤسسية والبشرية والمالية لدى الشركاء، وتفعيل التنسيق والتكامل مع القطاعين الحكومي والخاص.",
+    "tracks": [
+      "بناء القدرات",
+      "استثمار الفرص",
+      "تحقيق الأثر"
     ],
-    "stages": [
-      {
-        "desc": "تقييم الوضع المؤسسي للجمعية وتحديد فجوات القدرات.",
-        "title": "التقييم المؤسسي"
-      },
-      {
-        "desc": "تنفيذ برامج تدريب وتأهيل في الإدارة والحوكمة والمالية.",
-        "title": "بناء القدرات"
-      },
-      {
-        "desc": "مرافقة الجمعية في تطبيق ما تعلمته وقياس تطور أدائها.",
-        "title": "المرافقة والتمكين"
-      }
+    "sub_programs": [
+      "الدراسات العليا",
+      "البحث الاجتماعي",
+      "الاستدامة المالية",
+      "الابتكار والاستثمار الاجتماعي",
+      "المشاريع التنموية",
+      "الإسناد الحكومي",
+      "المجتمعات المهنية للجمعيات الأهلية المهتمة بتمكين المحتاج"
     ],
-    "target_groups": [
-      "الجمعيات الناشئة",
-      "كوادر القطاع غير الربحي",
-      "شركاء التنفيذ في مناطق العمل"
-    ],
-    "quote": {
-      "text": "\"نستثمر في الشركاء لأنهم اليد التي تصل بأثرنا إلى أبعد مدى.\"",
-      "author": "— مدير إدارة الشراكات، مؤسسة المجدوعي الخيرية"
-    },
-    "partners": [
-      "الجمعية أ",
-      "الجمعية ب",
-      "الجمعية ج",
-      "الجمعية د"
-    ],
-    "info": {
-      "scope": "المنطقة الشرقية",
-      "sector": "شركاء التنفيذ",
-      "launchYear": "2023",
-      "beneficiaries": "15 جمعية"
-    },
-    "related": [
-      "tadmin",
-      "kafala",
-      "sustainable-operation"
-    ],
-    "sort_order": 4,
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": null,
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 9,
     "published": true,
-    "created_at": "2026-06-26T22:19:34.293037+00:00",
-    "updated_at": "2026-07-19T10:39:30.614462+00:00"
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "77739eb7-bae3-4d79-b133-75771f1f8452",
-    "slug": "kafala",
-    "category": "empowerment",
-    "title_ar": "برنامج الكفالة",
+    "id": "4dfb0125-1dc6-4e57-afe6-4b8a70b6c4ba",
+    "slug": "sharaka",
+    "category": "partners",
+    "type": "strategic",
+    "title_ar": "شراكة",
     "title_en": "",
-    "short_desc_ar": "تقديم الدعم المالي المباشر والميسر للأفراد والأسر لتخفيف الأعباء الاقتصادية وتفريج الكربات.",
+    "short_desc_ar": "بناء شراكات نوعية توسّع نطاق الأثر وتضاعف قدرة المؤسسة على خدمة فئاتها المستهدفة.",
     "short_desc_en": "",
-    "hero_desc": "برنامج إغاثي تنموي يقدّم الدعم المالي المباشر والميسر للأسر الأشد حاجة، لتخفيف أعبائها المعيشية ومساعدتها على تجاوز الأزمات الطارئة بكرامة.",
-    "image": "/images/program-cards/program-2.png",
-    "about": "يقوم برنامج \"الكفالة\" على تقديم دعم مالي منتظم وميسّر للأسر المتعففة، ضمن منظومة حوكمة دقيقة تضمن وصول الدعم لمستحقيه، مع متابعة دورية لحالاتهم بهدف نقلهم تدريجياً من مرحلة الإعانة إلى مرحلة الاكتفاء.",
-    "objectives": [
-      "تقديم دعم مالي منتظم للأسر المتعففة.",
-      "تفريج الكربات ومعالجة الحالات الطارئة.",
-      "ضمان وصول الدعم لمستحقيه بشفافية.",
-      "التهيئة للانتقال نحو الاكتفاء الذاتي."
-    ],
-    "stages": [
-      {
-        "desc": "دراسة حالة الأسرة والتحقق من استحقاقها وفق معايير معتمدة.",
-        "title": "الدراسة والتحقق"
-      },
-      {
-        "desc": "صرف الدعم المالي المباشر بشكل منتظم وميسّر للأسرة.",
-        "title": "صرف الدعم"
-      },
-      {
-        "desc": "متابعة حالة الأسرة دورياً وتقييم أثر الدعم عليها.",
-        "title": "المتابعة والتقييم"
-      }
-    ],
-    "target_groups": [
-      "الأسر المتعففة والأشد حاجة",
-      "الحالات الطارئة والمنكوبة",
-      "الأرامل والأيتام"
-    ],
-    "quote": {
-      "text": "\"الكفالة جسرٌ نعبر به بالأسرة من ضيق الحاجة إلى سعة الاكتفاء.\"",
-      "author": "— مدير إدارة البرامج، مؤسسة المجدوعي الخيرية"
-    },
-    "partners": [
-      "الجمعية أ",
-      "الجمعية ب",
-      "الجمعية ج",
-      "الجمعية د"
-    ],
-    "info": {
-      "scope": "المنطقة الشرقية",
-      "sector": "التمكين الاقتصادي",
-      "launchYear": "2022",
-      "beneficiaries": "1,800 أسرة"
-    },
-    "related": [
-      "tadmin",
-      "manara",
-      "imara"
-    ],
-    "sort_order": 1,
+    "hero_desc": "بناء شراكات نوعية توسّع نطاق الأثر وتضاعف قدرة المؤسسة على خدمة فئاتها المستهدفة.",
+    "image": "/images/identity/logo-primary.svg",
+    "about": "",
+    "tracks": [],
+    "sub_programs": [],
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": null,
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 10,
     "published": true,
-    "created_at": "2026-06-26T22:19:34.293037+00:00",
-    "updated_at": "2026-07-19T10:39:30.604563+00:00"
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "a3394742-1d8b-432d-9e3f-87c26eb6d845",
-    "slug": "tadmin",
-    "category": "empowerment",
-    "title_ar": "مبادرة تضمين",
+    "id": "e1eafb7b-115a-449e-b83b-c40e30efb62d",
+    "slug": "istratijiyya",
+    "category": "enabling",
+    "type": "enabling",
+    "title_ar": "استراتيجية",
     "title_en": "",
-    "short_desc_ar": "تمكين المنظمات والجمعيات الشريكة وتأهيل الأسر المنتجة للدخول في سوق العمل والاعتماد الذاتي.",
+    "short_desc_ar": "حوكمة المؤسسة وتنفيذ استراتيجيتها ومتابعة الأداء وتطوير أعمالها.",
     "short_desc_en": "",
-    "hero_desc": "مبادرة استراتيجية موجهة لتمكين المنظمات والجمعيات الشريكة وتأهيل الأسر المنتجة للدخول في سوق العمل والاعتماد الذاتي، عبر برامج تدريبية ومنح ميسرة وفرص تشغيل حقيقية.",
-    "image": "/images/program-cards/program-3.png",
-    "about": "تنطلق مبادرة \"تضمين\" من رؤية مؤسسة المجدوعي الخيرية في تعظيم الأثر التنموي من خلال نقل المستفيدين من دائرة الاحتياج إلى دائرة الإنتاج. تعمل المبادرة على بناء قدرات الجمعيات الشريكة، وتأهيل الأسر المنتجة بحلول تمويلية وتدريبية متكاملة، بالشراكة مع جهات تنفيذية معتمدة في المنطقة الشرقية.",
-    "objectives": [
-      "تأهيل الأسر المنتجة لسوق العمل.",
-      "بناء قدرات الجمعيات الشريكة.",
-      "تقديم منح ميسرة للمشاريع الصغيرة.",
-      "قياس الأثر الاقتصادي للمستفيدين."
+    "hero_desc": "حوكمة المؤسسة وتنفيذ استراتيجيتها ومتابعة الأداء وتطوير أعمالها.",
+    "image": "/images/identity/logo-primary.svg",
+    "about": "مبادرة تُعنى بحوكمة المؤسسة، وتنفيذ استراتيجيتها، ومتابعة الأداء، وتطوير أعمال المؤسسة للحصول على الاعتمادات والجوائز، ورفع وعي موظفي المؤسسة بذلك.",
+    "tracks": [
+      "التخطيط وإدارة الأداء",
+      "الحوكمة",
+      "التميز"
     ],
-    "stages": [
-      {
-        "desc": "تحديد احتياجات الأسر المستهدفة، وتقديم برامج تدريبية مكثفة على مهارات سوق العمل.",
-        "title": "التشخيص والتأهيل"
-      },
-      {
-        "desc": "ربط المستفيدين بفرص عمل حقيقية أو دعم مشاريعهم الصغيرة لتحقيق دخل مستدام.",
-        "title": "التمكين والتشغيل"
-      },
-      {
-        "desc": "متابعة المستفيدين دورياً وقياس مؤشرات التحسن الاقتصادي والاجتماعي.",
-        "title": "المتابعة وقياس الأثر"
-      }
-    ],
-    "target_groups": [
-      "الأسر المنتجة الباحثة عن تطوير دخلها",
-      "الشباب الراغبون في التأهيل المهني",
-      "الجمعيات الشريكة في مناطق العمل"
-    ],
-    "quote": {
-      "text": "\"نسعى من خلال تضمين إلى صناعة إنسان منتج قادر على الاكتفاء الذاتي، يحوّل دعم اليوم إلى عطاء غداً.\"",
-      "author": "— مدير إدارة البرامج، مؤسسة المجدوعي الخيرية"
-    },
-    "partners": [
-      "الجمعية أ",
-      "الجمعية ب",
-      "الجمعية ج",
-      "الجمعية د"
-    ],
-    "info": {
-      "scope": "المنطقة الشرقية",
-      "sector": "التمكين الاقتصادي",
-      "launchYear": "2024",
-      "beneficiaries": "2,500 مستفيد"
-    },
-    "related": [
-      "kafala",
-      "manara",
-      "tatweer"
-    ],
-    "sort_order": 3,
+    "sub_programs": [],
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": null,
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 11,
     "published": true,
-    "created_at": "2026-06-26T22:19:34.293037+00:00",
-    "updated_at": "2026-07-19T10:39:30.607079+00:00"
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "c401c6c3-c7c7-44f9-a2bb-b0bdd649ac5c",
-    "slug": "TEST",
-    "category": "mosques",
-    "title_ar": "TEST",
+    "id": "dd844d08-ef67-48ba-a53b-4ad8a2c1955f",
+    "slug": "tamkeen",
+    "category": "enabling",
+    "type": "enabling",
+    "title_ar": "تمكين",
     "title_en": "",
-    "short_desc_ar": "TEST",
+    "short_desc_ar": "تحقيق أجود معايير العمل المؤسسي لمبادرات المؤسسة وإدارة المعرفة والتطوير بها.",
     "short_desc_en": "",
-    "hero_desc": "Test",
-    "image": "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/programs/1784457632010-m436ayjh8h.png",
-    "about": "TEST",
-    "objectives": [
-      "TESt"
+    "hero_desc": "تحقيق أجود معايير العمل المؤسسي لمبادرات المؤسسة وإدارة المعرفة والتطوير بها.",
+    "image": "/images/identity/logo-primary.svg",
+    "about": "مبادرة تُعنى بتحقيق أجود معايير العمل المؤسسي لمبادرات المؤسسة، وإدارة المعرفة والتطوير بها وفق أفضل الممارسات، وتمكين المبادرات من تقديم حلول مبتكرة للقضايا المجتمعية التي تتبنى حلها، عبر الكفاءات البشرية المؤهلة.",
+    "tracks": [
+      "مأسسة",
+      "معرفة",
+      "كوادر"
     ],
-    "stages": [
-      {
-        "desc": "",
-        "title": "TEST"
-      }
-    ],
-    "target_groups": [
-      "TEST"
-    ],
-    "quote": {
-      "text": "TEST",
-      "author": "TEST"
-    },
-    "partners": [
-      "Test"
-    ],
-    "info": {
-      "scope": "Test",
-      "sector": "Test",
-      "launchYear": "TEst",
-      "beneficiaries": "Test"
-    },
-    "related": [
-      "tadmin",
-      "manara",
-      "imara"
-    ],
-    "sort_order": 7,
+    "sub_programs": [],
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": null,
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 12,
     "published": true,
-    "created_at": "2026-07-19T10:41:04.76667+00:00",
-    "updated_at": "2026-07-19T10:41:04.76667+00:00"
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "id": "68efbcf1-53de-4024-ab7c-0744df9f7c57",
+    "slug": "tawasul",
+    "category": "enabling",
+    "type": "enabling",
+    "title_ar": "تواصل",
+    "title_en": "",
+    "short_desc_ar": "إبراز الهوية الإعلامية للمؤسسة وتعزيز تواصلها مع المستفيدين وأصحاب المصلحة.",
+    "short_desc_en": "",
+    "hero_desc": "إبراز الهوية الإعلامية للمؤسسة وتعزيز تواصلها مع المستفيدين وأصحاب المصلحة.",
+    "image": "/images/identity/logo-primary.svg",
+    "about": "مبادرة تُعنى بإبراز الهوية الإعلامية للمؤسسة وتعزيز تواصلها مع المستفيدين وأصحاب المصلحة، لضمان حضور إعلامي مؤثر، وقياس دقيق لرضا الجمهور، ضمن إطار اتصالي وبصري متكامل.",
+    "tracks": [
+      "هُوية",
+      "الإعلام",
+      "قياس"
+    ],
+    "sub_programs": [],
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": {
+      "text": "هويةٌ حاضرة.. تواصلٌ فعال.. رضا يُقاس.",
+      "author": "شعار المبادرة"
+    },
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 13,
+    "published": true,
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "id": "1efe924f-4041-4e25-974d-c9731b22bc9c",
+    "slug": "istidama",
+    "category": "enabling",
+    "type": "enabling",
+    "title_ar": "استدامة",
+    "title_en": "",
+    "short_desc_ar": "تمكين المؤسسة ماليًا عبر التخطيط المالي وإدارة الأنشطة المالية وإصدار التقارير.",
+    "short_desc_en": "",
+    "hero_desc": "تمكين المؤسسة ماليًا عبر التخطيط المالي وإدارة الأنشطة المالية وإصدار التقارير.",
+    "image": "/images/identity/logo-primary.svg",
+    "about": "مبادرة تُعنى بتمكين المؤسسة ماليًا، عبر التخطيط المالي لها، وإدارة أنشطتها المالية، وإصدار تقاريرها المالية، وتحقيق التزامها باللوائح والأنظمة؛ لتعزيز اتخاذها للقرارات وضمان استدامتها.",
+    "tracks": [
+      "التخطيط والرقابة المالية",
+      "إدارة الأنشطة المالية",
+      "التقارير"
+    ],
+    "sub_programs": [],
+    "objectives": [],
+    "stages": [],
+    "target_groups": [],
+    "quote": null,
+    "partners": [],
+    "info": null,
+    "related": [],
+    "sort_order": 14,
+    "published": true,
+    "status": "active",
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   }
 ]$seed$
 ::json)
 on conflict do nothing;
 
--- news — 7 rows
+-- news — 7 rows, all unpublished: Communications marked the existing articles
+--   "under review", and approved copy will be delivered separately.
 insert into public.news
 select * from json_populate_recordset(null::public.news,
 $seed$[
   {
-    "id": "c4e2b127-ae3b-4a49-a1e7-169acbfc1741",
-    "slug": "ittifaqiyat-tamkeen",
-    "category": "partnerships",
-    "title_ar": "توقيع اتفاقية تعاون مشترك لتعزيز حلول التمكين الاقتصادي",
-    "title_en": "",
-    "excerpt_ar": "أبرمت المؤسسة شراكة جديدة تهدف لتقديم منح مالية ميسرة وبرامج تأهيلية نوعية.",
-    "excerpt_en": "",
-    "kicker": null,
-    "date": "20 مايو 2026",
-    "published_at": "2026-06-26T17:47:17.597927+00:00",
-    "source": "المكتب الإعلامي للمؤسسة",
-    "read_time": "3 دقائق",
-    "image": "/images/news-and-announces/news-3.jpg",
-    "caption": "مراسم توقيع اتفاقية التعاون المشترك.",
-    "lead": "وقّعت مؤسسة المجدوعي الخيرية اتفاقية تعاون مشترك لتعزيز حلول التمكين الاقتصادي للأسر المنتجة.",
-    "body": [
-      "أبرمت مؤسسة المجدوعي الخيرية شراكة جديدة تهدف لتقديم منح مالية ميسرة وبرامج تأهيلية نوعية لمستفيديها.",
-      "وتأتي الاتفاقية ضمن جهود المؤسسة لتوسيع شبكة شركائها وتعظيم الأثر التنموي في المنطقة الشرقية."
-    ],
-    "axes": {
-      "items": [
-        "تقديم منح مالية ميسرة للأسر المنتجة.",
-        "برامج تأهيلية نوعية لمستفيدي المؤسسة.",
-        "توسيع شبكة الشركاء التنفيذيين.",
-        "تعظيم الأثر التنموي في المنطقة الشرقية."
-      ],
-      "heading": "محاور البرنامج"
-    },
-    "quote": "تؤمن المؤسسة بأن كفالة اليتيم رسالة تنموية متكاملة، لا تتوقف عند الدعم المالي، بل تمتد لبناء إنسانٍ قادرٍ على العطاء.",
-    "after_quote": "ومن المتوقع أن يتم التوسع في البرنامج خلال العام القادم ليشمل مناطق إضافية بالتعاون مع شركاء التنفيذ من الجمعيات المعتمدة، ضمن خطة المؤسسة لتعظيم أثر المنح ابتغاءً للأجر.",
-    "tags": [
-      "#كفالة الأيتام",
-      "#التمكين الاجتماعي",
-      "#المنطقة الشرقية"
-    ],
-    "related": [
-      "takreem-mutatawieen",
-      "ittifaqiyat-tamkeen",
-      "bayan-ifsah"
-    ],
-    "featured": true,
-    "published": true,
-    "created_at": "2026-06-26T20:47:17.597927+00:00",
-    "updated_at": "2026-06-28T16:50:26.911696+00:00",
-    "home_featured": true
-  },
-  {
-    "id": "7b48365d-43d3-4688-b370-016b255abfcf",
-    "slug": "kafalat-al-aytam-eastern",
-    "category": "announcements",
-    "title_ar": "إطلاق برنامج كفالة الأيتام في المنطقة الشرقية برعاية مؤسسة المجدوعي الخيرية",
-    "title_en": "",
-    "excerpt_ar": "أعلنت مؤسسة المجدوعي الخيرية عن إطلاق برنامج كفالة الأيتام في المنطقة الشرقية لتوفير الرعاية المستدامة لأكثر من 500 يتيم.",
-    "excerpt_en": "",
-    "kicker": "إعلان رسمي",
-    "date": "08 يونيو 2026",
-    "published_at": "2026-06-26T20:47:17.597927+00:00",
-    "source": "المكتب الإعلامي للمؤسسة",
-    "read_time": "4 دقائق",
-    "image": "/images/news-and-announces/news-5.jpg",
-    "caption": "إطلاق البرنامج خلال مؤتمر صحفي في مقر المؤسسة بالدمام.",
-    "lead": "أعلنت مؤسسة المجدوعي الخيرية عن إطلاق برنامج كفالة الأيتام في المنطقة الشرقية، بحضور عدد من ممثلي الجهات الرسمية والجمعيات الشريكة، ضمن منظومة الحوكمة المعتمدة للمؤسسة لتقديم رعاية شاملة ومستدامة للأيتام في مراحل التعليم المختلفة.",
-    "body": [
-      "أعلنت مؤسسة المجدوعي الخيرية عن إطلاق برنامج كفالة الأيتام في المنطقة الشرقية، بحضور عدد من ممثلي الجهات الرسمية والجمعيات الشريكة، ضمن منظومة الحوكمة المعتمدة للمؤسسة لتقديم رعاية شاملة ومستدامة للأيتام في مراحل التعليم المختلفة.",
-      "وأكد الأمين العام للمؤسسة أن البرنامج يستهدف خلال مرحلته الأولى أكثر من 500 يتيم عبر منح وكفالات ودعم نفسي واجتماعي، على أن تشكّل هذه الأنشطة بداية لمسارٍ يساهم في الانتقال بهم نحو حياة كريمة وبناء مستقبل مستقل."
-    ],
-    "axes": {
-      "items": [
-        "الدعم المالي الشهري المنتظم للأسرة الكافلة.",
-        "المنح الدراسية في مراحل التعليم العام والجامعي.",
-        "برامج التأهيل النفسي والاجتماعي.",
-        "مسارات تأهيل مهني لمن تجاوز سن المرحلة الثانوية."
-      ],
-      "heading": "محاور البرنامج"
-    },
-    "quote": "تؤمن المؤسسة بأن كفالة اليتيم رسالة تنموية متكاملة، لا تتوقف عند الدعم المالي، بل تمتد لبناء إنسانٍ قادرٍ على العطاء.",
-    "after_quote": "ومن المتوقع أن يتم التوسع في البرنامج خلال العام القادم ليشمل مناطق إضافية بالتعاون مع شركاء التنفيذ من الجمعيات المعتمدة، ضمن خطة المؤسسة لتعظيم أثر المنح ابتغاءً للأجر.",
-    "tags": [
-      "#كفالة الأيتام",
-      "#التمكين الاجتماعي",
-      "#المنطقة الشرقية"
-    ],
-    "related": [
-      "takreem-mutatawieen",
-      "ittifaqiyat-tamkeen",
-      "bayan-ifsah"
-    ],
-    "featured": true,
-    "published": true,
-    "created_at": "2026-06-26T20:47:17.597927+00:00",
-    "updated_at": "2026-06-27T15:17:03.47303+00:00",
-    "home_featured": true
-  },
-  {
-    "id": "daa7e7a3-1939-4a98-817c-8da47c0fbd48",
-    "slug": "iftitah-jami-baha",
-    "category": "institution",
-    "title_ar": "افتتاح جامع جديد ضمن مبادرة عِمارة في منطقة الباحة",
-    "title_en": "",
-    "excerpt_ar": "افتتحت المؤسسة جامعاً جديداً مزوداً بأحدث حلول الاستدامة والطاقة المتجددة.",
-    "excerpt_en": "",
-    "kicker": null,
-    "date": "04 مايو 2026",
-    "published_at": "2026-06-26T15:47:17.597927+00:00",
-    "source": "المكتب الإعلامي للمؤسسة",
-    "read_time": "2 دقائق",
-    "image": "/images/news-and-announces/news-4.png",
-    "caption": "الجامع الجديد في منطقة الباحة.",
-    "lead": "افتتحت مؤسسة المجدوعي الخيرية جامعاً جديداً ضمن مبادرة عِمارة في منطقة الباحة.",
-    "body": [
-      "افتتحت مؤسسة المجدوعي الخيرية جامعاً جديداً مزوداً بأحدث حلول الاستدامة والطاقة المتجددة.",
-      "ويأتي الافتتاح ضمن مبادرة عِمارة لتطوير وبناء مساجد نموذجية تخدم المصلين وتدوم لأجيال."
-    ],
-    "axes": {
-      "items": [
-        "بناء جامع نموذجي بمعايير استدامة عالية.",
-        "تطبيق حلول الطاقة المتجددة.",
-        "خدمة المصلين بمرافق عمرانية متكاملة.",
-        "توسيع مبادرة عِمارة في مناطق جديدة."
-      ],
-      "heading": "محاور البرنامج"
-    },
-    "quote": "تؤمن المؤسسة بأن كفالة اليتيم رسالة تنموية متكاملة، لا تتوقف عند الدعم المالي، بل تمتد لبناء إنسانٍ قادرٍ على العطاء.",
-    "after_quote": "ومن المتوقع أن يتم التوسع في البرنامج خلال العام القادم ليشمل مناطق إضافية بالتعاون مع شركاء التنفيذ من الجمعيات المعتمدة، ضمن خطة المؤسسة لتعظيم أثر المنح ابتغاءً للأجر.",
-    "tags": [
-      "#كفالة الأيتام",
-      "#التمكين الاجتماعي",
-      "#المنطقة الشرقية"
-    ],
-    "related": [
-      "takreem-mutatawieen",
-      "ittifaqiyat-tamkeen",
-      "bayan-ifsah"
-    ],
-    "featured": true,
-    "published": true,
-    "created_at": "2026-06-26T20:47:17.597927+00:00",
-    "updated_at": "2026-06-28T16:50:38.369534+00:00",
-    "home_featured": true
-  },
-  {
-    "id": "8abc1332-bfc5-48c2-a3b2-0b216aa72207",
-    "slug": "multaqa-shuraka-3",
-    "category": "partnerships",
-    "title_ar": "انطلاق ملتقى الشركاء السنوي الثالث لتطوير الجمعيات الناشئة",
-    "title_en": "",
-    "excerpt_ar": "استضافت المؤسسة ملتقى الشركاء لمناقشة آليات نمذجة الأعمال وتعزيز الحوكمة وبناء القدرات.",
-    "excerpt_en": "",
-    "kicker": null,
-    "date": "02 يونيو 2026",
-    "published_at": "2026-06-26T19:47:17.597927+00:00",
-    "source": "المكتب الإعلامي للمؤسسة",
-    "read_time": "3 دقائق",
-    "image": "/images/news-and-announces/news-1.png",
-    "caption": "جانب من جلسات ملتقى الشركاء السنوي الثالث.",
-    "lead": "استضافت مؤسسة المجدوعي الخيرية النسخة الثالثة من ملتقى الشركاء السنوي، بمشاركة عدد من الجمعيات الناشئة وشركاء التنفيذ في المنطقة الشرقية.",
-    "body": [
-      "استضافت مؤسسة المجدوعي الخيرية النسخة الثالثة من ملتقى الشركاء السنوي لمناقشة آليات نمذجة الأعمال وتعزيز الحوكمة وبناء قدرات الجمعيات الشريكة.",
-      "وناقش الملتقى عدداً من أوراق العمل حول الاستدامة المالية وتطوير الأثر، إلى جانب توقيع مذكرات تفاهم مع شركاء جدد لتوسيع نطاق التمكين."
-    ],
-    "axes": {
-      "items": [
-        "بناء قدرات الجمعيات الناشئة في الحوكمة والإدارة.",
-        "نمذجة الأعمال وتعزيز الاستدامة المالية.",
-        "تبادل الخبرات بين شركاء التنفيذ.",
-        "توقيع مذكرات تفاهم لتوسيع نطاق التمكين."
-      ],
-      "heading": "محاور البرنامج"
-    },
-    "quote": "تؤمن المؤسسة بأن كفالة اليتيم رسالة تنموية متكاملة، لا تتوقف عند الدعم المالي، بل تمتد لبناء إنسانٍ قادرٍ على العطاء.",
-    "after_quote": "ومن المتوقع أن يتم التوسع في البرنامج خلال العام القادم ليشمل مناطق إضافية بالتعاون مع شركاء التنفيذ من الجمعيات المعتمدة، ضمن خطة المؤسسة لتعظيم أثر المنح ابتغاءً للأجر.",
-    "tags": [
-      "#كفالة الأيتام",
-      "#التمكين الاجتماعي",
-      "#المنطقة الشرقية"
-    ],
-    "related": [
-      "ittifaqiyat-tamkeen",
-      "kafalat-al-aytam-eastern",
-      "takreem-mutatawieen"
-    ],
-    "featured": true,
-    "published": true,
-    "created_at": "2026-06-26T20:47:17.597927+00:00",
-    "updated_at": "2026-06-27T15:17:03.47303+00:00",
-    "home_featured": true
-  },
-  {
-    "id": "b57e6633-87f3-493a-bff1-42aee09fcfa5",
-    "slug": "takreem-mutatawieen",
-    "category": "institution",
-    "title_ar": "تكريم المتطوعين المتميزين في برامج عمارة وتشغيل مساجد المجدوعي",
-    "title_en": "",
-    "excerpt_ar": "احتفت المؤسسة بجهود المتطوعين الذين ساهموا في تنظيم المبادرات العمرانية والمجتمعية.",
-    "excerpt_en": "",
-    "kicker": null,
-    "date": "28 مايو 2026",
-    "published_at": "2026-06-26T18:47:17.597927+00:00",
-    "source": "المكتب الإعلامي للمؤسسة",
-    "read_time": "3 دقائق",
-    "image": "/images/news-and-announces/news-2.png",
-    "caption": "حفل تكريم المتطوعين المتميزين.",
-    "lead": "احتفت مؤسسة المجدوعي الخيرية بمتطوعيها المتميزين تقديراً لإسهاماتهم في برامج عمارة وتشغيل المساجد.",
-    "body": [
-      "احتفت مؤسسة المجدوعي الخيرية بجهود المتطوعين الذين ساهموا في تنظيم المبادرات العمرانية والمجتمعية بمساجد المجدوعي.",
-      "وأكدت المؤسسة أن العمل التطوعي ركيزة أساسية في منظومتها، مشيرة إلى مواصلة تطوير برامج تأهيل المتطوعين وتمكينهم."
-    ],
-    "axes": {
-      "items": [
-        "تكريم المتطوعين المتميزين في برامج عمارة المساجد.",
-        "تقدير الجهود المجتمعية والعمرانية.",
-        "تعزيز ثقافة العمل التطوعي المنظم.",
-        "برامج تأهيل وتمكين المتطوعين."
-      ],
-      "heading": "محاور البرنامج"
-    },
-    "quote": "تؤمن المؤسسة بأن كفالة اليتيم رسالة تنموية متكاملة، لا تتوقف عند الدعم المالي، بل تمتد لبناء إنسانٍ قادرٍ على العطاء.",
-    "after_quote": "ومن المتوقع أن يتم التوسع في البرنامج خلال العام القادم ليشمل مناطق إضافية بالتعاون مع شركاء التنفيذ من الجمعيات المعتمدة، ضمن خطة المؤسسة لتعظيم أثر المنح ابتغاءً للأجر.",
-    "tags": [
-      "#كفالة الأيتام",
-      "#التمكين الاجتماعي",
-      "#المنطقة الشرقية"
-    ],
-    "related": [
-      "takreem-mutatawieen",
-      "ittifaqiyat-tamkeen",
-      "bayan-ifsah"
-    ],
-    "featured": true,
-    "published": true,
-    "created_at": "2026-06-26T20:47:17.597927+00:00",
-    "updated_at": "2026-06-27T15:17:03.47303+00:00",
-    "home_featured": true
-  },
-  {
-    "id": "a3aff866-c483-423d-ac79-631e84b8714d",
-    "slug": "bayan-ifsah",
-    "category": "announcements",
-    "title_ar": "بيان رسمي حول تحديث سياسة الإفصاح والشفافية بالمؤسسة",
-    "title_en": "",
-    "excerpt_ar": "أعلنت المؤسسة عن النسخة الثانية من سياسة الإفصاح بما يواكب أعلى متطلبات الجهة المشرفة.",
-    "excerpt_en": "",
-    "kicker": "بيان رسمي",
-    "date": "12 مايو 2026",
-    "published_at": "2026-06-26T16:47:17.597927+00:00",
-    "source": "المكتب الإعلامي للمؤسسة",
-    "read_time": "2 دقائق",
-    "image": "/images/news-and-announces/news-4.jpg",
-    "caption": "اجتماع اعتماد سياسة الإفصاح المحدثة.",
-    "lead": "أعلنت مؤسسة المجدوعي الخيرية عن اعتماد النسخة الثانية من سياسة الإفصاح والشفافية.",
-    "body": [
-      "أعلنت مؤسسة المجدوعي الخيرية عن النسخة الثانية من سياسة الإفصاح بما يواكب أعلى متطلبات الجهة المشرفة.",
-      "وتعزز السياسة المحدثة التزام المؤسسة بمبادئ الحوكمة والشفافية تجاه شركائها وأصحاب المصلحة."
-    ],
-    "axes": {
-      "items": [
-        "تحديث سياسة الإفصاح والشفافية.",
-        "مواءمة المتطلبات التنظيمية للجهة المشرفة.",
-        "تعزيز ثقة أصحاب المصلحة والشركاء.",
-        "الالتزام بمبادئ الحوكمة المؤسسية."
-      ],
-      "heading": "محاور البرنامج"
-    },
-    "quote": "تؤمن المؤسسة بأن كفالة اليتيم رسالة تنموية متكاملة، لا تتوقف عند الدعم المالي، بل تمتد لبناء إنسانٍ قادرٍ على العطاء.",
-    "after_quote": "ومن المتوقع أن يتم التوسع في البرنامج خلال العام القادم ليشمل مناطق إضافية بالتعاون مع شركاء التنفيذ من الجمعيات المعتمدة، ضمن خطة المؤسسة لتعظيم أثر المنح ابتغاءً للأجر.",
-    "tags": [
-      "#كفالة الأيتام",
-      "#التمكين الاجتماعي",
-      "#المنطقة الشرقية"
-    ],
-    "related": [
-      "takreem-mutatawieen",
-      "ittifaqiyat-tamkeen",
-      "bayan-ifsah"
-    ],
-    "featured": true,
-    "published": true,
-    "created_at": "2026-06-26T20:47:17.597927+00:00",
-    "updated_at": "2026-06-28T16:50:33.148246+00:00",
-    "home_featured": true
-  },
-  {
     "id": "a452f17a-ebe2-4815-9c3b-deacd09f0229",
     "slug": "takharruj-200",
-    "category": "institution",
+    "category": "news",
     "title_ar": "تخريج 200 متدرب من برنامج التمكين المهني للشباب",
     "title_en": "",
     "excerpt_ar": "احتفلت المؤسسة بتخريج الدفعة الرابعة من برنامج التمكين المهني وربطهم بسوق العمل.",
@@ -1997,11 +2002,293 @@ $seed$[
       "ittifaqiyat-tamkeen",
       "bayan-ifsah"
     ],
-    "featured": true,
-    "published": true,
-    "created_at": "2026-06-26T20:47:17.597927+00:00",
-    "updated_at": "2026-06-28T16:50:43.507022+00:00",
-    "home_featured": true
+    "featured": false,
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "home_featured": false
+  },
+  {
+    "id": "daa7e7a3-1939-4a98-817c-8da47c0fbd48",
+    "slug": "iftitah-jami-baha",
+    "category": "news",
+    "title_ar": "افتتاح جامع جديد ضمن مبادرة عِمارة في منطقة الباحة",
+    "title_en": "",
+    "excerpt_ar": "افتتحت المؤسسة جامعاً جديداً مزوداً بأحدث حلول الاستدامة والطاقة المتجددة.",
+    "excerpt_en": "",
+    "kicker": null,
+    "date": "04 مايو 2026",
+    "published_at": "2026-06-26T15:47:17.597927+00:00",
+    "source": "المكتب الإعلامي للمؤسسة",
+    "read_time": "2 دقائق",
+    "image": "/images/news-and-announces/news-4.png",
+    "caption": "الجامع الجديد في منطقة الباحة.",
+    "lead": "افتتحت مؤسسة المجدوعي الخيرية جامعاً جديداً ضمن مبادرة عِمارة في منطقة الباحة.",
+    "body": [
+      "افتتحت مؤسسة المجدوعي الخيرية جامعاً جديداً مزوداً بأحدث حلول الاستدامة والطاقة المتجددة.",
+      "ويأتي الافتتاح ضمن مبادرة عِمارة لتطوير وبناء مساجد نموذجية تخدم المصلين وتدوم لأجيال."
+    ],
+    "axes": {
+      "items": [
+        "بناء جامع نموذجي بمعايير استدامة عالية.",
+        "تطبيق حلول الطاقة المتجددة.",
+        "خدمة المصلين بمرافق عمرانية متكاملة.",
+        "توسيع مبادرة عِمارة في مناطق جديدة."
+      ],
+      "heading": "محاور البرنامج"
+    },
+    "quote": "تؤمن المؤسسة بأن كفالة اليتيم رسالة تنموية متكاملة، لا تتوقف عند الدعم المالي، بل تمتد لبناء إنسانٍ قادرٍ على العطاء.",
+    "after_quote": "ومن المتوقع أن يتم التوسع في البرنامج خلال العام القادم ليشمل مناطق إضافية بالتعاون مع شركاء التنفيذ من الجمعيات المعتمدة، ضمن خطة المؤسسة لتعظيم أثر المنح ابتغاءً للأجر.",
+    "tags": [
+      "#كفالة الأيتام",
+      "#التمكين الاجتماعي",
+      "#المنطقة الشرقية"
+    ],
+    "related": [
+      "takreem-mutatawieen",
+      "ittifaqiyat-tamkeen",
+      "bayan-ifsah"
+    ],
+    "featured": false,
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "home_featured": false
+  },
+  {
+    "id": "a3aff866-c483-423d-ac79-631e84b8714d",
+    "slug": "bayan-ifsah",
+    "category": "announcement",
+    "title_ar": "بيان رسمي حول تحديث سياسة الإفصاح والشفافية بالمؤسسة",
+    "title_en": "",
+    "excerpt_ar": "أعلنت المؤسسة عن النسخة الثانية من سياسة الإفصاح بما يواكب أعلى متطلبات الجهة المشرفة.",
+    "excerpt_en": "",
+    "kicker": "بيان رسمي",
+    "date": "12 مايو 2026",
+    "published_at": "2026-06-26T16:47:17.597927+00:00",
+    "source": "المكتب الإعلامي للمؤسسة",
+    "read_time": "2 دقائق",
+    "image": "/images/news-and-announces/news-4.jpg",
+    "caption": "اجتماع اعتماد سياسة الإفصاح المحدثة.",
+    "lead": "أعلنت مؤسسة المجدوعي الخيرية عن اعتماد النسخة الثانية من سياسة الإفصاح والشفافية.",
+    "body": [
+      "أعلنت مؤسسة المجدوعي الخيرية عن النسخة الثانية من سياسة الإفصاح بما يواكب أعلى متطلبات الجهة المشرفة.",
+      "وتعزز السياسة المحدثة التزام المؤسسة بمبادئ الحوكمة والشفافية تجاه شركائها وأصحاب المصلحة."
+    ],
+    "axes": {
+      "items": [
+        "تحديث سياسة الإفصاح والشفافية.",
+        "مواءمة المتطلبات التنظيمية للجهة المشرفة.",
+        "تعزيز ثقة أصحاب المصلحة والشركاء.",
+        "الالتزام بمبادئ الحوكمة المؤسسية."
+      ],
+      "heading": "محاور البرنامج"
+    },
+    "quote": "تؤمن المؤسسة بأن كفالة اليتيم رسالة تنموية متكاملة، لا تتوقف عند الدعم المالي، بل تمتد لبناء إنسانٍ قادرٍ على العطاء.",
+    "after_quote": "ومن المتوقع أن يتم التوسع في البرنامج خلال العام القادم ليشمل مناطق إضافية بالتعاون مع شركاء التنفيذ من الجمعيات المعتمدة، ضمن خطة المؤسسة لتعظيم أثر المنح ابتغاءً للأجر.",
+    "tags": [
+      "#كفالة الأيتام",
+      "#التمكين الاجتماعي",
+      "#المنطقة الشرقية"
+    ],
+    "related": [
+      "takreem-mutatawieen",
+      "ittifaqiyat-tamkeen",
+      "bayan-ifsah"
+    ],
+    "featured": false,
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "home_featured": false
+  },
+  {
+    "id": "c4e2b127-ae3b-4a49-a1e7-169acbfc1741",
+    "slug": "ittifaqiyat-tamkeen",
+    "category": "news",
+    "title_ar": "توقيع اتفاقية تعاون مشترك لتعزيز حلول التمكين الاقتصادي",
+    "title_en": "",
+    "excerpt_ar": "أبرمت المؤسسة شراكة جديدة تهدف لتقديم منح مالية ميسرة وبرامج تأهيلية نوعية.",
+    "excerpt_en": "",
+    "kicker": null,
+    "date": "20 مايو 2026",
+    "published_at": "2026-06-26T17:47:17.597927+00:00",
+    "source": "المكتب الإعلامي للمؤسسة",
+    "read_time": "3 دقائق",
+    "image": "/images/news-and-announces/news-3.jpg",
+    "caption": "مراسم توقيع اتفاقية التعاون المشترك.",
+    "lead": "وقّعت مؤسسة المجدوعي الخيرية اتفاقية تعاون مشترك لتعزيز حلول التمكين الاقتصادي للأسر المنتجة.",
+    "body": [
+      "أبرمت مؤسسة المجدوعي الخيرية شراكة جديدة تهدف لتقديم منح مالية ميسرة وبرامج تأهيلية نوعية لمستفيديها.",
+      "وتأتي الاتفاقية ضمن جهود المؤسسة لتوسيع شبكة شركائها وتعظيم الأثر التنموي في المنطقة الشرقية."
+    ],
+    "axes": {
+      "items": [
+        "تقديم منح مالية ميسرة للأسر المنتجة.",
+        "برامج تأهيلية نوعية لمستفيدي المؤسسة.",
+        "توسيع شبكة الشركاء التنفيذيين.",
+        "تعظيم الأثر التنموي في المنطقة الشرقية."
+      ],
+      "heading": "محاور البرنامج"
+    },
+    "quote": "تؤمن المؤسسة بأن كفالة اليتيم رسالة تنموية متكاملة، لا تتوقف عند الدعم المالي، بل تمتد لبناء إنسانٍ قادرٍ على العطاء.",
+    "after_quote": "ومن المتوقع أن يتم التوسع في البرنامج خلال العام القادم ليشمل مناطق إضافية بالتعاون مع شركاء التنفيذ من الجمعيات المعتمدة، ضمن خطة المؤسسة لتعظيم أثر المنح ابتغاءً للأجر.",
+    "tags": [
+      "#كفالة الأيتام",
+      "#التمكين الاجتماعي",
+      "#المنطقة الشرقية"
+    ],
+    "related": [
+      "takreem-mutatawieen",
+      "ittifaqiyat-tamkeen",
+      "bayan-ifsah"
+    ],
+    "featured": false,
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "home_featured": false
+  },
+  {
+    "id": "b57e6633-87f3-493a-bff1-42aee09fcfa5",
+    "slug": "takreem-mutatawieen",
+    "category": "news",
+    "title_ar": "تكريم المتطوعين المتميزين في برامج عمارة وتشغيل مساجد المجدوعي",
+    "title_en": "",
+    "excerpt_ar": "احتفت المؤسسة بجهود المتطوعين الذين ساهموا في تنظيم المبادرات العمرانية والمجتمعية.",
+    "excerpt_en": "",
+    "kicker": null,
+    "date": "28 مايو 2026",
+    "published_at": "2026-06-26T18:47:17.597927+00:00",
+    "source": "المكتب الإعلامي للمؤسسة",
+    "read_time": "3 دقائق",
+    "image": "/images/news-and-announces/news-2.png",
+    "caption": "حفل تكريم المتطوعين المتميزين.",
+    "lead": "احتفت مؤسسة المجدوعي الخيرية بمتطوعيها المتميزين تقديراً لإسهاماتهم في برامج عمارة وتشغيل المساجد.",
+    "body": [
+      "احتفت مؤسسة المجدوعي الخيرية بجهود المتطوعين الذين ساهموا في تنظيم المبادرات العمرانية والمجتمعية بمساجد المجدوعي.",
+      "وأكدت المؤسسة أن العمل التطوعي ركيزة أساسية في منظومتها، مشيرة إلى مواصلة تطوير برامج تأهيل المتطوعين وتمكينهم."
+    ],
+    "axes": {
+      "items": [
+        "تكريم المتطوعين المتميزين في برامج عمارة المساجد.",
+        "تقدير الجهود المجتمعية والعمرانية.",
+        "تعزيز ثقافة العمل التطوعي المنظم.",
+        "برامج تأهيل وتمكين المتطوعين."
+      ],
+      "heading": "محاور البرنامج"
+    },
+    "quote": "تؤمن المؤسسة بأن كفالة اليتيم رسالة تنموية متكاملة، لا تتوقف عند الدعم المالي، بل تمتد لبناء إنسانٍ قادرٍ على العطاء.",
+    "after_quote": "ومن المتوقع أن يتم التوسع في البرنامج خلال العام القادم ليشمل مناطق إضافية بالتعاون مع شركاء التنفيذ من الجمعيات المعتمدة، ضمن خطة المؤسسة لتعظيم أثر المنح ابتغاءً للأجر.",
+    "tags": [
+      "#كفالة الأيتام",
+      "#التمكين الاجتماعي",
+      "#المنطقة الشرقية"
+    ],
+    "related": [
+      "takreem-mutatawieen",
+      "ittifaqiyat-tamkeen",
+      "bayan-ifsah"
+    ],
+    "featured": false,
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "home_featured": false
+  },
+  {
+    "id": "8abc1332-bfc5-48c2-a3b2-0b216aa72207",
+    "slug": "multaqa-shuraka-3",
+    "category": "news",
+    "title_ar": "انطلاق ملتقى الشركاء السنوي الثالث لتطوير الجمعيات الناشئة",
+    "title_en": "",
+    "excerpt_ar": "استضافت المؤسسة ملتقى الشركاء لمناقشة آليات نمذجة الأعمال وتعزيز الحوكمة وبناء القدرات.",
+    "excerpt_en": "",
+    "kicker": null,
+    "date": "02 يونيو 2026",
+    "published_at": "2026-06-26T19:47:17.597927+00:00",
+    "source": "المكتب الإعلامي للمؤسسة",
+    "read_time": "3 دقائق",
+    "image": "/images/news-and-announces/news-1.png",
+    "caption": "جانب من جلسات ملتقى الشركاء السنوي الثالث.",
+    "lead": "استضافت مؤسسة المجدوعي الخيرية النسخة الثالثة من ملتقى الشركاء السنوي، بمشاركة عدد من الجمعيات الناشئة وشركاء التنفيذ في المنطقة الشرقية.",
+    "body": [
+      "استضافت مؤسسة المجدوعي الخيرية النسخة الثالثة من ملتقى الشركاء السنوي لمناقشة آليات نمذجة الأعمال وتعزيز الحوكمة وبناء قدرات الجمعيات الشريكة.",
+      "وناقش الملتقى عدداً من أوراق العمل حول الاستدامة المالية وتطوير الأثر، إلى جانب توقيع مذكرات تفاهم مع شركاء جدد لتوسيع نطاق التمكين."
+    ],
+    "axes": {
+      "items": [
+        "بناء قدرات الجمعيات الناشئة في الحوكمة والإدارة.",
+        "نمذجة الأعمال وتعزيز الاستدامة المالية.",
+        "تبادل الخبرات بين شركاء التنفيذ.",
+        "توقيع مذكرات تفاهم لتوسيع نطاق التمكين."
+      ],
+      "heading": "محاور البرنامج"
+    },
+    "quote": "تؤمن المؤسسة بأن كفالة اليتيم رسالة تنموية متكاملة، لا تتوقف عند الدعم المالي، بل تمتد لبناء إنسانٍ قادرٍ على العطاء.",
+    "after_quote": "ومن المتوقع أن يتم التوسع في البرنامج خلال العام القادم ليشمل مناطق إضافية بالتعاون مع شركاء التنفيذ من الجمعيات المعتمدة، ضمن خطة المؤسسة لتعظيم أثر المنح ابتغاءً للأجر.",
+    "tags": [
+      "#كفالة الأيتام",
+      "#التمكين الاجتماعي",
+      "#المنطقة الشرقية"
+    ],
+    "related": [
+      "ittifaqiyat-tamkeen",
+      "kafalat-al-aytam-eastern",
+      "takreem-mutatawieen"
+    ],
+    "featured": false,
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "home_featured": false
+  },
+  {
+    "id": "7b48365d-43d3-4688-b370-016b255abfcf",
+    "slug": "kafalat-al-aytam-eastern",
+    "category": "announcement",
+    "title_ar": "إطلاق برنامج كفالة الأيتام في المنطقة الشرقية برعاية مؤسسة المجدوعي الخيرية",
+    "title_en": "",
+    "excerpt_ar": "أعلنت مؤسسة المجدوعي الخيرية عن إطلاق برنامج كفالة الأيتام في المنطقة الشرقية لتوفير الرعاية المستدامة لأكثر من 500 يتيم.",
+    "excerpt_en": "",
+    "kicker": "إعلان رسمي",
+    "date": "08 يونيو 2026",
+    "published_at": "2026-06-26T20:47:17.597927+00:00",
+    "source": "المكتب الإعلامي للمؤسسة",
+    "read_time": "4 دقائق",
+    "image": "/images/news-and-announces/news-5.jpg",
+    "caption": "إطلاق البرنامج خلال مؤتمر صحفي في مقر المؤسسة بالدمام.",
+    "lead": "أعلنت مؤسسة المجدوعي الخيرية عن إطلاق برنامج كفالة الأيتام في المنطقة الشرقية، بحضور عدد من ممثلي الجهات الرسمية والجمعيات الشريكة، ضمن منظومة الحوكمة المعتمدة للمؤسسة لتقديم رعاية شاملة ومستدامة للأيتام في مراحل التعليم المختلفة.",
+    "body": [
+      "أعلنت مؤسسة المجدوعي الخيرية عن إطلاق برنامج كفالة الأيتام في المنطقة الشرقية، بحضور عدد من ممثلي الجهات الرسمية والجمعيات الشريكة، ضمن منظومة الحوكمة المعتمدة للمؤسسة لتقديم رعاية شاملة ومستدامة للأيتام في مراحل التعليم المختلفة.",
+      "وأكد الأمين العام للمؤسسة أن البرنامج يستهدف خلال مرحلته الأولى أكثر من 500 يتيم عبر منح وكفالات ودعم نفسي واجتماعي، على أن تشكّل هذه الأنشطة بداية لمسارٍ يساهم في الانتقال بهم نحو حياة كريمة وبناء مستقبل مستقل."
+    ],
+    "axes": {
+      "items": [
+        "الدعم المالي الشهري المنتظم للأسرة الكافلة.",
+        "المنح الدراسية في مراحل التعليم العام والجامعي.",
+        "برامج التأهيل النفسي والاجتماعي.",
+        "مسارات تأهيل مهني لمن تجاوز سن المرحلة الثانوية."
+      ],
+      "heading": "محاور البرنامج"
+    },
+    "quote": "تؤمن المؤسسة بأن كفالة اليتيم رسالة تنموية متكاملة، لا تتوقف عند الدعم المالي، بل تمتد لبناء إنسانٍ قادرٍ على العطاء.",
+    "after_quote": "ومن المتوقع أن يتم التوسع في البرنامج خلال العام القادم ليشمل مناطق إضافية بالتعاون مع شركاء التنفيذ من الجمعيات المعتمدة، ضمن خطة المؤسسة لتعظيم أثر المنح ابتغاءً للأجر.",
+    "tags": [
+      "#كفالة الأيتام",
+      "#التمكين الاجتماعي",
+      "#المنطقة الشرقية"
+    ],
+    "related": [
+      "takreem-mutatawieen",
+      "ittifaqiyat-tamkeen",
+      "bayan-ifsah"
+    ],
+    "featured": false,
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "home_featured": false
   }
 ]$seed$
 ::json)
@@ -2012,31 +2299,34 @@ insert into public.gallery_items
 select * from json_populate_recordset(null::public.gallery_items,
 $seed$[
   {
-    "id": "3e1e0195-ed99-41c0-a02b-da53b64525c3",
+    "id": "6b4b3383-0540-4f1d-91bb-71c1db2edd6c",
     "type": "album",
-    "title_ar": "افتتاح جامع المجدوعي في الباحة",
+    "title_ar": "فيديو توثيقي لبرنامج تضمين",
     "title_en": "",
-    "meta_ar": "24 صورة · مايو 2026",
+    "meta_ar": "مدة 3:42 · مايو 2026",
     "meta_en": "",
-    "thumb": "/images/Galley-of-images/image-1.jpg",
-    "cover": "/images/Galley-of-images/image-1.jpg",
+    "thumb": "/images/Galley-of-images/image-2.jpg",
+    "cover": "/images/Galley-of-images/image-2.jpg",
     "video_url": null,
-    "sort_order": 3,
-    "published": true,
-    "created_at": "2026-06-26T21:12:27.002152+00:00",
-    "updated_at": "2026-07-01T20:08:40.065915+00:00",
-    "slug": "album-eae9252d",
-    "date_ar": null,
-    "date_en": null,
-    "location_ar": null,
-    "location_en": null,
-    "photographer_ar": null,
-    "photographer_en": null,
-    "section_ar": null,
-    "section_en": null,
-    "about_ar": null,
-    "about_en": null,
-    "images": [],
+    "sort_order": 1,
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "slug": "album-a9180a38",
+    "date_ar": "",
+    "date_en": "",
+    "location_ar": "الدمام",
+    "location_en": "",
+    "photographer_ar": "فريق الاعلام",
+    "photographer_en": "",
+    "section_ar": "المركز الاعلامي",
+    "section_en": "",
+    "about_ar": "يستعرض هذا الألبوم لحظات وفعاليات ملتقى الشركاء السنوي الثالث الذي استضافته مؤسسة المجدوعي الخيرية، بحضور ممثلي الجمعيات والمنظمات الشريكة، ومناقشة آليات نمذجة الأعمال وتطوير منظومة الحوكمة لتعزيز الأثر التنموي المشترك.",
+    "about_en": "",
+    "images": [
+      "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/gallery/1782939341370-7wury0eyjo7.png",
+      "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/gallery/1782939525849-0qbwm2l2rpmb.jpg"
+    ],
     "videos": []
   },
   {
@@ -2050,9 +2340,9 @@ $seed$[
     "cover": "/images/Galley-of-images/big-image.png",
     "video_url": null,
     "sort_order": 2,
-    "published": true,
-    "created_at": "2026-06-26T21:12:27.002152+00:00",
-    "updated_at": "2026-07-01T20:08:39.976502+00:00",
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
     "slug": "album-75598d82",
     "date_ar": "02 يونيو 2026",
     "date_en": "",
@@ -2081,103 +2371,101 @@ $seed$[
     "videos": []
   },
   {
-    "id": "6b4b3383-0540-4f1d-91bb-71c1db2edd6c",
+    "id": "3e1e0195-ed99-41c0-a02b-da53b64525c3",
     "type": "album",
-    "title_ar": "فيديو توثيقي لبرنامج تضمين",
+    "title_ar": "افتتاح جامع المجدوعي في الباحة",
     "title_en": "",
-    "meta_ar": "مدة 3:42 · مايو 2026",
+    "meta_ar": "24 صورة · مايو 2026",
     "meta_en": "",
-    "thumb": "/images/Galley-of-images/image-2.jpg",
-    "cover": "/images/Galley-of-images/image-2.jpg",
+    "thumb": "/images/Galley-of-images/image-1.jpg",
+    "cover": "/images/Galley-of-images/image-1.jpg",
     "video_url": null,
-    "sort_order": 1,
-    "published": true,
-    "created_at": "2026-06-26T21:12:27.002152+00:00",
-    "updated_at": "2026-07-01T20:58:48.503794+00:00",
-    "slug": "album-a9180a38",
-    "date_ar": "",
-    "date_en": "",
-    "location_ar": "الدمام",
-    "location_en": "",
-    "photographer_ar": "فريق الاعلام",
-    "photographer_en": "",
-    "section_ar": "المركز الاعلامي",
-    "section_en": "",
-    "about_ar": "يستعرض هذا الألبوم لحظات وفعاليات ملتقى الشركاء السنوي الثالث الذي استضافته مؤسسة المجدوعي الخيرية، بحضور ممثلي الجمعيات والمنظمات الشريكة، ومناقشة آليات نمذجة الأعمال وتطوير منظومة الحوكمة لتعزيز الأثر التنموي المشترك.",
-    "about_en": "",
-    "images": [
-      "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/gallery/1782939341370-7wury0eyjo7.png",
-      "https://ibcnfufiyrnkfgxjkanr.supabase.co/storage/v1/object/public/media/gallery/1782939525849-0qbwm2l2rpmb.jpg"
-    ],
+    "sort_order": 3,
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "slug": "album-eae9252d",
+    "date_ar": null,
+    "date_en": null,
+    "location_ar": null,
+    "location_en": null,
+    "photographer_ar": null,
+    "photographer_en": null,
+    "section_ar": null,
+    "section_en": null,
+    "about_ar": null,
+    "about_en": null,
+    "images": [],
     "videos": []
   }
 ]$seed$
 ::json)
 on conflict do nothing;
 
--- reports — 5 rows
+-- reports — 5 rows: the five approved annual reports. "file" is empty until
+--   Communications delivers the PDFs; empty hides the download/preview actions.
 insert into public.reports
 select * from json_populate_recordset(null::public.reports,
 $seed$[
   {
-    "id": "25b5553a-1983-4fdf-9ddf-6c339edffcf5",
-    "title_ar": "التقرير السنوي لإنجازات مؤسسة المجدوعي الخيرية",
+    "id": "a1000000-0000-4000-8000-000000002025",
+    "title_ar": "التقرير السنوي 2025م — تمكين لأثر مستدام",
     "title_en": "",
-    "period_ar": "عام 2025",
+    "period_ar": "2025",
     "period_en": "",
-    "file": "/images/taqareer/invoice-37.pdf",
+    "file": "",
     "sort_order": 1,
     "published": true,
-    "created_at": "2026-06-26T22:29:20.800088+00:00",
-    "updated_at": "2026-06-26T22:29:20.800088+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "63f7cf37-d8da-4ea4-8384-ce8738026a65",
-    "title_ar": "تقرير الأثر التنموي لقطاع التمكين الاقتصادي",
+    "id": "a1000000-0000-4000-8000-000000002024",
+    "title_ar": "التقرير السنوي 2024م",
     "title_en": "",
-    "period_ar": "الربع الأول 2026",
+    "period_ar": "2024",
     "period_en": "",
-    "file": "/images/taqareer/invoice-37.pdf",
+    "file": "",
     "sort_order": 2,
     "published": true,
-    "created_at": "2026-06-26T22:29:20.800088+00:00",
-    "updated_at": "2026-06-26T22:29:20.800088+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "8828b7c9-39e3-404e-92af-d46498bf2127",
-    "title_ar": "التقرير الدوري لعمارة وتشغيل مساجد المجدوعي",
+    "id": "a1000000-0000-4000-8000-000000002023",
+    "title_ar": "التقرير السنوي 2023م — عطاء وإحسان",
     "title_en": "",
-    "period_ar": "الربع الرابع 2025",
+    "period_ar": "2023",
     "period_en": "",
-    "file": "/images/taqareer/invoice-37.pdf",
+    "file": "",
     "sort_order": 3,
     "published": true,
-    "created_at": "2026-06-26T22:29:20.800088+00:00",
-    "updated_at": "2026-06-26T22:29:20.800088+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "92dc1c69-0e54-4075-abbb-3a83df908096",
-    "title_ar": "القوائم المالية المدققة للمؤسسة",
+    "id": "a1000000-0000-4000-8000-000000002022",
+    "title_ar": "التقرير السنوي 2022م",
     "title_en": "",
-    "period_ar": "عام 2024",
+    "period_ar": "2022",
     "period_en": "",
-    "file": "/images/taqareer/invoice-37.pdf",
+    "file": "",
     "sort_order": 4,
     "published": true,
-    "created_at": "2026-06-26T22:29:20.800088+00:00",
-    "updated_at": "2026-06-26T22:29:20.800088+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "cf01e3d1-81c5-4a04-98a7-f155bb9f5f51",
-    "title_ar": "تقرير شراكات التنفيذ مع الجمعيات",
+    "id": "a1000000-0000-4000-8000-000000002021",
+    "title_ar": "التقرير السنوي 2020–2021م — مسيرة عطاء",
     "title_en": "",
-    "period_ar": "عام 2025",
+    "period_ar": "2020–2021",
     "period_en": "",
-    "file": "/images/taqareer/invoice-37.pdf",
+    "file": "",
     "sort_order": 5,
     "published": true,
-    "created_at": "2026-06-26T22:29:20.800088+00:00",
-    "updated_at": "2026-06-26T22:29:20.800088+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   }
 ]$seed$
 ::json)
@@ -2195,9 +2483,9 @@ $seed$[
     "category": "basics",
     "file": "#",
     "sort_order": 1,
-    "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "id": "d5e866ec-2733-4f81-afbb-5ab0d203d61c",
@@ -2207,9 +2495,9 @@ $seed$[
     "category": "governance",
     "file": "#",
     "sort_order": 2,
-    "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "id": "9b142e43-3bfa-4ba8-ac7d-64cff273e9a5",
@@ -2219,9 +2507,9 @@ $seed$[
     "category": "governance",
     "file": "#",
     "sort_order": 3,
-    "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "id": "67cd6b16-b44c-463d-b86e-051c89ab88cd",
@@ -2231,9 +2519,9 @@ $seed$[
     "category": "guides",
     "file": "#",
     "sort_order": 4,
-    "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "id": "0daa2e8f-1abc-4933-8207-ea508ec7bc3b",
@@ -2243,9 +2531,9 @@ $seed$[
     "category": "guides",
     "file": "#",
     "sort_order": 5,
-    "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "id": "00220c00-a0ca-4719-8436-3dc9b3e80e13",
@@ -2255,9 +2543,9 @@ $seed$[
     "category": "governance",
     "file": "#",
     "sort_order": 6,
-    "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "id": "f9858255-410e-4d4e-ba23-39736a1f5a71",
@@ -2267,95 +2555,187 @@ $seed$[
     "category": "guides",
     "file": "#",
     "sort_order": 7,
-    "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "published": false,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   }
 ]$seed$
 ::json)
 on conflict do nothing;
 
--- kpis — 6 rows
+-- kpis — the 12 impact figures from the 2025 annual report (guide 3.6).
+--   Copied exactly: a leading + lives in "prefix", % in "suffix", and no
+--   value is rounded or converted (guide 12).
 insert into public.kpis
 select * from json_populate_recordset(null::public.kpis,
 $seed$[
   {
-    "id": "260232a0-7d40-4d9e-bc92-300b9c063c85",
-    "value": 85,
-    "suffix": "%",
-    "label_ar": "نسبة الاستدامة",
-    "label_en": "Sustainability Rate",
-    "year": "2024",
-    "icon": "/images/figma/sections/stats-sixth-logo.svg",
+    "id": "65cec697-b0fb-4247-913a-8e30c4800ec8",
+    "value": 5000000,
+    "suffix": "",
+    "label_ar": "مصلٍّ في مساجد المجدوعي",
+    "label_en": "Worshippers at Almajdouie Mosques",
+    "year": "2025",
+    "icon": "/images/figma/sections/stats-first-logo.svg",
     "sort_order": 1,
     "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "prefix": "+"
   },
   {
-    "id": "b2cea6b7-096f-4c6c-b61a-7bacadc05b38",
-    "value": 3200,
+    "id": "becfbe82-7c57-48e0-b474-4168c6838823",
+    "value": 693800,
     "suffix": "",
-    "label_ar": "فرصة عمل",
-    "label_en": "Job Opportunities",
-    "year": "2024",
-    "icon": "/images/figma/sections/stats-fifth-logo.svg",
+    "label_ar": "عبوة مياه موزَّعة على قاصدي المساجد",
+    "label_en": "",
+    "year": "2025",
+    "icon": "/images/figma/sections/stats-second-logo.png",
     "sort_order": 2,
     "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "prefix": "+"
   },
   {
-    "id": "641e238d-d9a1-4449-b32d-9defd46ee998",
-    "value": 15,
+    "id": "7f9c0162-a1d1-453b-ac63-795148834041",
+    "value": 10000000,
     "suffix": "",
-    "label_ar": "شريك تنفيذي",
-    "label_en": "Executive Partners",
-    "year": "2024",
+    "label_ar": "ريال إجمالي رواتب المستفيدين الملتحقين بوظائف",
+    "label_en": "",
+    "year": "2025",
     "icon": "/images/figma/sections/stats-fourth-logo.svg",
     "sort_order": 3,
     "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "prefix": ""
   },
   {
-    "id": "228c1743-6808-471e-851c-d38072d99eba",
-    "value": 120,
+    "id": "ba6f16d4-ee7b-40b7-86f5-d4d908c12302",
+    "value": 288,
     "suffix": "",
-    "label_ar": "كربة مفرجة",
-    "label_en": "Hardships Relieved",
-    "year": "2024",
-    "icon": "/images/figma/sections/stats-heart-logo.svg",
+    "label_ar": "مستفيدًا التحقوا بوظائف نوعية",
+    "label_en": "",
+    "year": "2025",
+    "icon": "/images/figma/sections/stats-fifth-logo.svg",
     "sort_order": 4,
     "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "prefix": ""
   },
   {
-    "id": "54faca32-6d29-4638-b79c-1f830167dea4",
-    "value": 2500,
-    "suffix": "",
-    "label_ar": "أسرة مُمكّنة",
-    "label_en": "Empowered Families",
-    "year": "2024",
-    "icon": "/images/figma/sections/stats-second-logo.png",
+    "id": "bba3a8e2-25c3-4eea-bbab-bfe0068ba7b5",
+    "value": 23,
+    "suffix": "%",
+    "label_ar": "متوسط نمو دخل المستفيدين المدعومين",
+    "label_en": "",
+    "year": "2025",
+    "icon": "/images/figma/sections/stats-sixth-logo.svg",
     "sort_order": 5,
     "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "prefix": ""
   },
   {
-    "id": "f559a108-d649-449c-b01a-7cdf33017348",
-    "value": 45,
+    "id": "7e94d1cd-effc-4348-a38f-8e75a7951e5b",
+    "value": 70,
     "suffix": "",
-    "label_ar": "مسجد نموذجي",
-    "label_en": "Model Mosques",
-    "year": "2024",
-    "icon": "/images/figma/sections/stats-first-logo.svg",
+    "label_ar": "شريك تنفيذ مؤهلًا لإحداث الأثر",
+    "label_en": "",
+    "year": "2025",
+    "icon": "/images/figma/sections/stats-fourth-logo.svg",
     "sort_order": 6,
     "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "prefix": ""
+  },
+  {
+    "id": "a6ec6f62-17e2-4221-9bee-5e87024ea8f9",
+    "value": 97,
+    "suffix": "%",
+    "label_ar": "رضا قاصدي مساجد المجدوعي",
+    "label_en": "",
+    "year": "2025",
+    "icon": "/images/figma/sections/stats-heart-logo.svg",
+    "sort_order": 7,
+    "published": true,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "prefix": ""
+  },
+  {
+    "id": "91174d06-568b-47f3-ba7b-b40861dcd89b",
+    "value": 1395,
+    "suffix": "",
+    "label_ar": "طالبًا في الحلقات القرآنية",
+    "label_en": "",
+    "year": "2025",
+    "icon": "/images/figma/sections/stats-first-logo.svg",
+    "sort_order": 8,
+    "published": true,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "prefix": ""
+  },
+  {
+    "id": "ce0589e2-5652-44d5-ad42-39165624d826",
+    "value": 41787,
+    "suffix": "",
+    "label_ar": "وجهًا محفوظًا من القرآن الكريم",
+    "label_en": "",
+    "year": "2025",
+    "icon": "/images/figma/sections/stats-second-logo.png",
+    "sort_order": 9,
+    "published": true,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "prefix": ""
+  },
+  {
+    "id": "fdff5e5e-d95d-486f-bf5d-777d4ea976e3",
+    "value": 2274,
+    "suffix": "",
+    "label_ar": "ساعة تطوعية",
+    "label_en": "",
+    "year": "2025",
+    "icon": "/images/figma/sections/stats-heart-logo.svg",
+    "sort_order": 10,
+    "published": true,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "prefix": ""
+  },
+  {
+    "id": "e96ccea6-16b9-4f18-ad63-6e04c97ad8ad",
+    "value": 42,
+    "suffix": "",
+    "label_ar": "جهة مستفيدة من دعم المؤسسة",
+    "label_en": "",
+    "year": "2025",
+    "icon": "/images/figma/sections/stats-fifth-logo.svg",
+    "sort_order": 11,
+    "published": true,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "prefix": ""
+  },
+  {
+    "id": "37ffcc6c-b4a1-48ef-92d2-1bf1fce7840e",
+    "value": 90,
+    "suffix": "%",
+    "label_ar": "نسبة أتمتة الإجراءات والعمليات الداخلية",
+    "label_en": "",
+    "year": "2025",
+    "icon": "/images/figma/sections/stats-sixth-logo.svg",
+    "sort_order": 12,
+    "published": true,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00",
+    "prefix": ""
   }
 ]$seed$
 ::json)
@@ -2366,134 +2746,160 @@ insert into public.team_members
 select * from json_populate_recordset(null::public.team_members,
 $seed$[
   {
-    "id": "6f4480f3-39bc-4993-ac94-f5998221212a",
-    "type": "board",
-    "name_ar": "الأستاذ/ عبدالعزيز بن علي المجدوعي",
+    "id": "e40bca4e-58ee-418a-8cc8-0ba8bfe7cea1",
+    "type": "leadership",
+    "name_ar": "د. علي سليمان الفوزان",
     "name_en": "",
-    "role_ar": "عضو مجلس الأمناء",
+    "role_ar": "المدير التنفيذي",
     "role_en": "",
-    "image": "/images/leaders-group/clone-sheikh.jpg",
+    "image": "/images/leaders-group/ali-alfowzan.png",
     "sort_order": 1,
     "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "e5b1db11-24dd-4ee0-8164-c5bf1dd34340",
+    "id": "155fb70a-26aa-4899-9fe4-604aeeaa7853",
     "type": "board",
-    "name_ar": "الأستاذ/ عبدالعزيز بن علي المجدوعي",
+    "name_ar": "يوسف بن علي المجدوعي",
     "name_en": "",
-    "role_ar": "عضو مجلس الأمناء",
+    "role_ar": "عضو",
     "role_en": "",
-    "image": "/images/leaders-group/clone-sheikh.jpg",
+    "image": "",
+    "sort_order": 1,
+    "published": true,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "id": "39a9e40c-fecb-4b88-8895-896782444cc9",
+    "type": "leadership",
+    "name_ar": "د. غازي بن أحمد العتيبي",
+    "name_en": "",
+    "role_ar": "",
+    "role_en": "",
+    "image": "",
     "sort_order": 2,
     "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "00868785-975c-414f-8200-b6e61d3d33e2",
+    "id": "1ea16bb6-deb3-4815-968f-3893edd3d15d",
     "type": "board",
-    "name_ar": "الأستاذ/ عبدالعزيز بن علي المجدوعي",
+    "name_ar": "عمر بن علي المجدوعي",
     "name_en": "",
-    "role_ar": "عضو مجلس الأمناء",
+    "role_ar": "عضو",
     "role_en": "",
-    "image": "/images/leaders-group/clone-sheikh.jpg",
+    "image": "",
+    "sort_order": 2,
+    "published": true,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "id": "5ca7d42d-7424-43b0-8588-53c044846ec2",
+    "type": "leadership",
+    "name_ar": "سيف بن حسين الغامدي",
+    "name_en": "",
+    "role_ar": "أخصائي الاستراتيجية والتميز",
+    "role_en": "",
+    "image": "",
     "sort_order": 3,
     "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "8ed32ef1-2400-48ed-8c22-910669d5b9bf",
+    "id": "854b7100-f668-4b32-b45b-df0073e98f78",
     "type": "board",
-    "name_ar": "الأستاذ/ عبدالعزيز بن علي المجدوعي",
+    "name_ar": "إبراهيم بن علي المجدوعي",
     "name_en": "",
-    "role_ar": "عضو مجلس الأمناء",
+    "role_ar": "عضو",
     "role_en": "",
-    "image": "/images/leaders-group/clone-sheikh.jpg",
+    "image": "/images/leaders-group/ibrahim-almajdouie.png",
+    "sort_order": 3,
+    "published": true,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "id": "5e5833e2-9d74-4b0f-9f05-86167fee8639",
+    "type": "leadership",
+    "name_ar": "م. أحمد بن خالد معتوق",
+    "name_en": "",
+    "role_ar": "أخصائي البحث والتطوير والابتكار",
+    "role_en": "",
+    "image": "",
     "sort_order": 4,
     "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "430cccb9-abe5-47ac-8fed-05e47f1f11d4",
+    "id": "66a925c5-7af0-4aff-8f6d-1028918084ba",
     "type": "board",
-    "name_ar": "الأستاذ/ عبدالعزيز بن علي المجدوعي",
+    "name_ar": "محمد بن علي المجدوعي",
     "name_en": "",
-    "role_ar": "عضو مجلس الأمناء",
+    "role_ar": "عضو",
     "role_en": "",
-    "image": "/images/leaders-group/clone-sheikh.jpg",
+    "image": "/images/leaders-group/mohammed-almajdouie.png",
+    "sort_order": 4,
+    "published": true,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "id": "c6e042cb-6610-4565-9637-63164b8fac6d",
+    "type": "leadership",
+    "name_ar": "محمد بن أحمد القرني",
+    "name_en": "",
+    "role_ar": "",
+    "role_en": "",
+    "image": "",
     "sort_order": 5,
     "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "f3639e9f-0621-4498-8197-d417bc1d27e6",
+    "id": "708a0f1e-0a70-4683-b8c0-783c871f1fb1",
     "type": "board",
-    "name_ar": "الأستاذ/ عبدالعزيز بن علي المجدوعي",
+    "name_ar": "محمد بن حمد الخميس",
     "name_en": "",
-    "role_ar": "عضو مجلس الأمناء",
+    "role_ar": "عضو",
     "role_en": "",
-    "image": "/images/leaders-group/clone-sheikh.jpg",
+    "image": "",
+    "sort_order": 5,
+    "published": true,
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
+  },
+  {
+    "id": "9b0031af-76df-4f56-9e9f-6c6c9c84b8b5",
+    "type": "leadership",
+    "name_ar": "خالد بن صالح الغامدي",
+    "name_en": "",
+    "role_ar": "المحاسب",
+    "role_en": "",
+    "image": "",
     "sort_order": 6,
     "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
-    "id": "13783f79-c831-4737-a822-2e0b6b85ba90",
-    "type": "leadership",
-    "name_ar": "الأستاذ/ —",
+    "id": "9f2640c5-252d-46be-bf0c-b33a0ed69b54",
+    "type": "board",
+    "name_ar": "أحمد بن صالح الرماح",
     "name_en": "",
-    "role_ar": "الأمين العام للمؤسسة",
+    "role_ar": "عضو",
     "role_en": "",
-    "image": null,
-    "sort_order": 2,
+    "image": "",
+    "sort_order": 6,
     "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
-  },
-  {
-    "id": "61f2e2f8-d275-4ea5-82c6-85dad1a24865",
-    "type": "leadership",
-    "name_ar": "الأستاذ/ —",
-    "name_en": "",
-    "role_ar": "مدير إدارة المساجد والبرامج",
-    "role_en": "",
-    "image": null,
-    "sort_order": 3,
-    "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
-  },
-  {
-    "id": "5fe29b84-2f85-4915-a035-509122045273",
-    "type": "leadership",
-    "name_ar": "الأستاذ/ —",
-    "name_en": "",
-    "role_ar": "مدير إدارة الخدمات المساندة والحوكمة",
-    "role_en": "",
-    "image": null,
-    "sort_order": 4,
-    "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-06-26T22:43:46.451+00:00"
-  },
-  {
-    "id": "11a0b3ea-641e-4c18-833e-782e0bc42f2d",
-    "type": "leadership",
-    "name_ar": "الأستاذ/ —",
-    "name_en": "",
-    "role_ar": "الأمين العام للمؤسسة",
-    "role_en": "",
-    "image": null,
-    "sort_order": 1,
-    "published": true,
-    "created_at": "2026-06-26T22:43:46.451+00:00",
-    "updated_at": "2026-08-14T16:23:14.188096+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   }
 ]$seed$
 ::json)
@@ -2674,8 +3080,8 @@ $seed$[
       }
     ],
     "published": true,
-    "created_at": "2026-08-14T15:41:01.65336+00:00",
-    "updated_at": "2026-08-14T15:41:01.65336+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "id": "631d5628-d644-482e-8607-ba0bfb94cb35",
@@ -2706,8 +3112,8 @@ $seed$[
     "members_label_en": "",
     "members": [],
     "published": true,
-    "created_at": "2026-08-14T15:41:01.65336+00:00",
-    "updated_at": "2026-08-14T15:56:39.971576+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "id": "a6facc4a-5302-40f6-b625-d4d088838968",
@@ -2732,8 +3138,8 @@ $seed$[
     "members_label_en": "",
     "members": [],
     "published": true,
-    "created_at": "2026-08-14T15:41:01.65336+00:00",
-    "updated_at": "2026-08-14T15:56:39.971576+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   },
   {
     "id": "b284e36f-94bb-4d17-abac-2201079a47d2",
@@ -2782,8 +3188,8 @@ $seed$[
     "members_label_en": "",
     "members": [],
     "published": true,
-    "created_at": "2026-08-14T15:41:01.65336+00:00",
-    "updated_at": "2026-08-14T15:56:39.971576+00:00"
+    "created_at": "2026-08-27T00:00:00+00:00",
+    "updated_at": "2026-08-27T00:00:00+00:00"
   }
 ]$seed$
 ::json)
@@ -3553,75 +3959,9 @@ $seed$[
 ::json)
 on conflict do nothing;
 
--- jobs — 2 rows
-insert into public.jobs
-select * from json_populate_recordset(null::public.jobs,
-$seed$[
-  {
-    "id": "ba4975b4-5a19-4d8f-a009-62adebe47e10",
-    "slug": "grants-specialist",
-    "title_ar": "أخصائي منح ومبادرات تدوير",
-    "title_en": "",
-    "summary_ar": "يساهم شاغل الوظيفة في إدارة دورة المنح الكاملة، من استقبال الطلبات وحتى قياس الأثر بالتعاون مع الجمعيات الشريكة وإدارة البرامج.",
-    "summary_en": "",
-    "department": "إدارة المنح",
-    "location": "الدمام",
-    "type": "دوام كامل",
-    "experience": "خبرة 3-5 سنوات",
-    "education": "بكالوريوس في تخصص ذي صلة",
-    "deadline": "30 يونيو 2026",
-    "posted": "10 يونيو 2026",
-    "responsibilities": [
-      "إدارة دورة المنح من الاستقبال والتقييم والاعتماد والصرف والمتابعة.",
-      "تطوير معايير وآليات المنح بما يضمن الشفافية والكفاءة.",
-      "بناء وتطوير العلاقات مع الجمعيات والمنظمات المستفيدة.",
-      "إعداد التقارير الدورية لقياس أثر المنح."
-    ],
-    "qualifications": [
-      "بكالوريوس في إدارة الأعمال أو العمل الاجتماعي أو ما يعادلها.",
-      "3 سنوات خبرة في إدارة المنح أو القطاع غير الربحي.",
-      "مهارات تواصل وكتابة تقارير عالية.",
-      "إجادة العربية والإنجليزية كتابةً وتحدثاً."
-    ],
-    "sort_order": 0,
-    "published": true,
-    "created_at": "2026-06-26T22:35:37.595053+00:00",
-    "updated_at": "2026-06-26T22:35:37.595053+00:00"
-  },
-  {
-    "id": "df1bcc6d-631b-4629-b57a-7fef81fe6069",
-    "slug": "governance-officer",
-    "title_ar": "مسؤول حوكمة وتميز مؤسسي",
-    "title_en": "",
-    "summary_ar": "يقود شاغل الوظيفة منظومة الحوكمة والامتثال داخل المؤسسة وضمان توافق العمليات مع اللوائح والسياسات الرسمية المعتمدة.",
-    "summary_en": "",
-    "department": "الحوكمة والعمليات",
-    "location": "الدمام",
-    "type": "دوام كامل",
-    "experience": "خبرة 4-7 سنوات",
-    "education": "بكالوريوس في الإدارة أو القانون",
-    "deadline": "28 يونيو 2026",
-    "posted": "08 يونيو 2026",
-    "responsibilities": [
-      "بناء وتطوير منظومة الحوكمة والامتثال داخل المؤسسة.",
-      "ضمان توافق العمليات مع اللوائح والسياسات الرسمية المعتمدة.",
-      "إدارة المخاطر المؤسسية وتطوير الضوابط الداخلية.",
-      "إعداد تقارير الالتزام ومؤشرات التميز المؤسسي."
-    ],
-    "qualifications": [
-      "بكالوريوس في الإدارة أو القانون أو ما يعادلها.",
-      "4 سنوات خبرة في الحوكمة أو الالتزام أو التدقيق الداخلي.",
-      "معرفة عميقة بلوائح القطاع غير الربحي.",
-      "إجادة العربية والإنجليزية كتابةً وتحدثاً."
-    ],
-    "sort_order": 1,
-    "published": true,
-    "created_at": "2026-06-26T22:35:37.595053+00:00",
-    "updated_at": "2026-06-26T22:35:37.595053+00:00"
-  }
-]$seed$
-::json)
-on conflict do nothing;
+-- jobs — 0 rows. The two listings that shipped on the preview site were removed
+--   before launch (content guide, fix 9); /careers now renders the "no vacancies"
+--   state. The table and its admin screens stay ready for the next opening.
 
 -- ── Sequences ───────────────────────────────────────────────────────────────
 -- The ticket/application counters are not seeded (their tables hold personal

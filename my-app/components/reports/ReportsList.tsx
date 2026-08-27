@@ -15,6 +15,9 @@ const ICON = {
 const fontRayat = "var(--font-itf-rayat), sans-serif";
 
 function Row({ report, onPreview }: { report: Report; onPreview: () => void }) {
+  // No PDF yet: Communications still owes the real files, and the guide bars
+  // shipping a placeholder in their place — so the row shows no actions at all.
+  const hasFile = (report.file ?? "").trim() !== "";
   return (
     <div className="flex flex-col gap-3 px-5 py-5 sm:px-6 lg:grid lg:grid-cols-[1fr_1fr_auto] lg:items-center lg:gap-6 lg:py-5">
       {/* Doc icon (right) + title — full width on mobile */}
@@ -40,6 +43,8 @@ function Row({ report, onPreview }: { report: Report; onPreview: () => void }) {
 
       {/* Actions — second row on mobile, inline on desktop */}
       <div className="flex shrink-0 items-center justify-start gap-2 lg:justify-self-end">
+        {hasFile && (
+          <>
         <a
           href={report.file}
           download
@@ -65,8 +70,10 @@ function Row({ report, onPreview }: { report: Report; onPreview: () => void }) {
           style={{ fontFamily: fontRayat }}
         >
           <Image src={ICON.preview} alt="" width={16} height={16} aria-hidden className="shrink-0" />
-          معاينة
+          عرض PDF
         </button>
+          </>
+        )}
       </div>
     </div>
   );

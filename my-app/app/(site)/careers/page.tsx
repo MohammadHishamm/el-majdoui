@@ -5,8 +5,9 @@ import { getAllJobs, getPageContent } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/careers" },
-  title: "التوظيف | مؤسسة المجدوعي الخيرية",
-  description: "انضم إلى فريق مؤسسة المجدوعي الخيرية واستعرض الفرص الوظيفية المتاحة.",
+  title: "التوظيف",
+  description:
+    "الشواغر المتاحة في مؤسسة المجدوعي الخيرية وطريقة التقديم عليها.",
 };
 
 export const dynamic = "force-dynamic";
@@ -15,10 +16,15 @@ type ReasonCard = { title: string; desc: string; image: string; color: string };
 
 export default async function CareersPage() {
   const [jobs, c] = await Promise.all([getAllJobs(), getPageContent("careers")]);
-  const introTitle = (c.intro_title as string) || "انضم إلى فريقنا";
+  const introTitle = (c.intro_title as string) || "اعمل معنا";
   const introBody =
     (c.intro_body as string) ||
-    "في مؤسسة المجدوعي الخيرية، نؤمن بأن الإنسان هو أساس التنمية. ابدأ رحلتك معنا وساهم في بناء مجتمع حيوي ومستدام.";
+    "نبحث عن كفاءات تشاركنا الإيمان بأن العطاء حين يُقاس يصبح أكثر عدلًا وأقرب للاستدامة. وحين تتوفر شواغر، تُنشر في هذه الصفحة بتفاصيلها وطريقة التقديم.";
+  // §8 gives the exact wording for the state where nothing is open.
+  const emptyTitle = (c.empty_title as string) || "لا توجد وظائف متاحة حاليًا";
+  const emptyBody =
+    (c.empty_body as string) ||
+    "يمكنك متابعة هذه الصفحة أو حساباتنا في وسائل التواصل للاطلاع على الشواغر الجديدة عند الإعلان عنها.";
   const reasonsHeading = (c.reasons_heading as string) || "لماذا تعمل معنا؟";
   const reasons = Array.isArray(c.reasons) ? (c.reasons as ReasonCard[]) : undefined;
 
@@ -40,7 +46,13 @@ export default async function CareersPage() {
 
       <section className="bg-surface pb-20 pt-12 md:pb-28" aria-label="الفرص الوظيفية">
         <div className="mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8">
-          <CareersExplorer jobs={jobs} reasonsHeading={reasonsHeading} reasons={reasons} />
+          <CareersExplorer
+            jobs={jobs}
+            reasonsHeading={reasonsHeading}
+            reasons={reasons}
+            emptyTitle={emptyTitle}
+            emptyBody={emptyBody}
+          />
         </div>
       </section>
     </main>

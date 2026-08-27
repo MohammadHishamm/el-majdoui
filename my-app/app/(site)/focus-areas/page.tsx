@@ -9,7 +9,8 @@ import { focusAreas as FALLBACK } from "@/lib/site/config";
 export const metadata: Metadata = {
   alternates: { canonical: "/focus-areas" },
   title: "مجالات التركيز",
-  description: "مجالات تركيز مؤسسة المجدوعي الخيرية",
+  description:
+    "ثلاثة مجالات: تمكين المحتاج، ومساجد المجدوعي، وشركاء التنفيذ — كل مجال بفئة مستهدفة وأثر مقاس.",
 };
 
 export const dynamic = "force-dynamic";

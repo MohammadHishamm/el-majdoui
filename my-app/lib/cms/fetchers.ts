@@ -51,7 +51,7 @@ export async function getJobBySlug(slug: string): Promise<Job | null> {
   }
 }
 
-export type KpiData = { value: number; suffix: string; label: Bi; year: string; iconSrc: string };
+export type KpiData = { prefix: string; value: number; suffix: string; label: Bi; year: string; iconSrc: string };
 
 export async function getKPIs(): Promise<KpiData[]> {
   try {
@@ -61,9 +61,10 @@ export async function getKPIs(): Promise<KpiData[]> {
       .eq("published", true)
       .order("sort_order");
     return (data ?? []).map((k) => ({
+      prefix: (k.prefix as string) ?? "",
       value: Number(k.value) || 0,
       suffix: (k.suffix as string) ?? "",
-      label: { ar: k.label_ar as string, en: k.label_en as string },
+      label: bi(k.label_ar as string, k.label_en as string),
       year: (k.year as string) ?? "",
       iconSrc: (k.icon as string) ?? "",
     }));
@@ -141,10 +142,14 @@ function rowToProgram(r: Record<string, unknown>): Program {
     slug: r.slug as string,
     title: (r.title_ar as string) ?? "",
     category: r.category as ProgramCategoryId,
+    type: (r.type as Program["type"]) ?? "strategic",
+    status: (r.status as Program["status"]) ?? "active",
     shortDesc: (r.short_desc_ar as string) ?? "",
     heroDesc: (r.hero_desc as string) ?? "",
     image: (r.image as string) ?? "",
     about: (r.about as string) ?? "",
+    tracks: (r.tracks as string[]) ?? [],
+    subPrograms: (r.sub_programs as string[]) ?? [],
     objectives: (r.objectives as string[]) ?? [],
     stages: (r.stages as Program["stages"]) ?? [],
     targetGroups: (r.target_groups as string[]) ?? [],
@@ -178,6 +183,20 @@ export async function getProgramBySlug(slug: string): Promise<Program | null> {
 }
 
 export type Bi = { ar: string; en: string };
+
+/**
+ * Builds a bilingual value with Arabic as the fallback.
+ *
+ * Most _en columns are still empty — the Arabic content was authored first —
+ * so an untranslated field must render its Arabic text rather than a blank.
+ * Every CMS value that reaches a component as { ar, en } goes through here.
+ */
+export function bi(ar: unknown, en: unknown): Bi {
+  const arabic = typeof ar === "string" ? ar : "";
+  const english = typeof en === "string" ? en : "";
+  return { ar: arabic, en: english.trim() ? english : arabic };
+}
+
 
 function rowToNewsItem(r: Record<string, unknown>): NewsItem {
   return {
@@ -242,9 +261,9 @@ export async function getProgramPanels(): Promise<PanelData[]> {
       .order("sort_order");
     return (data ?? []).map((p) => ({
       id: p.slug as string,
-      name: { ar: p.name_ar as string, en: p.name_en as string },
+      name: bi(p.name_ar as string, p.name_en as string),
       bg: p.bg_color as string,
-      desc: { ar: p.desc_ar as string, en: p.desc_en as string },
+      desc: bi(p.desc_ar as string, p.desc_en as string),
       initiatives: (p.initiatives as PanelInitiative[]) ?? [],
     }));
   } catch {
@@ -267,9 +286,9 @@ export async function getLatestNews(limit = 6): Promise<LatestNewsItem[]> {
     const map = (r: Record<string, unknown>): LatestNewsItem => ({
       id: r.id as string,
       slug: r.slug as string,
-      title: { ar: (r.title_ar as string) ?? "", en: (r.title_en as string) || (r.title_ar as string) || "" },
-      excerpt: { ar: (r.excerpt_ar as string) ?? "", en: (r.excerpt_en as string) || (r.excerpt_ar as string) || "" },
-      date: { ar: (r.date as string) ?? "", en: (r.date as string) ?? "" },
+      title: bi((r.title_ar as string) ?? "", (r.title_en as string) || (r.title_ar as string) || ""),
+      excerpt: bi((r.excerpt_ar as string) ?? "", (r.excerpt_en as string) || (r.excerpt_ar as string) || ""),
+      date: bi((r.date as string) ?? "", (r.date as string) ?? ""),
       image: (r.image as string) ?? "",
     });
     const sel = "id, slug, title_ar, title_en, excerpt_ar, excerpt_en, date, image, published_at";
@@ -304,9 +323,9 @@ export async function getNewsCarousel(): Promise<LatestNewsItem[]> {
     return (data ?? []).map((r) => ({
       id: r.id as string,
       slug: r.slug as string,
-      title: { ar: (r.title_ar as string) ?? "", en: (r.title_en as string) || (r.title_ar as string) || "" },
-      excerpt: { ar: (r.excerpt_ar as string) ?? "", en: (r.excerpt_en as string) || (r.excerpt_ar as string) || "" },
-      date: { ar: (r.date as string) ?? "", en: (r.date as string) ?? "" },
+      title: bi((r.title_ar as string) ?? "", (r.title_en as string) || (r.title_ar as string) || ""),
+      excerpt: bi((r.excerpt_ar as string) ?? "", (r.excerpt_en as string) || (r.excerpt_ar as string) || ""),
+      date: bi((r.date as string) ?? "", (r.date as string) ?? ""),
       image: (r.image as string) ?? "",
     }));
   } catch {
@@ -442,19 +461,19 @@ export async function getSiteSettings(): Promise<SiteSettingsData | null> {
     if (!data) return null;
     return {
       about: {
-        title: { ar: data.about_title_ar, en: data.about_title_en },
-        body: { ar: data.about_body_ar, en: data.about_body_en },
+        title: bi(data.about_title_ar, data.about_title_en),
+        body: bi(data.about_body_ar, data.about_body_en),
       },
       leadership: {
-        quote: { ar: data.leadership_quote_ar, en: data.leadership_quote_en },
-        name: { ar: data.leadership_name_ar, en: data.leadership_name_en },
-        position: { ar: data.leadership_position_ar, en: data.leadership_position_en },
+        quote: bi(data.leadership_quote_ar, data.leadership_quote_en),
+        name: bi(data.leadership_name_ar, data.leadership_name_en),
+        position: bi(data.leadership_position_ar, data.leadership_position_en),
         photo: data.leadership_photo,
       },
       contact: {
         phone: data.contact_phone,
         email: data.contact_email,
-        address: { ar: data.contact_address_ar, en: data.contact_address_en },
+        address: bi(data.contact_address_ar, data.contact_address_en),
       },
       social: {
         linkedin: data.social_linkedin,
@@ -513,6 +532,8 @@ export async function getPageContent(slug: string): Promise<Record<string, unkno
 export type FocusAreaDetail = {
   title: string;
   intro: string;
+  /** The «الأثر المراد» line closing the intro (guide §5.2–5.4). */
+  impact: string;
   carousel: { heading: string; slides: { label: string; imageRight: string; imageLeft: string }[] };
   stats: { image: string; items: { value: number; suffix: string; label: string }[] };
   programs: { heading: string; cards: { tag: string; title: string; description: string; image: string; href: string }[] };
@@ -559,6 +580,7 @@ export async function getFocusAreaDetail(slug: string): Promise<FocusAreaDetail 
     return {
       title: (data.detail_title_ar as string) || (data.name_ar as string) || "",
       intro: (data.detail_intro_ar as string) || "",
+      impact: (data.detail_impact_ar as string) || "",
       carousel: {
         heading: ((carousel.heading as Record<string, string>)?.ar as string) || "",
         slides: slides.map((s) => ({ label: s.label_ar ?? "", imageRight: s.image_right ?? "", imageLeft: s.image_left ?? "" })),
@@ -587,8 +609,8 @@ export async function getFocusAreas(): Promise<FocusAreaData[]> {
       .order("sort_order");
     return (data ?? []).map((a) => ({
       slug: a.slug,
-      name: { ar: a.name_ar, en: a.name_en },
-      desc: { ar: a.short_desc_ar, en: a.short_desc_en },
+      name: bi(a.name_ar, a.name_en),
+      desc: bi(a.short_desc_ar, a.short_desc_en),
       bg: a.bg_color,
       btnText: a.btn_text_color,
       icon: a.icon,
@@ -610,7 +632,7 @@ export async function getHeroSlides(): Promise<HeroSlideData[]> {
     return (data ?? []).map((s) => ({
       id: s.id,
       image: s.image,
-      title: { ar: s.title_ar, en: s.title_en },
+      title: bi(s.title_ar, s.title_en),
       href: s.href ?? "/news",
     }));
   } catch {

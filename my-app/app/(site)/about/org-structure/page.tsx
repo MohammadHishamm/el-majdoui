@@ -1,19 +1,27 @@
 import type { Metadata } from "next";
 import { T } from "@/components/ui/T";
-import { getOrgLevels } from "@/lib/cms/fetchers";
+import { getOrgLevels, getPageContent } from "@/lib/cms/fetchers";
 import { OrgStructure } from "@/components/about/OrgStructure";
 
 export const metadata: Metadata = {
-  title: "الهيكل التنظيمي والمستويات الإدارية",
+  alternates: { canonical: "/about/org-structure" },
+  title: "الهيكل التنظيمي",
   description:
-    "مستويات الحوكمة والتنفيذ في مؤسسة المجدوعي الخيرية، من مجلس الأمناء إلى الإدارات التشغيلية.",
+    "المستويات الإدارية والمجالس واللجان والأقسام في مؤسسة المجدوعي الخيرية.",
 };
 
 // CMS-driven content is rendered dynamically (cookies/RLS at request time).
 export const dynamic = "force-dynamic";
 
 export default async function OrgStructurePage() {
-  const levels = await getOrgLevels();
+  const [levels, content] = await Promise.all([
+    getOrgLevels(),
+    getPageContent("org-structure"),
+  ]);
+  const intro = (content.intro as string) ?? "";
+  // ⚠ The approved org chart (image or SVG) is still with Communications; the
+  // guide asks for it above the groups, so nothing renders until it arrives.
+  const chartImage = (content.chart_image as string) ?? "";
 
   return (
     <div className="bg-surface" data-nav-surface="light">
@@ -24,14 +32,18 @@ export default async function OrgStructurePage() {
         <h1 className="mt-3 text-3xl font-bold text-heading md:text-[40px] md:leading-[1.15]">
           <T ar="الهيكل التنظيمي والمستويات الإدارية" en="Organizational structure & administrative levels" />
         </h1>
-        <p className="mt-4 max-w-4xl text-sm leading-7 text-body-3 md:text-base">
-          <T
-            ar="يتكون الهيكل الإداري لمؤسسة المجدوعي الخيرية من مستويات حوكمة وتنفيذ متكاملة، تبدأ من مجلس الأمناء ليرسم التوجهات الاستراتيجية، وصولاً إلى الأمانة العامة والإدارة التنفيذية لتسيير المشاريع والعمليات اليومية."
-            en="Almajdouie Foundation's administrative structure spans complementary levels of governance and delivery — from the Board of Trustees setting strategic direction, through to the General Secretariat and executive management running projects and day-to-day operations."
-          />
-        </p>
+        {intro && (
+          <p className="mt-4 max-w-4xl text-sm leading-7 text-body-3 md:text-base">{intro}</p>
+        )}
 
         <hr className="mt-8 border-panel-border" />
+
+        {chartImage && (
+          <div className="mt-8 overflow-x-auto">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={chartImage} alt="الهيكل التنظيمي للمؤسسة" className="mx-auto h-auto max-w-full" />
+          </div>
+        )}
 
         <div className="mt-8">
           <OrgStructure levels={levels} />

@@ -124,7 +124,7 @@ export function LatestNews({ items }: { items?: NewsItem[] }) {
             <h2 id="news-heading" className="text-3xl font-bold text-body-1 dark:text-heading md:text-4xl">
               {t.heading}
             </h2>
-            <p className="mt-2 text-base text-body-4">{t.subheading}</p>
+            {t.subheading && <p className="mt-2 text-base text-body-4">{t.subheading}</p>}
           </div>
           <Link
             href="/news"

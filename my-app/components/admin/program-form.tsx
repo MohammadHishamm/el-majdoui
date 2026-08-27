@@ -1,12 +1,16 @@
 "use client";
 
 import { TextField, TextArea, SelectField, Toggle, SubmitButton } from "@/components/admin/fields";
+import { ListField, PairListField } from "@/components/admin/list-field";
 import { ImageField } from "@/components/admin/image-field";
 import { useAdminT } from "@/components/admin/i18n";
 
 export type ProgramValues = {
   slug?: string;
   category?: string;
+  type?: string;
+  tracks?: string[] | null;
+  sub_programs?: string[] | null;
   title_ar?: string;
   title_en?: string;
   short_desc_ar?: string;
@@ -50,8 +54,12 @@ export function ProgramForm({
     { value: "empowerment", label: t.programs.catEmpowerment },
     { value: "mosques", label: t.programs.catMosques },
     { value: "partners", label: t.programs.catPartners },
+    { value: "enabling", label: t.programs.catEnabling },
   ];
-  const stagesText = (d.stages ?? []).map((s) => `${s.title} :: ${s.desc}`).join("\n");
+  const TYPES = [
+    { value: "strategic", label: t.programs.typeStrategic },
+    { value: "enabling", label: t.programs.typeEnabling },
+  ];
 
   return (
     <form action={action} className="grid max-w-3xl gap-6">
@@ -59,6 +67,7 @@ export function ProgramForm({
         <div className="grid gap-4 sm:grid-cols-2">
           <TextField name="slug" label={f.slug} defaultValue={d.slug ?? ""} dir="ltr" required placeholder="tadmin" />
           <SelectField name="category" label={t.common.category} defaultValue={d.category ?? "empowerment"} options={CATEGORIES} />
+          <SelectField name="type" label={t.programs.typeLabel} defaultValue={d.type ?? "strategic"} options={TYPES} />
           <TextField name="title_ar" label={f.titleAr} defaultValue={d.title_ar ?? ""} dir="rtl" required />
           <TextField name="title_en" label={f.titleEn} defaultValue={d.title_en ?? ""} dir="ltr" />
           <TextArea name="short_desc_ar" label={f.descAr} defaultValue={d.short_desc_ar ?? ""} dir="rtl" rows={2} />
@@ -68,11 +77,22 @@ export function ProgramForm({
       </Section>
 
       <Section title={f.secProgContent}>
+        <ListField name="tracks" label={f.tracks} defaultValue={d.tracks ?? []} dir="rtl" addLabel={f.addItem} removeLabel={f.removeItem} />
+        <ListField name="sub_programs" label={f.subPrograms} defaultValue={d.sub_programs ?? []} dir="rtl" addLabel={f.addItem} removeLabel={f.removeItem} />
         <TextArea name="hero_desc" label={f.heroDesc} defaultValue={d.hero_desc ?? ""} dir="rtl" rows={3} />
         <TextArea name="about" label={f.about} defaultValue={d.about ?? ""} dir="rtl" rows={4} />
-        <TextArea name="objectives" label={f.objectives} defaultValue={(d.objectives ?? []).join("\n")} dir="rtl" rows={4} hint={f.onePerLine} />
-        <TextArea name="stages" label={f.stages} defaultValue={stagesText} dir="rtl" rows={4} hint={f.stagesHint} />
-        <TextArea name="target_groups" label={f.targetGroups} defaultValue={(d.target_groups ?? []).join("\n")} dir="rtl" rows={3} hint={f.onePerLineItems} />
+        <ListField name="objectives" label={f.objectives} defaultValue={d.objectives ?? []} dir="rtl" addLabel={f.addItem} removeLabel={f.removeItem} />
+        <PairListField
+          name="stages"
+          label={f.stages}
+          defaultValue={(d.stages ?? []).map((st) => ({ title: st.title, desc: st.desc }))}
+          titleLabel={f.stageTitle}
+          descLabel={f.stageDesc}
+          dir="rtl"
+          addLabel={f.addItem}
+          removeLabel={f.removeItem}
+        />
+        <ListField name="target_groups" label={f.targetGroups} defaultValue={d.target_groups ?? []} dir="rtl" addLabel={f.addItem} removeLabel={f.removeItem} />
         <div className="grid gap-4 sm:grid-cols-2">
           <TextArea name="quote_text" label={f.quoteText} defaultValue={d.quote?.text ?? ""} dir="rtl" rows={2} />
           <TextField name="quote_author" label={f.quoteAuthor} defaultValue={d.quote?.author ?? ""} dir="rtl" />
@@ -86,7 +106,7 @@ export function ProgramForm({
           <TextField name="beneficiaries" label={f.beneficiaries} defaultValue={d.info?.beneficiaries ?? ""} dir="rtl" />
           <TextField name="sector" label={f.sector} defaultValue={d.info?.sector ?? ""} dir="rtl" />
         </div>
-        <TextArea name="partners" label={f.partners} defaultValue={(d.partners ?? []).join("\n")} dir="rtl" rows={3} hint={f.onePerLineItems} />
+        <ListField name="partners" label={f.partners} defaultValue={d.partners ?? []} dir="rtl" addLabel={f.addItem} removeLabel={f.removeItem} />
         <div className="grid gap-4 sm:grid-cols-2">
           <TextField name="related" label={f.relatedSlugs} defaultValue={(d.related ?? []).join(", ")} dir="ltr" placeholder="slug-one, slug-two" />
         </div>

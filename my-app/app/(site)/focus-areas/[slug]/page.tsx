@@ -28,8 +28,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const area = areas.find((a) => a.slug === slug);
   if (!area) return { title: "مجال غير موجود", robots: { index: false, follow: true } };
   const detail = await getFocusAreaDetail(slug);
-  const title = detail?.title || area.name.ar;
-  const description = detail?.intro || area.desc.ar;
+  // §11 fixes one meta description per focus area. The page intro is longer
+  // and reads poorly as a search snippet, so it is not reused here.
+  const META_DESCRIPTION: Record<string, string> = {
+    empowerment:
+      "من حلٍّ قصير المدى إلى تمكين طويل المدى: مسارات التوظيف وتحسين الدخل والمنح الميسّرة للمحتاج.",
+    mosques:
+      "العناية بمساجد المجدوعي حسيًا ومعنويًا لتكون معمّرة ونموذجية ومنارة للعلم.",
+    "partners-development":
+      "تأهيل الجمعيات الخيرية العاملة مع المحتاج ورفع قدراتها المؤسسية والمالية لإحداث أثر أعمق.",
+  };
+  const title = area.name.ar;
+  const description = META_DESCRIPTION[slug] || detail?.intro || area.desc.ar;
   const url = `/focus-areas/${slug}`;
   return {
     title,
@@ -60,7 +70,7 @@ export default async function FocusAreaDetailPage({ params }: Props) {
   if (d && hasDetail) {
     return (
       <main dir="rtl" data-nav-surface="light" data-focus-accent={accentSlug}>
-        <IntroSection title={d.title} intro={d.intro} slug={slug} />
+        <IntroSection title={d.title} intro={d.intro} impact={d.impact} slug={slug} />
         {d.carousel.slides.length > 0 && (
           <CarouselSection heading={d.carousel.heading} slides={d.carousel.slides} />
         )}

@@ -3,10 +3,10 @@ import { getPageContent } from "@/lib/cms/fetchers";
 import { PrivacyView, type Bi, type PrivacyContent, type PrivacySection } from "@/components/privacy/PrivacyView";
 
 export const metadata: Metadata = {
-  title: "سياسة الخصوصية | مؤسسة المجدوعي الخيرية",
-  description:
-    "سياسة الخصوصية وحماية البيانات في مؤسسة المجدوعي الخيرية — كيف نجمع بياناتك ونستخدمها ونحميها.",
   alternates: { canonical: "/privacy-policy" },
+  title: "سياسة الخصوصية",
+  description:
+    "كيف تتعامل مؤسسة المجدوعي الخيرية مع بيانات زوار موقعها الإلكتروني.",
 };
 
 export const dynamic = "force-dynamic";

@@ -29,6 +29,13 @@ export function PdfViewer({ report, onClose }: { report: Report; onClose: () => 
   const [zoom, setZoom] = useState(1);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
 
+  // Scrolling past either end of the page turns it, so the arrows are optional.
+  const areaRef = useRef<HTMLDivElement>(null);
+  const lastFlipRef = useRef(0);
+  // Which edge to land on after the turn: forwards starts at the top of the
+  // new page, backwards at the bottom, the way a printed document reads.
+  const landRef = useRef<"top" | "bottom">("top");
+
   // Lock body scroll + close on Escape
   useEffect(() => {
     const prevOverflow = document.body.style.overflow;
@@ -107,6 +114,10 @@ export function PdfViewer({ report, onClose }: { report: Report; onClose: () => 
       renderTaskRef.current = task;
       try {
         await task.promise;
+        // Only now does the canvas have its new height, so the scroll
+        // position is set here rather than when the page number changed.
+        const el = areaRef.current;
+        if (el) el.scrollTop = landRef.current === "bottom" ? el.scrollHeight : 0;
       } catch {
         /* render cancelled — ignore */
       }
@@ -116,6 +127,33 @@ export function PdfViewer({ report, onClose }: { report: Report; onClose: () => 
       cancelled = true;
     };
   }, [status, page, zoom]);
+
+  const onWheel = (e: React.WheelEvent<HTMLDivElement>) => {
+    const el = areaRef.current;
+    if (!el || status !== "ready" || !numPages) return;
+
+    const down = e.deltaY > 0;
+    const atTop = el.scrollTop <= 1;
+    const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
+
+    // While the page itself still has somewhere to scroll, leave it alone —
+    // only a gesture at the very edge turns the page.
+    if (down ? !atBottom : !atTop) return;
+
+    // A trackpad flings dozens of events per gesture; without a cooldown one
+    // flick would skip several pages.
+    if (Date.now() - lastFlipRef.current < 550) return;
+
+    if (down && page < numPages) {
+      lastFlipRef.current = Date.now();
+      landRef.current = "top";
+      setPage((p) => p + 1);
+    } else if (!down && page > 1) {
+      lastFlipRef.current = Date.now();
+      landRef.current = "bottom";
+      setPage((p) => p - 1);
+    }
+  };
 
   const goPrev = () => setPage((p) => Math.max(1, p - 1));
   const goNext = () => setPage((p) => Math.min(numPages || 1, p + 1));
@@ -184,7 +222,7 @@ export function PdfViewer({ report, onClose }: { report: Report; onClose: () => 
       </div>
 
       {/* PDF page area */}
-      <div className="flex-1 overflow-auto bg-[#0a1f2d] p-4 sm:p-8">
+      <div ref={areaRef} onWheel={onWheel} className="flex-1 overflow-auto bg-[#0a1f2d] p-4 sm:p-8">
         {status === "loading" && (
           <p className="mt-20 text-center text-white/70">جارٍ تحميل الملف…</p>
         )}

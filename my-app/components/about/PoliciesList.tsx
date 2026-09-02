@@ -8,9 +8,9 @@ type CategoryId = "all" | "basics" | "governance" | "guides";
 
 const CATEGORIES: { id: CategoryId; label: string }[] = [
   { id: "all", label: "الكل" },
-  { id: "basics", label: "اللوائح الأساسية" },
-  { id: "governance", label: "سياسات الحوكمة" },
-  { id: "guides", label: "أدلة العمل والآليات" },
+  { id: "basics", label: "لوائح تنظيمية" },
+  { id: "governance", label: "سياسات داخلية" },
+  { id: "guides", label: "أدلة" },
 ];
 
 type Policy = {

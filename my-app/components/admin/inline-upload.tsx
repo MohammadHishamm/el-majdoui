@@ -4,7 +4,10 @@ import { useRef, useState } from "react";
 import { FileText, ImageIcon, Loader2, Upload } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 
-const IMG_RE = /\.(png|jpe?g|svg|webp|gif|avif)$/i;
+// Match on the path only: image URLs may carry a query string (e.g. a "?v=" cache
+// buster), and anchoring to the end of the whole URL would miss those and fall
+// back to the generic file icon.
+const IMG_RE = /\.(png|jpe?g|svg|webp|gif|avif)(?:[?#]|$)/i;
 
 function readImageSize(file: File): Promise<{ w: number; h: number } | null> {
   return new Promise((resolve) => {

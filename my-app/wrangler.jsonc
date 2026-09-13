@@ -1,0 +1,38 @@
+// Cloudflare Workers config for the Next.js app (built with @opennextjs/cloudflare).
+// Deploys happen from Workers Builds on push to main; `pnpm preview` runs the same
+// worker locally, and `pnpm deploy` publishes from a machine that is logged in.
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "almajdouie",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": [
+    "nodejs_compat",
+    // Fetches to our own public hostname would otherwise loop back into this
+    // worker; with this flag they go out to the public internet as intended.
+    "global_fetch_strictly_public"
+  ],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  // next/image: resizing + format conversion via Cloudflare Images instead of
+  // sharp (which cannot run in Workers). Enable Images once in the dashboard.
+  "images": {
+    "binding": "IMAGES"
+  },
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "almajdouie"
+    }
+  ],
+  "observability": {
+    "enabled": true
+  },
+  // Public, non-secret config. Secrets (SUPABASE_SERVICE_ROLE_KEY) are NOT put
+  // here - set them with `wrangler secret put` or in the dashboard.
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL": "https://www.almajdouie.org"
+  }
+}

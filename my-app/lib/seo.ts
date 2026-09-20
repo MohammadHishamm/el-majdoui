@@ -11,7 +11,21 @@ export function absoluteUrl(path = "/"): string {
 }
 
 /** Default social-share image (foundation logo) used when a page has none. */
-export const DEFAULT_OG_IMAGE = "/images/logo.png";
+// 1200x630 card for link previews (WhatsApp, X, LinkedIn). The previous default was
+// the white/reversed logo on a transparent background, which rendered as a blank
+// white box in every preview.
+export const DEFAULT_OG_IMAGE = "/images/seo/og-default.png";
+// Square, >=112px each side, on a solid background - Google's requirements for the
+// Organization logo rich result.
+export const ORG_LOGO_IMAGE = "/images/seo/logo-512.png";
+
+/** "0138198415" -> "+966138198415" so search engines read it as a real number. */
+function e164SaudiPhone(raw: string): string {
+  const d = raw.replace(/\D/g, "");
+  if (d.startsWith("966")) return "+" + d;
+  if (d.startsWith("0") && d.length === 10) return "+966" + d.slice(1);
+  return raw;
+}
 
 /** Pick a page's own image for OG, falling back to the logo. */
 export function ogImage(image?: string | null): string {
@@ -34,11 +48,11 @@ export function organizationJsonLd(opts: {
     name: siteConfig.fullName,
     alternateName: siteConfig.nameEn,
     url: SITE_URL,
-    logo: absoluteUrl(DEFAULT_OG_IMAGE),
+    logo: absoluteUrl(ORG_LOGO_IMAGE),
     image: absoluteUrl(DEFAULT_OG_IMAGE),
     description: siteConfig.description,
     ...(opts.email ? { email: opts.email } : {}),
-    ...(opts.phone ? { telephone: opts.phone } : {}),
+    ...(opts.phone ? { telephone: e164SaudiPhone(opts.phone) } : {}),
     address: {
       "@type": "PostalAddress",
       addressCountry: "SA",

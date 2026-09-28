@@ -74,7 +74,7 @@ export default async function HomePage() {
       <FadeInUp><StrategicAlignment data={strategic ?? undefined} /></FadeInUp>
       <FadeInUp><ImpactKPIs items={kpis.length ? kpis : undefined} /></FadeInUp>
       <FadeInUp><LatestNews items={latestNews.length ? latestNews : undefined} /></FadeInUp>
-      <FadeInUp><ContactSection /></FadeInUp>
+      <FadeInUp><ContactSection contact={settings?.contact} /></FadeInUp>
     </main>
   );
 }

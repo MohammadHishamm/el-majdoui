@@ -6,6 +6,7 @@ import { siteConfig } from "@/lib/site/config";
 import { useLocale } from "@/lib/i18n/context";
 import { translations } from "@/lib/i18n/translations";
 import { submitContactMessage, type ContactState } from "@/components/home/contact-actions";
+import type { SiteSettingsData } from "@/lib/cms/fetchers";
 
 const initialContactState: ContactState = { ok: false, error: null };
 
@@ -14,7 +15,7 @@ const fieldClass =
 
 const labelClass = "mb-2 block text-right text-base font-medium text-body-1 dark:text-heading";
 
-export function ContactSection() {
+export function ContactSection({ contact }: { contact?: SiteSettingsData["contact"] }) {
   const { locale } = useLocale();
   const t = translations[locale].contact;
   const isArabic = locale === "ar";
@@ -34,12 +35,17 @@ export function ContactSection() {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth", block: "start" });
   }, []);
 
+  // CMS values from الإعدادات → محتوى الموقع; the static config only covers a
+  // failed settings fetch. A field the editor cleared hides its row.
+  const cfg = siteConfig.contact;
+  const pick = <T,>(cms: T | undefined, fallback: T) => (contact ? cms : fallback);
+  const heading = pick(contact?.heading[locale], t.heading) || t.heading;
   const contactRows = [
-    { label: t.addressLabel, value: locale === "en" ? siteConfig.contact.addressEn : siteConfig.contact.address, ltr: false },
-    { label: t.phoneLabel, value: siteConfig.contact.phone, ltr: true },
-    { label: t.emailLabel, value: siteConfig.contact.email, ltr: true },
-    { label: t.hoursLabel, value: locale === "en" ? siteConfig.contact.workingHoursEn : siteConfig.contact.workingHours, ltr: false },
-  ];
+    { label: t.addressLabel, value: pick(contact?.address[locale], isArabic ? cfg.address : cfg.addressEn), ltr: false },
+    { label: t.phoneLabel, value: pick(contact?.phone, cfg.phone), ltr: true },
+    { label: t.emailLabel, value: pick(contact?.email, cfg.email), ltr: true },
+    { label: t.hoursLabel, value: pick(contact?.hours[locale], isArabic ? cfg.workingHours : cfg.workingHoursEn), ltr: false },
+  ].filter((row) => row.value);
 
   return (
     <section
@@ -149,7 +155,7 @@ export function ContactSection() {
                 id="contact-heading"
                 className="text-[26px] font-bold leading-snug text-white md:text-[36px]"
               >
-                {t.heading}
+                {heading}
               </h2>
 
               <div className="mt-8 flex flex-col gap-7 md:mt-10 md:gap-0">

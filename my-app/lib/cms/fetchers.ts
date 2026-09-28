@@ -417,7 +417,7 @@ export async function getRelatedGalleryItems(slug: string, limit = 3): Promise<G
 export type SiteSettingsData = {
   about: { title: Bi; body: Bi };
   leadership: { quote: Bi; name: Bi; position: Bi; photo: string | null };
-  contact: { phone: string | null; email: string | null; address: Bi };
+  contact: { phone: string | null; email: string | null; address: Bi; heading: Bi; hours: Bi };
   social: {
     linkedin: string | null;
     instagram: string | null;
@@ -474,6 +474,8 @@ export async function getSiteSettings(): Promise<SiteSettingsData | null> {
         phone: data.contact_phone,
         email: data.contact_email,
         address: bi(data.contact_address_ar, data.contact_address_en),
+        heading: bi(data.contact_heading_ar, data.contact_heading_en),
+        hours: bi(data.contact_hours_ar, data.contact_hours_en),
       },
       social: {
         linkedin: data.social_linkedin,

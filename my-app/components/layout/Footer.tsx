@@ -32,7 +32,12 @@ function FooterColumn({
   );
 }
 
-type FooterContact = { phone?: string | null; email?: string | null; address?: { ar?: string | null; en?: string | null } };
+type FooterContact = {
+  phone?: string | null;
+  email?: string | null;
+  address?: { ar?: string | null; en?: string | null };
+  hours?: { ar?: string | null; en?: string | null };
+};
 type FooterSocial = {
   linkedin?: string | null;
   instagram?: string | null;
@@ -120,6 +125,11 @@ export function Footer({
   const address =
     (locale === "en" ? contact?.address?.en : contact?.address?.ar) ||
     (locale === "en" ? siteConfig.contact.addressEn : siteConfig.contact.address);
+  // Clearing the hours in the admin hides the line; the static config only
+  // covers a failed settings fetch.
+  const hours = contact
+    ? (locale === "en" ? contact.hours?.en : contact.hours?.ar)
+    : (locale === "en" ? siteConfig.contact.workingHoursEn : siteConfig.contact.workingHours);
   // Each social maps to its URL + a show flag + the social-object key.
   const socialMeta: Record<string, { href: string | null | undefined; key: keyof FooterSocial }> = {
     LinkedIn: { href: social?.linkedin, key: "linkedin" },
@@ -192,6 +202,14 @@ export function Footer({
                 </svg>
                 <span>{address}</span>
               </li>
+              {hours && (
+                <li className="flex w-full items-center justify-start gap-2">
+                  <svg viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4 shrink-0 text-accent dark:text-white" aria-hidden>
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
+                  </svg>
+                  <span>{hours}</span>
+                </li>
+              )}
             </ul>
           </div>
         </div>

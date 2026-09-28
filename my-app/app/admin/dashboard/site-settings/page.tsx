@@ -46,10 +46,20 @@ export default async function SiteSettingsPage() {
           <div className="grid gap-4 sm:grid-cols-2">
             <TextField name="founded_year" label={t.form.foundedYear} defaultValue={v("founded_year")} dir="ltr" />
             <TextField name="license_no" label={t.form.licenseNo} defaultValue={v("license_no")} dir="ltr" />
-            <TextField name="contact_email" label={t.form.contactEmail} defaultValue={v("contact_email")} dir="ltr" />
-            <TextField name="contact_phone" label={t.form.contactPhone} defaultValue={v("contact_phone")} dir="ltr" />
+          </div>
+        </Section>
+
+        <Section title={t.form.secContact}>
+          <p className="text-xs text-muted-foreground">{t.form.contactHint}</p>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <TextField name="contact_heading_ar" label={t.form.contactHeadingAr} defaultValue={v("contact_heading_ar")} dir="rtl" />
+            <TextField name="contact_heading_en" label={t.form.contactHeadingEn} defaultValue={v("contact_heading_en")} dir="ltr" />
             <TextField name="contact_address_ar" label={t.form.addressAr} defaultValue={v("contact_address_ar")} dir="rtl" />
             <TextField name="contact_address_en" label={t.form.addressEn} defaultValue={v("contact_address_en")} dir="ltr" />
+            <TextField name="contact_phone" label={t.form.contactPhone} defaultValue={v("contact_phone")} dir="ltr" />
+            <TextField name="contact_email" label={t.form.contactEmail} defaultValue={v("contact_email")} dir="ltr" />
+            <TextField name="contact_hours_ar" label={t.form.hoursAr} defaultValue={v("contact_hours_ar")} dir="rtl" />
+            <TextField name="contact_hours_en" label={t.form.hoursEn} defaultValue={v("contact_hours_en")} dir="ltr" />
           </div>
         </Section>
 

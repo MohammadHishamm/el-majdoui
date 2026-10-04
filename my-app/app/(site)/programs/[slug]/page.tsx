@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import ProgramDetails from "@/components/programs/program-details";
 import { type Program } from "@/lib/programs";
 import { getAllPrograms, getProgramBySlug } from "@/lib/cms/fetchers";
@@ -33,7 +33,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProgramDetailPage({ params }: Props) {
   const { slug } = await params;
   const program = await getProgramBySlug(slug);
-  if (!program) notFound();
+  // A deleted or unpublished program sends visitors and Google to the list
+  // rather than a dead end, so removing one in the admin leaves no 404 behind.
+  if (!program) permanentRedirect("/programs");
 
   const all = await getAllPrograms();
   const bySlug = new Map(all.map((p) => [p.slug, p]));

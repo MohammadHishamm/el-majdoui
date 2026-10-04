@@ -239,14 +239,15 @@ export async function getAllNews(): Promise<NewsItem[]> {
   }
 }
 
+/**
+ * A published article by slug, or null when there is none. Throws on a failed
+ * query for the same reason as getProgramBySlug: the detail page permanently
+ * redirects a missing article, and an outage must not look like a deletion.
+ */
 export async function getNewsBySlug(slug: string): Promise<NewsItem | null> {
-  try {
-    const supabase = supabaseAnon;
-    const { data } = await supabase.from("news").select("*").eq("slug", slug).single();
-    return data ? rowToNewsItem(data) : null;
-  } catch {
-    return null;
-  }
+  const { data, error } = await supabaseAnon.from("news").select("*").eq("slug", slug).maybeSingle();
+  if (error) throw error;
+  return data ? rowToNewsItem(data) : null;
 }
 
 export type PanelPath = { id: string; title: Bi; desc: Bi; href: string };

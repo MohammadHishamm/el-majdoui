@@ -58,10 +58,11 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // Keep the staging copy out of search results so it never competes with
-        // the real site.
+        // Keep the platform copies (Vercel staging and the Worker's own
+        // workers.dev address) out of search results so they never compete
+        // with www.almajdouie.org.
         source: "/:path*",
-        has: [{ type: "host" as const, value: "(?<host>.+)\\.vercel\\.app" }],
+        has: [{ type: "host" as const, value: "(?<host>.+)\\.(vercel\\.app|workers\\.dev)" }],
         headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
       },
     ];

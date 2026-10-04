@@ -22,7 +22,7 @@ function LinkArrowIcon({ className }) {
   );
 }
 
-export default function ProgramsSection({ heading = '', cards = /** @type {any[]} */ ([]) }) {
+export default function ProgramsSection({ heading = '', cards = /** @type {any[]} */ ([]) , showBanner = true }) {
   const containerRef = useRef(null);
   const headingWords = (heading || '').split(' ');
 
@@ -55,9 +55,11 @@ export default function ProgramsSection({ heading = '', cards = /** @type {any[]
               </span>
             ))}
           </h2>
-          <div className={styles.titleBanner}>
-            <Image src={TITLE_BANNER} alt="" width={387} height={58} className={styles.titleBannerImg} aria-hidden />
-          </div>
+          {showBanner && (
+            <div className={styles.titleBanner}>
+              <Image src={TITLE_BANNER} alt="" width={387} height={58} className={styles.titleBannerImg} aria-hidden />
+            </div>
+          )}
         </div>
 
         <div className={styles.grid}>

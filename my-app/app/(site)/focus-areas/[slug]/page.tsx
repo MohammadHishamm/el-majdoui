@@ -15,6 +15,9 @@ type Props = { params: Promise<{ slug: string }> };
    the "اعرف أكثر" link. Slugs absent here keep the default palette. */
 const ACCENT_SLUGS = new Set(["mosques"]);
 
+/* Slugs whose section titles drop the decorative banner beside them. */
+const NO_TITLE_BANNER_SLUGS = new Set(["empowerment", "partners-development"]);
+
 export const dynamic = "force-dynamic";
 
 export async function generateStaticParams() {
@@ -66,13 +69,14 @@ export default async function FocusAreaDetailPage({ params }: Props) {
       d.programs.cards.length > 0);
 
   const accentSlug = ACCENT_SLUGS.has(slug) ? slug : undefined;
+  const showBanner = !NO_TITLE_BANNER_SLUGS.has(slug);
 
   if (d && hasDetail) {
     return (
       <main dir="rtl" data-nav-surface="light" data-focus-accent={accentSlug}>
         <IntroSection title={d.title} intro={d.intro} impact={d.impact} slug={slug} />
         {d.carousel.slides.length > 0 && (
-          <CarouselSection heading={d.carousel.heading} slides={d.carousel.slides} />
+          <CarouselSection heading={d.carousel.heading} slides={d.carousel.slides} showBanner={showBanner} />
         )}
         {d.stats.items.length > 0 && (
           <StatsSection items={d.stats.items} image={d.stats.image} />
@@ -85,7 +89,7 @@ export default async function FocusAreaDetailPage({ params }: Props) {
           />
         )}
         {d.programs.cards.length > 0 && (
-          <ProgramsSection heading={d.programs.heading} cards={d.programs.cards} />
+          <ProgramsSection heading={d.programs.heading} cards={d.programs.cards} showBanner={showBanner} />
         )}
       </main>
     );

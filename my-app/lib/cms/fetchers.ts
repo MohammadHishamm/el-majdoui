@@ -42,13 +42,20 @@ export async function getAllJobs(): Promise<Job[]> {
   }
 }
 
+/**
+ * A published job by slug, or null when there is none. Throws on a failed
+ * query for the same reason as getProgramBySlug: the page permanently
+ * redirects a missing job, and an outage must not look like a deletion.
+ */
 export async function getJobBySlug(slug: string): Promise<Job | null> {
-  try {
-    const { data } = await supabaseAnon.from("jobs").select("*").eq("slug", slug).single();
-    return data ? rowToJob(data) : null;
-  } catch {
-    return null;
-  }
+  const { data, error } = await supabaseAnon
+    .from("jobs")
+    .select("*")
+    .eq("slug", slug)
+    .eq("published", true)
+    .maybeSingle();
+  if (error) throw error;
+  return data ? rowToJob(data) : null;
 }
 
 export type KpiData = { prefix: string; value: number; suffix: string; label: Bi; year: string; iconSrc: string };

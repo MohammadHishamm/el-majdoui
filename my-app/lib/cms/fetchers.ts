@@ -173,13 +173,15 @@ export async function getAllPrograms(): Promise<Program[]> {
   }
 }
 
+/**
+ * A published program by slug, or null when there is none. Unlike the other
+ * fetchers this throws on a failed query: the detail page permanently
+ * redirects a missing program, and an outage must not look like a deletion.
+ */
 export async function getProgramBySlug(slug: string): Promise<Program | null> {
-  try {
-    const { data } = await supabaseAnon.from("programs").select("*").eq("slug", slug).single();
-    return data ? rowToProgram(data) : null;
-  } catch {
-    return null;
-  }
+  const { data, error } = await supabaseAnon.from("programs").select("*").eq("slug", slug).maybeSingle();
+  if (error) throw error;
+  return data ? rowToProgram(data) : null;
 }
 
 export type Bi = { ar: string; en: string };

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import { JobApplicationForm } from "@/components/careers/JobApplicationForm";
 import { getJobBySlug } from "@/lib/cms/fetchers";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -35,7 +35,9 @@ function employmentType(t: string): string {
 export default async function JobApplyPage({ params }: Props) {
   const { id } = await params;
   const job = await getJobBySlug(id);
-  if (!job) notFound();
+  // A filled, deleted or unpublished job sends visitors and Google to the
+  // careers page rather than a dead end, so removing one leaves no 404 behind.
+  if (!job) permanentRedirect("/careers");
 
   const descHtml = [
     job.summary,

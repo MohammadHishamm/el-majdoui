@@ -31,7 +31,7 @@ function getSlideLayer(container, index) {
   return container?.querySelector(`[data-slide-index="${index}"]`) ?? null;
 }
 
-export default function CarouselSection({ heading = '', slides = /** @type {any[]} */ ([]) }) {
+export default function CarouselSection({ heading = '', slides = /** @type {any[]} */ ([]) , showBanner = true }) {
   const sectionRef = useRef(null);
   const rightImgRef = useRef(null);
   const leftImgRef = useRef(null);
@@ -113,9 +113,11 @@ export default function CarouselSection({ heading = '', slides = /** @type {any[
               </span>
             ))}
           </h2>
-          <div className={styles.titleBanner}>
-            <Image src={TITLE_BANNER} alt="" width={387} height={58} className={styles.titleBannerImg} aria-hidden />
-          </div>
+          {showBanner && (
+            <div className={styles.titleBanner}>
+              <Image src={TITLE_BANNER} alt="" width={387} height={58} className={styles.titleBannerImg} aria-hidden />
+            </div>
+          )}
         </div>
 
         <div className={`${styles.carousel} animate-carousel-s2`} onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>

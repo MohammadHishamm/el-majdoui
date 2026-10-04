@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { siteConfig } from "@/lib/site/config";
+import { getSiteSettings } from "@/lib/cms/fetchers";
 
 export const metadata: Metadata = {
   alternates: { canonical: "/contact" },
@@ -19,7 +20,15 @@ export const metadata: Metadata = {
  * The embedded map the guide asks for is deliberately absent: Communications
  * still owes the head-office coordinates, and the guide bars an approximate pin.
  */
-export default function ContactPage() {
+export default async function ContactPage() {
+  // CMS values from الإعدادات → محتوى الموقع; the static config only covers a
+  // failed settings fetch. A field the editor cleared hides its row.
+  const contact = (await getSiteSettings())?.contact;
+  const cfg = siteConfig.contact;
+  const email = contact ? contact.email : cfg.email;
+  const phone = contact ? contact.phone : cfg.phone;
+  const address = contact ? contact.address.ar : cfg.address;
+
   return (
     <div className="bg-surface" data-nav-surface="light">
       <div className="mx-auto w-full max-w-[1200px] px-6 py-12 md:py-16">
@@ -38,26 +47,32 @@ export default function ContactPage() {
             <div className="rounded-2xl border-2 border-[#d1ddd9] bg-panel p-6 dark:border-panel-border">
               <h2 className="text-lg font-bold text-heading">بيانات الاتصال</h2>
               <dl className="mt-5 flex flex-col gap-4 text-sm">
-                <div>
-                  <dt className="font-medium text-body-1 dark:text-heading">البريد الإلكتروني</dt>
-                  <dd className="mt-1 text-body-3" dir="ltr">
-                    <a className="hover:text-icon" href={`mailto:${siteConfig.contact.email}`}>
-                      {siteConfig.contact.email}
-                    </a>
-                  </dd>
-                </div>
-                <div>
-                  <dt className="font-medium text-body-1 dark:text-heading">الهاتف</dt>
-                  <dd className="mt-1 text-body-3" dir="ltr">
-                    <a className="hover:text-icon" href={`tel:${siteConfig.contact.phone}`}>
-                      {siteConfig.contact.phone}
-                    </a>
-                  </dd>
-                </div>
-                <div>
-                  <dt className="font-medium text-body-1 dark:text-heading">العنوان</dt>
-                  <dd className="mt-1 leading-7 text-body-3">{siteConfig.contact.address}</dd>
-                </div>
+                {email && (
+                  <div>
+                    <dt className="font-medium text-body-1 dark:text-heading">البريد الإلكتروني</dt>
+                    <dd className="mt-1 text-body-3" dir="ltr">
+                      <a className="hover:text-icon" href={`mailto:${email}`}>
+                        {email}
+                      </a>
+                    </dd>
+                  </div>
+                )}
+                {phone && (
+                  <div>
+                    <dt className="font-medium text-body-1 dark:text-heading">الهاتف</dt>
+                    <dd className="mt-1 text-body-3" dir="ltr">
+                      <a className="hover:text-icon" href={`tel:${phone.replace(/\s+/g, "")}`}>
+                        {phone}
+                      </a>
+                    </dd>
+                  </div>
+                )}
+                {address && (
+                  <div>
+                    <dt className="font-medium text-body-1 dark:text-heading">العنوان</dt>
+                    <dd className="mt-1 leading-7 text-body-3">{address}</dd>
+                  </div>
+                )}
               </dl>
             </div>
 

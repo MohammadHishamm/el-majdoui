@@ -9,7 +9,6 @@ import { VideoViewer } from "@/components/gallery/VideoViewer";
 import { isEmbedUrl } from "@/lib/gallery";
 import { getGalleryAlbumBySlug, getRelatedGalleryItems } from "@/lib/cms/fetchers";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { siteConfig } from "@/lib/site/config";
 import { absoluteUrl, breadcrumbJsonLd, ogImage } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -25,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const description = album.about || album.meta || album.title;
   const share = ogImage(album.cover || album.images[0]);
   return {
-    title: `${album.title} | ${siteConfig.fullName}`,
+    title: album.title,
     description,
     alternates: { canonical: url },
     openGraph: {

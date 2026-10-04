@@ -1,7 +1,7 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
-import { Loader2, Lock, Mail } from "lucide-react";
+import { useActionState, useEffect, useState } from "react";
+import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,7 @@ const initialState: LoginState = { error: null };
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const [state, formAction, pending] = useActionState(login, initialState);
   const { t } = useAdminT();
+  const [showPassword, setShowPassword] = useState(false);
 
   // Arm the one-time post-login splash; on success the action redirects to
   // the dashboard where the loader consumes the flag. Disarm on failure.
@@ -79,11 +80,20 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                   <Input
                     id="password"
                     name="password"
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     autoComplete="current-password"
                     required
-                    className="h-14 border-input/80 bg-[#f9fafb] ps-11 text-base shadow-none focus-visible:bg-white dark:bg-input/30 dark:focus-visible:bg-input/50"
+                    className="h-14 border-input/80 bg-[#f9fafb] ps-11 pe-12 text-base shadow-none focus-visible:bg-white dark:bg-input/30 dark:focus-visible:bg-input/50"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword((v) => !v)}
+                    aria-label={showPassword ? t.login.hidePassword : t.login.showPassword}
+                    aria-pressed={showPassword}
+                    className="absolute end-2 top-1/2 flex size-10 -translate-y-1/2 items-center justify-center rounded-md text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  >
+                    {showPassword ? <EyeOff className="size-5" /> : <Eye className="size-5" />}
+                  </button>
                 </div>
               </Field>
 

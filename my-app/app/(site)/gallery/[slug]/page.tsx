@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import { FadeInUp } from "@/components/ui/fade-in-up";
 import { T } from "@/components/ui/T";
 import { AlbumViewer } from "@/components/gallery/AlbumViewer";
@@ -51,7 +51,9 @@ function DetailRow({ label, value }: { label: React.ReactNode; value: React.Reac
 export default async function GalleryAlbumPage({ params }: Props) {
   const { slug } = await params;
   const album = await getGalleryAlbumBySlug(slug);
-  if (!album) notFound();
+  // A deleted or unpublished album or video sends visitors and Google to the
+  // gallery rather than a dead end, so removing one leaves no 404 behind.
+  if (!album) permanentRedirect("/gallery");
 
   const related = await getRelatedGalleryItems(slug, 3);
   const videos = album.videos.filter(Boolean).slice(0, 4);

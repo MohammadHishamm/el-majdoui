@@ -366,39 +366,41 @@ function rowToGalleryItem(g: Record<string, unknown>): GalleryItem {
   };
 }
 
-/** Full album detail for /gallery/[slug]. */
+/**
+ * Full album detail for /gallery/[slug], or null when no published item has
+ * the slug. Throws on a failed query for the same reason as getProgramBySlug:
+ * the page permanently redirects a missing album, and an outage must not look
+ * like a deletion.
+ */
 export async function getGalleryAlbumBySlug(slug: string): Promise<GalleryAlbum | null> {
-  try {
-    const { data } = await supabaseAnon
-      .from("gallery_items")
-      .select("*")
-      .eq("slug", slug)
-      .eq("published", true)
-      .single();
-    if (!data) return null;
-    const images = Array.isArray(data.images) ? (data.images as string[]).filter(Boolean) : [];
-    const cover = (data.cover as string) || (data.thumb as string) || "";
-    const videosArr = Array.isArray(data.videos) ? (data.videos as string[]).filter(Boolean) : [];
-    const videoUrl = (data.video_url as string) ?? null;
-    return {
-      id: data.id as string,
-      slug: (data.slug as string) ?? (data.id as string),
-      type: data.type as GalleryType,
-      title: (data.title_ar as string) ?? "",
-      meta: (data.meta_ar as string) ?? "",
-      cover,
-      images: images.length ? images : cover ? [cover] : [],
-      date: (data.date_ar as string) ?? "",
-      location: (data.location_ar as string) ?? "",
-      photographer: (data.photographer_ar as string) ?? "",
-      section: (data.section_ar as string) ?? "",
-      about: (data.about_ar as string) ?? "",
-      videos: videosArr.length ? videosArr : videoUrl ? [videoUrl] : [],
-      videoUrl,
-    };
-  } catch {
-    return null;
-  }
+  const { data, error } = await supabaseAnon
+    .from("gallery_items")
+    .select("*")
+    .eq("slug", slug)
+    .eq("published", true)
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) return null;
+  const images = Array.isArray(data.images) ? (data.images as string[]).filter(Boolean) : [];
+  const cover = (data.cover as string) || (data.thumb as string) || "";
+  const videosArr = Array.isArray(data.videos) ? (data.videos as string[]).filter(Boolean) : [];
+  const videoUrl = (data.video_url as string) ?? null;
+  return {
+    id: data.id as string,
+    slug: (data.slug as string) ?? (data.id as string),
+    type: data.type as GalleryType,
+    title: (data.title_ar as string) ?? "",
+    meta: (data.meta_ar as string) ?? "",
+    cover,
+    images: images.length ? images : cover ? [cover] : [],
+    date: (data.date_ar as string) ?? "",
+    location: (data.location_ar as string) ?? "",
+    photographer: (data.photographer_ar as string) ?? "",
+    section: (data.section_ar as string) ?? "",
+    about: (data.about_ar as string) ?? "",
+    videos: videosArr.length ? videosArr : videoUrl ? [videoUrl] : [],
+    videoUrl,
+  };
 }
 
 /** Other published albums (for the "محتوى ذو صلة" row), excluding the current slug. */

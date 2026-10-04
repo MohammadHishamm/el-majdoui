@@ -38,9 +38,33 @@ const LEGACY_REDIRECTS = [
   { source: "/sys/:id(\\d+)", destination: "/" },
 ];
 
+// Production is Cloudflare Workers (master) on www.almajdouie.org; Vercel (main)
+// is staging on its *.vercel.app URL. Both rules match on the request host, not
+// on which platform built the app, so they stay correct during the move.
 const nextConfig: NextConfig = {
   async redirects() {
-    return LEGACY_REDIRECTS.map((r) => ({ ...r, permanent: true }));
+    return [
+      // Vercel's domain settings used to send the bare domain to www; on Workers
+      // the app has to do it.
+      {
+        source: "/:path*",
+        has: [{ type: "host" as const, value: "almajdouie.org" }],
+        destination: "https://www.almajdouie.org/:path*",
+        permanent: true,
+      },
+      ...LEGACY_REDIRECTS.map((r) => ({ ...r, permanent: true })),
+    ];
+  },
+  async headers() {
+    return [
+      {
+        // Keep the staging copy out of search results so it never competes with
+        // the real site.
+        source: "/:path*",
+        has: [{ type: "host" as const, value: "(?<host>.+)\\.vercel\\.app" }],
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow" }],
+      },
+    ];
   },
   images: {
     remotePatterns: [

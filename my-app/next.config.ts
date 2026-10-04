@@ -36,6 +36,8 @@ const LEGACY_REDIRECTS = [
   { source: "/projects", destination: "/programs" },
   { source: "/projects/:id(\\d+)", destination: "/programs" },
   { source: "/sys/:id(\\d+)", destination: "/" },
+  // Programs removed from the CMS whose URLs Google already found.
+  { source: "/programs/sharaka", destination: "/programs" },
 ];
 
 const nextConfig: NextConfig = {

@@ -22,6 +22,11 @@ concurrency:
 
 jobs:
   deploy:
+    # Off until the Mhwari account owner provides a token: production stays on
+    # Vercel until then. Turn on with the repository variable
+    # DEPLOY_TO_CLOUDFLARE=true (Settings → Secrets and variables → Actions →
+    # Variables) once the CLOUDFLARE_API_TOKEN secret exists.
+    if: vars.DEPLOY_TO_CLOUDFLARE == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 20
     defaults:

@@ -73,7 +73,8 @@ export default async function HomePage() {
       <FadeInUp><ProgramsExplorer panels={panels.length ? panels : undefined} /></FadeInUp>
       <FadeInUp><StrategicAlignment data={strategic ?? undefined} /></FadeInUp>
       <FadeInUp><ImpactKPIs items={kpis.length ? kpis : undefined} /></FadeInUp>
-      <FadeInUp><LatestNews items={latestNews.length ? latestNews : undefined} /></FadeInUp>
+      {/* Hidden while no article is published, like /news (content guide §7.1). */}
+      {latestNews.length > 0 && <FadeInUp><LatestNews items={latestNews} /></FadeInUp>}
       <FadeInUp><ContactSection contact={settings?.contact} /></FadeInUp>
     </main>
   );

@@ -17,51 +17,6 @@ type NewsItem = {
   image: string;
 };
 
-const NEWS: NewsItem[] = [
-  {
-    id: "1",
-    slug: "takreem-shuraka-2024",
-    title: {
-      ar: "حفل تكريم الشركاء وداعمي مؤسسة المجدوعي الخيرية 2024",
-      en: "Almajdouie Foundation Partners & Supporters Appreciation Ceremony 2024",
-    },
-    excerpt: {
-      ar: "نظّمت المؤسسة حفلاً تكريمياً لشركائها وداعميها تقديراً لإسهاماتهم في مسيرة العطاء.",
-      en: "The foundation organized an appreciation ceremony for its partners and supporters in recognition of their contributions to the journey of giving.",
-    },
-    date: { ar: "٢٨ أبريل ٢٠٢٤", en: "April 28, 2024" },
-    image: "/images/figma/sections/leadership.png",
-  },
-  {
-    id: "2",
-    slug: "shiraka-15-jaha",
-    title: {
-      ar: "شراكة استراتيجية مع 15 جهة تنفيذية لتحقيق أثر مستدام",
-      en: "Strategic Partnership with 15 Implementing Entities for Sustainable Impact",
-    },
-    excerpt: {
-      ar: "أبرمت المؤسسة حزمة من الاتفاقيات الاستراتيجية مع جمعيات أهلية بارزة في المنطقة الشرقية.",
-      en: "The foundation signed a package of strategic agreements with prominent civil associations in the Eastern Province.",
-    },
-    date: { ar: "١٥ مارس ٢٠٢٤", en: "March 15, 2024" },
-    image: "/images/slide-show03.png",
-  },
-  {
-    id: "3",
-    slug: "mubadara-manara-launch",
-    title: {
-      ar: "إطلاق مبادرة منارة لتطوير الخدمات في مساجد المجدوعي",
-      en: "Launching the Manara Initiative to Develop Services in Almajdouie Mosques",
-    },
-    excerpt: {
-      ar: "أطلقت المؤسسة مبادرة منارة الهادفة إلى رفع مستوى الخدمات التعليمية والاجتماعية في المساجد.",
-      en: "The foundation launched the Manara Initiative aimed at raising the level of educational and social services in mosques.",
-    },
-    date: { ar: "٣ فبراير ٢٠٢٤", en: "February 3, 2024" },
-    image: "/images/hero-slide-1.png",
-  },
-];
-
 function NewsCard({ item, locale }: { item: NewsItem; locale: "ar" | "en" }) {
   return (
     <Link
@@ -96,10 +51,9 @@ function NewsCard({ item, locale }: { item: NewsItem; locale: "ar" | "en" }) {
   );
 }
 
-export function LatestNews({ items }: { items?: NewsItem[] }) {
+export function LatestNews({ items: list }: { items: NewsItem[] }) {
   const { locale } = useLocale();
   const t = translations[locale].news;
-  const list = items && items.length ? items : NEWS;
   // ~4.5s of travel per card keeps the speed constant regardless of how many there are.
   const duration = Math.max(24, Math.round(list.length * 4.5));
   // The loop wraps scrollLeft by one group width, so the strip must scroll at

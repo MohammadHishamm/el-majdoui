@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { permanentRedirect } from "next/navigation";
 import NewsDetails from "@/components/news/news-details";
 import { mostReadSlugs, type NewsItem } from "@/lib/news";
 import { getAllNews, getNewsBySlug } from "@/lib/cms/fetchers";
@@ -36,7 +36,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function NewsDetailPage({ params }: Props) {
   const { slug } = await params;
   const item = await getNewsBySlug(slug);
-  if (!item) notFound();
+  // A deleted or unpublished article sends visitors and Google to the news
+  // list rather than a dead end, so removing one leaves no 404 behind.
+  if (!item) permanentRedirect("/news");
 
   const all = await getAllNews();
   const bySlug = new Map(all.map((n) => [n.slug, n]));

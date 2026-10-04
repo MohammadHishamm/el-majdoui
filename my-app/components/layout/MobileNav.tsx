@@ -165,7 +165,7 @@ export function MobileNav() {
             onClick={closeMenu}
           />
           <div
-            className={`absolute start-0 top-0 flex h-[100dvh] flex-col bg-header-bg shadow-xl transition-[width] duration-300 ${
+            className={`absolute right-0 top-0 flex h-[100dvh] flex-col bg-header-bg shadow-xl transition-[width] duration-300 ${
               searchMode ? "w-[90%] max-w-md" : "w-[70%] max-w-sm"
             }`}
           >

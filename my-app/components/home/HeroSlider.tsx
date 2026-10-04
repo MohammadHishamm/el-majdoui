@@ -154,7 +154,7 @@ export function HeroSlider({ slides }: { slides?: Slide[] } = {}) {
 
             <Link
               href={SLIDES[active].href}
-              className="mt-8 inline-flex items-center gap-2 rounded-[20px] bg-white px-8 py-3.5 text-[15px] font-medium leading-none text-[#0a1f2d] transition-all hover:bg-accent hover:text-white"
+              className="mt-8 inline-flex items-center gap-2 rounded-[20px] bg-white px-8 py-3.5 text-[15px] font-medium leading-none text-[#0a1f2d] transition-all hover:bg-btn-primary hover:text-btn-primary-text"
             >
               <span>{t.readMore}</span>
               {isArabic ? <ArrowLeft /> : <ArrowRight />}

@@ -38,7 +38,7 @@ export default function StatsSection({ items = /** @type {any[]} */ ([]), image 
       if (ref.current) ref.current.innerText = Math.floor(val).toLocaleString('en-US') + (suffix || '');
     };
 
-    mm.add('(min-width: 768px)', () => {
+    mm.add('(min-width: 1024px)', () => {
       const tl = gsap.timeline({ scrollTrigger: { trigger: containerRef.current, start: 'top 80%', toggleActions: 'restart reverse restart reverse' } });
       tl.from('.animate-section-content-s3', { opacity: 0, y: 40, duration: 0.8, ease: 'power3.out' });
       tl.fromTo('.animate-stat-img-wrapper', { width: '100%', borderRadius: '0px 0px 0px 0px' }, { width: '57.8%', borderRadius: '0px 120px 0px 0px', duration: 1.2, ease: 'power2.inOut' }, '-=0.4');
@@ -51,7 +51,7 @@ export default function StatsSection({ items = /** @type {any[]} */ ([]), image 
       tl.from('.animate-l2-word', { opacity: 0, x: 10, duration: 0.5, stagger: 0.04, ease: 'power2.out' }, '-=1.2');
     });
 
-    mm.add('(max-width: 767px)', () => {
+    mm.add('(max-width: 1023px)', () => {
       const tl = gsap.timeline({ scrollTrigger: { trigger: containerRef.current, start: 'top 85%', toggleActions: 'restart reverse restart reverse' } });
       tl.from('.animate-section-content-s3', { opacity: 0, y: 40, duration: 0.8, ease: 'power3.out' });
       gsap.set('.animate-stat-img-wrapper', { width: '100%' });

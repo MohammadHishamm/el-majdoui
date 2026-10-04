@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLocale } from "@/lib/i18n/context";
@@ -65,6 +66,7 @@ function NewsCard({ item, locale }: { item: NewsItem; locale: "ar" | "en" }) {
   return (
     <Link
       href={`/news/${item.slug}`}
+      draggable={false}
       className="group flex w-[300px] shrink-0 flex-col overflow-hidden rounded-2xl bg-panel shadow-sm ring-1 ring-panel-border transition-all hover:-translate-y-1 hover:shadow-lg sm:w-[340px]"
     >
       <div className="relative h-52 w-full overflow-hidden">
@@ -72,6 +74,7 @@ function NewsCard({ item, locale }: { item: NewsItem; locale: "ar" | "en" }) {
           src={item.image}
           alt={item.title[locale]}
           fill
+          draggable={false}
           className="object-cover transition-transform duration-300 group-hover:scale-105"
           sizes="340px"
         />
@@ -99,6 +102,140 @@ export function LatestNews({ items }: { items?: NewsItem[] }) {
   const list = items && items.length ? items : NEWS;
   // ~4.5s of travel per card keeps the speed constant regardless of how many there are.
   const duration = Math.max(24, Math.round(list.length * 4.5));
+  // The loop wraps scrollLeft by one group width, so the strip must scroll at
+  // least one group past the viewport. Cards are ≥324px with their gap and the
+  // viewport ≤1232px, so the copies after the first need ≥4 cards between them.
+  const copies = 1 + Math.ceil(4 / list.length);
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const groupRef = useRef<HTMLUListElement>(null);
+
+  // Auto-scroll by moving scrollLeft rather than a CSS transform, so the strip
+  // stays a real scroll container: swipe, trackpad and mouse drag all work and
+  // auto-scroll picks up from wherever the visitor left it. The group is
+  // rendered several times (see copies); scrollLeft wraps by one group width for an endless loop.
+  useEffect(() => {
+    const el = scrollerRef.current;
+    const group = groupRef.current;
+    if (!el || !group) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const GAP = 24;
+    const RESUME_MS = 2500;
+    const loop = () => group.offsetWidth + GAP;
+    let pos = el.scrollLeft;
+    let hovering = false;
+    let holding = false;
+    let idleUntil = 0;
+    let last = performance.now();
+    let raf = 0;
+
+    const wrap = () => {
+      const w = loop();
+      if (w <= GAP) return;
+      if (pos >= w) pos -= w;
+      else if (pos < 0) pos += w;
+      el.scrollLeft = pos;
+    };
+    const nudge = () => {
+      idleUntil = performance.now() + RESUME_MS;
+    };
+
+    const tick = (now: number) => {
+      const dt = Math.min(now - last, 100);
+      last = now;
+      if (!hovering && !holding && now >= idleUntil && !el.contains(document.activeElement)) {
+        pos += (loop() / duration) * (dt / 1000);
+        wrap();
+      }
+      raf = requestAnimationFrame(tick);
+    };
+
+    // A scroll we did not cause (swipe, trackpad, drag) becomes the new position.
+    const onScroll = () => {
+      if (Math.abs(el.scrollLeft - pos) > 1) {
+        pos = el.scrollLeft;
+        wrap();
+        nudge();
+      }
+    };
+
+    // Mouse drag; touch and pen keep the browser's native swipe.
+    let dragStartX = 0;
+    let dragStartPos = 0;
+    let dragging = false;
+    let dragged = false;
+    const onPointerDown = (e: PointerEvent) => {
+      // Hover already pauses for a mouse; a finger on the strip holds it still.
+      if (e.pointerType !== "mouse") {
+        holding = true;
+        return;
+      }
+      if (e.button !== 0) return;
+      dragging = true;
+      dragged = false;
+      dragStartX = e.clientX;
+      dragStartPos = pos;
+    };
+    const onPointerMove = (e: PointerEvent) => {
+      if (!dragging) return;
+      const dx = e.clientX - dragStartX;
+      if (!dragged && Math.abs(dx) > 5) {
+        dragged = true;
+        try {
+          el.setPointerCapture(e.pointerId);
+        } catch {}
+        el.classList.add("is-dragging");
+      }
+      if (dragged) {
+        pos = dragStartPos - dx;
+        wrap();
+      }
+    };
+    const onPointerUp = () => {
+      holding = false;
+      dragging = false;
+      el.classList.remove("is-dragging");
+      nudge();
+    };
+    // A drag must not also follow the card link it started on.
+    const onClickCapture = (e: MouseEvent) => {
+      if (dragged) {
+        e.preventDefault();
+        e.stopPropagation();
+        dragged = false;
+      }
+    };
+    const onEnter = (e: PointerEvent) => {
+      if (e.pointerType === "mouse") hovering = true;
+    };
+    const onLeave = () => {
+      hovering = false;
+    };
+
+    el.addEventListener("scroll", onScroll, { passive: true });
+    el.addEventListener("wheel", nudge, { passive: true });
+    el.addEventListener("pointerdown", onPointerDown);
+    el.addEventListener("pointermove", onPointerMove);
+    el.addEventListener("pointerup", onPointerUp);
+    el.addEventListener("pointercancel", onPointerUp);
+    el.addEventListener("pointerenter", onEnter);
+    el.addEventListener("pointerleave", onLeave);
+    el.addEventListener("click", onClickCapture, true);
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      el.removeEventListener("scroll", onScroll);
+      el.removeEventListener("wheel", nudge);
+      el.removeEventListener("pointerdown", onPointerDown);
+      el.removeEventListener("pointermove", onPointerMove);
+      el.removeEventListener("pointerup", onPointerUp);
+      el.removeEventListener("pointercancel", onPointerUp);
+      el.removeEventListener("pointerenter", onEnter);
+      el.removeEventListener("pointerleave", onLeave);
+      el.removeEventListener("click", onClickCapture, true);
+    };
+  }, [duration, list.length]);
 
   return (
     <section
@@ -137,52 +274,48 @@ export function LatestNews({ items }: { items?: NewsItem[] }) {
           </Link>
         </div>
 
-        {/* Auto-scrolling carousel — pauses on hover, manual-scroll fallback for reduced motion */}
-        <div
-          className="news-marquee"
-          style={{ "--news-marquee-dur": `${duration}s` } as React.CSSProperties}
-        >
+        {/* Auto-scrolling carousel that is also scrollable by hand — pauses on
+            hover and while being scrolled; no auto-scroll for reduced motion */}
+        <div ref={scrollerRef} className="news-marquee">
           <div className="news-marquee__track">
-            <ul className="news-marquee__group">
+            <ul ref={groupRef} className="news-marquee__group">
               {list.map((item) => (
                 <li key={item.id}>
                   <NewsCard item={item} locale={locale} />
                 </li>
               ))}
             </ul>
-            <ul className="news-marquee__group" aria-hidden>
-              {list.map((item) => (
-                <li key={`dup-${item.id}`}>
-                  <NewsCard item={item} locale={locale} />
-                </li>
-              ))}
-            </ul>
+            {Array.from({ length: copies - 1 }, (_, c) => (
+              <ul key={c} className="news-marquee__group" aria-hidden>
+                {list.map((item) => (
+                  <li key={`dup-${c}-${item.id}`}>
+                    <NewsCard item={item} locale={locale} />
+                  </li>
+                ))}
+              </ul>
+            ))}
           </div>
         </div>
       </div>
 
       <style>{`
         .news-marquee {
-          overflow: hidden;
+          overflow-x: auto;
+          overscroll-behavior-x: contain;
           direction: ltr;
+          cursor: grab;
+          scrollbar-width: none;
           -webkit-mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
           mask-image: linear-gradient(to right, transparent, #000 4%, #000 96%, transparent);
         }
+        .news-marquee::-webkit-scrollbar { display: none; }
+        .news-marquee.is-dragging { cursor: grabbing; user-select: none; }
+        .news-marquee.is-dragging a { pointer-events: none; }
         .news-marquee__track {
           display: flex;
           gap: 24px;
           width: max-content;
           padding-block: 4px 16px;
-          animation: news-marquee var(--news-marquee-dur, 40s) linear infinite;
-          will-change: transform;
-        }
-        /* Pause on hover only on hover-capable pointers — on touch, a press
-           triggers a sticky :hover that would freeze the marquee. */
-        @media (hover: hover) {
-          .news-marquee:hover .news-marquee__track,
-          .news-marquee:focus-within .news-marquee__track {
-            animation-play-state: paused;
-          }
         }
         .news-marquee__group {
           display: flex;
@@ -192,18 +325,11 @@ export function LatestNews({ items }: { items?: NewsItem[] }) {
           padding: 0;
           list-style: none;
         }
-        @keyframes news-marquee {
-          to { transform: translateX(calc(-50% - 12px)); }
-        }
         @media (prefers-reduced-motion: reduce) {
           .news-marquee {
-            overflow-x: auto;
             -webkit-mask-image: none;
             mask-image: none;
-            scrollbar-width: none;
           }
-          .news-marquee::-webkit-scrollbar { display: none; }
-          .news-marquee__track { animation: none; }
           .news-marquee__group[aria-hidden] { display: none; }
         }
       `}</style>

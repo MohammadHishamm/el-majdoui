@@ -1,15 +1,21 @@
 import { Phone } from "lucide-react";
 import { T } from "@/components/ui/T";
+import { siteConfig } from "@/lib/site/config";
+import { getSiteSettings } from "@/lib/cms/fetchers";
 
 /**
  * The "إرشادات تقديم الطلب" rail beside the form: what to expect after
- * submitting, plus the support number. Static copy — it sets expectations
- * about the process rather than describing anything content-managed.
+ * submitting, plus the support number. The copy is static — it sets
+ * expectations about the process — but the number is the CMS contact phone
+ * (الإعدادات → محتوى الموقع), like the footer and /contact.
  */
 
 const BLOCKS = [
   {
-    ar: { title: "زمن الاستجابة المتوقع", body: "يتم الرد على جميع الطلبات والملاحظات خلال 2 إلى 5 أيام عمل." },
+    ar: {
+      title: "زمن الاستجابة المتوقع",
+      body: "يتم الرد على جميع الطلبات والملاحظات خلال 2 إلى 5 أيام عمل.",
+    },
     en: {
       title: "Expected response time",
       body: "All requests and notes are answered within 2 to 5 working days.",
@@ -37,8 +43,6 @@ const BLOCKS = [
   },
 ];
 
-const SUPPORT_PHONE = "+966 11 234 5678";
-
 const MAIN_TITLE =
   "block self-stretch text-right text-[18px] font-black leading-[normal] text-[#005761] dark:text-heading";
 const INTRO_TEXT =
@@ -50,7 +54,12 @@ const BLOCK_BODY =
 const SUPPORT_LABEL =
   "block text-[12px] font-normal leading-[normal] text-[#6B7C80] dark:text-body-3";
 
-export function ContactGuidelines() {
+export async function ContactGuidelines() {
+  // The static config only covers a failed settings fetch; a phone the editor
+  // cleared hides the support card.
+  const contact = (await getSiteSettings())?.contact;
+  const phone = contact ? contact.phone : siteConfig.contact.phone;
+
   return (
     <aside className="box-border flex w-full min-w-0 shrink-0 flex-col items-stretch gap-7 rounded-2xl bg-white p-8 shadow-[0_4px_24px_rgba(0,0,0,0.03)] dark:bg-panel">
       <div className="w-full">
@@ -79,23 +88,25 @@ export function ContactGuidelines() {
       </div>
 
       {/* Direct line — the escape hatch for anyone who'd rather not use a form. */}
-      <div className="flex w-full items-center gap-3 rounded-xl bg-icon-box p-4">
-        <span className="grid size-10 shrink-0 place-items-center rounded-full bg-btn-primary text-btn-primary-text">
-          <Phone className="size-4" aria-hidden />
-        </span>
-        <span className="min-w-0">
-          <span className={SUPPORT_LABEL}>
-            <T ar="الدعم الفني المباشر" en="Direct support line" />
+      {phone && (
+        <div className="flex w-full items-center gap-3 rounded-xl bg-icon-box p-4">
+          <span className="grid size-10 shrink-0 place-items-center rounded-full bg-btn-primary text-btn-primary-text">
+            <Phone className="size-4" aria-hidden />
           </span>
-          <a
-            href={`tel:${SUPPORT_PHONE.replace(/\s/g, "")}`}
-            className="block text-base font-bold text-heading hover:underline"
-            dir="ltr"
-          >
-            {SUPPORT_PHONE}
-          </a>
-        </span>
-      </div>
+          <span className="min-w-0">
+            <span className={SUPPORT_LABEL}>
+              <T ar="الدعم الفني المباشر" en="Direct support line" />
+            </span>
+            <a
+              href={`tel:${phone.replace(/\s+/g, "")}`}
+              className="block text-base font-bold text-heading hover:underline"
+              dir="ltr"
+            >
+              {phone}
+            </a>
+          </span>
+        </div>
+      )}
     </aside>
   );
 }

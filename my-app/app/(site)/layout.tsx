@@ -1,6 +1,7 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { getSiteSettings } from "@/lib/cms/fetchers";
+import { Analytics } from "@vercel/analytics/next";
 
 export default async function SiteLayout({
   children,
@@ -13,6 +14,7 @@ export default async function SiteLayout({
       <Header />
       <div className="flex flex-1 flex-col">{children}</div>
       <Footer contact={settings?.contact} social={settings?.social} socialShow={settings?.socialShow} />
+      <Analytics />
     </>
   );
 }
